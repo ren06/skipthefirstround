@@ -259,10 +259,10 @@ module.exports.doIdentification = function(req, res){
 
                 console.log(body.internalError);
                 renderIdentification(req, res, {email: email, password: ''}, body.userError);
-
             }
             else {
-                console.log('error unhandled ' + err + ' ' +  response.statusCode );
+
+                console.log('error unhandled ' + response.body );
                 common.showError(req, res, response.statusCode);
             }
         });

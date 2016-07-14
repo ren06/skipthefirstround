@@ -269,7 +269,7 @@ module.exports.doInterviewModifyDate = function(req, res){
 
             }
             else {
-                console.log('error unhandled ' + err);
+                console.log('error unhandled ');
                 common.showError(req, res, response.statusCode);
             }
         });

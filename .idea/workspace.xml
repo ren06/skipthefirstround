@@ -23,18 +23,18 @@
       <file leaf-file-name="administrator.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="250" column="45" selection-start-line="250" selection-start-column="42" selection-end-line="250" selection-end-column="45" />
+            <state relative-caret-position="552">
+              <caret line="271" column="46" selection-start-line="271" selection-start-column="46" selection-end-line="271" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="register.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_server/controllers/register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1562">
-              <caret line="259" column="48" selection-start-line="259" selection-start-column="48" selection-end-line="259" selection-end-column="48" />
+            <state relative-caret-position="355">
+              <caret line="260" column="93" selection-start-line="260" selection-start-column="93" selection-end-line="260" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -43,14 +43,14 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_api/controllers/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+            <state relative-caret-position="220">
+              <caret line="136" column="52" selection-start-line="136" selection-start-column="49" selection-end-line="136" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexAPI.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="indexAPI.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="484">
@@ -94,7 +94,6 @@
         <option value="$PROJECT_DIR$/app_server/routes/index.js" />
         <option value="$PROJECT_DIR$/app_server/controllers/homepage.js" />
         <option value="$PROJECT_DIR$/locales/default.json" />
-        <option value="$PROJECT_DIR$/app_server/controllers/register.js" />
         <option value="$PROJECT_DIR$/locales/fr.json" />
         <option value="$PROJECT_DIR$/app_server/models/Interview.js" />
         <option value="$PROJECT_DIR$/app_server/controllers/user.js" />
@@ -124,7 +123,6 @@
         <option value="$PROJECT_DIR$/app_server/views/user/register.jade" />
         <option value="$PROJECT_DIR$/app_server/views/user/my-account.jade" />
         <option value="$PROJECT_DIR$/app_server/routes/indexAdmin.js" />
-        <option value="$PROJECT_DIR$/app_server/controllers/administrator.js" />
         <option value="$PROJECT_DIR$/app_server/views/admin/interview.jade" />
         <option value="$PROJECT_DIR$/app_server/views/admin/interview-add-sequence.jade" />
         <option value="$PROJECT_DIR$/locales/en.json" />
@@ -134,6 +132,8 @@
         <option value="$PROJECT_DIR$/config/production.json" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/app_api/controllers/users.js" />
+        <option value="$PROJECT_DIR$/app_server/controllers/administrator.js" />
+        <option value="$PROJECT_DIR$/app_server/controllers/register.js" />
       </list>
     </option>
   </component>
@@ -764,15 +764,15 @@
       <workItem from="1468320609358" duration="1667000" />
       <workItem from="1468323663083" duration="1702000" />
       <workItem from="1468325469821" duration="1781000" />
-      <workItem from="1468327717238" duration="47426000" />
+      <workItem from="1468327717238" duration="48424000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="292406000" />
+    <option name="totallyTimeSpent" value="293404000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25317347" sideWeight="0.65531063" order="0" side_tool="false" content_ui="combo" />
@@ -1184,34 +1184,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
+    <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="250" column="45" selection-start-line="250" selection-start-column="42" selection-end-line="250" selection-end-column="45" />
+        <state relative-caret-position="484">
+          <caret line="47" column="62" selection-start-line="47" selection-start-column="62" selection-end-line="47" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/controllers/register.js">
+    <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1562">
-          <caret line="259" column="48" selection-start-line="259" selection-start-column="48" selection-end-line="259" selection-end-column="48" />
+        <state relative-caret-position="552">
+          <caret line="271" column="46" selection-start-line="271" selection-start-column="46" selection-end-line="271" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_api/controllers/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+        <state relative-caret-position="220">
+          <caret line="136" column="52" selection-start-line="136" selection-start-column="49" selection-end-line="136" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
+    <entry file="file://$PROJECT_DIR$/app_server/controllers/register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="47" column="62" selection-start-line="47" selection-start-column="62" selection-end-line="47" selection-end-column="62" />
+        <state relative-caret-position="355">
+          <caret line="260" column="93" selection-start-line="260" selection-start-column="93" selection-end-line="260" selection-end-column="93" />
           <folding />
         </state>
       </provider>
