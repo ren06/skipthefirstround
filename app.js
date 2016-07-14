@@ -123,8 +123,10 @@ request(requestOptions, function (err, response, body) {
 
     if (response.statusCode === 200) {
 
-      console.log(app.locals);
       app.locals.options = body.data;
+    }
+    else{
+        console.log('api/options/all error: ' +  response.statusCode);
     }
   }
 });

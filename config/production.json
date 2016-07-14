@@ -13,7 +13,7 @@
     }
   },
   "Website":{
-    "apiServer": "https://demande-au-finaud.herokuapp.com/"
+    "apiServer": "https://demande-au-finaud.herokuapp.com"
   },
   "Email":{
     "sendEmail": true
