@@ -81,7 +81,6 @@ module.exports.doUserAuthenticate = function(req, res){
             done();
             common.sendJsonResponse(res, 500, false, 'DB connection error', 'Erreur de connexion', err);
             return;
-
         }
 
         // Select user
@@ -107,14 +106,14 @@ module.exports.doUserAuthenticate = function(req, res){
 
             if(result.rowCount === 0){
                 common.sendJsonResponse(res, 404, false, 'Email not found', 'Email non reconnu');
-                return;
+                //return;
             }
             else if(result.rowCount === 1){
                 onUserRead(result.rows[0]);
             }
             else{
                 common.sendJsonResponse(res, 404,  false, 'Unexpected error, there should be only one row for email', 'Erreur email present plusieurs fois');
-                return;
+                //return;
             }
 
         });
