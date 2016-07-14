@@ -30,10 +30,6 @@ module.exports.getApiOptions =  function(){
         server: config.get('Website.apiServer'),
     };
 
-    if(process.env.NODE_ENV === 'production'){
-        apiOptions.server = 'https://agile-garden-32942.herokuapp.com';
-    }
-
     return apiOptions;
 }
 
