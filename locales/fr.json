@@ -1,0 +1,10 @@
+{
+	"Hello": "Bonjour",
+	"CatchPhrase": "J'aimerais rencontrer le finaud",
+	"About": "A propos",
+	"Unauthorised": "Non authorise",
+	"Welcome %s": "Bienvenue %s",
+	"MyAccount": "Mon compte",
+	"DateUndefined": "Date non definie",
+	"VideoInsertError": "VideoInsertError"
+}

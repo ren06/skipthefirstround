@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-6(style='padding:10px')
+
+    h2  Liste etudiants
+
+    table.table
+        each user in users
+            tr
+                td #{user.firstName} #{user.lastName}
+                td #{user.email}
+                td #{user.mobilePhone}
+                td
+                    a(href='student-menu') See interviews
+                td
+                    a(href='student-menu') See details
+
+    .col-lg-2.text-center

@@ -1,0 +1,11 @@
+//Edit config overrides for production deployment:
+{
+  "Customer": {
+    "dbConfig": {
+      "host": "prod-db-server"
+    },
+    "credit": {
+      "initialDays": 30
+    }
+  }
+}

@@ -1,0 +1,40 @@
+extends layout
+
+block content
+
+
+
+    .col-lg-2.text-center
+    .col-lg-8
+        h2 Main Menu
+        br
+
+        .row.row-margin
+            .col-lg-4
+                a(href='/admin/students-interviews-list') See unconfirmed Interviews
+        .row.row-margin
+            .col-lg-4
+                a(href='/admin/students-interviews-list') See all Interviews
+        .row.row-margin
+            .col-lg-4
+                a(href='/admin/students-list') See all Users
+        .row.row-margin
+            .col-lg-4
+                div.input-group
+                    input(type="text" class="form-control" placeholder="Email etudiant")
+                    span.input-group-btn
+                        button(class="btn btn-default" type="button") Go!
+
+         .row.row-margin
+            .col-lg-4
+                div.input-group
+                    input(type="text" class="form-control" placeholder="Sequence")
+                    span.input-group-btn
+                        button(class="btn btn-default" type="button") Go!
+        .row
+            col-sm-2.col-md-2.text-center
+            col-sm-4.col-md-4.text-center
+            col-sm-4.col-md-4.text-center
+            col-sm-2.col-md-2.text-center
+
+    .col-lg-2.text-center

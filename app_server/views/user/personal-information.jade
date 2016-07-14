@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    - var page = 'myInformation';
+
+    .col-lg-2.text-center
+    .col-lg-8
+        h2 Mon compte (pierre.thiery@gmail.com)
+        br
+        br
+        .container
+
+            include ../_includes/user-menu.jade
+
+            .col-lg-6(style='padding:10px')
+
+                div My name is
+
+
+    .col-lg-2.text-center

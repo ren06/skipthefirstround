@@ -1,0 +1,21 @@
+{
+  // Customer module configs
+  "Api": {
+    "dbConfig": {
+      "url": "postgres://admin:Santos100@127.0.0.1:5432/daf" //localhost does not work if not connected to a network
+    },
+    "Secret" : "thisIsSecret",
+    "PasswordMinLength": 8,
+    "credit": {
+      "initialLimit": 100,
+      // Set low for development
+      "initialDays": 1
+    }
+  },
+  "Website":{
+    "apiServer": "http://127.0.0.1:3000"
+  },
+  "Email":{
+    "sendEmail": true
+  }
+}

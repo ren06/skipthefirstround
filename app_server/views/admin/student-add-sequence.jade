@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-8
+        h2 Add sequence for Pierre Thierry
+        br
+        br
+        form.form-horizontal(id="enregisrement_form", action="", method="post", role="form")
+            if(error)
+                .alert.alert-danger(role="alert") #{error}
+            .form-group
+                label.control-label.col-sm-4(for='secteur_activite') Secteur d'activite:
+                .col-sm-8
+                    select#secteur_activite.form-control
+                        option(value='volvo') Entretien entier
+                        option(value='volvo') DCF
+                        option(value='volvo') Consolidation
+                        option(value='volvo') Methodes de valorisation
+
+            .form-group
+                label.control-label.col-sm-4(for='') Fichier video:
+                .col-sm-8
+                    button(type="file").btn.btn-default Selectionner...
+            .form-group
+                label.control-label.col-sm-4(for='summary') Resume:
+                .col-sm-8
+                    textarea#summary(name="summary", rows="4", placeholder="").form-control
+            .form-group
+                .col-sm-offset-4.col-sm-10
+                    //button(type="submit").btn.btn-default S'enregister
+                    a.btn.btn-default(href="confirmation") Ajouter
+    .col-lg-2.text-center

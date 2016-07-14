@@ -1,0 +1,130 @@
+extends layout
+
+block content
+
+    style(type="text/css").
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        .inputfile + label {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            background-color: black;
+            display: inline-block;
+            }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: red;
+        }
+
+
+    script.
+
+        $(document).ready(function () {
+
+            //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
+            var public_id   = '';
+
+            var loadVideo = function () {
+                $('#video-container').html($($.cloudinary.video(public_id, {
+                    cloud_name: 'dzfmkzqdo'
+                })).attr('controls', 'controls').attr('autoplay', 'autoplay'));
+            };
+
+
+            $('#videoFile').unsigned_cloudinary_upload("aa6i0y2u", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+                    {multiple: false, resource_type: 'video'}
+                    //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
+            ).bind('cloudinarydone', function (e, data) {
+
+                    public_id = data.result.public_id;
+                    $('.video-title').html(data.result.original_filename);
+                    //loadVideo();
+                    $('#videoUniqueId').val(public_id);
+            }
+            ).bind('cloudinaryprogress', function (e, data) {
+
+                $('.progress-bar').css('width',
+                        Math.round((data.loaded * 100.0) / data.total) + '%');
+
+            });
+
+            $('#selectedFile').addClass('btn');
+
+        });
+
+
+    .col-lg-1.text-center
+    .col-lg-10
+        h2 Add Sequence for Interview ##{interview.id} for #{interview.user.firstName} #{interview.user.lastName}
+        br
+        .container
+            .row
+                .col-lg-8
+                    h3 Interview info
+                    br
+                    dl.dl-horizontal
+                        dt Date
+                        dd=interview.dateTimeText
+                        dt Job Description
+                        dd
+
+
+            .row
+                .col-lg-8
+                    h3 Add sequence
+                    br
+                    form.form-horizontal.upload_form(id="upload_form", action="", method="post", role="form")
+                        if(error)
+                            .alert.alert-danger(role="alert") #{error}
+                        input(type="hidden" name="interviewId" value="#{interview.id}")
+                        input(id = "videoUniqueId" type="hidden" name="videoUniqueId" value="#{formData.videoUniqueId}")
+
+                        .form-group
+                            label.control-label.col-sm-2(for='tags') Tag:
+                            .col-sm-6
+                                select#tags.form-control(name='tagId')
+                                    each text, key in sequenceTagOptions
+                                        option(value='#{key}' selected=(key==formData.tagId))=text
+                        .form-group
+                            label.control-label.col-sm-2(for='summary') res('Summary')
+                            .col-sm-6
+                                textarea#summary(name="summary" rows='4' cols='50')=formData.summary
+                        .form-group
+                            label.control-label.col-sm-2(for='appreciation') Appreciation
+                            .col-sm-6
+                                each val, key in appreciationsOptions
+                                    label.radio-inline
+                                        input(type='radio', class='radioSpans', id='confidence1', value='#{key}', name='appreciation' checked=(formData.appreciationId == key ))
+                                        span=val
+                        .form-group
+                            label.control-label.col-sm-2(for='videoFile') Select video file:
+                            .col-sm-6
+                                label(for="videoFile") Choose a file
+                                input#videoFile.inputfile(type="file" name="file")
+
+                                div.video-title
+                                div.progress
+                                    div.progress-bar.progress-bar-info(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
+                                //video#video-container
+
+                        .form-group
+                            .col-sm-offset-4.col-sm-10
+                                button.btn.btn-default(type="submit") Save
+            .row
+                .col-lg-8
+
+
+
+
+
+
+.col-lg-2.text-center
+

@@ -1,0 +1,21 @@
+{
+	"Hello": "Hello",
+	"CatchPhrase": "I wish I met the finaud",
+	"About": "About",
+	"Unauthorised": "Unauthorised",
+	"Welcome %s": "Welcome %s",
+	"MyAccount": "My account",
+	"DateUndefined": "Date undefined yet",
+	"Enregistrement": "Enregistrement",
+	"Informations personnelles": "Informations personnelles",
+	"InterviewerCreationMissingInput": "InterviewerCreationMissingInput",
+	"InterviewerError": "InterviewerError",
+	"InterviewMissingInput": "InterviewMissingInput",
+	"InterviewSetDateMissingInput": "InterviewSetDateMissingInput",
+	"InterviewerAlreadyExists": "InterviewerAlreadyExists",
+	"InterviewerDoesNotExist": "InterviewerDoesNotExist",
+	"VideoInsertError": "VideoInsertError",
+	"InterviewErrorUserId": "InterviewErrorUserId",
+	"EmailAlreadyExists": "EmailAlreadyExists",
+	"Confirmation": "Confirmation"
+}

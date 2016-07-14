@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+    - var page = 'myInterviews';
+
+    .col-lg-2.text-center
+    .col-lg-8
+        .container
+            .row
+                h2=welcome
+                //Bienvenue #{session.firstName}
+            .row
+                include ../_includes/user-menu.jade
+            .row
+                .col-lg-6(style='padding:10px')
+                    h4 Prochaine simulation d'entretien
+                    each interview in interviewsFuture
+                        div #{interview.typeText} - #{interview.dateTimeText}
+
+
+            .row
+                .col-lg-6(style='padding:10px')
+
+                    h4 Mes simulations d'entretien
+                    table.table
+                        tr
+                            th Date
+                            th Position
+                            th Company
+                            th Competence
+                        each interview in interviewsPast
+                            tr
+                                td=interview.dateTimeText
+                                td=interview.sectorText
+                                td
+                                td DCF, Consolidation, Presentation
+                                td
+                                    a(href='interview') Voir
+                        //tr
+                        //    td Mercredi 02 juin 2106 15:30
+                        //    td M&A
+                        //    td DCF, Consolidation, Presentation
+                        //    td
+                        //        a(href='interview') Voir
+                        //tr
+                        //    td Jeudi 03 juin 2106 17:00
+                        //    td M&A
+                        //    td DCF, Consolidation, Presentation
+                        //    td
+                        //        a(href='interview') Voir
+
+
+    .col-lg-2.text-center

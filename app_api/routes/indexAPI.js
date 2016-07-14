@@ -1,0 +1,65 @@
+var express = require('express');
+var router = express.Router();
+var jwt = require('express-jwt');
+var config = require('config');
+
+var auth = jwt({
+    secret: config.Api.Secret,//process.env.JWT_SECRET,
+    userProperty: 'payload'
+});
+
+var ctrlUnitTest = require('../controllers/unitTest');
+
+
+var ctrlUsers =  require('../controllers/users');
+var ctrlOptions = require('../controllers/options');
+var ctrlInterviews = require('../controllers/interviews');
+var ctrlInterviewers = require('../controllers/interviewers');
+
+router.use(function(req, res, next) {
+    // perform some sort of logic test, such as body contents in req or authentication as occurred
+    //need a JSON format request with API credentials and languge
+    next(); // moving on...
+});
+
+//OK and tested
+router.post('/user/', ctrlUsers.userCreate);
+router.post('/userLogin', ctrlUsers.doUserAuthenticate);
+router.get('/users', ctrlUsers.usersList);
+
+
+router.post('/interviewer/', ctrlInterviewers.interviewerCreate);
+router.get('/interviewers/', ctrlInterviewers.interviewersList);
+router.get('/interviewer/:interviewId', ctrlInterviewers.interviewerReadOne);
+
+
+router.get('/options/sector', ctrlOptions.getSectorOptions);
+router.get('/options/interviewType', ctrlOptions.getInterviewTypeOptions);
+router.get('/options/interviewStatus', ctrlOptions.getInterviewStatusOptions);
+router.get('/options/all', ctrlOptions.getAllOptions);
+
+router.get('/users', auth, ctrlUsers.usersList);
+
+
+//Don't forget the auth later when admin login setup
+router.post('/interview', ctrlInterviews.interviewCreate);
+router.get ('/interviews', ctrlInterviews.interviewList);
+router.post('/interview/:interviewId/setDate', ctrlInterviews.interviewSetDate);
+router.get ('/interview/:interviewId', ctrlInterviews.interviewReadOne);
+router.post('/interview/:interviewId/sequences/new', ctrlInterviews.interviewAddSequence);
+//router.get ('/interview/:interviewId/sequences', ctrlInterviews. );
+//router.post('/interview/:interviewId/sequences/delete', ctrlInterviews. );
+
+router.get('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser);
+router.get('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
+router.get('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
+
+//
+// router.get ('/video/:videoId');
+// router.post('/video/');
+
+router.get('/testDb', ctrlUnitTest.dbConnection);
+router.get('/testLocale', ctrlUnitTest.locale);
+
+
+module.exports = router;

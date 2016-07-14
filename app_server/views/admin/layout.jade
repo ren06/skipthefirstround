@@ -1,0 +1,61 @@
+
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/date-picker/css/bootstrap-datepicker.min.css')
+
+    script(src='/javascripts/jquery-1.12.3.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+
+    script(src='/cloudinary/jquery.ui.widget.js')
+    script(src='/cloudinary/jquery.iframe-transport.js')
+    script(src='/cloudinary/jquery.fileupload.js')
+    script(src='/cloudinary/jquery.cloudinary.js')
+
+
+
+
+
+    script(src='/date-picker/js/bootstrap-datepicker.min.js')
+    script(src='/date-picker/locales/bootstrap-datepicker.fr.min.js')
+
+    script(src='/javascripts/helper.js')
+    script(src='/javascripts/validation.js')
+
+
+  body
+    nav.navbar.navbar-inverse(role="navigation")
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle="collapse",data-target="#navbar",aria-expanded="false",aria-controls="navbar")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a(href='/admin').navbar-brand Admin menu
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li
+
+          ul.nav.navbar-nav.navbar-right
+            if(authenticated)
+              li
+                a(href="../deconnexion/") Deconnexion
+            else
+              li
+                a(href="../identification/") S'identifier
+
+    .container
+      .row
+
+        block content
+
+
+
+
+
+

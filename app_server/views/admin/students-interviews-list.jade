@@ -1,0 +1,39 @@
+extends layout
+
+block content
+
+    .col-lg-1.text-center
+    .col-lg-10
+        h2 All interviews
+        br
+        br
+        .container
+            .row
+                .col-lg-10(style='padding:10px')
+                    table.table
+                        tr
+                            th Name
+                            th Availability
+                            th Email
+                            th Phone
+                            th Date
+                            th Sector
+                            th See
+                        each interview in interviews
+                            tr
+                                td #{interview.user.firstName} #{interview.user.lastName}
+                                td #{interview.user.availability}
+                                td #{interview.user.email}
+                                td #{interview.user.mobilePhone}
+                                td
+                                    if interview.dateTime
+                                        =interview.dateTimeText
+                                    else
+                                        a(href='interview/#{interview.id}/modifyDate') Set date
+
+                                td #{interview.sectorText}
+                                td
+                                    a(href='interview/#{interview.id}') Voir
+
+
+    .col-lg-2.text-center

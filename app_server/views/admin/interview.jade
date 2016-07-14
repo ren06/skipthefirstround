@@ -1,0 +1,83 @@
+extends layout
+
+block content
+
+    .col-lg-1.text-center
+    .col-lg-10
+        h2 Interview #{interview.id}
+        if editMode
+            | Edit mode
+        else
+            | Display mode
+        br
+        br
+        .container
+            .row
+                .col-lg-8()
+                    form.form-horizontal(id="interview_form", action="", method="post", role="form")
+                        if(error)
+                            .alert.alert-danger(role="alert") #{error}
+                        .form-group
+                            label.control-label.col-sm-2(for='datepicker') Date:
+                            .col-sm-10
+                                .input-group.date.col-sm-4(data-provide="datepicker")
+                                    input#datepicker(type="text" name="date" value='#{interview.date}').form-control
+                                    .input-group-addon
+                                        span.glyphicon.glyphicon-th
+                        .form-group
+                            label.control-label.col-sm-2(for='time_hour') Time:
+                            .col-sm-2
+                                select#time_hour.form-control(name='hour')
+                                    each val in ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+                                        if interview.hour == val
+                                            option(value='#{val}' selected='true') #{val}
+                                        else
+                                            option(value='#{val}') #{val}
+                            .col-sm-2
+                                select#time_minute.form-control(name='minute')
+                                    each val in ['00', '15', '40', '45']
+                                        if interview.minute == val
+                                            option(value='#{val}' selected='true') #{val}
+                                        else
+                                            option(value='#{val}') #{val}
+
+                        .form-group
+                            label.control-label.col-sm-2(for='')  Video :
+                            .col-sm-10
+                                button(type="file").btn.btn-default Selectionner...
+                        .form-group
+                            label.control-label.col-sm-2(for='sector') Sector:
+                            .col-sm-10
+                                select#sector.form-control(value=interview.sector, name='sector')
+                                    each val, key in sectorOptions
+                                        option(value=key)=val
+                        .form-group
+                            label.control-label.col-sm-2(for='') Summary:
+                            .col-sm-10
+                                textarea(rows="4" cols="50")
+                        .form-group
+                            label.control-label.col-sm-2(for='') Job description
+                            .col-sm-10
+                                input()
+                        .form-group
+                            label.control-label.col-sm-2(for='') Company
+                            .col-sm-10
+                                input()
+                    a.btn.btn-default(href="#{interview.id}/addSequence") Add sequence
+                    h3 Existing sequences
+                    table.table
+                        tr
+                            th Tag
+                            th Summary
+                            th Video
+                            th
+                        each sequence in interview.sequences
+                            tr
+                                td #{sequence.tagText}
+                                td #{sequence.summary}
+                                //td #{sequence.video.providerUniqueId}
+                                td
+                                 //   !{videoHtml}
+
+
+    .col-lg-2.text-center
