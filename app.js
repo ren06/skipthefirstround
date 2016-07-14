@@ -80,7 +80,6 @@ app.use(function(req,res,next){
 });
 
 
-
 app.all('/api/*', function(req, res, next){
   console.log('API call: ' + req.url);
   next();

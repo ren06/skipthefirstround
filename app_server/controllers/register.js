@@ -240,7 +240,7 @@ module.exports.doIdentification = function(req, res){
             json: postdata
         };
 
-        console.log('calling api');
+        console.log('calling api ' + requestOptions.url);
         //Call create user API
         request(requestOptions, function (err, response, body) {
 
