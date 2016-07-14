@@ -103,7 +103,7 @@ app.use(function(req, res, next) {
 
 //Once set, the value of app.locals properties persist throughout the life of the application,
 //in contrast with res.locals properties that are valid only for the lifetime of the request.
-app.locals.title = 'My App';
+app.locals.title = 'DemandeAuFinaud';
 
 
 //Store in the app.locals.options all the dropdown options
@@ -122,7 +122,8 @@ request(requestOptions, function (err, response, body) {
   else {
 
     if (response.statusCode === 200) {
-      
+
+      console.log(app.locals);
       app.locals.options = body.data;
     }
   }
@@ -159,16 +160,18 @@ if (app.get('env') === 'development') {
     });
   });
 }
+else{
+    // production error handler
+    // no stacktraces leaked to user
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('user/error', {
+          message: err.message,
+          error: err, //{} TO CHANGE
+        });
+    });
+}
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('user/error', {
-    message: err.message,
-    error: {}
-  });
-});
 
 
 module.exports = app;
