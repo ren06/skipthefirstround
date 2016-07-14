@@ -8,9 +8,12 @@ var config = require('config');
 var getConnectionString = function(){
 
     var databaseURL = config.get('Api.dbConfig.url');
-    var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
+    if (process.env.NODE_ENV === 'production') {
 
-    return conString;
+        databaseURL = process.env.DATABASE_URL;
+    }
+
+    return databaseURL;
 }
 
 

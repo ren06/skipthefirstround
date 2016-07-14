@@ -1,11 +1,21 @@
-//Edit config overrides for production deployment:
 {
-  "Customer": {
+  // Customer module configs
+  "Api": {
     "dbConfig": {
-      "host": "prod-db-server"
+      "url": "postgres://zoftmrkazezkhj:yDwWfeOBiCNVIigvULOB0wGake@ec2-54-75-243-54.eu-west-1.compute.amazonaws.com:5432/d71kad5c6r40uv"
     },
+    "Secret" : "thisIsSecret",
+    "PasswordMinLength": 8,
     "credit": {
-      "initialDays": 30
+      "initialLimit": 100,
+      // Set low for development
+      "initialDays": 1
     }
+  },
+  "Website":{
+    "apiServer": "https://demande-au-finaud.herokuapp.com/"
+  },
+  "Email":{
+    "sendEmail": true
   }
 }

@@ -1,0 +1,76 @@
+5 key things:
+- node and npm
+- express generator installed globally
+- git
+- heroki
+- command line interface (CLI)
+
+Note: The --save option instructs NPM to include the package inside of the dependencies section of your package.json automatically, thus saving you an additional step.
+
+
+
+=
+1) create a new directory (e.g. myApp)
+2) $ express
+3) $ npm install
+4) $ npm start
+5) install nodemon: $npm install -g nodemon (-g stands for globally)
+6) create folder structure (app_api, app_server, public), 
+7) change app.set('views)..., routes.. in app.js to reflect it
+8) take controller code out of the route
+9) install bootstrap (downloada file from website)
+10) setup git: 
+   $ git init
+   $ git add .
+   $ git commit -m "First commit"
+
+11) add request module to project (for REST calls)
+$ npm install --save request
+12) add session module
+$ npm install express-session --save
+13) setup postgres (it must be running)
+& npm install pg --save
+14) install crypto module
+& npm install crypto --save
+15) for random numbers (generate salt) NOT USED actually
+$ npm install csprng --save
+16) install validator
+$ npm install validator --save
+17) install config
+$ npm install config --save
+18) Install JWT and  express-jwt
+$ npm install jsonwebtoken--save
+$ npm install express-jwt --save
+
+
+=== LIVE setup
+
+Test heroku : heroku local
+
+A  SIMPLE UPDATE PROCESS
+Now that the Heroku application is set up, updating it will be really easy. Every time you
+want to push some new changes through, you just need three terminal commands:
+$ git add .
+$ git commit -m "Commit message here"
+$ git push heroku master
+
+Create a PotgreSQL app as an add-on, so it's visible in heroku pg:info
+
+$ heroku config:set DATABASE_URL=postgres://zoftmrkazezkhj:yDwWfeOBiCNVIigvULOB0wGake@ec2-54-75-243-54.eu-west-1.compute.amazonaws.com:5432/d71kad5c6r40uv
+
+To make sure pg:psql works make sure the PATH contains C:\Program Files\PostgreSQL\9.5\bin
+
+$ pg_dump -h localhost -U admin -Fc daf > db.dump
+
+There is a psql connection string in the DB info page: heroku pg:psql --app demande-au-finaud HEROKU_POSTGRESQL_CYAN
+
+PGUSER=admin PGPWD=Santos100 heroku pg:push daf HEROKU_POSTGRESQL_CYAN --app demande-au-finaud
+
+heroku pg:backups restore 'https://www.dropbox.com/s/wbkzdfozpd21uwu/db.dump?dl=0' DATABASE -a demande-au-finaud
+
+heroku logs
+
+
+
+
+ 
