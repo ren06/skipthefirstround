@@ -87,7 +87,7 @@ var setSessionData = function(req, user, token){
     req.session.token = token;
 
     console.log('session set: ' + req.session.userId);
-}
+};
 
 var createInterview = function(userId, type, sector, token, callback){
 
@@ -113,7 +113,7 @@ var createInterview = function(userId, type, sector, token, callback){
 
     });
 
-}
+};
 
 module.exports.doRegisterUser = function(req, res){
 
@@ -147,7 +147,7 @@ module.exports.doRegisterUser = function(req, res){
     var formData = postData;
     formData.confirmationPassword = confirmationPassword;
 
-    console.log(postData)
+    console.log(postData);
     
     //check everything is there
     if(!postData.email || !postData.password || !postData.firstName || !postData.lastName || !postData.availability || !postData.sector ){
@@ -240,7 +240,6 @@ module.exports.doIdentification = function(req, res){
             json: postdata
         };
 
-        console.log('calling api ' + requestOptions.url);
         //Call create user API
         request(requestOptions, function (err, response, body) {
 
