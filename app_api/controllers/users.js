@@ -157,11 +157,13 @@ module.exports.userCreate = function(req, res){
     var skypeId = req.body.skypeId;
     var mobilePhone = req.body.mobilePhone;
     var language = req.body.language;
+    var company = req.body.company;
+    var position = req.body.position;
 
     console.log(req.body);
 
     //check it's all there
-    if(!email || !firstName || !lastName || !password || !availability || !sector || !skypeId || !mobilePhone ) {
+    if(!email || !firstName || !lastName || !password || !availability || !sector || !skypeId || !company || !position ) {
 
         //syntactically wrong, bad request
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('UserCreationMissingInput'), null);
@@ -218,11 +220,16 @@ module.exports.userCreate = function(req, res){
             else {
 
                 // Insert
-                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, mobile_phone, language) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
+                console.log('mobilePhone: ' + mobilePhone);
+                if(mobilePhone == ''){
+                  mobilePhone = null;
+                }
+
+                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, company, position, mobile_phone) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *";
                 console.log(queryString);
                 console.log(email + ' ' + firstName + ' ' + lastName + ' ' + passwordHash);
 
-                var query = client.query(queryString, [email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone, language],
+                var query = client.query(queryString, [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, company, position, mobilePhone],
                     function (err, result) {
                         done();
                         if (err) {

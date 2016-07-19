@@ -1,7 +1,7 @@
 var camelcaseKeys = require('camelcase-keys-recursive');
+var decamelize = require('decamelize');
 var pg = require('pg');
 var cryptography = require('../helper/cryptography');
-//var crypto = require('crypto');
 var validator = require('validator');
 var config = require('config');
 
@@ -86,7 +86,8 @@ module.exports.dbConnect = function(callback){
 //     });
 // }
 
-module.exports.dbHandleQuery = function(req, res, queryString, parameters, addText, internalError, userError, callback){
+
+module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTextFunction, internalError, userError, callback){
 
     pg.connect(getConnectionString(),function (err, client, done) {
 
@@ -116,10 +117,10 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
+            console.log(addTextFunction)
+            if (addTextFunction) {
 
-            if (addText) {
-
-                results = addText(results, req);
+                results = addTextFunction(results, req);
             }
 
             if(callback){
@@ -144,6 +145,67 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
 
 }
 
+module.exports.rowInsert = function(req, res, tableName, data){
+
+    //decamelise array
+    var dataDecamelised = {};
+    var newKey;
+
+    for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+            newKey = decamelize(key);
+            dataDecamelised[newKey] = data[key];
+        }
+    }
+
+
+    var queryString = "INSERT INTO " + tableName + " (";
+
+    var values = [];
+    var comma =  ", ";
+    var params = "";
+    var i=1;
+
+    for (var key in dataDecamelised) {
+        queryString += key + comma;
+        values.push(dataDecamelised[key]);
+        params += "$" + i +  comma;
+        i++;
+    }
+
+    queryString = queryString.substring(0, queryString.length - comma.length);
+
+    queryString += ") VALUES (" + params;
+    queryString = queryString.substring(0, queryString.length - comma.length);
+
+    queryString += ") RETURNING *";
+
+    console.log(queryString);
+    console.log(values);
+
+    this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error');
+
+}
+
+module.exports.checkParametersPresent = function(parameterString, data){
+
+    parameterString = parameterString.replace(/\s/g, '');
+
+    var array = parameterString.split(',');
+
+    for (var i = 0; i < array.length -1; i++){
+        var value = data[array[i]];
+        console.log(value);
+        if(!value || value == ''){
+            console.log('fasle');
+            return false;
+        }
+    }
+
+    console.log('all ok');
+    return true;
+
+}
 
 
 module.exports.sendJsonResponse = sendJsonResponse;

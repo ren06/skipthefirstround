@@ -17,5 +17,6 @@
 	"VideoInsertError": "VideoInsertError",
 	"InterviewErrorUserId": "InterviewErrorUserId",
 	"EmailAlreadyExists": "EmailAlreadyExists",
-	"Confirmation": "Confirmation"
+	"Confirmation": "Confirmation",
+	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput"
 }

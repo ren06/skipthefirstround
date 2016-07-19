@@ -17,7 +17,6 @@ var renderRegister = function(req, res, formData, error){
         sectorOptions: sectorOptions,
         pageHeader: {
             title: 'DaF',
-            strapline: 'Find places to work with wifi near you',
         },
         error: error,
     });
@@ -30,28 +29,6 @@ var renderIdentification = function(req, res, formData, error){
         formData: formData,
         error: error,
     });
-};
-
-//GET method
-var registerUser = function(req, res){
-
-    if(req.session.authenticated){
-        res.redirect('/');
-    }
-
-    var formData = {
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-        availability: '',
-        sector: req.app.locals.options.sectorOptions[0],
-        skypeId: '',
-        mobilePhone: '',
-    };
-
-    renderRegister(req, res, formData, null);
-
 };
 
 //GET method
@@ -73,20 +50,6 @@ var identification = function(req, res){
 
     renderIdentification(req, res, formData, '');
 
-};
-
-var setSessionData = function(req, user, token){
-
-    req.session.email = user.email;
-    req.session.userId = user.id;
-    req.session.firstName = user.firstName;
-    req.session.lastName = user.lastName;
-    req.session.fullName = user.firstName + ' ' + user.lastName;
-    req.session.role = 'user';
-    req.session.authenticated = true;
-    req.session.token = token;
-
-    console.log('session set: ' + req.session.userId);
 };
 
 var createInterview = function(userId, type, sector, token, callback){
@@ -128,6 +91,9 @@ module.exports.doRegisterUser = function(req, res){
     var password = req.body.password;
     var confirmationPassword = req.body.confirmationPassword;
     var language = req.cookies.locale;
+    var position = req.body.position;
+    var company = req.body.company;
+
     if(typeof language !== 'undefined'){
         language = 'fr';
     }
@@ -142,6 +108,8 @@ module.exports.doRegisterUser = function(req, res){
         mobilePhone: mobilePhone,
         password: password,
         language: language,
+        company: company,
+        position: position,
     };
 
     var formData = postData;
@@ -177,7 +145,7 @@ module.exports.doRegisterUser = function(req, res){
                 //authenticate user
                 var token = body.data.token;
                 console.log(token);
-                setSessionData(req, body.data.user, token);
+                common.setSessionData(req, body.data.user, 'user', token);
 
                 //send email
                 emails.sendEmailResistration(req.session.email, req.session.fullName);
@@ -271,53 +239,14 @@ module.exports.doIdentification = function(req, res){
 
 module.exports.doLogout = function(req, res){
 
-    console.log('logout');
+    console.log('user logout');
     req.session.destroy(function(err) {
         // cannot access session here
+        console.log('redirecting to homepage...');
+        var session = req.session;
+        console.log('session after logout: ' + session);
+        res.redirect('/');
     });
-
-    res.redirect('/');
-};
-
-module.exports.doUploadCV = function(req, res){
-
-    var busboy = require('connect-busboy');
-
-// default options, no immediate parsing
-    app.use(busboy());
-// ...
-    app.use(function(req, res) {
-        req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-            // ...
-        });
-        req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-            // ...
-        });
-        req.pipe(req.busboy);
-        // etc ...
-    });
-
-// default options, immediately start reading from the request stream and
-// parsing
-    app.use(busboy({ immediate: true }));
-// ...
-    app.use(function(req, res) {
-        req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-            // ...
-        });
-        req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-            // ...
-        });
-        // etc ...
-    });
-
-// any valid Busboy options can be passed in also
-    app.use(busboy({
-        highWaterMark: 2 * 1024 * 1024,
-        limits: {
-            fileSize: 10 * 1024 * 1024
-        }
-    }));
 
 };
 
@@ -329,6 +258,45 @@ module.exports.confirmation = function(req, res){
 
 };
 
-module.exports.registerUser = registerUser;
+module.exports.registerRecruiter = function(req, res){
+    console.log('conf');
+    res.render('user/confirmation', {
+        title: i18n.__('Confirmation'),
+    });
+
+};
+
+module.exports.doRegisterRecruiter = function(req, res){
+    console.log('conf');
+    res.render('user/confirmation', {
+        title: i18n.__('Confirmation'),
+    });
+
+};
+
+module.exports.registerUser = function(req, res){
+
+    if(req.session.authenticated){
+        res.redirect('/');
+    }
+
+    var formData = {
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        availability: '',
+        sector: req.app.locals.options.sectorOptions[0],
+        skypeId: '',
+        mobilePhone: '',
+        position: '',
+        company: '',
+    };
+
+    renderRegister(req, res, formData, null);
+
+};
+
+
 module.exports.identification = identification;
 module.exports.deconnexion = deconnexion;

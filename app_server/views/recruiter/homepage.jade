@@ -1,0 +1,26 @@
+extends ..\user\layout
+
+include ../_includes/sharedHTMLfunctions
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-8
+        .row.text-center
+            h2 Confiez nous votre premier tour d'entretien!
+            br
+            h3 Nous posons les questions pertinentes, challangeons les candidats et filtrons les meilleures reponses
+            br
+            h4 Accedez a nos simulations d'entretien pour immediatement identifier le potentiel de nos candidats
+            br
+
+        .row
+            .container.text-center
+                .col-md-1()
+                .col-md-3()
+                    a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregister
+                .col-md-3
+                    a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
+
+
+    .col-lg-2.text-center

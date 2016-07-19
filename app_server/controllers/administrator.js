@@ -108,21 +108,24 @@ var renderInterview = function(req, res, editMode){
 
         var sectorOptions = req.app.locals.options.sectorOptions;
         var tagOptions = req.app.locals.options.tagOptions;
+        var interviewTypeOptions = req.app.locals.options.interviewTypeOptions;
+        var interviewStatusOptions = req.app.locals.options.interviewStatusOptions;
 
-        cloudinary.config({
-            cloud_name: 'dzfmkzqdo',
-            api_key: '577639826413541',
-            api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'
-        });
+        requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
 
-        var html = cloudinary.video("qenbobntlvupehao7au4");
+        request(requestOptions, function (err, response, body) {
 
-        res.render('admin/interview', {
-            interview: interview,
-            title: 'Homepage',
-            sectorOptions: sectorOptions,
-            editMode: editMode,
-            videoHtml: html
+            var interviewers = body.data;
+
+            res.render('admin/interview', {
+                interview: interview,
+                title: 'Homepage',
+                sectorOptions: sectorOptions,
+                interviewTypeOptions: interviewTypeOptions,
+                interviewStatusOptions: interviewStatusOptions,
+                interviewers: interviewers,
+                editMode: editMode,
+            });
         });
     });
 }
@@ -183,7 +186,63 @@ var renderInterviewModifyDate = function(req, res, formData, error){
 
 module.exports.doInterviewModify = function(req, res){
 
-    renderInterviewModify(req, res, false);
+    console.log('saved');
+
+    console.log(req.body);
+
+    var interviewId = req.body.interviewId;
+    var date = req.body.date;
+    var hour = req.body.hour;
+    var minute = req.body.minute;
+    var type = req.body.type;
+    var sector = req.body.sector;
+    var interviewerId = req.body.interviewerId;
+    var appreciation = req.body.appreciation;
+    var status = req.body.status;
+    var position = req.body.position;
+    var company = req.body.company;
+    var videoId = req.body.videoId;
+
+
+    var dateTimeDb = moment(date + ' ' + hour + ':' + minute, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss');
+
+    var postData = {
+        dateTime: dateTimeDb,
+        type: type,
+        sector: sector,
+        interviewerId: interviewerId,
+        appreciation: appreciation,
+        status: status,
+        videoId: videoId,
+        company: company,
+        position: position
+    };
+
+    var formData = {
+
+    };
+
+    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId + '/modify', 'POST', postData, false);
+
+    request(requestOptions, function (err, response, body) {
+
+        if(response.statusCode === 200 ) {
+
+            console.log('update OK, redirecting...');
+            res.redirect('/admin/interview/' + interviewId);
+        }
+        else if(response.statusCode === 400 || response.statusCode === 409 ){
+
+            console.log(body.internalError);
+            renderInterview(req, res, formData, body.userError);
+
+        }
+        else {
+            console.log('error unhandled ');
+            common.showError(req, res, response.statusCode);
+        }
+
+    });
 
 }
 
@@ -281,6 +340,7 @@ module.exports.interviewAddSequence = function(req, res){
     var formData = {
         tagId: Object.keys(req.app.locals.options.sequenceTagOptions)[0],
         videoUniqueId: '',
+        videoUrl: '',
     }
 
     renderInterviewAddSequence(req, res, formData, null);
@@ -325,6 +385,7 @@ module.exports.doInterviewAddSequence = function(req, res){
 
     var interviewId = req.body.interviewId;
     var videoUniqueId = req.body.videoUniqueId;
+    var videoUrl = req.body.videoUrl;
     var tagId = req.body.tagId;
     var summary = req.body.summary;
     var appreciationId = req.body.appreciation;
@@ -332,6 +393,7 @@ module.exports.doInterviewAddSequence = function(req, res){
 
     var formData = {
         videoUniqueId: videoUniqueId,
+        videoUrl: videoUrl,
         interviewId: interviewId,
         tagId: tagId,
         summary: summary,
@@ -352,6 +414,7 @@ module.exports.doInterviewAddSequence = function(req, res){
 
         var postData = {
             videoUniqueId: videoUniqueId,
+            videoUrl: videoUrl,
             tagId: tagId,
             summary: summary,
             appreciationId: appreciationId

@@ -67,3 +67,17 @@ module.exports.getRequestOptions = function(req, path, method, json, authenticat
     return requestOptions;
 
 }
+
+module.exports.setSessionData = function(req, user, role, token){
+
+    req.session.email = user.email;
+    req.session.userId = user.id;
+    req.session.firstName = user.firstName;
+    req.session.lastName = user.lastName;
+    req.session.fullName = user.firstName + ' ' + user.lastName;
+    req.session.role = role;
+    req.session.authenticated = true;
+    req.session.token = token;
+
+    console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
+};

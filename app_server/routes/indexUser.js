@@ -41,7 +41,6 @@ router.get ('/information', ctrlInformation.information);
 router.get('/about', ctrlHomepage.about);
 
 
-router.post('/uploadCV', ctrlRegister.doUploadCV);
 router.get ('/testEmail', ctrlEmails.testEmail);
 
 /* Locations page. */

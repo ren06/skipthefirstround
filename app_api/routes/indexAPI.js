@@ -10,11 +10,11 @@ var auth = jwt({
 
 var ctrlUnitTest = require('../controllers/unitTest');
 
-
 var ctrlUsers =  require('../controllers/users');
 var ctrlOptions = require('../controllers/options');
 var ctrlInterviews = require('../controllers/interviews');
 var ctrlInterviewers = require('../controllers/interviewers');
+var ctrlRecruiters = require('../controllers/recruiters');
 
 router.use(function(req, res, next) {
     // perform some sort of logic test, such as body contents in req or authentication as occurred
@@ -47,6 +47,7 @@ router.get ('/interviews', ctrlInterviews.interviewList);
 router.post('/interview/:interviewId/setDate', ctrlInterviews.interviewSetDate);
 router.get ('/interview/:interviewId', ctrlInterviews.interviewReadOne);
 router.post('/interview/:interviewId/sequences/new', ctrlInterviews.interviewAddSequence);
+router.post('/interview/:interviewId/modify', ctrlInterviews.interviewModify);
 //router.get ('/interview/:interviewId/sequences', ctrlInterviews. );
 //router.post('/interview/:interviewId/sequences/delete', ctrlInterviews. );
 
@@ -54,7 +55,8 @@ router.get('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser)
 router.get('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
 router.get('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
 
-//
+router.post('/recruiter', ctrlRecruiters.createRecruiter);
+
 // router.get ('/video/:videoId');
 // router.post('/video/');
 

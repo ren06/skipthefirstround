@@ -2,6 +2,38 @@ extends layout
 
 block content
 
+    script(src='/cloudinary/jquery.ui.widget.js')
+    script(src='/cloudinary/jquery.iframe-transport.js')
+    script(src='/cloudinary/jquery.fileupload.js')
+    script(src='/cloudinary/jquery.cloudinary.js')
+
+    script.
+
+        $(document).ready(function () {
+
+            //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
+            var public_id   = '';
+
+            $('#cvFile').unsigned_cloudinary_upload("aa6i0y2u", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+                {multiple: false, resource_type: 'raw', allowed_formats: '[pdf]'}
+                //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
+            ).bind('cloudinarydone', function (e, data) {
+
+                public_id = data.result.public_id;
+
+            $('.file-title').html(data.result.original_filename);
+
+                $('#cvUniqueId').val(public_id);
+            }
+            ).bind('cloudinaryprogress', function (e, data) {
+
+                $('.progress-bar').css('width',
+
+                    Math.round((data.loaded * 100.0) / data.total) + '%');
+                }
+            );
+        });
+
     .col-lg-2.text-center
     .col-lg-8
         h2 Enregistrement
@@ -10,53 +42,61 @@ block content
         form.form-horizontal(id="registerForm", action="", method="post", role="form")
             if(error)
                 .alert.alert-danger(role="alert") #{error}
-            .form-group
+            .form-group.required
                 label.control-label.col-sm-4(for='firstName') Position:
                 .col-sm-8
-                    input#job_description(type="", name="job_description", placeholder="" value="").form-control
+                    input#position(type="", name="position", placeholder="" value="#{formData.position}").form-control
             .form-group
                 label.control-label.col-sm-4(for='sector') Secteur d'activite:
                 .col-sm-8
-                    select#sector.form-control(value=formData.sector, name='sector')
+                    select#sector(value=formData.sector, name='sector').form-control.required
                         each val, key in sectorOptions
                             option(value=key)=val
-            .form-group
-                label.control-label.col-sm-4(for='firstName') Entreprise:
+            .form-group.required
+                label.control-label.col-sm-4(for='company') Entreprise:
                 .col-sm-8
-                    input#company(type="", name="company", placeholder="" value="").form-control
+                    input#company(type="", name="company", placeholder="" value="#{formData.company}").form-control
             .form-group
-                label.control-label.col-sm-4(for='') Votre CV:
-                .col-sm-8
-                    button(type="file").btn.btn-default Selectionner...
-            .form-group
+                label.control-label.col-sm-4(for='cvFile') Votre CV:
+                .col-sm-3
+                    label.btn.btn-default.btn-file
+                        | Select CV file...
+                        input#cvFile(type="file" style="display: none;" name="file")
+                .col-sm-2
+                    div.progress
+                        div.progress-bar.progress-bar-success(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
+                .col-sm-2
+                    div.file-title
+                input(id="cvUniqueId" type="hidden" name="cvUniqueId")
+            .form-group.required
                 label.control-label.col-sm-4(for='firstName') Prenom:
                 .col-sm-8
                     input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
-            .form-group
+            .form-group.required
                 label.control-label.col-sm-4(for='lastName') Nom:
                 .col-sm-8
                     input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
-            .form-group
+            .form-group.required
+                label.control-label.col-sm-4(for='skypeId') Votre identifiant Skype:
+                .col-sm-8.required
+                    input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
+            .form-group.required
                 label.control-label.col-sm-4(for='availability') Vos disponibilites:
                 .col-sm-8
                     input#availability(type="", name="availability", placeholder="Ex. tous les soirs a partir de 19h" value="#{formData.availability}").form-control
             .form-group
                 label.control-label.col-sm-4(for='mobilePhone') Telephone portable:
                 .col-sm-8
-                    input#mobilePhone(type="", name="mobilePhone", placeholder="Optionnel" value="#{formData.mobilePhone}").form-control
-            .form-group
-                label.control-label.col-sm-4(for='skypeId') Votre identifiant Skype:
-                .col-sm-8
-                    input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
-            .form-group
+                    input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
+            .form-group.required
                 label.control-label.col-sm-4(for='email') Email:
                 .col-sm-8
                     input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
-            .form-group
+            .form-group.required
                 label.control-label.col-sm-4(for='password') Mot de passe:
                 .col-sm-8
                     input#password(type="password", name="password", placeholder="Mot de passe", value="#{formData.password}").form-control
-            .form-group
+            .form-group.required
                 label.control-label.col-sm-4(for='confirmationPassword') Confirmation mot de passe:
                 .col-sm-8
                     input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Confirmation mot de passe", value="#{formData.confirmationPassword}").form-control

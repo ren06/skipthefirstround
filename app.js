@@ -12,7 +12,8 @@ var pg = require('pg');
 var config = require('config');
 
 //Loading routes
-var routes = require('./app_server/routes/index');
+var routesUser = require('./app_server/routes/indexUser');
+var routesRecruiter = require('./app_server/routes/indexRecruiter');
 var routesAdmin = require('./app_server/routes/indexAdmin');
 var routesApi = require('./app_api/routes/indexAPI');
 
@@ -73,9 +74,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//to use session object inside jade template
+//to use session and cookies object inside jade template
 app.use(function(req,res,next){
   res.locals.session = req.session;
+  res.locals.cookies = req.cookies;
+  res.locals.config = config;
   next();
 });
 
@@ -85,9 +88,9 @@ app.all('/api/*', function(req, res, next){
   next();
 });
 
-app.use('/', routes);
+app.use('/', routesUser);
 app.use('/api/', routesApi);
-app.use('/admin/', routesAdmin);
+app.use('/recruiter/', routesRecruiter);
 
 // // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -112,7 +115,6 @@ var requestOptions = {
   json: {},
   qs: { }
 };
-
 request(requestOptions, function (err, response, body) {
 
   if(err){

@@ -251,30 +251,6 @@ module.exports.interviewReadOne = function(req, res){
             return res.status(500).json({ success: false, data: err});
         }
 
-        // var queryString = "SELECT i.*, row_to_json(u.*) as user, row_to_json(s.*) as sequence " +
-        //     "FROM tbl_interview i " +
-        //     "LEFT JOIN tbl_user u ON u.id = i.id_user " +
-        //     "LEFT JOIN tbl_sequence s ON s.id_interview = i.id " +
-        //     "WHERE i.id = $1 ORDER BY u.id ASC";
-
-        //BUG
-        // var queryString = "SELECT i.*, row_to_json(u.*) as user, json_build_object( \
-        // 'id',s.id, \
-        //     'tag', s.tag, \
-        //     'summary', s.summary, \
-        //     'visible', s.visible, \
-        //     'videos', json_build_object( \
-        //     'provider', v.provider,\
-        //     'provider_unique_id', v.provider_unique_id, \
-        //     'provider_cloud_name', v.provider_cloud_name \
-        // ) \
-        // ) as sequence \
-        // FROM tbl_interview i \
-        // LEFT JOIN tbl_user u ON u.id = i.id_user \
-        // LEFT JOIN tbl_sequence s ON s.id_interview = i.id \
-        // LEFT JOIN tbl_video v ON v.id = s.id_video \
-        // WHERE i.id = $1 ORDER BY u.id ASC";
-
         var queryString = "SELECT i.*, row_to_json(u.*) as user, ARRAY(SELECT json_build_object( \
             'id',s.id, \
             'tag', s.tag, \
@@ -283,7 +259,8 @@ module.exports.interviewReadOne = function(req, res){
             'video', json_build_object( \
                 'provider', v.provider, \
                 'provider_unique_id', v.provider_unique_id, \
-                'provider_cloud_name', v.provider_cloud_name \
+                'provider_cloud_name', v.provider_cloud_name, \
+                'url', v.url \
             ) \
         ) \
         FROM tbl_sequence s LEFT JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
@@ -385,6 +362,7 @@ module.exports.interviewAddSequence = function(req, res) {
     var summary = req.body.summary;
     var appreciationId = req.body.appreciationId;
     var videoUniqueId = req.body.videoUniqueId;
+    var videoUrl = req.body.videoUrl;
 
     console.log(req.body);
 
@@ -398,8 +376,8 @@ module.exports.interviewAddSequence = function(req, res) {
     }
     else {
 
-        var queryString = "INSERT INTO tbl_video(provider, provider_cloud_name, provider_unique_id) VALUES ($1, $2, $3) RETURNING *";
-        var parameters = [provider, providerCloudName, videoUniqueId];
+        var queryString = "INSERT INTO tbl_video(provider, provider_cloud_name, provider_unique_id, url) VALUES ($1, $2, $3, $4) RETURNING *";
+        var parameters = [provider, providerCloudName, videoUniqueId, videoUrl];
 
         common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoInsertError'), function (results) {
 
@@ -410,8 +388,39 @@ module.exports.interviewAddSequence = function(req, res) {
 
             common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoInsertError'));
 
-
         });
+    }
+}
+
+module.exports.interviewModify = function(req, res){
+
+    var interviewId = req.params.interviewId;
+
+    //date_time, type, sector, id_interviewer, appreciation, status, id_video
+
+    console.log(req.body);
+
+    var dateTime = req.body.dateTime;
+    var type = req.body.type;
+    var sector = req.body.sector;
+    var interviewerId = req.body.interviewerId;
+    var appreciation = req.body.appreciation;
+    var status = req.body.status;
+    var videoId = req.body.videoId;
+
+    if (!dateTime || !type || !sector || !interviewerId) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('InterviewModifyMissingInput'), null);
+    }
+    else {
+
+        var queryString = "UPDATE tbl_interview SET date_time=$1, type=$2, sector=$3, id_interviewer=$4, appreciation=$5, status=$6, id_video=$7 " +
+            "WHERE id =$8 RETURNING * ";
+        var parameters = [dateTime, type, sector, interviewerId, appreciation, status, videoId, interviewId];
+        console.log(queryString);
+        console.log(parameters);
+
+        common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoModifyError'));
     }
 }
 

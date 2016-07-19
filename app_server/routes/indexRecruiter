@@ -1,0 +1,33 @@
+var express = require('express');
+var router = express.Router();
+
+// function isAuthenticated(req, res, next){
+//     if(req.session.authenticated){
+//         next();
+//     }else{
+//         //next(new Error(401));
+//         res.render('user/generic-text', {
+//             title: res.__('Unauthorised'),
+//             content: 'You are not authorised, please login first',
+//         });
+//     }
+// }
+
+
+var ctrlRegister = require('../controllers/register');
+var ctrlRecruiter = require('../controllers/recruiter');
+var ctrlEmails = require('../common/emails');
+var ctrlInformation = require('../controllers/information');
+var ctrlHomepage = require('../controllers/homepage');
+
+router.get ('/', ctrlHomepage.homepageRecruiter);
+router.get ('/recruiter-register/', ctrlRecruiter.registerRecruiter);
+router.post('/recruiter-register/', ctrlRecruiter.doRegisterRecruiter);
+router.get ('/confirmation', ctrlRecruiter.confirmation);
+
+// router.get ('/test/',  res.render('user/generic-text', {
+//     title: res.__('Unauthorised'),
+//     content: 'You are not authorised, please login first',
+// }));
+
+module.exports = router;

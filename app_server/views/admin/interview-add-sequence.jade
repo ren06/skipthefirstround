@@ -2,29 +2,6 @@ extends layout
 
 block content
 
-    style(type="text/css").
-        .inputfile {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-        .inputfile + label {
-            font-size: 1.25em;
-            font-weight: 700;
-            color: white;
-            background-color: black;
-            display: inline-block;
-            }
-
-        .inputfile:focus + label,
-        .inputfile + label:hover {
-            background-color: red;
-        }
-
-
     script.
 
         $(document).ready(function () {
@@ -48,9 +25,11 @@ block content
                     $('.video-title').html(data.result.original_filename);
                     //loadVideo();
                     $('#videoUniqueId').val(public_id);
+                    $('#videoUrl').val(data.result.url);
+                    console.log(data.result);
             }
             ).bind('cloudinaryprogress', function (e, data) {
-
+                //console.log(data.loaded);
                 $('.progress-bar').css('width',
                         Math.round((data.loaded * 100.0) / data.total) + '%');
 
@@ -84,8 +63,9 @@ block content
                     form.form-horizontal.upload_form(id="upload_form", action="", method="post", role="form")
                         if(error)
                             .alert.alert-danger(role="alert") #{error}
-                        input(type="hidden" name="interviewId" value="#{interview.id}")
-                        input(id = "videoUniqueId" type="hidden" name="videoUniqueId" value="#{formData.videoUniqueId}")
+                        input(id='interviewId' type="hidden" name="interviewId" value="#{interview.id}")
+                        input(id="videoUniqueId" type="hidden" name="videoUniqueId" value="#{formData.videoUniqueId}")
+                        input(id="videoUrl" type="hidden" name="videoUrl" value="#{formData.videoUrl}")
 
                         .form-group
                             label.control-label.col-sm-2(for='tags') Tag:
@@ -94,7 +74,7 @@ block content
                                     each text, key in sequenceTagOptions
                                         option(value='#{key}' selected=(key==formData.tagId))=text
                         .form-group
-                            label.control-label.col-sm-2(for='summary') res('Summary')
+                            label.control-label.col-sm-2(for='summary') Summary
                             .col-sm-6
                                 textarea#summary(name="summary" rows='4' cols='50')=formData.summary
                         .form-group
@@ -102,18 +82,18 @@ block content
                             .col-sm-6
                                 each val, key in appreciationsOptions
                                     label.radio-inline
-                                        input(type='radio', class='radioSpans', id='confidence1', value='#{key}', name='appreciation' checked=(formData.appreciationId == key ))
+                                        input(type='radio', class='radioSpans', id='appreciation', value='#{key}', name='appreciation' checked=(formData.appreciationId == key ))
                                         span=val
                         .form-group
                             label.control-label.col-sm-2(for='videoFile') Select video file:
                             .col-sm-6
-                                label(for="videoFile") Choose a file
-                                input#videoFile.inputfile(type="file" name="file")
-
+                                label.btn.btn-default.btn-file
+                                    | Select Sequence video file...
+                                    input#videoFile(type="file" style="display: none;" name="file")
                                 div.video-title
                                 div.progress
-                                    div.progress-bar.progress-bar-info(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
-                                //video#video-container
+                                    div.progress-bar.progress-bar-success(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
+
 
                         .form-group
                             .col-sm-offset-4.col-sm-10

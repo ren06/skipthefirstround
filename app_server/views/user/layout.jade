@@ -5,6 +5,10 @@ html
     title= title
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/jquery-1.12.3.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/javascripts/validation.js')
+
   body
     nav.navbar.navbar-inverse(role="navigation")
       .container
@@ -22,6 +26,13 @@ html
             li
               a(href='/blog') Blog
           ul.nav.navbar-nav.navbar-right
+            li
+              if(cookies.role == 'recruiter')
+                a(href='/') Espace candidats
+              else if(cookies.role == 'user')
+                a(href='/recruiter') Espace recruteurs
+              else
+                | No cookie set
             li
               a(href='/change-language/fr') FR
             li
@@ -42,6 +53,3 @@ html
 
 
 
-  script(src='/javascripts/jquery-1.12.3.min.js')
-  script(src='/bootstrap/js/bootstrap.min.js')
-  script(src='/javascripts/validation.js')

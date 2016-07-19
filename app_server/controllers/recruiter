@@ -1,0 +1,121 @@
+var request = require('request');
+var common = require('./common');
+var emails = require('../common/emails');
+
+
+var renderRegisterRecruiter = function(req, res, formData, error){
+
+    res.render('recruiter/register', {
+        title: i18n.__('Enregistrement'),
+        formData: formData,
+        pageHeader: {
+            title: 'DaF',
+        },
+        error: error,
+    });
+};
+
+
+module.exports.registerRecruiter =  function(req, res){
+
+    if(req.session.authenticated){
+        res.redirect('/');
+    }
+
+    var formData = {
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        company: '',
+        mobilePhone: '',
+        confirmationPassword: '',
+    };
+
+    renderRegisterRecruiter(req, res, formData, null);
+
+};
+
+module.exports.doRegisterRecruiter = function(req, res){
+
+    //collect data
+    var email = req.body.email;
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var mobilePhone = req.body.mobilePhone;
+    var company = req.body.company;
+    var password = req.body.password;
+    var confirmationPassword = req.body.confirmationPassword;
+    var language = req.cookies.locale;
+
+    if(typeof language !== 'undefined'){
+        language = 'fr';
+    }
+
+    var postData = {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        mobilePhone: mobilePhone,
+        password: password,
+        language: language,
+        company: company,
+    };
+
+    var formData = Object.assign({}, postData);
+    formData.confirmationPassword = confirmationPassword;
+
+    //check everything is there
+    if(!postData.email || !postData.password || !postData.firstName || !postData.lastName || !postData.company || !postData.mobilePhone ){
+        renderRegisterRecruiter(req, res, formData, 'Tous les champs doivent etre remplis');
+    }
+    else if(password.length < res.locals.config.get('Api.PasswordMinLength')){
+        renderRegisterRecruiter(req, res, formData, 'Le mot de passe doit faire au mois 8 caracteres');
+    }
+    else if(password !== confirmationPassword){
+        renderRegisterRecruiter(req, res, formData, 'Le mot de passe ne correspond pas au mot de passe de verification');
+    }
+    else {
+        console.log('Postdata:');
+        console.log(postData);
+
+        var requestOptions = common.getRequestOptions(req, '/api/recruiter/', 'POST', postData);
+
+        request(requestOptions, function (err, response, body) {
+
+            if (response.statusCode === 201) {
+
+                //authenticate user
+                var token = body.data.token;
+                console.log(token);
+                common.setSessionData(req, body.data, 'recruiter', token);
+
+                //send email
+                //emails.sendEmailRecruiterRegistration(req.session.email, req.session.fullName);
+
+                //send le finaud email
+
+
+                res.redirect('confirmation');
+
+            }
+            else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) &&  body.success === false ) {
+
+                console.log(body.internalError);
+                renderRegisterRecruiter(req, res, formData, body.userError);
+
+            }
+            else {
+                console.log('error unhandled ' + err);
+                common.showError(req, res, response.statusCode);
+            }
+        });
+    }
+}
+
+module.exports.confirmation = function(req, res){
+
+    res.render('recruiter/confirmation', {
+        title: i18n.__('Confirmation'),
+    });
+}

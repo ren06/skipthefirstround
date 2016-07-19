@@ -6,5 +6,7 @@
 	"Welcome %s": "Bienvenue %s",
 	"MyAccount": "Mon compte",
 	"DateUndefined": "Date non definie",
-	"VideoInsertError": "VideoInsertError"
+	"VideoInsertError": "VideoInsertError",
+	"VideoModifyError": "VideoModifyError",
+	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput"
 }
