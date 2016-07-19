@@ -63,7 +63,7 @@ app.use(i18n.init);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-//app.set('views', path.join(__dirname, 'app_server', 'views/site_user'));
+//app.set('views', path.join(__dirname, 'app_server', 'views/user'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -91,6 +91,8 @@ app.all('/api/*', function(req, res, next){
 app.use('/', routesUser);
 app.use('/api/', routesApi);
 app.use('/recruiter/', routesRecruiter);
+app.use('/admin/', routesAdmin);
+
 
 // // catch 404 and forward to error handler
 app.use(function(req, res, next) {
