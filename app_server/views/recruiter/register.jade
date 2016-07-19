@@ -1,5 +1,5 @@
 extends ../user/layout
-//test
+//test2
 block content
 
     .col-lg-2.text-center
@@ -9,7 +9,7 @@ block content
         br
         form.form-horizontal(id="registerForm", action="", method="post", role="form")
             if(error)
-                .alert.alert-danger(role="alert") #{error}
+                .alert.alert-danger() #{error}
             .form-group.required
                 label.control-label.col-sm-4(for='firstName') Prenom:
                 .col-sm-8
