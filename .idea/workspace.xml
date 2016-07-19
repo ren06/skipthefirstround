@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b2e138a3-559c-434b-8a35-f6789ccde8f1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/user/layout.jade" afterPath="$PROJECT_DIR$/app_server/views/user/layout.jade" />
     </list>
     <ignored path="daf.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -675,7 +674,7 @@
       <workItem from="1468826850365" duration="21851000" />
       <workItem from="1468914467964" duration="10773000" />
       <workItem from="1468938303548" duration="6156000" />
-      <workItem from="1468964683937" duration="403000" />
+      <workItem from="1468964683937" duration="410000" />
     </task>
     <task id="LOCAL-00001" summary="New push">
       <created>1468588754348</created>
@@ -684,11 +683,18 @@
       <option name="project" value="LOCAL" />
       <updated>1468588754348</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="New push">
+      <created>1468965093409</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1468965093409</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="347383000" />
+    <option name="totallyTimeSpent" value="347390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
