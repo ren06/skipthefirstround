@@ -15,6 +15,7 @@ var ctrlOptions = require('../controllers/options');
 var ctrlInterviews = require('../controllers/interviews');
 var ctrlInterviewers = require('../controllers/interviewers');
 var ctrlRecruiters = require('../controllers/recruiters');
+var ctrlOffers = require('../controllers/offers');
 
 router.use(function(req, res, next) {
     // perform some sort of logic test, such as body contents in req or authentication as occurred
@@ -56,9 +57,13 @@ router.get('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpc
 router.get('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
 
 router.post('/recruiter', ctrlRecruiters.createRecruiter);
+router.get ('/recruiters', ctrlRecruiters.recruiterList);
+router.get ('/recruiter/:recruiterId', ctrlRecruiters.recruiterReadOne);
+router.get ('/recruiter/:recruiterId/offers', ctrlOffers.offersListByRecruiter);
+router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate)
 
-// router.get ('/video/:videoId');
-// router.post('/video/');
+router.post('/offer', ctrlOffers.createOffer);
+
 
 router.get('/testDb', ctrlUnitTest.dbConnection);
 router.get('/testLocale', ctrlUnitTest.locale);

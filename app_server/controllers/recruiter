@@ -127,11 +127,66 @@ module.exports.mainMenu = function(req, res){
     });
 }
 
-module.exports.postOffer = function(req, res){
+var renderPostOffer = function(req, res, formData, error){
 
     res.render('recruiter/post-offer', {
+        sectorOptions: req.app.locals.options[res.getLocale()].sectorOptions,
+        offerTypeOptions: req.app.locals.options[res.getLocale()].offerTypeOptions,
+        companyTypeOptions: req.app.locals.options[res.getLocale()].companyTypeOptions,
         title: i18n.__('Post Offer'),
+        formData: formData,
+        error: error,
     });
+}
+
+module.exports.postOffer = function(req, res){
+
+    var recruiterId = req.session.userId;
+
+    var formData = {
+        sector: '',
+        offerType: '',
+        language: '',
+        companyType: '',
+        location: '',
+        text: '',
+        idRecruiter: recruiterId,
+    }
+
+    renderPostOffer(req, res, formData);
+
+}
+
+module.exports.doPostOffer = function(req, res){
+
+    var formData = req.body;
+
+    if(!common.checkParametersPresent('sector, offerType, companyType, location, language, text', formData)){
+
+        renderPostOffer(req, res, formData, 'Tous les champs doivent etre remplis');
+    }
+    else{
+
+        console.log(formData);
+
+        var requestOptions = common.getRequestOptions(req, '/api/offer/', 'POST', formData);
+        console.log(requestOptions);
+        request(requestOptions, function (err, response, body) {
+
+            if (response.statusCode === 201) {
+
+                res.redirect('main-menu');
+
+            }
+            else{
+                console.log('error: ' + response.statusCode);
+                console.log(body.internalError);
+                renderPostOffer(req, res, formData, body.userError);
+            }
+
+        });
+    }
+
 }
 
 module.exports.browseVideos = function(req, res){
@@ -150,10 +205,110 @@ module.exports.viewFavourites = function(req, res){
 
 module.exports.myOffers = function(req, res){
 
-    res.render('recruiter/my-offers', {
-        title: i18n.__('My offers'),
+    var recruiterId = req.session.userId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + recruiterId + '/offers', 'GET', null);
+    console.log(requestOptions);
+
+    request(requestOptions, function (err, response, body) {
+
+        if (response.statusCode === 200) {
+
+            res.render('recruiter/my-offers', {
+                recruiter: body.data[0].recruiter,
+                offers: body.data[0].offers,
+                title: i18n.__('My offers'),
+            });
+
+        }
+        else{
+            console.log('error: ' + response.statusCode);
+            console.log(body.internalError);
+        }
     });
+
 }
+
+
+//GET method
+var logOff = function(req, res){
+
+    req.session.destroy();
+    console.log('deconnexion ok');
+    res.redirect('/');
+};
+
+
+var renderLogin = function(req, res, formData, error){
+
+    res.render('recruiter/login', {
+        title: i18n.__('Login'),
+        formData: formData,
+        error: error,
+    });
+};
+
+
+module.exports.login = function(req, res){
+
+    var formData = {
+        email: '',
+        password: '',
+    };
+
+    renderLogin(req, res, formData, '');
+
+}
+
+module.exports.doLogin = function(req, res){
+
+    //collect data
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var postData = {
+        email: email,
+        password: password
+    };
+
+    //check everything is there
+    if(!postData.email || !postData.password ){
+        renderLogin(req, res, postdata, 'Tous les champs doivent etre remplis');
+    }
+    else {
+
+        var requestOptions = common.getRequestOptions(req, '/api/recruiter/login', 'POST', postData, false);
+
+        //Call create user API
+        request(requestOptions, function (err, response, body) {
+
+            if (response.statusCode === 200) {
+
+                console.log('identification ok');
+
+                //authenticate user
+                common.setSessionData(req, body.data.user, 'recruiter', body.data.token);
+
+                //redirect
+                res.redirect('../main-menu');
+
+            }
+            else if (( response.statusCode === 401 || response.statusCode === 404 ) &&  body.success === false ) {
+
+                console.log(body.internalError);
+                renderIdentification(req, res, {email: email, password: ''}, body.userError);
+            }
+            else {
+
+                console.log('error unhandled ' + response.body );
+                common.showError(req, res, response.statusCode);
+            }
+        });
+    }
+
+};
+
+
 
 
 

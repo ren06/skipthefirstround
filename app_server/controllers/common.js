@@ -2,6 +2,23 @@ var config = require('config');
 var request = require('request');
 var common = require('./common');
 
+module.exports.checkParametersPresent = function(parameterString, data){
+
+    parameterString = parameterString.replace(/\s/g, '');
+
+    var array = parameterString.split(',');
+
+    for (var i = 0; i < array.length -1; i++){
+        var value = data[array[i]];
+        console.log(value);
+        if(!value || value == ''){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 module.exports.showError =  function(req, res, status){
 

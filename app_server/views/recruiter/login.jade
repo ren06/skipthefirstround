@@ -1,0 +1,29 @@
+extends ../user/layout
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-8
+        h2 Identification Recruiter
+        br
+        br
+        form.form-horizontal(id="loginForm", action="", method="post", role="form")
+
+            if(error)
+                .alert.alert-danger(role="alert") #{error}
+
+            .form-group
+                label.control-label.col-sm-4(for='email') Email:
+                .col-sm-8
+                    input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
+
+            .form-group
+                label.control-label.col-sm-4(for='password') Mot de passe:
+                .col-sm-8
+                    input#password(type="password", name="password", placeholder="Mot de passe").form-control
+
+            .form-group
+                .col-sm-offset-4.col-sm-10
+                    button(type="submit").btn.btn-default S'identifier
+
+    .col-lg-2.text-center

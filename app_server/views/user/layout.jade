@@ -1,55 +1,68 @@
 doctype html
 html
-  head
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title= title
-    link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/javascripts/jquery-1.12.3.min.js')
-    script(src='/bootstrap/js/bootstrap.min.js')
-    script(src='/javascripts/validation.js')
+    head
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title= title
+        link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/jquery-1.12.3.min.js')
+        script(src='/bootstrap/js/bootstrap.min.js')
+        script(src='/javascripts/validation.js')
 
-  body
-    nav.navbar.navbar-inverse(role="navigation")
-      .container
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle="collapse",data-target="#navbar",aria-expanded="false",aria-controls="navbar")
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a(href='/').navbar-brand DemandeAuFinaud
-        #navbar.navbar-collapse.collapse
-          ul.nav.navbar-nav
-            li
-              a(href='/about') A propos
-            li
-              a(href='/blog') Blog
-          ul.nav.navbar-nav.navbar-right
-            li
-              if(cookies.role == 'recruiter')
-                a(href='/') Espace candidats
-              else if(cookies.role == 'user')
-                a(href='/recruiter') Espace recruteurs
-              else
-                | No cookie set
-            li
-              a(href='/change-language/fr') FR
-            li
-              a(href='/change-language/en') EN
-            if(session.authenticated)
-              li
-                a(href="../user-logout/") Deconnexion
-            else
-              li
-                a(href="../user-login/") S'identifier
-              li
-                a(href="../user-register") S'enregistrer
+    body
+        nav.navbar.navbar-inverse(role="navigation")
+            .container
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle="collapse",data-target="#navbar",aria-expanded="false",aria-controls="navbar")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a(href='/').navbar-brand DemandeAuFinaud
+                #navbar.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li
+                            a(href='/about') A propos
+                        li
+                            a(href='/blog') Blog
+                    ul.nav.navbar-nav.navbar-right
 
-    .container
-      .row
+                        if(!session.authenticated)
+                            li
+                                if(cookies.role == 'recruiter')
+                                    a(href='/') Espace candidats
+                                else if(cookies.role == 'user')
+                                    a(href='/recruiter') Espace recruteurs
+                                else
+                                    | No cookie set
 
-        block content
+                        -var loginUrl
+                        -var registerUrl
+
+                        if(cookies.role == 'user')
+                            -loginUrl = 'user-login/'
+                            -registerUrl = '../user-register'
+                        else
+                            -loginUrl = '../recruiter/recruiter-login/'
+                            -registerUrl = '../recruiter/recruiter-register'
+
+                        li
+                            a(href='/change-language/fr') FR
+                        li
+                            a(href='/change-language/en') EN
+                        if(session.authenticated)
+                            li
+                                a(href="../user-logout/") Deconnexion
+                        else
+                            li
+                                a(href="#{loginUrl}") S'identifier
+                            li
+                                a(href="#{registerUrl}") S'enregistrer
+
+        .container
+            .row
+
+                block content
 
 
 

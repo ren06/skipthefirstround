@@ -1,12 +1,10 @@
 var common = require('./common');
-
 var pg = require('pg');
 var config = require('config');
-
-var databaseURL = config.get('Api.dbConfig.url');
-var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
 var moment = require('moment');
 var options = require('./options');
+
+var conString = config.get('Api.dbConfig.url');
 
 var addText = function(data, req){
 
@@ -41,8 +39,8 @@ var addText = function(data, req){
         entry['date'] = moment(dateTime).format("DD/MM/YYYY");
         entry['hour'] = moment(dateTime).format("H");
         entry['minute'] = moment(dateTime).format("m");
-        entry['typeText'] = options.options.interviewTypeOptions[entry.type];
-        entry['sectorText'] = options.options.sectorOptions[entry.sector];
+        entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
+        entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
 
     });
 
@@ -56,11 +54,6 @@ module.exports.interviewCreate = function(req, res){
     var userId = parseInt(req.body.userId);
     var type = parseInt(req.body.type); //simulation, offer
     var sector = parseInt(req.body.sector);
-    //var dateTime = req.body.dateTime; => set later
-    //var interviewerId = req.body.interviewerId; => set later
-    //var appreciation = req.body.interviewerId; => set later
-    //var status = req.body.status;
-    //var video => set later
 
     var status = 1; //proposed
 
@@ -194,7 +187,7 @@ module.exports.interviewList = function(req, res){
         }
 
         // SQL Query > Select Data
-        var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i LEFT JOIN tbl_user u ON u.id = i.id_user ORDER BY u.id ASC";
+        var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user ORDER BY u.id ASC";
         console.log(queryString);
         var query = client.query(queryString);
 
@@ -215,17 +208,17 @@ module.exports.interviewList = function(req, res){
 
 
 module.exports.interviewListByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i LEFT JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 ORDER BY id ASC";
+    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 ORDER BY id ASC";
     executeListPerUser(req, res, sql);
 }
 
 module.exports.interviewPastByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i LEFT JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND date_time < now() ORDER BY date_time ASC";
+    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND date_time < now() ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
 }
 
 module.exports.interviewUpcomingByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i LEFT JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND (date_time IS NULL OR date_time >= now() ) ORDER BY date_time ASC";
+    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND (date_time IS NULL OR date_time >= now() ) ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
 }
 
@@ -263,10 +256,10 @@ module.exports.interviewReadOne = function(req, res){
                 'url', v.url \
             ) \
         ) \
-        FROM tbl_sequence s LEFT JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
+        FROM tbl_sequence s INNER JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
         ) as sequences \
         FROM tbl_interview i \
-        LEFT JOIN tbl_user u ON u.id = i.id_user \
+        INNER JOIN tbl_user u ON u.id = i.id_user \
         WHERE i.id = $1 ORDER BY u.id ASC"
 
 

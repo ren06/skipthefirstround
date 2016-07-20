@@ -216,7 +216,7 @@ module.exports.doIdentification = function(req, res){
                 console.log('identification ok');
 
                 //authenticate user
-                setSessionData(req, body.data.user, body.data.token);
+                common.setSessionData(req, body.data.user, 'user', body.data.token);
 
                 //redirect
                 res.redirect('/');
@@ -240,12 +240,21 @@ module.exports.doIdentification = function(req, res){
 module.exports.doLogout = function(req, res){
 
     console.log('user logout');
+    var redirectPath;
+    if(req.session.role == 'user'){
+        redirectPath = '/';
+    }
+    else{
+        redirectPath = '/recruiter';
+    }
+
     req.session.destroy(function(err) {
         // cannot access session here
         console.log('redirecting to homepage...');
         var session = req.session;
         console.log('session after logout: ' + session);
-        res.redirect('/');
+
+        res.redirect(redirectPath);
     });
 
 };

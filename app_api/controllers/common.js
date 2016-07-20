@@ -4,6 +4,7 @@ var pg = require('pg');
 var cryptography = require('../helper/cryptography');
 var validator = require('validator');
 var config = require('config');
+var jwt = require('jsonwebtoken');
 
 var getConnectionString = function(){
 
@@ -197,15 +198,24 @@ module.exports.checkParametersPresent = function(parameterString, data){
         var value = data[array[i]];
         console.log(value);
         if(!value || value == ''){
-            console.log('fasle');
             return false;
         }
     }
 
-    console.log('all ok');
     return true;
 
 }
+
+module.exports.generateJwt = function(id, email, lastName) {
+    var expiry = new Date();
+    expiry.setDate(expiry.getDate() + 7);
+    return jwt.sign({
+        _id: id,
+        email: email,
+        lastName: lastName,
+        exp: parseInt(expiry.getTime() / 1000),
+    }, config.Api.Secret); //USE dotenv module
+};
 
 
 module.exports.sendJsonResponse = sendJsonResponse;

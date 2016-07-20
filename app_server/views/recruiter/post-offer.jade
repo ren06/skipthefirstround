@@ -9,6 +9,53 @@ block content
         .row
 
             h3 Post offer
+            form.form-horizontal(id="registerForm", action="", method="post", role="form")
+                if(error)
+                    .alert.alert-danger() #{error}
+
+                input(id='idRecruiter' type="hidden" name="idRecruiter" value="#{formData.idRecruiter}")
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='sector') Secteur d'activite:
+                    .col-sm-8
+                        select#sector(value=formData.sector, name='sector').form-control.required
+                            each val, key in sectorOptions
+                                option(value=key)=val
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='offerType') Type d'offre:
+                    .col-sm-8
+                        select#offerType(value=formData.offerType, name='offerType').form-control.required
+                            each val, key in offerTypeOptions
+                                option(value=key)=val
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='companyType') Type d'entreprise:
+                    .col-sm-8
+                        select#companyType(value=formData.offerType, name='companyType').form-control.required
+                            each val, key in companyTypeOptions
+                                option(value=key)=val
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='location') Ville:
+                    .col-sm-8
+                        input#location(type="", name="location", placeholder="Ex: London, Paris" value="#{formData.location}").form-control
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='language') Language:
+                    .col-sm-8
+                        select#language(value=formData.language, name='language').form-control.required
+                            each val, key in {'en': 'English', 'fr' : 'Francais'}
+                                option(value=key)=val
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='text') Texte:
+                    .col-sm-8
+                        textarea#text.form-control(name="text" rows='6')=formData.text
+
+                .form-group
+                    .col-sm-offset-4.col-sm-10
+                        button.btn.btn-default(type="submit") Poster l'offre
 
 
         .row

@@ -2,7 +2,7 @@ var common = require("./common");
 
 //Offer type
 var offerTypeOptionsFr = {
-    "0": "Tous",
+    //"0": "Tous",
     "1": "Graduate programme",
     "2": "CDI",
     "3": "CDD",
@@ -12,7 +12,7 @@ var offerTypeOptionsFr = {
     "7": "Spring internship",
 };
 var offerTypeOptionsEn = {
-    "0": "All",
+    //"0": "All",
     "1": "Graduate programme",
     "2": "CDI",
     "3": "CDD",
@@ -123,6 +123,8 @@ var optionsFr = {
     sequenceTagOptions: sequenceTagOptionsFr,
     appreciationsOptions: appreciationsOptionsFr,
     offerTypeOptions: offerTypeOptionsFr,
+    companyTypeOptions: companyTypeOptionsFr,
+
 }
 
 var optionsEn = {
@@ -132,10 +134,11 @@ var optionsEn = {
     sequenceTagOptions: sequenceTagOptionsEn,
     appreciationsOptions: appreciationsOptionsEn,
     offerTypeOptions: offerTypeOptionsEn,
+    companyTypeOptions: companyTypeOptionsEn,
 }
 
 //for locale stuff
-module.exports.options = optionsEn;
+module.exports.options =  {"en": optionsEn, "fr": optionsFr};
 
 //to cache all the options and avoid calling the separate methods all the time
 module.exports.getAllOptions = function (req, res) {
@@ -146,23 +149,23 @@ module.exports.getAllOptions = function (req, res) {
 
 module.exports.getSectorOptions = function (req, res) {
 
-    common.sendJsonResponse(res, 200, true, null, null, sectorOptionsEn);
+    common.sendJsonResponse(res, 200, true, null, null,  {"en": sectorOptionsEn, "fr": sectorOptionsFr} );
 };
 
 module.exports.getInterviewStatusOptions = function (req, res) {
 
-    common.sendJsonResponse(res, 200, true, null, null, interviewStatusOptionsEn);
+    common.sendJsonResponse(res, 200, true, null, null,  {"en": interviewStatusOptionsEn, "fr": interviewStatusOptionsFr} );
 
 }
 
 module.exports.getInterviewTypeOptions = function (req, res) {
 
-    common.sendJsonResponse(res, 200, true, null, null, interviewTypeOptionsEn);
+    common.sendJsonResponse(res, 200, true, null, null,  {"en": interviewTypeOptionsEn, "fr": interviewTypeOptionsFr} );
 
 }
 
 module.exports.getSequenceTagOptions = function (req, res) {
 
-    common.sendJsonResponse(res, 200, true, null, null, sequenceTagOptionsEn);
+    common.sendJsonResponse(res, 200, true, null, null,  {"en": sequenceTagOptionsEn, "fr": sequenceTagOptionsFr} );
 
 }

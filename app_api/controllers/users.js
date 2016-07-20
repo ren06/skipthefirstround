@@ -5,7 +5,6 @@ var cryptography = require('../helper/cryptography');
 //var crypto = require('crypto');
 var validator = require('validator');
 var config = require('config');
-var jwt = require('jsonwebtoken');
 
 
 var databaseURL = config.get('Api.dbConfig.url');
@@ -13,16 +12,6 @@ var PASSWORD_MIN_LENGTH = 8;
 
 var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
 
-var generateJwt = function(id, email, lastName) {
-    var expiry = new Date();
-    expiry.setDate(expiry.getDate() + 7);
-    return jwt.sign({
-        _id: id,
-        email: email,
-        lastName: lastName,
-        exp: parseInt(expiry.getTime() / 1000),
-    }, config.Api.Secret); //USE dotenv module
-};
 
 module.exports.usersList = function(req, res){
 
@@ -129,7 +118,7 @@ module.exports.doUserAuthenticate = function(req, res){
             cryptography.verifyPassword(password, buffer, function (err, success) {
 
                 if(success){
-                    var token = generateJwt(row.id, row.email, row.last_name);
+                    var token = common.generateJwt(row.id, row.email, row.last_name);
                     var result = {'user': {id: row.id, email: row.email, first_name: row.first_name, last_name: row.last_name}, 'token' : token };
                     common.sendJsonResponse(res, 200, true, 'User authorised', 'Utilisateur authentifie', result);
                 }
@@ -242,7 +231,7 @@ module.exports.userCreate = function(req, res){
 
                 query.on("row", function (row, result) {
 
-                    var token = generateJwt(row.id, row.email, row.last_name);
+                    var token = common.generateJwt(row.id, row.email, row.last_name);
 
                     //return user data as camel case keys without password_hash
                     delete row['password_hash'];

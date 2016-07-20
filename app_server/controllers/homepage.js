@@ -17,7 +17,6 @@ var renderHomepage = function(req, res) {
 module.exports.homepage = function(req, res){
 
     req.cookies.role = 'user';
-    //res.cookie('role', 'user');
 
     //use current cookie value for locale if there is one
     if(req.cookies.locale){
@@ -34,7 +33,13 @@ module.exports.homepage = function(req, res){
     console.log('Homepage Authenticated: ' + authenticated );
 
     if (authenticated) {
-        res.redirect('/my-account');
+
+        if(req.session.role == 'user') {
+            res.redirect('/my-account');
+        }
+        else{
+            res.redirect('recruiter/main-menu');
+        }
     }
     else {
         console.log('render homepage');
