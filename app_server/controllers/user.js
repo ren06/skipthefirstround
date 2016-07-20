@@ -46,7 +46,7 @@ module.exports.myAccount = function(req, res){
 
                             var interviewsFuture = body.data;
 
-                            var options = req.app.locals.options;
+                            var options = req.app.locals.options[res.getLocale()];
  
                             console.log(interviewsPast);
 

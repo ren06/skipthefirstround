@@ -106,10 +106,10 @@ var renderInterview = function(req, res, editMode){
 
         var interview = body.data[0];
 
-        var sectorOptions = req.app.locals.options.sectorOptions;
-        var tagOptions = req.app.locals.options.tagOptions;
-        var interviewTypeOptions = req.app.locals.options.interviewTypeOptions;
-        var interviewStatusOptions = req.app.locals.options.interviewStatusOptions;
+        var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+        var tagOptions = req.app.locals.options[res.getLocale()].tagOptions;
+        var interviewTypeOptions = req.app.locals.options[res.getLocale()].interviewTypeOptions;
+        var interviewStatusOptions = req.app.locals.options[res.getLocale()].interviewStatusOptions;
 
         requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
 
@@ -162,7 +162,7 @@ var renderInterviewModifyDate = function(req, res, formData, error){
                 if (response.statusCode === 200) {
 
                     var interviewers = body.data;
-                    var sectorOptions = req.app.locals.options.sectorOptions;
+                    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
 
                     res.render('admin/interview-modify-date', {
                         formData: formData,
@@ -338,7 +338,7 @@ module.exports.doInterviewModifyDate = function(req, res){
 module.exports.interviewAddSequence = function(req, res){
 
     var formData = {
-        tagId: Object.keys(req.app.locals.options.sequenceTagOptions)[0],
+        tagId: Object.keys(req.app.locals.options[res.getLocale()].sequenceTagOptions)[0],
         videoUniqueId: '',
         videoUrl: '',
     }
@@ -357,8 +357,8 @@ var renderInterviewAddSequence = function(req, res, formData, error){
 
         var interview = body.data[0];
 
-        var sequenceTagOptions = req.app.locals.options.sequenceTagOptions;
-        var appreciationsOptions = req.app.locals.options.appreciationsOptions;
+        var sequenceTagOptions = req.app.locals.options[res.getLocale()].sequenceTagOptions;
+        var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
 
         // var tag = cloudinary.video("x4l7x9odymscvstysue8", { width: 300, height: 300,
         //     crop: "pad", background: "blue",

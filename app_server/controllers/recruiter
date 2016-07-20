@@ -119,3 +119,44 @@ module.exports.confirmation = function(req, res){
         title: i18n.__('Confirmation'),
     });
 }
+
+module.exports.mainMenu = function(req, res){
+
+    res.render('recruiter/main-menu', {
+        title: i18n.__('Menu'),
+    });
+}
+
+module.exports.postOffer = function(req, res){
+
+    res.render('recruiter/post-offer', {
+        title: i18n.__('Post Offer'),
+    });
+}
+
+module.exports.browseVideos = function(req, res){
+
+    res.render('recruiter/browse-videos', {
+        title: i18n.__('Browse Videos'),
+    });
+}
+
+module.exports.viewFavourites = function(req, res){
+
+    res.render('recruiter/view-favourites', {
+        title: i18n.__('View Favourites'),
+    });
+}
+
+module.exports.myOffers = function(req, res){
+
+    res.render('recruiter/my-offers', {
+        title: i18n.__('My offers'),
+    });
+}
+
+
+
+
+
+

@@ -18,5 +18,10 @@
 	"InterviewErrorUserId": "InterviewErrorUserId",
 	"EmailAlreadyExists": "EmailAlreadyExists",
 	"Confirmation": "Confirmation",
-	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput"
+	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput",
+	"Menu": "Menu",
+	"Browse Videos": "Browse Videos",
+	"View Favourites": "View Favourites",
+	"Post Offer": "Post Offer",
+	"My offers": "My offers"
 }

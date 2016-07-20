@@ -7,7 +7,7 @@ var apiOptions = common.getApiOptions();
 
 var renderRegister = function(req, res, formData, error){
 
-    var sectorOptions = req.app.locals.options.sectorOptions;
+    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
 
     console.log(sectorOptions);
 
@@ -286,7 +286,7 @@ module.exports.registerUser = function(req, res){
         lastName: '',
         password: '',
         availability: '',
-        sector: req.app.locals.options.sectorOptions[0],
+        sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
         skypeId: '',
         mobilePhone: '',
         position: '',
