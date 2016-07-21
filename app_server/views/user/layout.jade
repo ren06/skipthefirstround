@@ -29,22 +29,22 @@ html
 
                         if(!session.authenticated)
                             li
-                                if(cookies.role == 'recruiter')
+                                if(session.role == 'recruiter')
                                     a(href='/') Espace candidats
-                                else if(cookies.role == 'user')
+                                else if(session.role == 'user')
                                     a(href='/recruiter') Espace recruteurs
                                 else
-                                    | No cookie set
+                                    | No session set
 
                         -var loginUrl
                         -var registerUrl
 
-                        if(cookies.role == 'user')
+                        if(session.role == 'user')
                             -loginUrl = 'user-login/'
-                            -registerUrl = '../user-register'
+                            -registerUrl = 'user-register'
                         else
-                            -loginUrl = '../recruiter/recruiter-login/'
-                            -registerUrl = '../recruiter/recruiter-register'
+                            -loginUrl = '/recruiter/recruiter-login/'
+                            -registerUrl = '/recruiter/recruiter-register'
 
                         li
                             a(href='/change-language/fr') FR
@@ -52,7 +52,7 @@ html
                             a(href='/change-language/en') EN
                         if(session.authenticated)
                             li
-                                a(href="../user-logout/") Deconnexion
+                                a(href="user-logout/") Deconnexion
                         else
                             li
                                 a(href="#{loginUrl}") S'identifier

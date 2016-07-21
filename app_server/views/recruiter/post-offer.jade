@@ -4,6 +4,17 @@ include ../_includes/sharedHTMLfunctions
 
 block content
 
+    script(src="//cdn.tinymce.com/4/tinymce.min.js")
+    script.
+        //https://www.tinymce.com/docs/configure/editor-appearance/
+        tinymce.init({
+            selector:'textarea',
+            height: 250,
+            menubar: false,
+            statusbar: false,
+            //width : 600
+        });
+
     .col-lg-2.text-center
     .col-lg-8
         .row
@@ -51,7 +62,7 @@ block content
                 .form-group.required
                     label.control-label.col-sm-4(for='text') Texte:
                     .col-sm-8
-                        textarea#text.form-control(name="text" rows='6')=formData.text
+                        textarea#text.form-control(name="text" placeholder="Min. 100 characters")=formData.text
 
                 .form-group
                     .col-sm-offset-4.col-sm-10

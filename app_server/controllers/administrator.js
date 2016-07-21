@@ -22,7 +22,7 @@ module.exports.homepage = function(req, res){
 module.exports.usersList = function(req, res){
 
 
-    var requestOptions = common.getRequestOptions(req, '/api/users', 'GET', {}, false);
+    var requestOptions = common.getRequestOptions(req, '/api/users', 'GET');
 
     request(requestOptions, function (err, response, body) {
 
@@ -30,7 +30,7 @@ module.exports.usersList = function(req, res){
 
             var users = body.data;
 
-            var requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
+            var requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET');
 
             res.render('admin/students-list', {
                 users: users,

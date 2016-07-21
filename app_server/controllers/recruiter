@@ -1,7 +1,7 @@
 var request = require('request');
 var common = require('./common');
 var emails = require('../common/emails');
-
+var i18n = require('i18n');
 
 var renderRegisterRecruiter = function(req, res, formData, error){
 
@@ -189,12 +189,55 @@ module.exports.doPostOffer = function(req, res){
 
 }
 
+var renderBrowseVideos = function(req, res, formData, error){
+
+    //get all cities
+    var requestOptions = common.getRequestOptions(req, '/api/offers/locations', 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        //add 'all' to all drop downs
+
+        var lang = res.getLocale();
+
+        res.render('recruiter/browse-videos', {
+            sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
+            offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
+            companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
+            locations: common.addAll(body.data),
+            title: i18n.__('Browse Videos'),
+            formData: formData,
+        });
+    });
+
+
+}
+
 module.exports.browseVideos = function(req, res){
 
-    res.render('recruiter/browse-videos', {
-        title: i18n.__('Browse Videos'),
-    });
+    var formData = {
+        sector: '0',
+        offerType: '0',
+        language: '',
+        companyType: '0',
+        location: '0',
+
+    }
+
+    renderBrowseVideos(req, res, formData);
+
 }
+
+module.exports.searchVideos = function(req, res){
+
+    var formData = req.body;
+
+    console.log(formData);
+
+    renderBrowseVideos(req, res, formData);
+
+}
+
 
 module.exports.viewFavourites = function(req, res){
 
@@ -251,6 +294,8 @@ var renderLogin = function(req, res, formData, error){
 
 module.exports.login = function(req, res){
 
+    console.log('value inside login GET: ' + req.cookies.role);
+
     var formData = {
         email: '',
         password: '',
@@ -290,13 +335,13 @@ module.exports.doLogin = function(req, res){
                 common.setSessionData(req, body.data.user, 'recruiter', body.data.token);
 
                 //redirect
-                res.redirect('../main-menu');
+                res.redirect('/recruiter/main-menu');
 
             }
             else if (( response.statusCode === 401 || response.statusCode === 404 ) &&  body.success === false ) {
 
                 console.log(body.internalError);
-                renderIdentification(req, res, {email: email, password: ''}, body.userError);
+                renderLogin(req, res, {email: email, password: ''}, body.userError);
             }
             else {
 

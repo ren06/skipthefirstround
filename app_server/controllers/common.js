@@ -1,6 +1,7 @@
 var config = require('config');
 var request = require('request');
 var common = require('./common');
+const queryString = require('query-string');
 
 module.exports.checkParametersPresent = function(parameterString, data){
 
@@ -50,7 +51,7 @@ module.exports.getApiOptions =  function(){
     return apiOptions;
 }
 
-module.exports.getRequestOptions = function(req, path, method, json, authenticatedMode){
+module.exports.getRequestOptions = function(req, path, method, json, qs, authenticatedMode){
 
     var apiOptions = this.getApiOptions();
 
@@ -62,8 +63,10 @@ module.exports.getRequestOptions = function(req, path, method, json, authenticat
         url: apiOptions.server + path,
         method: method,
         json: json,
-        qs: {}
+        qs: qs
     };
+
+    console.log(requestOptions);
 
     if(authenticatedMode){
 
@@ -98,3 +101,20 @@ module.exports.setSessionData = function(req, user, role, token){
 
     console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
 };
+
+module.exports.addAll = function(array){
+
+    //i18n.__('All')
+    array['0'] = 'All';
+
+    return array;
+}
+
+module.exports.jsonToQueryString = function (json) {
+
+    console.log('json:');
+    console.log(json);
+    var result = queryString.stringify(json);
+    console.log(result);
+    return result;
+}

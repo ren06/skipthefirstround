@@ -75,7 +75,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //to use session and cookies object inside jade template
-app.use(function(req,res,next){
+app.use(function(req ,res, next){
   res.locals.session = req.session;
   res.locals.cookies = req.cookies;
   res.locals.config = config;
@@ -85,6 +85,11 @@ app.use(function(req,res,next){
 
 app.all('/api/*', function(req, res, next){
   console.log('API call: ' + req.url);
+  if( req.url.search('/api/interview/3') != -1) {
+
+    console.log(req.headers);
+    console.log(req.headers.referer);
+  }
   next();
 });
 

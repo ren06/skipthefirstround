@@ -16,34 +16,39 @@ var addText = function(data, req){
 
     console.log('header language: ' + language);
 
-    data.forEach(function(entry) {
+    console.log(data);
 
-        var dateTime = entry.date_time;
+    if(typeof data !== 'undefined') {
 
-        moment.locale(language);
+        data.forEach(function (entry) {
 
-        var result;
+            var dateTime = entry.date_time;
 
-        if (dateTime == null) {
+            moment.locale(language);
 
-            result = __({phrase: 'DateUndefined',  locale: language});
-        }
-        else {
-            result = moment(dateTime).format("dddd Do MMMM YYYY H:m");
+            var result;
+
+            if (dateTime == null) {
+
+                result = __({phrase: 'DateUndefined', locale: language});
+            }
+            else {
+                result = moment(dateTime).format("dddd Do MMMM YYYY H:m");
 
 
-        }
-        console.log('res: ' + result);
+            }
+            console.log('res: ' + result);
 
-        entry['dateTimeText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
-        entry['date'] = moment(dateTime).format("DD/MM/YYYY");
-        entry['hour'] = moment(dateTime).format("H");
-        entry['minute'] = moment(dateTime).format("m");
-        entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
-        entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
+            entry['dateTimeText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
+            entry['date'] = moment(dateTime).format("DD/MM/YYYY");
+            entry['hour'] = moment(dateTime).format("H");
+            entry['minute'] = moment(dateTime).format("m");
+            entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
+            entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
 
-    });
+        });
 
+    }
     return data;
 }
 
@@ -263,7 +268,7 @@ module.exports.interviewReadOne = function(req, res){
         WHERE i.id = $1 ORDER BY u.id ASC"
 
 
-        console.log(queryString);
+        //console.log(queryString);
         var query = client.query(queryString, [interviewId]);
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -273,8 +278,9 @@ module.exports.interviewReadOne = function(req, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            var resul = results[0];
-            var resultWithText = addText([resul], req);
+            console.log(results);
+            var result = results[0];
+            var resultWithText = addText(result, req);
             common.sendJsonResponse(res, 200, true, '', '', resultWithText);
         });
 

@@ -15,7 +15,58 @@ module.exports.createOffer = function(req, res){
         common.rowInsert(req, res, 'tbl_offer', data);
 
     }
-}
+};
+
+module.exports.offerLocationsList = function(req, res){
+
+    var queryString = "SELECT DISTINCT location FROM tbl_offer GROUP BY location";
+
+    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+
+        var data = {};
+
+        results.forEach(function(entry){
+
+            data[ entry.location] = entry.location;
+        });
+
+        common.sendJsonResponse(res, 200, true, null, null, data);
+
+    });
+
+};
+
+module.exports.offerSearchForRecruiter = function(req, res){
+
+    var parameters = req.params;
+
+    var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_video v ON i.id_video = v.id";
+
+
+    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+
+        common.sendJsonResponse(res, 200, true, null, null, data);
+
+    });
+
+};
+
+module.exports.offerSearchForUser = function(req, res){
+
+    console.log(req.query);
+
+    var whereClause = common.convertQueryToWhereClause(req.query);
+
+    var queryString = "SELECT * FROM tbl_offer " + whereClause;
+
+    console.log(queryString);
+
+    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+
+        common.sendJsonResponse(res, 200, true, null, null, results);
+
+    });
+};
 
 module.exports.listOffers = function(req, res){
 
@@ -31,7 +82,7 @@ module.exports.listOffers = function(req, res){
         common.rowInsert(req, res, 'tbl_offer', data);
 
     }
-}
+};
 
 var addText = function(data, req){
 
@@ -56,7 +107,7 @@ var addText = function(data, req){
     });
 
     return data;
-}
+};
 
 module.exports.offersListByRecruiter = function(req, res){
 
@@ -87,7 +138,7 @@ module.exports.offersListByRecruiter = function(req, res){
 
     }
 
-}
+};
 
 
 

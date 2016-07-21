@@ -9,8 +9,12 @@ block content
         .row
 
             h3 My offers
+            .panel-group
             each offer in offers
-                div=offer.sectorText + ' - ' + offer.location
+                .panel.panel-default
+                    .panel-heading=offer.sectorText + ' - ' + offer.location
+                    .panel-body !{offer.text}
+
 
 
 

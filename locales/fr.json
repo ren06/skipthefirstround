@@ -8,5 +8,6 @@
 	"DateUndefined": "Date non definie",
 	"VideoInsertError": "VideoInsertError",
 	"VideoModifyError": "VideoModifyError",
-	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput"
+	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput",
+	"Offers": "Offers"
 }

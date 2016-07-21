@@ -37,57 +37,6 @@ module.exports.dbConnect = function(callback){
     pg.connect(getConnectionString(), callback);
 }
 
-// module.exports.dbHandleConnectionError = function(res, err, done){
-//
-//     if (err) {
-//         done();
-//         console.log(err);
-//         return res.status(500).json({success: false, data: err});
-//     }
-//     else{
-//         return true;
-//     }
-// }
-//
-// module.exports.dbExecuteQuery = function(res, client, queryString, parameters, internalErrorText, userErrorText, done){
-//
-//     var query = client.query(queryString, parameters,
-//         function (err, result) {
-//             done();
-//             if (err) {
-//                 sendJsonResponse(res, 409, false, internalErrorText + ' ' + err.code, userErrorText);
-//             }
-//         }
-//     );
-//
-//     return query;
-//
-// }
-//
-// module.exports.dbHandleReturnResults = function(req, res, query, addText, done){
-//
-//     var results = [];
-//
-//     // Stream results back one row at a time
-//     query.on('row', function (row) {
-//
-//         results.push(row);
-//     });
-//
-//     // After all data is returned, close connection and return results
-//     query.on('end', function () {
-//         done();
-//
-//         if (addText) {
-//
-//             results = addText(results, req);
-//         }
-//
-//         sendJsonResponse(res, 200, true, null, null, results);
-//     });
-// }
-
-
 module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTextFunction, internalError, userError, callback){
 
     pg.connect(getConnectionString(),function (err, client, done) {
@@ -145,6 +94,31 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
     );
 
 }
+
+module.exports.convertQueryToWhereClause = function(query){
+
+    var keys = Object.keys(query);
+
+    var whereClause = "";
+
+    if(keys.length > 0) {
+
+        var and = " AND ";
+
+        whereClause += "WHERE ";
+
+        keys.forEach(function (entry) {
+
+            whereClause +=  decamelize(entry) + "='" + query[entry] + "'" + and;
+        });
+        console.log(whereClause);
+        //remove last AND
+        whereClause = whereClause.substr(0, whereClause.length - and.length);
+    }
+
+    return whereClause;
+
+};
 
 module.exports.rowInsert = function(req, res, tableName, data){
 

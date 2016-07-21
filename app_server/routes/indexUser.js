@@ -36,6 +36,9 @@ router.get ('/user-login', ctrlRegister.identification);
 router.post('/user-login', ctrlRegister.doIdentification);
 router.get ('/user-logout', ctrlRegister.doLogout);
 
+router.get ('/offers', ctrlUser.offers);
+router.post('/offers', ctrlUser.doOffers);
+
 router.get ('/information', ctrlInformation.information);
 
 router.get('/about', ctrlHomepage.about);

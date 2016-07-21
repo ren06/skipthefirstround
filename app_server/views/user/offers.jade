@@ -1,0 +1,27 @@
+
+extends layout
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-8
+        .row
+
+            h3 Browse offers
+
+            include ../_includes/search-offers
+
+            if (results && results.length > 0)
+                h3 Results
+                each result in results
+                    div=result.location
+            else if (message)
+                h3=message
+
+        .row
+
+        .row
+
+
+
+    .col-lg-2.text-center

@@ -16,17 +16,17 @@ var renderHomepage = function(req, res) {
 
 module.exports.homepage = function(req, res){
 
-    req.cookies.role = 'user';
-
     //use current cookie value for locale if there is one
     if(req.cookies.locale){
         res.setLocale(req.cookies.locale);
     }
     else{
-        req.cookies.locale = 'fr';
+        //default cookie to fr
+        res.cookie('locale', 'fr');
+        res.setLocale('fr');
     }
 
-    console.log("Homepage Cookie language value set to: " + req.cookies.locale);
+    req.session.role = 'user';
 
     var authenticated = req.session.authenticated;
 
@@ -52,11 +52,9 @@ module.exports.homepage = function(req, res){
 module.exports.changeLanguage = function(req, res){
 
     var language = req.params.language;
-    console.log('Change Language to ' + language);
-    console.log('current cookie value: ' + req.cookies.locale);
+
     res.cookie('locale', language);
     res.setLocale(language);
-  
 
     res.redirect('back');
 
@@ -70,8 +68,9 @@ module.exports.about = function(req, res){
 
 module.exports.homepageRecruiter = function(req, res){
 
-    req.cookies.role = 'recruiter';
-   // res.cookie('role', 'recruiter');
+    //res.cookie('role', 'recruiter');
+    req.session.role = 'recruiter';
+
     res.render('recruiter/homepage', {title:  res.__('About'),});
 
 };

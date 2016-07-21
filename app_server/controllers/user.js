@@ -102,6 +102,86 @@ module.exports.personalInformations = function(req, res){
 
 };
 
+var renderBrowseOffers = function(req, res, formData, results, message){
+
+    //get all cities
+    var requestOptions = common.getRequestOptions(req, '/api/offers/locations', 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        var lang = res.getLocale();
+
+        res.render('user/offers', {
+            title: res.__('Offers'),
+            sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
+            offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
+            companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
+            locations: common.addAll(body.data),
+            title: i18n.__('Browse Videos'),
+            formData: formData,
+            results: results
+        });
+    });
+
+
+}
+
+
+module.exports.offers = function(req, res){
+
+    var formData = {
+        sector: '0',
+        offerType: '0',
+        language: '',
+        companyType: '0',
+        location: '0',
+
+    }
+
+    renderBrowseOffers(req, res, formData, {}, null);
+
+};
+
+module.exports.doOffers = function(req, res){
+
+    var formData = req.body;
+    var qs = {};
+
+    var keys = Object.keys(formData);
+
+    keys.forEach(function(entry){
+
+        if(formData[entry] != 0){
+
+                qs[entry] = formData[entry];
+            
+        }
+    });
+
+    request(common.getRequestOptions(req, '/api/offers/searchForUser', 'GET', null, qs ), function (err, response, body) {
+
+        if(response.statusCode === 200) {
+
+            var results = body.data;
+
+            console.log(body.data);
+
+            var message;
+            if (!results || results.length == 0) {
+                message = 'No results'
+            }
+
+            renderBrowseOffers(req, res, formData, results, message);
+        }
+        else{
+            renderBrowseOffers(req, res, formData, body.data, err);
+        }
+    });
+
+};
+
+
+
 
 
 
