@@ -62,7 +62,8 @@ router.get ('/recruiter/:recruiterId', ctrlRecruiters.recruiterReadOne);
 router.get ('/recruiter/:recruiterId/offers', ctrlOffers.offersListByRecruiter);
 router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate)
 
-router.post('/offer', ctrlOffers.createOffer);
+router.post('/offer', ctrlOffers.offerCreate);
+router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
 router.get ('/offers/searchForUser', ctrlOffers.offerSearchForUser);
 router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);

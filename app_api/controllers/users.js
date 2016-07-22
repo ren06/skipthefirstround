@@ -146,13 +146,15 @@ module.exports.userCreate = function(req, res){
     var skypeId = req.body.skypeId;
     var mobilePhone = req.body.mobilePhone;
     var language = req.body.language;
-    var company = req.body.company;
-    var position = req.body.position;
+    //var company = req.body.company;
+    //var position = req.body.position;
 
+    console.log('userCreate');
     console.log(req.body);
 
     //check it's all there
-    if(!email || !firstName || !lastName || !password || !availability || !sector || !skypeId || !company || !position ) {
+    //took out || !company || !position only relevant for simulation
+    if(!email || !firstName || !lastName || !password || !availability || !sector || !skypeId) {
 
         //syntactically wrong, bad request
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('UserCreationMissingInput'), null);
@@ -214,11 +216,14 @@ module.exports.userCreate = function(req, res){
                   mobilePhone = null;
                 }
 
-                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, company, position, mobile_phone) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *";
+                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, mobile_phone) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
+
                 console.log(queryString);
                 console.log(email + ' ' + firstName + ' ' + lastName + ' ' + passwordHash);
 
-                var query = client.query(queryString, [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, company, position, mobilePhone],
+                var parameters =  [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone];
+
+                var query = client.query(queryString, parameters,
                     function (err, result) {
                         done();
                         if (err) {

@@ -13,6 +13,9 @@ var addText = function(data, req){
     if(!language){
         language = 'en';
     }
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
 
     console.log('header language: ' + language);
 
@@ -52,6 +55,7 @@ var addText = function(data, req){
     return data;
 }
 
+//TODO maybe split it in 2 functions, one for offer, one for simulation
 module.exports.interviewCreate = function(req, res){
 
     console.log('interviewCreate');
@@ -59,6 +63,9 @@ module.exports.interviewCreate = function(req, res){
     var userId = parseInt(req.body.userId);
     var type = parseInt(req.body.type); //simulation, offer
     var sector = parseInt(req.body.sector);
+    var offerId = req.body.offerId;
+    var company = req.body.company;
+    var position = req.body.position;
 
     var status = 1; //proposed
 
@@ -105,13 +112,22 @@ module.exports.interviewCreate = function(req, res){
         }
         else {
 
-            // Insert
-            var queryString = "INSERT INTO tbl_interview(id_user, type, sector, status) VALUES($1, $2, $3, $4) RETURNING *";
-            console.log(queryString);
+            var queryString = "";
+            var params = [userId, type, sector, status];
 
-            console.log([userId, type, sector, status]);
+            if(offerId){
+                params.push(offerId);
+                var queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, id_offer) VALUES($1, $2, $3, $4, $5) RETURNING *";
+            }
+            else{
+                params.push(company);
+                params.push(position);
+                var queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, company, position) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
+            }
 
-            var query = client.query(queryString, [userId, type, sector, status],
+            console.log(params);
+
+            var query = client.query(queryString, params,
                 function (err, result) {
                     done();
                     if (err) {
@@ -249,7 +265,7 @@ module.exports.interviewReadOne = function(req, res){
             return res.status(500).json({ success: false, data: err});
         }
 
-        var queryString = "SELECT i.*, row_to_json(u.*) as user, ARRAY(SELECT json_build_object( \
+        var queryString = "SELECT i.*, row_to_json(u.*) as user, row_to_json(o.*) as offer, ARRAY(SELECT json_build_object( \
             'id',s.id, \
             'tag', s.tag, \
             'summary', s.summary, \
@@ -265,6 +281,7 @@ module.exports.interviewReadOne = function(req, res){
         ) as sequences \
         FROM tbl_interview i \
         INNER JOIN tbl_user u ON u.id = i.id_user \
+        LEFT JOIN tbl_offer o ON i.id_offer = o.id \
         WHERE i.id = $1 ORDER BY u.id ASC"
 
 
@@ -280,7 +297,7 @@ module.exports.interviewReadOne = function(req, res){
             done();
             console.log(results);
             var result = results[0];
-            var resultWithText = addText(result, req);
+            var resultWithText = addText([result], req);
             common.sendJsonResponse(res, 200, true, '', '', resultWithText);
         });
 

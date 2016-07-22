@@ -9,5 +9,8 @@
 	"VideoInsertError": "VideoInsertError",
 	"VideoModifyError": "VideoModifyError",
 	"RecruiterCreateMissingInput": "RecruiterCreateMissingInput",
-	"Offers": "Offers"
+	"Offers": "Offers",
+	"UserCreationMissingInput": "UserCreationMissingInput",
+	"EmailAlreadyExists": "EmailAlreadyExists",
+	"InterviewErrorUserId": "InterviewErrorUserId"
 }

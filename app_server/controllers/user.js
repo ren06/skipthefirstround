@@ -1,5 +1,8 @@
 var request = require('request');
 var common = require('./common');
+var emails = require('../common/emails');
+
+var register = require('./register');
 
 module.exports.myAccount = function(req, res){
 
@@ -119,7 +122,7 @@ var renderBrowseOffers = function(req, res, formData, results, message){
             locations: common.addAll(body.data),
             title: i18n.__('Browse Videos'),
             formData: formData,
-            results: results
+            offers: results
         });
     });
 
@@ -154,7 +157,7 @@ module.exports.doOffers = function(req, res){
         if(formData[entry] != 0){
 
                 qs[entry] = formData[entry];
-            
+
         }
     });
 
@@ -179,6 +182,128 @@ module.exports.doOffers = function(req, res){
     });
 
 };
+
+
+var renderRegisterApply = function(req, res, formData, error){
+
+    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+
+    res.render('user/register-apply', {
+        title: i18n.__('Enregistrement'),
+        formData: formData,
+        sectorOptions: sectorOptions,
+        error: error,
+    });
+};
+
+
+module.exports.applyOffer = function(req, res){
+
+    var offerId = req.params.offerId;
+
+    //get offer data
+    var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        var offer = body.data;
+
+        console.log(offer);
+
+        var formData = {
+            email: '',
+            firstName: '',
+            lastName: '',
+            password: '',
+            availability: '',
+            sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
+            skypeId: '',
+            mobilePhone: '',
+            position: '',
+            company: '',
+            offer: offer,
+    };
+
+        renderRegisterApply(req, res, formData, null);
+    });
+
+};
+
+module.exports.doApplyOffer = function(req, res){
+
+    var formData = req.body;
+    console.log(formData);
+
+    var offerId = formData.offerId;
+
+    //get offer data
+    var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        formData['offer'] = body.data;
+
+        if(!common.checkParametersPresent('email, firstName, lastName, password, confirmationPassword, skypeId, mobilePhone, sector', formData)){
+            renderRegisterApply(req, res, formData, 'Please enter all fields');
+        }
+        else{
+
+            var requestOptions = common.getRequestOptions(req, '/api/user/', 'POST', formData);
+
+            request(requestOptions, function (err, response, body) {
+
+                if (response.statusCode === 201) {
+
+                    //create interview
+
+                    //authenticate user
+                    var token = body.data.token;
+                    console.log(token);
+                    common.setSessionData(req, body.data.user, 'user', token);
+
+                    //send email
+                    emails.sendEmailResistration(req.session.email, req.session.fullName);
+
+                    //send le finaud email
+                    //TODO later merge register and user
+                    register.createInterview(req, body.data.user.id, 2, body.data.user.sector, offerId, function(err, response, body){
+
+                        console.log(err);
+                        console.log(body);
+
+                        console.log('create interview executed');
+                        if(response.statusCode === 201) {
+
+                            //redirect
+                            res.redirect('/confirmation');
+                        }
+                        else{
+                            console.log('error unhandled, status code:' +  response.statusCode);
+                            common.showError(req, res, response.statusCode);
+                        }
+                    });
+
+                }
+                else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) &&  body.success === false ) {
+
+                    console.log(body.internalError);
+                    renderRegisterApply(req, res, formData, body.userError);
+
+                }
+                else {
+                    console.log('error unhandled ' + err);
+                    common.showError(req, res, response.statusCode);
+                }
+            });
+
+        }
+
+
+    });
+
+
+}
+
 
 
 

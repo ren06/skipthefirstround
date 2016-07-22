@@ -35,6 +35,13 @@ html
                                     a(href='/recruiter') Espace recruteurs
                                 else
                                     | No session set
+                        else if(session.role == 'user')
+                            li
+                                a(href='/simulation') Simulation d'entretien
+                            li
+                                a() |
+                            li
+                                a(href='/offers') Nos offres
 
                         -var loginUrl
                         -var registerUrl

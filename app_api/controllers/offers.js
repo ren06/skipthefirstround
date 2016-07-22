@@ -1,7 +1,64 @@
 var common = require('./common');
 var options = require('./options');
 
-module.exports.createOffer = function(req, res){
+var addTextLabel = function(entry, language){
+
+    entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
+    entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offer_type];
+    entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.company_type];
+}
+
+var addText = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    console.log(language);
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+    if(!language){
+        language = 'en';
+    }
+
+    if(typeof data !== 'undefined') {
+
+        var offers = data[0].offers;
+
+        offers.forEach(function (entry) {
+
+            addTextLabel(entry, language);
+
+        });
+    }
+
+    return data;
+};
+
+
+
+var addText2 = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    console.log(language);
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+    if(!language){
+        language = 'en';
+    }
+
+    if(typeof data !== 'undefined') {
+
+        var offer = data[0];
+
+        addTextLabel(offer, language);
+
+        return offer;
+    }
+};
+
+module.exports.offerCreate = function(req, res){
 
     var data = req.body;
 
@@ -16,6 +73,24 @@ module.exports.createOffer = function(req, res){
 
     }
 };
+
+
+module.exports.offerReadOne = function(req, res){
+
+    var offerId = req.params.offerId;
+
+
+    if (!offerId) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferReadMissingInput'), null);
+    }
+    else {
+
+        common.readOne(req, res, 'tbl_offer', offerId, addText2);
+
+    }
+};
+
 
 module.exports.offerLocationsList = function(req, res){
 
@@ -84,30 +159,7 @@ module.exports.listOffers = function(req, res){
     }
 };
 
-var addText = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    console.log(language);
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
-
-    var offers = data[0].offers;
-
-    offers.forEach(function(entry) {
-
-        entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
-        entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offerType];
-        entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.companyType];
-
-    });
-
-    return data;
-};
 
 module.exports.offersListByRecruiter = function(req, res){
 
@@ -123,8 +175,8 @@ module.exports.offersListByRecruiter = function(req, res){
             "SELECT (SELECT row_to_json(_) FROM (SELECT r.id, r.email, r.first_name, r.last_name, r.mobile_phone, r.company, r.language) as _) AS recruiter, ARRAY(SELECT json_build_object( \
                 'idRecruiter', o.id_recruiter, \
                 'sector', o.sector, \
-                'offerType', o.offer_type, \
-                'companyType', o.company_type, \
+                'offer_type', o.offer_type, \
+                'company_type', o.company_type, \
                 'location', o.location, \
                 'text', o.text, \
                 'language', o.language \

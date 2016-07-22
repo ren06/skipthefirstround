@@ -11,10 +11,9 @@ block content
 
             include ../_includes/search-offers
 
-            if (results && results.length > 0)
+            if (offers && offers.length > 0)
                 h3 Results
-                each result in results
-                    div=result.location
+                include ../_includes/offers-result
             else if (message)
                 h3=message
 

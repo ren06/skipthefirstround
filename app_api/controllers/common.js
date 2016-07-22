@@ -67,13 +67,14 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
-            console.log(addTextFunction)
-            if (addTextFunction) {
+
+            if (addTextFunction && results.length > 0) {
 
                 results = addTextFunction(results, req);
             }
 
             if(callback){
+
                 callback(results);
             }
             else{
@@ -83,9 +84,12 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
                 if(queryString.search("INSERT") > -1){
                     returnCode = 201;
                 }
-                else{
+                else if(queryString.search("SELECT") > -1){
                     returnCode = 200;
                 }
+
+                //TODO  204 (No Content) for SELECT, UPDATE
+
                 sendJsonResponse(res, returnCode, true, null, null, results);
             }
 
@@ -159,6 +163,16 @@ module.exports.rowInsert = function(req, res, tableName, data){
     console.log(values);
 
     this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error');
+
+}
+
+module.exports.readOne = function(req, res, tableName, id, addText){
+
+    var queryString = "SELECT * FROM " + tableName + " WHERE id = " + id;
+
+    console.log(queryString);
+
+    this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
 
 }
 

@@ -11,7 +11,7 @@ var renderRegister = function(req, res, formData, error){
 
     console.log(sectorOptions);
 
-    res.render('user/register', {
+    res.render('user/register-simulation', {
         title: i18n.__('Enregistrement'),
         formData: formData,
         sectorOptions: sectorOptions,
@@ -52,24 +52,33 @@ var identification = function(req, res){
 
 };
 
-var createInterview = function(userId, type, sector, token, callback){
+var createInterview = function(req, userId, type, sector, offerId, callback){
 
-    var requestOptions = {
-        url: apiOptions.server + '/api/interview',
-        method: 'POST',
-        headers:{
-            Authorization: 'Bearer ' + token,
-        },
-        json: {
-            userId: userId,
-            type: type,
-            sector: sector
-        }
+    // var requestOptions = {
+    //     url: apiOptions.server + '/api/interview',
+    //     method: 'POST',
+    //     headers:{
+    //         Authorization: 'Bearer ' + token,
+    //     },
+    //     json: {
+    //         userId: userId,
+    //         type: type,
+    //         sector: sector
+    //     }
+    // };
+
+    var postData = {
+        userId: userId,
+        type: type,
+        sector: sector,
+        offerId: offerId
     };
 
+    var requestOptions = common.getRequestOptions(req, '/api/interview/', 'POST', postData, null, true);
 
     //Call create user API
     request(requestOptions, function (err, response, body) {
+
         console.log('api/interview called with ' + userId + ' ' + type + ' ' + sector);
 
         callback(err, response, body);
@@ -144,7 +153,6 @@ module.exports.doRegisterUser = function(req, res){
 
                 //authenticate user
                 var token = body.data.token;
-                console.log(token);
                 common.setSessionData(req, body.data.user, 'user', token);
 
                 //send email
@@ -152,7 +160,7 @@ module.exports.doRegisterUser = function(req, res){
 
                 //send le finaud email
 
-                createInterview(body.data.user.id, 1, body.data.user.sector, token, function(err, response, body){
+                createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
 
                     console.log(err);
                     console.log(body);
@@ -306,6 +314,7 @@ module.exports.registerUser = function(req, res){
 
 };
 
+module.exports.createInterview = createInterview;
 
 module.exports.identification = identification;
 module.exports.deconnexion = deconnexion;

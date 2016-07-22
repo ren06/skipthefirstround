@@ -39,7 +39,12 @@ router.get ('/user-logout', ctrlRegister.doLogout);
 router.get ('/offers', ctrlUser.offers);
 router.post('/offers', ctrlUser.doOffers);
 
+router.get ('/apply/:offerId', ctrlUser.applyOffer);
+router.post('/apply/:offerId', ctrlUser.doApplyOffer);
+
 router.get ('/information', ctrlInformation.information);
+
+
 
 router.get('/about', ctrlHomepage.about);
 
