@@ -67,6 +67,19 @@ There is a psql connection string in the DB info page: heroku pg:psql --app dema
 WORKS:
 heroku pg:psql --app demande-au-finaud < dump.sql
 
+LOCAL:
+pg_restore -Fc -C db.dump
+
+COPY DATE FROM HEROKU TO LOCAL:
+pg_restore -d yournewdb -U yournewuser --role=yournewuser /tmp/b001.dump
+
+==
+
+LOCAL DUMP:
+
+pg_dump -Fc -U admin daf > database.bak
+
+
 (PGUSER=admin PGPWD=Santos100 heroku pg:push daf HEROKU_POSTGRESQL_CYAN --app demande-au-finaud
 
 heroku pg:backups restore 'https://www.dropbox.com/s/wbkzdfozpd21uwu/db.dump?dl=0' DATABASE -a demande-au-finaud
