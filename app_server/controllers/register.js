@@ -54,19 +54,6 @@ var identification = function(req, res){
 
 var createInterview = function(req, userId, type, sector, offerId, callback){
 
-    // var requestOptions = {
-    //     url: apiOptions.server + '/api/interview',
-    //     method: 'POST',
-    //     headers:{
-    //         Authorization: 'Bearer ' + token,
-    //     },
-    //     json: {
-    //         userId: userId,
-    //         type: type,
-    //         sector: sector
-    //     }
-    // };
-
     var postData = {
         userId: userId,
         type: type,

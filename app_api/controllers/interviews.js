@@ -81,13 +81,20 @@ module.exports.interviewCreate = function(req, res){
     else{
 
         //check type and sector
-        if(type != 1 && type != 2) {
+        console.log(res.getLocale());
+
+        var allowedTypes = options.options[res.getLocale()].interviewTypeOptions;
+        var allowedSector = options.options[res.getLocale()].sectorOptions;
+
+
+
+        if(typeof allowedTypes[type] === 'undefined') {
 
             //semantic error
             common.sendJsonResponse(res, 422, false, 'Not valid type', 'Type must be 1 or 2, it is ' + type);
             return;
         }
-        else if(!(sector == 1 || sector == 2 || sector == 3 || sector == 4)){
+        else if(typeof allowedSector[sector] === 'undefined'){
 
             //semantic error
             common.sendJsonResponse(res, 422, false, 'Not valid sector', 'Type must be 1, 2, 3 or 4, it is ' + sector);

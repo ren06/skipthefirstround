@@ -27,7 +27,7 @@ router.use(function(req, res, next) {
 router.post('/user/', ctrlUsers.userCreate);
 router.post('/userLogin', ctrlUsers.doUserAuthenticate);
 router.get('/users', ctrlUsers.usersList);
-
+router.get('/user/:userId', ctrlUsers.userReadOne);
 
 router.post('/interviewer/', ctrlInterviewers.interviewerCreate);
 router.get('/interviewers/', ctrlInterviewers.interviewersList);
@@ -38,9 +38,6 @@ router.get('/options/sector', ctrlOptions.getSectorOptions);
 router.get('/options/interviewType', ctrlOptions.getInterviewTypeOptions);
 router.get('/options/interviewStatus', ctrlOptions.getInterviewStatusOptions);
 router.get('/options/all', ctrlOptions.getAllOptions);
-
-router.get('/users', auth, ctrlUsers.usersList);
-
 
 //Don't forget the auth later when admin login setup
 router.post('/interview', ctrlInterviews.interviewCreate);

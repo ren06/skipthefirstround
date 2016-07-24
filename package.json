@@ -10,6 +10,7 @@
     "npm": "3.8.6"
   },
   "dependencies": {
+    "acl": "^0.4.9",
     "body-parser": "~1.13.2",
     "busboy": "^0.2.13",
     "camelcase-keys": "^3.0.0",

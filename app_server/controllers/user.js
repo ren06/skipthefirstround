@@ -208,8 +208,6 @@ module.exports.applyOffer = function(req, res){
 
         var offer = body.data;
 
-        console.log(offer);
-
         var formData = {
             email: '',
             firstName: '',
@@ -222,9 +220,26 @@ module.exports.applyOffer = function(req, res){
             position: '',
             company: '',
             offer: offer,
-    };
+        };
 
-        renderRegisterApply(req, res, formData, null);
+        if(req.session.authenticated){
+
+            var userId = req.session.userId;
+
+            //fetch user data
+            common.readUser(req, userId, function(success, user){
+
+                formData['skypeId'] = user.skypeId;
+                formData['availability'] = user.availability;
+                formData['mobilePhone'] = user.mobilePhone;
+
+                renderRegisterApply(req, res, formData, null);
+            })
+        }
+        else{
+            renderRegisterApply(req, res, formData, null);
+        }
+
     });
 
 };
@@ -302,7 +317,78 @@ module.exports.doApplyOffer = function(req, res){
     });
 
 
-}
+};
+
+var renderSimulation = function(req, res, formData, error){
+
+    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+
+    res.render('user/register-simulation', {
+        title: i18n.__('Enregistrement'),
+        formData: formData,
+        sectorOptions: sectorOptions,
+        error: error,
+    });
+};
+
+
+module.exports.simulation = function(req, res){
+
+    //could get the data of the last simulation to pre-fill the data?
+    var userId = req.session.userId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/user/' + userId, 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        var user = body.data[0];
+
+        console.log(user);
+
+        var formData = {
+            availability: user.availability,
+            sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
+            skypeId: user.skypeId,
+            mobilePhone: user.mobilePhone,
+            position: '',
+            company: '',
+        };
+
+        renderSimulation(req, res, formData, null);
+
+    });
+
+};
+
+module.exports.doSimulation = function(req, res){
+
+    var formData = req.body;
+    var userId = req.session.userId;
+
+    if(!common.checkParametersPresent('position, sector, company, availability, skypeId,', formData)){
+
+        renderSimulation(req, res, formData, 'Please enter all fields');
+    }
+    else{
+
+        register.createInterview(req, userId, 1, formData.sector, null, function(err, response, body){
+
+            console.log('create interview executed');
+            if(response.statusCode === 201) {
+
+                //redirect
+                res.redirect('/confirmation');
+            }
+            else{
+                console.log('error unhandled, status code:' +  response.statusCode);
+                common.showError(req, res, response.statusCode);
+            }
+        });
+    }
+
+
+};
+
 
 
 

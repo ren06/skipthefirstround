@@ -258,3 +258,20 @@ module.exports.userCreate = function(req, res){
         saveUser(email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone);
     };
 };
+
+module.exports.userReadOne = function(req, res){
+
+  var userId = req.params.userId;
+
+
+    if (!userId) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserReadMissingInput'), null);
+    }
+    else {
+
+        common.readOne(req, res, 'tbl_user', userId, null);
+
+    }
+
+}

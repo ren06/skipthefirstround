@@ -2,6 +2,7 @@ var config = require('config');
 var request = require('request');
 var common = require('./common');
 const queryString = require('query-string');
+var acl = require('acl');
 
 module.exports.checkParametersPresent = function(parameterString, data){
 
@@ -99,6 +100,9 @@ module.exports.setSessionData = function(req, user, role, token){
     req.session.authenticated = true;
     req.session.token = token;
 
+    acl.addUserRoles(user.id, role, function(){});
+
+
     console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
 };
 
@@ -117,4 +121,23 @@ module.exports.jsonToQueryString = function (json) {
     var result = queryString.stringify(json);
     console.log(result);
     return result;
+}
+
+module.exports.readUser = function(req, userId, callback){
+
+    var userId = req.session.userId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/user/' + userId, 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        if(response.statusCode === 200){
+
+            callback(true, body.data[0]);
+        }
+        else{
+            callback(false, null);
+        }
+    });
+
 }

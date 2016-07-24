@@ -36,7 +36,10 @@ block content
 
     .col-lg-2.text-center
     .col-lg-8
-        h2 Enregistrement
+        if(!session.authenticated)
+            h2 Enregistrement
+        else
+            h2 Demande d'entretien pour offre
         br
         h4 Offer ##{formData.offer.id} #{formData.offer.sectorText} - #{formData.offer.offerTypeText} - #{formData.offer.location}
         br
@@ -60,15 +63,17 @@ block content
                     div.file-title
                 input(id="cvUniqueId" type="hidden" name="cvUniqueId")
 
-            .form-group.required
-                label.control-label.col-sm-4(for='firstName') Prenom:
-                .col-sm-8
-                    input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
+            if(!session.authenticated)
 
-            .form-group.required
-                label.control-label.col-sm-4(for='lastName') Nom:
-                .col-sm-8
-                    input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
+                .form-group.required
+                    label.control-label.col-sm-4(for='firstName') Prenom:
+                    .col-sm-8
+                        input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
+
+                .form-group.required
+                    label.control-label.col-sm-4(for='lastName') Nom:
+                    .col-sm-8
+                        input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
 
             .form-group.required
                 label.control-label.col-sm-4(for='skypeId') Votre identifiant Skype:

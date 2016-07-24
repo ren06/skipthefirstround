@@ -10,6 +10,7 @@ var request = require('request');
 var pgSession = require('connect-pg-simple')(session);
 var pg = require('pg');
 var config = require('config');
+var acl = require('acl');
 
 //Loading routes
 var routesUser = require('./app_server/routes/indexUser');
@@ -74,11 +75,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+aclInstance = new acl(new acl.memoryBackend());
+
+aclInstance.allow([
+  {
+    roles:['guest'],
+    allows:[
+      {resources:'user-register', permissions: ['get', 'post']},
+      {resources:['forums','news'], permissions:['get','put','delete']}
+    ]
+  },
+  {
+    roles:['user'],
+    allows:[
+      {resources:'cash', permissions:['sell','exchange']},
+      {resources:['account','deposit'], permissions:['put','delete']}
+    ]
+  }
+])
+
+aclInstance.addUserRoles(0, 'guest', function(){});
+
+
 //to use session and cookies object inside jade template
 app.use(function(req ,res, next){
   res.locals.session = req.session;
   res.locals.cookies = req.cookies;
   res.locals.config = config;
+  res.locals.checkPermission = checkPermission;
   next();
 });
 
