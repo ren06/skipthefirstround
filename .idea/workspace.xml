@@ -100,21 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/default.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dump.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dump.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="2716" column="176" selection-start-line="2716" selection-start-column="176" selection-end-line="2716" selection-end-column="176" />
               <folding />
             </state>
           </provider>
@@ -776,7 +766,7 @@
       <workItem from="1469087520934" duration="2710000" />
       <workItem from="1469090838087" duration="38720000" />
       <workItem from="1469275787936" duration="9239000" />
-      <workItem from="1469355598129" duration="10682000" />
+      <workItem from="1469355598129" duration="11161000" />
     </task>
     <task id="LOCAL-00001" summary="New push">
       <created>1468588754348</created>
@@ -810,10 +800,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="439889000" />
+    <option name="totallyTimeSpent" value="440368000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19605078" sideWeight="0.65531063" order="0" side_tool="false" content_ui="combo" />
@@ -1198,14 +1188,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/default.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tutorial start express site.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1218,6 +1200,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="2716" column="176" selection-start-line="2716" selection-start-column="176" selection-end-line="2716" selection-end-column="176" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/default.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
           <folding />
         </state>
       </provider>

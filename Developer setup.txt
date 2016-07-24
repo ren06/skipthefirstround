@@ -8,6 +8,9 @@
 
 demande-au-finaud
 
+to get latest file:
+git pull heroku master
+
 ===
 
  key things:
