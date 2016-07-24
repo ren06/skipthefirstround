@@ -89,7 +89,7 @@ module.exports.getRequestOptions = function(req, path, method, json, qs, authent
 
 }
 
-module.exports.setSessionData = function(req, user, role, token){
+module.exports.setSessionData = function(req, res, user, role, token){
 
     req.session.email = user.email;
     req.session.userId = user.id;
@@ -100,8 +100,9 @@ module.exports.setSessionData = function(req, user, role, token){
     req.session.authenticated = true;
     req.session.token = token;
 
-    acl.addUserRoles(user.id, role, function(){});
-
+    var aclInstance = res.locals.acl;
+    aclInstance.addUserRoles(user.id, role, function(){});
+    console.log('Role ' + role + ' set to userId ' + user.id);
 
     console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
 };

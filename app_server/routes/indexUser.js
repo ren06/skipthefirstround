@@ -6,7 +6,7 @@ var ctrlUser = require('../controllers/user');
 var ctrlEmails = require('../common/emails');
 var ctrlInformation = require('../controllers/information');
 var ctrlHomepage = require('../controllers/homepage');
-var acl = require('acl');
+
 
 function isAuthenticated(req, res, next){
     if(req.session.authenticated){
@@ -21,6 +21,8 @@ function isAuthenticated(req, res, next){
 }
 
 function checkPermission(resource, action){
+
+
     var middleware = false;  // start out assuming this is not a middleware call
 
     return function(req, res, next){
@@ -30,10 +32,18 @@ function checkPermission(resource, action){
             middleware = true;
         }
 
-        var uid = req.session.user.id;  // get user id property from express request
+        var uid = req.session.userId;  // get user id property from express request
+
+        if(typeof uid === 'undefined'){
+            console.log('uid undefined');
+            uid = 0;
+        }
+
+
+        var aclInstance = res.locals.acl
 
         // perform permissions check
-        acl.isAllowed(uid, resource, action, function(err, result){
+        aclInstance.isAllowed(uid, resource, action, function(err, result){
             // return results in the appropriate way
             if(middleware) {
                 if (result) {
@@ -41,8 +51,12 @@ function checkPermission(resource, action){
                     next();
                 } else {
                     // user access denied
-                    var checkError = new Error("user does not have permission to perform this action on this resource");
-                    next(checkError);  // stop access to route
+                     var checkError = new Error("UnauthorizedError", 401);
+                    // console.log('UnauthorizedError');
+                     next(checkError);  // stop access to route
+
+                    //next(new Error({name: 'error', status : 401}));
+
                 }
                 return;
             }
@@ -66,7 +80,7 @@ router.get ('/deconnexion', ctrlRegister.deconnexion );
 router.get ('/user-register', checkPermission("user-register", "get"), ctrlRegister.registerUser);
 router.post('/user-register', ctrlRegister.doRegisterUser);
 router.get ('/confirmation', ctrlRegister.confirmation);
-router.get ('/my-account', isAuthenticated, ctrlUser.myAccount);
+router.get ('/my-account', checkPermission("my-account", "get"), ctrlUser.myAccount);
 router.get ('/interview', ctrlUser.interview);
 router.get ('/personal-information', ctrlUser.personalInformations);
 router.get ('/change-language/:language', ctrlHomepage.changeLanguage);

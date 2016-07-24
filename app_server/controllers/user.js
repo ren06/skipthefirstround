@@ -274,7 +274,7 @@ module.exports.doApplyOffer = function(req, res){
                     //authenticate user
                     var token = body.data.token;
                     console.log(token);
-                    common.setSessionData(req, body.data.user, 'user', token);
+                    common.setSessionData(req, res, body.data.user, 'user', token);
 
                     //send email
                     emails.sendEmailResistration(req.session.email, req.session.fullName);

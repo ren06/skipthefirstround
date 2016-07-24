@@ -40,7 +40,13 @@ block content
                             each val, key in offerTypeOptions
                                 option(value=key)=val
 
-                .form-group.required
+                .form-group
+                    label.control-label.col-sm-4(for='location') Nom entreprise:
+                    .col-sm-8
+                        input#companyName(type="", name="companyName", placeholder="" value="").form-control
+
+
+                .form-group
                     label.control-label.col-sm-4(for='companyType') Type d'entreprise:
                     .col-sm-8
                         select#companyType(value=formData.offerType, name='companyType').form-control.required

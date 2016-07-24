@@ -82,13 +82,20 @@ aclInstance.allow([
     roles:['guest'],
     allows:[
       {resources:'user-register', permissions: ['get', 'post']},
-      {resources:['forums','news'], permissions:['get','put','delete']}
+      {resources:['test','news'], permissions:['get','put','delete']}
     ]
   },
   {
     roles:['user'],
     allows:[
-      {resources:'cash', permissions:['sell','exchange']},
+      {resources:'my-account', permissions:['get','exchange']},
+      {resources:['account','deposit'], permissions:['put','delete']}
+    ]
+  },
+  {
+    roles:['recruiter'],
+    allows:[
+      {resources:'my-account', permissions:['sell','exchange']},
       {resources:['account','deposit'], permissions:['put','delete']}
     ]
   }
@@ -102,7 +109,7 @@ app.use(function(req ,res, next){
   res.locals.session = req.session;
   res.locals.cookies = req.cookies;
   res.locals.config = config;
-  res.locals.checkPermission = checkPermission;
+  res.locals.acl = aclInstance;
   next();
 });
 
@@ -170,15 +177,20 @@ request(requestOptions, function (err, response, body) {
 // error handlers
 // Catch unauthorised errors
 app.use(function (err, req, res, next) {
+
+  // res.render('user/generic-text', {
+  //   title: res.__('Unauthorised'),
+  //   content: 'You are not authorised to access this page',
+  // });
+
+  console.log('Error handler');
+  console.log(err.name);
+  console.log(err.status);
+
   if (err.name === 'UnauthorizedError') {
-    // res.status(401);
-    // res.json({
-    //       'success': false,
-    //       'internalError': err.name + ": " + err.message,
-    //       'userError': 'Utilisateur non authentifie',
-    //       'data': null,
-    //     }
-    // );
+
+    console.log('This is unauthroised');
+
   }
     next(err);
 });

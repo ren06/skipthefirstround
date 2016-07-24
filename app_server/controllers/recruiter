@@ -88,7 +88,9 @@ module.exports.doRegisterRecruiter = function(req, res){
                 //authenticate user
                 var token = body.data.token;
                 console.log(token);
-                common.setSessionData(req, body.data, 'recruiter', token);
+                common.setSessionData(req, res, body.data, 'recruiter', token, function(){
+
+                });
 
                 //send email
                 //emails.sendEmailRecruiterRegistration(req.session.email, req.session.fullName);
@@ -332,7 +334,7 @@ module.exports.doLogin = function(req, res){
                 console.log('identification ok');
 
                 //authenticate user
-                common.setSessionData(req, body.data.user, 'recruiter', body.data.token);
+                common.setSessionData(req, res, body.data.user, 'recruiter', body.data.token);
 
                 //redirect
                 res.redirect('/recruiter/main-menu');

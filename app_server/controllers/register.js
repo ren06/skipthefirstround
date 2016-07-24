@@ -140,7 +140,7 @@ module.exports.doRegisterUser = function(req, res){
 
                 //authenticate user
                 var token = body.data.token;
-                common.setSessionData(req, body.data.user, 'user', token);
+                common.setSessionData(req, res, body.data.user, 'user', token);
 
                 //send email
                 emails.sendEmailResistration(req.session.email, req.session.fullName);
@@ -211,7 +211,7 @@ module.exports.doIdentification = function(req, res){
                 console.log('identification ok');
 
                 //authenticate user
-                common.setSessionData(req, body.data.user, 'user', body.data.token);
+                common.setSessionData(req, res, body.data.user, 'user', body.data.token);
 
                 //redirect
                 res.redirect('/');

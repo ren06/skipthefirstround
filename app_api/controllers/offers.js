@@ -68,7 +68,7 @@ module.exports.offerCreate = function(req, res){
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferCreateMissingInput'), null);
     }
     else {
-
+        console.log(data);
         common.rowInsert(req, res, 'tbl_offer', data);
 
     }
