@@ -22,7 +22,6 @@ function isAuthenticated(req, res, next){
 
 function checkPermission(resource, action){
 
-
     var middleware = false;  // start out assuming this is not a middleware call
 
     return function(req, res, next){
@@ -33,14 +32,21 @@ function checkPermission(resource, action){
         }
 
         var uid = req.session.userId;  // get user id property from express request
+        var role = req.session.role;
 
         if(typeof uid === 'undefined'){
             console.log('uid undefined');
             uid = 0;
         }
 
+        var aclInstance = res.locals.acl;
 
-        var aclInstance = res.locals.acl
+        console.log('Checking user ' + uid + ' with role ' + role + ' for resource ' + resource + ' with action ' + action);
+
+        aclInstance.allowedPermissions(uid, resource, function(err, permissions){
+            console.log('User has the following permissions for ' + resource);
+            console.log(permissions);
+        })
 
         // perform permissions check
         aclInstance.isAllowed(uid, resource, action, function(err, result){
@@ -48,14 +54,17 @@ function checkPermission(resource, action){
             if(middleware) {
                 if (result) {
                     // user has access rights, proceed to allow access to the route
+                    console.log('User ' + uid + ' with role ' + role + ' has access to resource ' + resource + ' with action ' + action);
                     next();
                 } else {
                     // user access denied
+                    console.log('User ' + uid + ' with role ' + role + ' does not have access to resource ' + resource + ' with action ' + action);
+
+
+
                      var checkError = new Error("UnauthorizedError", 401);
                     // console.log('UnauthorizedError');
                      next(checkError);  // stop access to route
-
-                    //next(new Error({name: 'error', status : 401}));
 
                 }
                 return;
@@ -74,13 +83,12 @@ function checkPermission(resource, action){
 }
 
 
-router.get ('/', checkPermission("user-register", "get"), ctrlHomepage.homepage);
-router.get ('/deconnexion', ctrlRegister.deconnexion );
+router.get ('/', ctrlHomepage.homepage);
 
-router.get ('/user-register', checkPermission("user-register", "get"), ctrlRegister.registerUser);
+router.get ('/user-register', ctrlRegister.registerUser);
 router.post('/user-register', ctrlRegister.doRegisterUser);
 router.get ('/confirmation', ctrlRegister.confirmation);
-router.get ('/my-account', checkPermission("my-account", "get"), ctrlUser.myAccount);
+router.get ('/my-account', ctrlUser.myAccount);
 router.get ('/interview', ctrlUser.interview);
 router.get ('/personal-information', ctrlUser.personalInformations);
 router.get ('/change-language/:language', ctrlHomepage.changeLanguage);

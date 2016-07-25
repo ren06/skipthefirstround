@@ -12,5 +12,6 @@
 	"Offers": "Offers",
 	"UserCreationMissingInput": "UserCreationMissingInput",
 	"EmailAlreadyExists": "EmailAlreadyExists",
-	"InterviewErrorUserId": "InterviewErrorUserId"
+	"InterviewErrorUserId": "InterviewErrorUserId",
+	"Informations personnelles": "Informations personnelles"
 }

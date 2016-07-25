@@ -10,15 +10,19 @@ module.exports.checkParametersPresent = function(parameterString, data){
 
     var array = parameterString.split(',');
 
-    for (var i = 0; i < array.length -1; i++){
+    for (var i = 0; i < array.length; i++){
         var value = data[array[i]];
-        console.log(value);
-        if(!value || value == ''){
+        console.log('checked param: ' + array[i] + ' value:' + value);
+        console.log(value.length);
+
+        if(!value || 0 === value.length || value == ' '){
+            console.log('returning false');
             return false;
         }
     }
-
+    console.log('loop finished');
     return true;
+
 }
 
 
@@ -89,7 +93,7 @@ module.exports.getRequestOptions = function(req, path, method, json, qs, authent
 
 }
 
-module.exports.setSessionData = function(req, res, user, role, token){
+module.exports.setSessionData = function(req, res, user, role, token, callback){
 
     req.session.email = user.email;
     req.session.userId = user.id;
@@ -100,11 +104,14 @@ module.exports.setSessionData = function(req, res, user, role, token){
     req.session.authenticated = true;
     req.session.token = token;
 
-    var aclInstance = res.locals.acl;
-    aclInstance.addUserRoles(user.id, role, function(){});
-    console.log('Role ' + role + ' set to userId ' + user.id);
-
-    console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
+    // var aclInstance = res.locals.acl;
+    // aclInstance.addUserRoles(user.id, role, function(){});
+    // console.log('Role ' + role + ' set to userId ' + user.id);
+    //
+    // console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
+    if(callback) {
+        callback();
+    }
 };
 
 module.exports.addAll = function(array){

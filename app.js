@@ -75,43 +75,55 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-aclInstance = new acl(new acl.memoryBackend());
 
-aclInstance.allow([
-  {
-    roles:['guest'],
-    allows:[
-      {resources:'user-register', permissions: ['get', 'post']},
-      {resources:['test','news'], permissions:['get','put','delete']}
-    ]
-  },
-  {
-    roles:['user'],
-    allows:[
-      {resources:'my-account', permissions:['get','exchange']},
-      {resources:['account','deposit'], permissions:['put','delete']}
-    ]
-  },
-  {
-    roles:['recruiter'],
-    allows:[
-      {resources:'my-account', permissions:['sell','exchange']},
-      {resources:['account','deposit'], permissions:['put','delete']}
-    ]
-  }
-])
 
-aclInstance.addUserRoles(0, 'guest', function(){});
+// aclInstance = new acl(new acl.memoryBackend());
+//
+// aclInstance.allow([
+//     {
+//         roles:['guest','member'],
+//         allows:[
+//             {resources:'user-register', permissions:'view'},
+//
+//         ]
+//     },
+//     {
+//         roles:['user','silver'],
+//         allows:[
+//             {resources:'my-account', permissions:['view']},
+//             {resources:'user-logout', permissions:['view']},
+//
+//         ]
+//     }
+// ]);
 
+//aclInstance.addUserRoles(0, 'guest', function(){});
 
 //to use session and cookies object inside jade template
 app.use(function(req ,res, next){
   res.locals.session = req.session;
   res.locals.cookies = req.cookies;
   res.locals.config = config;
-  res.locals.acl = aclInstance;
+ // res.locals.acl = aclInstance;
   next();
 });
+
+// app.use(function(req, res, next) {
+//
+//     var userId = req.session.userId;
+//
+//     if(typeof userId !== 'undefined' ){
+//
+//         var role = req.session.role;
+//
+//         aclInstance.addUserRoles(userId, role, function(){});
+//         console.log('Role ' + role + ' set to userId ' + userId);
+//     }
+//     else{
+//         console.log('user not logged in');
+//     }
+//
+// })
 
 
 app.all('/api/*', function(req, res, next){
@@ -148,26 +160,25 @@ app.locals.title = 'DemandeAuFinaud';
 
 //Store in the app.locals.options all the dropdown options
 var requestOptions = {
-  url:  config.get('Website.apiServer') + '/api/options/all',
-  method: 'GET',
-  json: {},
-  qs: { }
+    url:  config.get('Website.apiServer') + '/api/options/all',
+    method: 'GET',
+    json: {},
+    qs: { }
 };
 request(requestOptions, function (err, response, body) {
 
-  if(err){
-    console.log(err);
-  }
-  else {
-
-    if (response.statusCode === 200) {
-
-      app.locals.options = body.data;
+    if(err){
+        console.log(err);
     }
-    else{
-        console.log('api/options/all error: ' +  response.statusCode);
+    else {
+
+        if (response.statusCode === 200) {
+            app.locals.options = body.data;
+        }
+        else{
+            console.log('api/options/all error: ' +  response.statusCode);
+        }
     }
-  }
 });
 
 //helper functions

@@ -15,27 +15,28 @@ var getConnectionString = function(){
     }
 
     return databaseURL;
-}
+};
 
 
 var sendJsonResponse = function(res, status, success, internalError, userError, data){
 
     console.log('Final json response sent: ' + status);
 
+    var returnData = camelcaseKeys({
+        'success': success,
+        'internalError': internalError,
+        'userError': userError,
+        'data': data,
+    });
+
     res.status(status);
-    res.json(camelcaseKeys({
-            'success': success,
-            'internalError': internalError,
-            'userError': userError,
-            'data': data,
-        })
-    );
-}
+    res.json(returnData);
+};
 
 module.exports.dbConnect = function(callback){
 
     pg.connect(getConnectionString(), callback);
-}
+};
 
 module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTextFunction, internalError, userError, callback){
 
@@ -87,9 +88,14 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
                 else if(queryString.search("SELECT") > -1){
                     returnCode = 200;
                 }
-
+                else if(queryString.search("UPDATE") > -1){
+                    returnCode = 204;
+                }
+                else{
+                    returnCode = 0;
+                }
                 //TODO  204 (No Content) for SELECT, UPDATE
-
+                console.log(returnCode);
                 sendJsonResponse(res, returnCode, true, null, null, results);
             }
 
@@ -97,7 +103,7 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
     }
     );
 
-}
+};
 
 module.exports.convertQueryToWhereClause = function(query){
 
@@ -124,6 +130,43 @@ module.exports.convertQueryToWhereClause = function(query){
 
 };
 
+module.exports.rowUpdate = function (req, res, tableName, id, data) {
+
+    if(Object.keys(data).length > 0){
+
+        //decamelise array
+        var dataDecamelised = {};
+        var newKey;
+
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                newKey = decamelize(key);
+                dataDecamelised[newKey] = data[key];
+            }
+        }
+
+        //UPDATE Customers
+        //SET ContactName='Alfred Schmidt', City='Hamburg'
+        //WHERE CustomerName='Alfreds Futterkiste';
+
+        var queryString = "UPDATE " + tableName + " SET";
+
+        var comma =  ", ";
+
+        for (var key in dataDecamelised) {
+            queryString += ' ' + key + "='" + dataDecamelised[key] + "'" + comma;
+        }
+
+        queryString = queryString.substring(0, queryString.length - comma.length);
+
+        queryString += " WHERE id=" + id;
+
+        console.log(queryString);
+
+        this.dbHandleQuery(req, res, queryString, null, null, 'Internal Error', 'User Error');
+    }
+};
+
 module.exports.rowInsert = function(req, res, tableName, data){
 
     //decamelise array
@@ -136,7 +179,6 @@ module.exports.rowInsert = function(req, res, tableName, data){
             dataDecamelised[newKey] = data[key];
         }
     }
-
 
     var queryString = "INSERT INTO " + tableName + " (";
 
@@ -163,8 +205,7 @@ module.exports.rowInsert = function(req, res, tableName, data){
     console.log(values);
 
     this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error');
-
-}
+};
 
 module.exports.readOne = function(req, res, tableName, id, addText){
 
@@ -174,7 +215,7 @@ module.exports.readOne = function(req, res, tableName, id, addText){
 
     this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
 
-}
+};
 
 module.exports.checkParametersPresent = function(parameterString, data){
 
@@ -192,7 +233,7 @@ module.exports.checkParametersPresent = function(parameterString, data){
 
     return true;
 
-}
+};
 
 module.exports.generateJwt = function(id, email, lastName) {
     var expiry = new Date();

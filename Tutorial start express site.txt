@@ -75,9 +75,14 @@ pg_restore -d yournewdb -U yournewuser --role=yournewuser /tmp/b001.dump
 
 ==
 
-LOCAL DUMP:
+LOCAL DUMP (creates DB):
 
-pg_dump -Fc -U admin daf > database.bak
+pg_dump -C -Fc -U admin daf > database.bak
+
+
+RESTORE local:
+
+http://www.postgresqltutorial.com/postgresql-restore-database/
 
 
 (PGUSER=admin PGPWD=Santos100 heroku pg:push daf HEROKU_POSTGRESQL_CYAN --app demande-au-finaud

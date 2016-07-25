@@ -64,6 +64,17 @@ var sendEmail_Registration = function(email, userName){
 
 };
 
+var sendEmail_Offer_Confirmation = function(email, userName){
+
+    var html = renderView('email/user-registration', {data: {userName: userName}});
+
+    sendEmail(email, html);
+
+};
+
+
+
 
 module.exports.testEmail = testEmail;
 module.exports.sendEmailResistration = sendEmail_Registration;
+module.exports.sendEmailOfferConfirmation = sendEmail_Offer_Confirmation;

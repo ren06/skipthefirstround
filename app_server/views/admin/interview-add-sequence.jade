@@ -16,7 +16,7 @@ block content
             };
 
 
-            $('#videoFile').unsigned_cloudinary_upload("aa6i0y2u", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+            $('#videoFile').unsigned_cloudinary_upload("videos", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
                     {multiple: false, resource_type: 'video'}
                     //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
             ).bind('cloudinarydone', function (e, data) {

@@ -1,6 +1,6 @@
 
 1) Install Node
-2) Install Postgres
+2) Install Postgres, create a admin user
 3) Install Git
 4) Install Heroku toolkit
 5) add team member in Heroku dashboard, add him into the app (so he has access to git clone)

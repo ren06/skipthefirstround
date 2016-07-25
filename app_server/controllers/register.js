@@ -31,14 +31,6 @@ var renderIdentification = function(req, res, formData, error){
     });
 };
 
-//GET method
-var deconnexion = function(req, res){
-
-    req.session.destroy();
-    console.log('deconnexion ok');
-    res.redirect('/');
-};
-
 
 //GET methdd
 var identification = function(req, res){
@@ -140,28 +132,30 @@ module.exports.doRegisterUser = function(req, res){
 
                 //authenticate user
                 var token = body.data.token;
-                common.setSessionData(req, res, body.data.user, 'user', token);
+                common.setSessionData(req, res, body.data.user, 'user', token, function(){
 
-                //send email
-                emails.sendEmailResistration(req.session.email, req.session.fullName);
+                    //send email
+                    emails.sendEmailResistration(req.session.email, req.session.fullName);
 
-                //send le finaud email
+                    //send le finaud email
 
-                createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
+                    createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
 
-                    console.log(err);
-                    console.log(body);
+                        console.log(err);
+                        console.log(body);
 
-                    console.log('create interview executed');
-                    if(response.statusCode === 201) {
+                        console.log('create interview executed');
+                        if(response.statusCode === 201) {
 
-                        //redirect
-                        res.redirect('/confirmation');
-                    }
-                    else{
-                        console.log('error unhandled, status code:' +  response.statusCode);
-                        common.showError(req, res, response.statusCode);
-                    }
+                            //redirect
+                            res.redirect('/confirmation');
+                        }
+                        else{
+                            console.log('error unhandled, status code:' +  response.statusCode);
+                            common.showError(req, res, response.statusCode);
+                        }
+                    });
+
                 });
 
             }
@@ -211,10 +205,10 @@ module.exports.doIdentification = function(req, res){
                 console.log('identification ok');
 
                 //authenticate user
-                common.setSessionData(req, res, body.data.user, 'user', body.data.token);
-
-                //redirect
-                res.redirect('/');
+                common.setSessionData(req, res, body.data.user, 'user', body.data.token, function(){
+                    //redirect
+                    res.redirect('/');
+                });
 
             }
             else if (( response.statusCode === 401 || response.statusCode === 404 ) &&  body.success === false ) {
@@ -304,4 +298,3 @@ module.exports.registerUser = function(req, res){
 module.exports.createInterview = createInterview;
 
 module.exports.identification = identification;
-module.exports.deconnexion = deconnexion;

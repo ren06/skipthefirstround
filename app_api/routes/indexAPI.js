@@ -26,18 +26,19 @@ router.use(function(req, res, next) {
 //OK and tested
 router.post('/user/', ctrlUsers.userCreate);
 router.post('/userLogin', ctrlUsers.doUserAuthenticate);
-router.get('/users', ctrlUsers.usersList);
-router.get('/user/:userId', ctrlUsers.userReadOne);
+router.get ('/users', ctrlUsers.usersList);
+router.get ('/user/:userId', ctrlUsers.userReadOne);
+router.put ('/user/:userId', ctrlUsers.userModify);
 
 router.post('/interviewer/', ctrlInterviewers.interviewerCreate);
-router.get('/interviewers/', ctrlInterviewers.interviewersList);
-router.get('/interviewer/:interviewId', ctrlInterviewers.interviewerReadOne);
+router.get ('/interviewers/', ctrlInterviewers.interviewersList);
+router.get ('/interviewer/:interviewId', ctrlInterviewers.interviewerReadOne);
 
 
-router.get('/options/sector', ctrlOptions.getSectorOptions);
-router.get('/options/interviewType', ctrlOptions.getInterviewTypeOptions);
-router.get('/options/interviewStatus', ctrlOptions.getInterviewStatusOptions);
-router.get('/options/all', ctrlOptions.getAllOptions);
+router.get ('/options/sector', ctrlOptions.getSectorOptions);
+router.get ('/options/interviewType', ctrlOptions.getInterviewTypeOptions);
+router.get ('/options/interviewStatus', ctrlOptions.getInterviewStatusOptions);
+router.get ('/options/all', ctrlOptions.getAllOptions);
 
 //Don't forget the auth later when admin login setup
 router.post('/interview', ctrlInterviews.interviewCreate);
@@ -49,9 +50,9 @@ router.post('/interview/:interviewId/modify', ctrlInterviews.interviewModify);
 //router.get ('/interview/:interviewId/sequences', ctrlInterviews. );
 //router.post('/interview/:interviewId/sequences/delete', ctrlInterviews. );
 
-router.get('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser);
-router.get('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
-router.get('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
+router.get ('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser);
+router.get ('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
+router.get ('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
 
 router.post('/recruiter', ctrlRecruiters.createRecruiter);
 router.get ('/recruiters', ctrlRecruiters.recruiterList);
@@ -66,8 +67,8 @@ router.get ('/offers/searchForUser', ctrlOffers.offerSearchForUser);
 router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);
 
 
-router.get('/testDb', ctrlUnitTest.dbConnection);
-router.get('/testLocale', ctrlUnitTest.locale);
+router.get ('/testDb', ctrlUnitTest.dbConnection);
+router.get ('/testLocale', ctrlUnitTest.locale);
 
 
 module.exports = router;

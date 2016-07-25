@@ -11,27 +11,50 @@ block content
 
         $(document).ready(function () {
 
+            $('.progress').hide();
+
             //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
             var public_id   = '';
 
-            $('#cvFile').unsigned_cloudinary_upload("aa6i0y2u", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
-                {multiple: false, resource_type: 'raw', allowed_formats: '[pdf]'}
+            $('#cvFile').unsigned_cloudinary_upload("curriculum",
+                    {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+                {multiple: false}, function(err){
+                        alert(err);
+                    }
                 //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
+            ).bind('fileuploadstart', function(e, data){
+
+                    $('.progress').show();
+                    $('.progress-bar').removeClass('progress-bar-danger');
+                    $('.progress-bar').removeClass('notransition');
+                    $('#progressText').html('');
+                    $('.progress-bar').css('width', '0%').attr('aria-valuenow', 0);
+
+
+            }
             ).bind('cloudinarydone', function (e, data) {
 
                 public_id = data.result.public_id;
 
-            $('.file-title').html(data.result.original_filename);
-
+                $('#progressText').html(data.result.original_filename + '.pdf');
                 $('#cvUniqueId').val(public_id);
+                $('.progress-bar').addClass('progress-bar-success');
+
             }
             ).bind('cloudinaryprogress', function (e, data) {
 
-                $('.progress-bar').css('width',
+                $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+            }
+            )
+            .bind('fileuploadfail', function(e, data){
 
-                    Math.round((data.loaded * 100.0) / data.total) + '%');
-                }
-            );
+                var errorMessage = data.jqXHR.responseJSON.error.message;
+
+                $('#progressText').html(errorMessage);
+                $('.progress-bar').addClass('progress-bar-danger');
+                $(".progress-bar").addClass('notransition');
+
+            });
         });
 
     .col-lg-2.text-center
@@ -41,27 +64,30 @@ block content
         else
             h2 Demande d'entretien pour offre
         br
-        h4 Offer ##{formData.offer.id} #{formData.offer.sectorText} - #{formData.offer.offerTypeText} - #{formData.offer.location}
+        h4 Offer ##{offer.id} #{offer.sectorText} - #{offer.offerTypeText} - #{offer.location}
         br
         form.form-horizontal(id="registerForm", action="", method="post", role="form")
             if(error)
                 .alert.alert-danger(role="alert") #{error}
 
-            input(type='hidden' name='offerId' value="#{formData.offer.id}")
-            input(type='hidden' name='sector' value="#{formData.offer.sector}")
+            input(type='hidden' name='offerId' value="#{offer.id}")
+            input(type='hidden' name='sector' value="#{offer.sector}")
 
             .form-group
                 label.control-label.col-sm-4(for='cvFile') Votre CV:
                 .col-sm-3
-                    label.btn.btn-default.btn-file
-                        | Select CV file...
+                    label.btn.btn-default.btn-file(style='width:160px')
+                        |   Select CV file...
                         input#cvFile(type="file" style="display: none;" name="file")
-                .col-sm-2
+                .col-sm-5.vertical-center
                     div.progress
-                        div.progress-bar.progress-bar-success(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
+                        div.progress-bar.progress-bar-striped(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="text-align:center")
+                            span#progressText
                 .col-sm-2
                     div.file-title
-                input(id="cvUniqueId" type="hidden" name="cvUniqueId")
+                input(id="cvUniqueId" type="hidden" name="cv" value="#{formData.cv}")
+                if(formData.cv !== '')
+                    a(href='#{cvLink}') See current CV
 
             if(!session.authenticated)
 

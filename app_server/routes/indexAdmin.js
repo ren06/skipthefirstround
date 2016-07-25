@@ -24,7 +24,6 @@ router.get ('/interview/:interviewId/modifyDate', ctrlAdmin.interviewModifyDate)
 router.post('/interview/:interviewId/modifyDate', ctrlAdmin.doInterviewModifyDate);
 router.get ('/interview/:interviewId/addSequence', ctrlAdmin.interviewAddSequence);
 router.post('/interview/:interviewId/addSequence', ctrlAdmin.doInterviewAddSequence);
-// router.get ('/doUploadVideo', ctrlAdmin.doUploadVideo);
 router.get ('/viewUploadVideo', ctrlAdmin.viewUploadVideo);
 
 

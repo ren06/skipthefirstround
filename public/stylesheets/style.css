@@ -8,3 +8,17 @@
     margin-top: 10px;
     margin-bottom: 10px
 }
+
+.progress-bar span{
+    display: block;
+    position: absolute;
+    width: 90%;
+}
+
+.notransition * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
+}

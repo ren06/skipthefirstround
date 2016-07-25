@@ -88,17 +88,17 @@ module.exports.doRegisterRecruiter = function(req, res){
                 //authenticate user
                 var token = body.data.token;
                 console.log(token);
+
                 common.setSessionData(req, res, body.data, 'recruiter', token, function(){
 
+                    //send email
+                    //emails.sendEmailRecruiterRegistration(req.session.email, req.session.fullName);
+
+                    //send le finaud email
+
+
+                    res.redirect('confirmation');
                 });
-
-                //send email
-                //emails.sendEmailRecruiterRegistration(req.session.email, req.session.fullName);
-
-                //send le finaud email
-
-
-                res.redirect('confirmation');
 
             }
             else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) &&  body.success === false ) {
@@ -334,10 +334,11 @@ module.exports.doLogin = function(req, res){
                 console.log('identification ok');
 
                 //authenticate user
-                common.setSessionData(req, res, body.data.user, 'recruiter', body.data.token);
+                common.setSessionData(req, res, body.data.user, 'recruiter', body.data.token, function(){
+                    //redirect
+                    res.redirect('/recruiter/main-menu');
+                });
 
-                //redirect
-                res.redirect('/recruiter/main-menu');
 
             }
             else if (( response.statusCode === 401 || response.statusCode === 404 ) &&  body.success === false ) {

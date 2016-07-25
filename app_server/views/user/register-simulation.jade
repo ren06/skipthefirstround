@@ -14,7 +14,7 @@ block content
             //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
             var public_id   = '';
 
-            $('#cvFile').unsigned_cloudinary_upload("aa6i0y2u", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+            $('#cvFile').unsigned_cloudinary_upload("curriculum", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
                 {multiple: false, resource_type: 'raw', allowed_formats: '[pdf]'}
                 //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
             ).bind('cloudinarydone', function (e, data) {
@@ -75,7 +75,7 @@ block content
                         div.progress-bar.progress-bar-success(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
                 .col-sm-2
                     div.file-title
-                input(id="cvUniqueId" type="hidden" name="cvUniqueId")
+
 
             if(!session.authenticated)
 

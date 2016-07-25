@@ -24,5 +24,7 @@
 	"View Favourites": "View Favourites",
 	"Post Offer": "Post Offer",
 	"My offers": "My offers",
-	"Login": "Login"
+	"Login": "Login",
+	"Offers": "Offers",
+	"UserUpdateMissingInput": "UserUpdateMissingInput"
 }

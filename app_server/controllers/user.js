@@ -1,6 +1,7 @@
 var request = require('request');
 var common = require('./common');
 var emails = require('../common/emails');
+var cloudinary = require('cloudinary');
 
 var register = require('./register');
 
@@ -184,15 +185,26 @@ module.exports.doOffers = function(req, res){
 };
 
 
-var renderRegisterApply = function(req, res, formData, error){
+var renderRegisterApply = function(req, res, formData, offer, error){
 
     var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+
+    var cvLink = '';
+
+    if(formData.cv !== ''){
+
+        cloudinary.config({cloud_name: 'dzfmkzqdo', api_key: '577639826413541', api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'});
+        cvLink = cloudinary.url(formData.cv);
+
+    }
 
     res.render('user/register-apply', {
         title: i18n.__('Enregistrement'),
         formData: formData,
         sectorOptions: sectorOptions,
         error: error,
+        offer: offer,
+        cvLink: cvLink,
     });
 };
 
@@ -219,7 +231,7 @@ module.exports.applyOffer = function(req, res){
             mobilePhone: '',
             position: '',
             company: '',
-            offer: offer,
+            cv: '',
         };
 
         if(req.session.authenticated){
@@ -231,13 +243,14 @@ module.exports.applyOffer = function(req, res){
 
                 formData['skypeId'] = user.skypeId;
                 formData['availability'] = user.availability;
-                formData['mobilePhone'] = user.mobilePhone;
+                formData['mobilePhone'] = (user.mobilePhone ? user.mobilePhone: '');
+                formData['cv'] = user.cv;
 
-                renderRegisterApply(req, res, formData, null);
+                renderRegisterApply(req, res, formData, offer, null);
             })
         }
         else{
-            renderRegisterApply(req, res, formData, null);
+            renderRegisterApply(req, res, formData, offer, null);
         }
 
     });
@@ -247,69 +260,126 @@ module.exports.applyOffer = function(req, res){
 module.exports.doApplyOffer = function(req, res){
 
     var formData = req.body;
+
     console.log(formData);
 
     var offerId = formData.offerId;
+    var sector = formData.sector;
+    var cv = formData.cv
 
     //get offer data
     var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
 
     request(requestOptions, function (err, response, body) {
 
-        formData['offer'] = body.data;
+        var offer = body.data;
 
-        if(!common.checkParametersPresent('email, firstName, lastName, password, confirmationPassword, skypeId, mobilePhone, sector', formData)){
-            renderRegisterApply(req, res, formData, 'Please enter all fields');
+        var checkParams = '';
+
+        if(req.session.authenticated){
+            checkParams = 'skypeId, sector, availability';
+        }
+        else{
+            checkParams = 'email, firstName, lastName, password, confirmationPassword, availability, skypeId, sector';
+        }
+        console.log(checkParams);
+        if(!common.checkParametersPresent(checkParams, formData)){
+
+            console.log('params NOT ok');
+            renderRegisterApply(req, res, formData, offer, 'Please enter all fields');
         }
         else{
 
-            var requestOptions = common.getRequestOptions(req, '/api/user/', 'POST', formData);
+            console.log('params ok');
 
-            request(requestOptions, function (err, response, body) {
+            if(!req.session.authenticated) {
 
-                if (response.statusCode === 201) {
+                var requestOptions = common.getRequestOptions(req, '/api/user/', 'POST', formData);
 
-                    //create interview
+                request(requestOptions, function (err, response, body) {
 
-                    //authenticate user
-                    var token = body.data.token;
-                    console.log(token);
-                    common.setSessionData(req, res, body.data.user, 'user', token);
+                    if (response.statusCode === 201) {
 
-                    //send email
-                    emails.sendEmailResistration(req.session.email, req.session.fullName);
+                        //authenticate user
+                        var token = body.data.token;
+                        console.log(token);
+                        common.setSessionData(req, res, body.data.user, 'user', token, function(){
 
-                    //send le finaud email
-                    //TODO later merge register and user
-                    register.createInterview(req, body.data.user.id, 2, body.data.user.sector, offerId, function(err, response, body){
+                            //send email
+                            emails.sendEmailResistration(req.session.email, req.session.fullName);
+
+                            //send le finaud email
+                            //TODO later merge register and user
+                            register.createInterview(req, body.data.user.id, 2, sector, offerId, function (err, response, body) {
+
+                                console.log(err);
+                                console.log(body);
+
+                                console.log('create interview executed');
+                                if (response.statusCode === 201) {
+
+                                    //redirect
+                                    res.redirect('/confirmation');
+                                }
+                                else {
+                                    console.log('error unhandled, status code:' + response.statusCode);
+                                    common.showError(req, res, response.statusCode);
+                                }
+                            });
+                        });
+                    }
+                    else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) && body.success === false) {
+
+                        console.log(body.internalError);
+                        renderRegisterApply(req, res, formData, body.userError);
+
+                    }
+                    else {
+                        console.log('error unhandled ' + err);
+                        common.showError(req, res, response.statusCode);
+                    }
+                });
+            }
+            else{
+
+                var userId = req.session.userId;
+
+                //send email
+                emails.sendEmailOfferConfirmation(req.session.email, req.session.fullName);
+
+                //send le finaud email
+                //TODO later merge register and user
+                register.createInterview(req, userId, 2, sector, offerId, function (err, response, body) {
+
+                    //update
+
+                    var postData = {
+                        skypeId: formData.skypeId,
+                        cv: formData.cv,
+                        availability: formData.availability,
+                        mobilePhone: formData.mobilePhone,
+                    };
+
+                    requestOptions = common.getRequestOptions(req, '/api/user/' + userId, 'PUT', postData);
+
+                    request(requestOptions, function (err, response, body) {
 
                         console.log(err);
                         console.log(body);
 
                         console.log('create interview executed');
-                        if(response.statusCode === 201) {
+                        if (response.statusCode === 204) {
 
                             //redirect
                             res.redirect('/confirmation');
                         }
-                        else{
-                            console.log('error unhandled, status code:' +  response.statusCode);
+                        else {
+                            console.log('error unhandled, status code:' + response.statusCode);
                             common.showError(req, res, response.statusCode);
                         }
                     });
-
-                }
-                else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) &&  body.success === false ) {
-
-                    console.log(body.internalError);
-                    renderRegisterApply(req, res, formData, body.userError);
-
-                }
-                else {
-                    console.log('error unhandled ' + err);
-                    common.showError(req, res, response.statusCode);
-                }
-            });
+                });
+            }
 
         }
 

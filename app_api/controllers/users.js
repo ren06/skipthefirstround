@@ -146,6 +146,7 @@ module.exports.userCreate = function(req, res){
     var skypeId = req.body.skypeId;
     var mobilePhone = req.body.mobilePhone;
     var language = req.body.language;
+    var cv = req.body.cv;
     //var company = req.body.company;
     //var position = req.body.position;
 
@@ -216,12 +217,16 @@ module.exports.userCreate = function(req, res){
                   mobilePhone = null;
                 }
 
-                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, mobile_phone) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
+                if(cv == ''){
+                  cv = null;
+                }
+
+                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, mobile_phone, cv) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
 
                 console.log(queryString);
                 console.log(email + ' ' + firstName + ' ' + lastName + ' ' + passwordHash);
 
-                var parameters =  [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone];
+                var parameters =  [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone, cv];
 
                 var query = client.query(queryString, parameters,
                     function (err, result) {
@@ -259,6 +264,30 @@ module.exports.userCreate = function(req, res){
     };
 };
 
+
+module.exports.userModify = function(req, res){
+
+  var data = req.body;
+  var userId = req.params.userId;
+
+  console.log(data.length);
+  console.log(userId);
+
+  if (!userId) {
+
+      common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserUpdateMissingInput'), null);
+  }
+  else if(Object.keys(data).length == 0) {
+
+    common.sendJsonResponse(res, 400, false, 'Nothing to modify', res.__('UserUpdateMissingInput'), null);
+  }
+  else{
+    common.rowUpdate(req, res, 'tbl_user',  userId, data);
+
+  }
+
+};
+
 module.exports.userReadOne = function(req, res){
 
   var userId = req.params.userId;
@@ -274,4 +303,4 @@ module.exports.userReadOne = function(req, res){
 
     }
 
-}
+};
