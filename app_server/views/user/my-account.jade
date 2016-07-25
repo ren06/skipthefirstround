@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-    - var page = 'myInterviews';
+    - var page = 'my-account';
 
     .col-lg-2.text-center
     .col-lg-8
@@ -40,7 +40,7 @@ block content
                                 td
                                 td DCF, Consolidation, Presentation
                                 td
-                                    a(href='interview') Voir
+                                    a(href='interview/#{interview.id}') View
 
 
     .col-lg-2.text-center

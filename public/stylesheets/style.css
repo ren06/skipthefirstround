@@ -22,3 +22,21 @@
     -ms-transition: none !important;
     transition: none !important;
 }
+
+/*.container dt,.container dd {*/
+    /*width:auto;*/
+    /*margin-left:auto;*/
+    /*//display:inline-block;*/
+    /*margin-right: 10px;*/
+/*}*/
+
+/*.dl-horizontal dt*/
+/*{*/
+    /*white-space: normal;*/
+    /*width: 200px;*/
+/*}*/
+
+.container dt,.container dd {
+    width:auto;
+
+}

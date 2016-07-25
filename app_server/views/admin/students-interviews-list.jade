@@ -12,6 +12,7 @@ block content
                 .col-lg-10(style='padding:10px')
                     table.table
                         tr
+                            th #
                             th Name
                             th Availability
                             th Email
@@ -21,6 +22,7 @@ block content
                             th See
                         each interview in interviews
                             tr
+                                td #{interview.id}
                                 td #{interview.user.firstName} #{interview.user.lastName}
                                 td #{interview.user.availability}
                                 td #{interview.user.email}

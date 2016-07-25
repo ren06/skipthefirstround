@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+    - var page = 'my-messages';
+
+    .col-lg-2.text-center
+    .col-lg-8
+        .container
+            .row
+                h2=welcome
+                //Bienvenue #{session.firstName}
+            .row
+                include ../_includes/user-menu.jade
+            .row
+                .col-lg-6(style='padding:10px')

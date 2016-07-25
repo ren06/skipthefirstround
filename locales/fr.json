@@ -13,5 +13,8 @@
 	"UserCreationMissingInput": "UserCreationMissingInput",
 	"EmailAlreadyExists": "EmailAlreadyExists",
 	"InterviewErrorUserId": "InterviewErrorUserId",
-	"Informations personnelles": "Informations personnelles"
+	"Informations personnelles": "Informations personnelles",
+	"My information": "My information",
+	"My messages": "My messages",
+	"Interview": "Interview"
 }

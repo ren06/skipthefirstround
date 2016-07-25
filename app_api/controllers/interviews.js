@@ -49,6 +49,17 @@ var addText = function(data, req){
             entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
             entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
 
+            if(typeof entry.sequences !== 'undefined') {
+
+                entry.sequences.forEach(function (entry) {
+
+                    entry['tagText'] = options.options[language].sequenceTagOptions[entry.tag];
+                    entry['appreciationText'] = options.options[language].appreciationsOptions[entry.appreciation];
+
+                });
+
+            }
+
         });
 
     }
@@ -236,17 +247,17 @@ module.exports.interviewList = function(req, res){
 
 
 module.exports.interviewListByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 ORDER BY id ASC";
+    var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 ORDER BY id ASC";
     executeListPerUser(req, res, sql);
 }
 
 module.exports.interviewPastByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND date_time < now() ORDER BY date_time ASC";
+    var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND date_time < now() ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
 }
 
 module.exports.interviewUpcomingByUser = function(req, res){
-    var sql = "SELECT * FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND (date_time IS NULL OR date_time >= now() ) ORDER BY date_time ASC";
+    var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND (date_time IS NULL OR date_time >= now() ) ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
 }
 
@@ -277,6 +288,7 @@ module.exports.interviewReadOne = function(req, res){
             'tag', s.tag, \
             'summary', s.summary, \
             'visible', s.visible, \
+            'appreciation', s.appreciation, \
             'video', json_build_object( \
                 'provider', v.provider, \
                 'provider_unique_id', v.provider_unique_id, \
@@ -302,10 +314,13 @@ module.exports.interviewReadOne = function(req, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            console.log(results);
+
             var result = results[0];
-            var resultWithText = addText([result], req);
-            common.sendJsonResponse(res, 200, true, '', '', resultWithText);
+            if(result){
+            var result = addText([result], req);
+            }
+
+            common.sendJsonResponse(res, 200, true, '', '', result);
         });
 
     });

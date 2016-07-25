@@ -22,6 +22,11 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
 
     console.log('Final json response sent: ' + status);
 
+    //to make it consistant and always return an array
+    if(!data){
+        data = [];
+    }
+
     var returnData = camelcaseKeys({
         'success': success,
         'internalError': internalError,

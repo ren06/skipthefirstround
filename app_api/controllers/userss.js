@@ -13,17 +13,17 @@ var PASSWORD_MIN_LENGTH = 8;
 var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
 
 
-module.exports.usersList = function(req, res){
+module.exports.usersList = function (req, res) {
 
-    pg.connect(conString, function(err, client, done) {
+    pg.connect(conString, function (err, client, done) {
 
         var results = [];
 
         // Handle connection errors
-        if(err) {
+        if (err) {
             done();
             console.log(err);
-            return res.status(500).json({ success: false, data: err});
+            return res.status(500).json({success: false, data: err});
         }
 
         // SQL Query > Select Data
@@ -32,12 +32,12 @@ module.exports.usersList = function(req, res){
         var query = client.query(queryString);
 
         // Stream results back one row at a time
-        query.on('row', function(row) {
+        query.on('row', function (row) {
             results.push(row);
         });
 
         // After all data is returned, close connection and return results
-        query.on('end', function() {
+        query.on('end', function () {
             done();
             common.sendJsonResponse(res, 200, true, null, null, results);
         });
@@ -45,7 +45,7 @@ module.exports.usersList = function(req, res){
     });
 };
 
-module.exports.doUserAuthenticate = function(req, res){
+module.exports.doUserAuthenticate = function (req, res) {
 
     //get sent data
     var email = req.body.email;
@@ -54,9 +54,9 @@ module.exports.doUserAuthenticate = function(req, res){
     console.log('doUserAuth');
 
     //check it's all there
-    if(!email || !password) {
+    if (!email || !password) {
 
-        common.sendJsonResponse(res, 400, false, 'No user or password', 'Vous devez fournir un email et password', null) ;
+        common.sendJsonResponse(res, 400, false, 'No user or password', 'Vous devez fournir un email et password', null);
         return;
     }
 
@@ -78,7 +78,7 @@ module.exports.doUserAuthenticate = function(req, res){
         console.log(email);
 
         var query = client.query(queryString, [email],
-            function(err, result) {
+            function (err, result) {
                 done();
                 console.log('executed');
                 if (err) {
@@ -89,19 +89,19 @@ module.exports.doUserAuthenticate = function(req, res){
             }
         );
 
-        query.on('end', function(result) {
+        query.on('end', function (result) {
 
             done();
 
-            if(result.rowCount === 0){
+            if (result.rowCount === 0) {
                 common.sendJsonResponse(res, 404, false, 'Email not found', 'Email non reconnu');
                 //return;
             }
-            else if(result.rowCount === 1){
+            else if (result.rowCount === 1) {
                 onUserRead(result.rows[0]);
             }
-            else{
-                common.sendJsonResponse(res, 404,  false, 'Unexpected error, there should be only one row for email', 'Erreur email present plusieurs fois');
+            else {
+                common.sendJsonResponse(res, 404, false, 'Unexpected error, there should be only one row for email', 'Erreur email present plusieurs fois');
                 //return;
             }
 
@@ -109,32 +109,39 @@ module.exports.doUserAuthenticate = function(req, res){
 
     });
 
-    var onUserRead = function(row){
+    var onUserRead = function (row) {
 
-        if(row && row.email && row.password_hash) {
+        if (row && row.email && row.password_hash) {
 
             var buffer = new Buffer(row.password_hash, 'hex');
 
             cryptography.verifyPassword(password, buffer, function (err, success) {
 
-                if(success){
+                if (success) {
                     var token = common.generateJwt(row.id, row.email, row.last_name);
-                    var result = {'user': {id: row.id, email: row.email, first_name: row.first_name, last_name: row.last_name}, 'token' : token };
+                    var result = {
+                        'user': {
+                            id: row.id,
+                            email: row.email,
+                            first_name: row.first_name,
+                            last_name: row.last_name
+                        }, 'token': token
+                    };
                     common.sendJsonResponse(res, 200, true, 'User authorised', 'Utilisateur authentifie', result);
                 }
-                else{
+                else {
                     common.sendJsonResponse(res, 401, false, 'User not authorised', 'Utilisateur non authentifie', null);
                 }
 
             });
         }
-        else{
-            common.sendJsonResponse(res, 404,  false, 'Unexpected error, email should be provided', 'Unexpected error, email should be provided');
+        else {
+            common.sendJsonResponse(res, 404, false, 'Unexpected error, email should be provided', 'Unexpected error, email should be provided');
         }
     }
 };
 
-module.exports.userCreate = function(req, res){
+module.exports.userCreate = function (req, res) {
 
     //get sent data
     var email = req.body.email;
@@ -155,35 +162,35 @@ module.exports.userCreate = function(req, res){
 
     //check it's all there
     //took out || !company || !position only relevant for simulation
-    if(!email || !firstName || !lastName || !password || !availability || !sector || !skypeId) {
+    if (!email || !firstName || !lastName || !password || !availability || !sector || !skypeId) {
 
         //syntactically wrong, bad request
-        common.sendJsonResponse(res, 400, false , 'Missing input', res.__('UserCreationMissingInput'), null);
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserCreationMissingInput'), null);
         return;
     }
-    else{
+    else {
 
         //check email
-        if(!validator.isEmail(email)){
+        if (!validator.isEmail(email)) {
 
             //semantic error
-        common.sendJsonResponse(res, 422 , false , 'Not valid email', email + " n'est pas un email correcte");
+            common.sendJsonResponse(res, 422, false, 'Not valid email', email + " n'est pas un email correcte");
             return;
         }
-        else if(password.length < PASSWORD_MIN_LENGTH){
+        else if (password.length < PASSWORD_MIN_LENGTH) {
 
-            common.sendJsonResponse(res, 422 , false , 'Password too short', "Le mot de passe doit faire au mois " + PASSWORD_MIN_LENGTH + " caracteres" );
+            common.sendJsonResponse(res, 422, false, 'Password too short', "Le mot de passe doit faire au mois " + PASSWORD_MIN_LENGTH + " caracteres");
             return;
         }
 
     }
 
     //encrypt password
-     cryptography.hashPassword(password, function (err, buffer) {
+    cryptography.hashPassword(password, function (err, buffer) {
 
         if (err !== null) {
             //internal message error
-            common.sendJsonResponse(res, 500 , false, 'Error hashing password: ', 'Erreur inattendue');
+            common.sendJsonResponse(res, 500, false, 'Error hashing password: ', 'Erreur inattendue');
         }
         else if (buffer !== null) {
 
@@ -191,12 +198,12 @@ module.exports.userCreate = function(req, res){
             onHashComplete(passwordHash);
         }
         else {
-            common.sendJsonResponse(res, 500,  false, 'Unexpected error, buffer is null', 'Erreur inattendue');
+            common.sendJsonResponse(res, 500, false, 'Unexpected error, buffer is null', 'Erreur inattendue');
         }
 
     });
 
-    var saveUser = function(email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone) {
+    var saveUser = function (email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone) {
 
         pg.connect(conString, function (err, client, done) {
 
@@ -205,7 +212,7 @@ module.exports.userCreate = function(req, res){
             // Handle connection errors
             if (err) {
                 done();
-                console.log('500 '+ err);
+                console.log('500 ' + err);
                 common.sendJsonResponse(res, 500, false, err, 'Erreur inattendue');
 
             }
@@ -213,12 +220,12 @@ module.exports.userCreate = function(req, res){
 
                 // Insert
                 console.log('mobilePhone: ' + mobilePhone);
-                if(mobilePhone == ''){
-                  mobilePhone = null;
+                if (mobilePhone == '') {
+                    mobilePhone = null;
                 }
 
-                if(cv == ''){
-                  cv = null;
+                if (cv == '') {
+                    cv = null;
                 }
 
                 var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, mobile_phone, cv) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
@@ -226,7 +233,7 @@ module.exports.userCreate = function(req, res){
                 console.log(queryString);
                 console.log(email + ' ' + firstName + ' ' + lastName + ' ' + passwordHash);
 
-                var parameters =  [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone, cv];
+                var parameters = [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone, cv];
 
                 var query = client.query(queryString, parameters,
                     function (err, result) {
@@ -234,7 +241,7 @@ module.exports.userCreate = function(req, res){
                         if (err) {
                             console.log('insert error');
                             //conflict error
-                            common.sendJsonResponse(res, 409, false, 'Insert error for ' + email + '. Error code ' + err.code , res.__('EmailAlreadyExists') );
+                            common.sendJsonResponse(res, 409, false, 'Insert error for ' + email + '. Error code ' + err.code, res.__('EmailAlreadyExists'));
                         }
                     }
                 );
@@ -246,7 +253,7 @@ module.exports.userCreate = function(req, res){
                     //return user data as camel case keys without password_hash
                     delete row['password_hash'];
 
-                    var result = { 'user': row, 'token' : token };
+                    var result = {'user': row, 'token': token};
                     common.sendJsonResponse(res, 201, true, null, null, result);
                 });
 
@@ -258,39 +265,39 @@ module.exports.userCreate = function(req, res){
         });
     }
 
-    var onHashComplete  = function(passwordHash){
+    var onHashComplete = function (passwordHash) {
 
         saveUser(email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone);
     };
 };
 
 
-module.exports.userModify = function(req, res){
+module.exports.userModify = function (req, res) {
 
-  var data = req.body;
-  var userId = req.params.userId;
+    var data = req.body;
+    var userId = req.params.userId;
 
-  console.log(data.length);
-  console.log(userId);
+    console.log(data.length);
+    console.log(userId);
 
-  if (!userId) {
+    if (!userId) {
 
-      common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserUpdateMissingInput'), null);
-  }
-  else if(Object.keys(data).length == 0) {
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserUpdateMissingInput'), null);
+    }
+    else if (Object.keys(data).length == 0) {
 
-    common.sendJsonResponse(res, 400, false, 'Nothing to modify', res.__('UserUpdateMissingInput'), null);
-  }
-  else{
-    common.rowUpdate(req, res, 'tbl_user',  userId, data);
+        common.sendJsonResponse(res, 400, false, 'Nothing to modify', res.__('UserUpdateMissingInput'), null);
+    }
+    else {
+        common.rowUpdate(req, res, 'tbl_user', userId, data);
 
-  }
+    }
 
 };
 
-module.exports.userReadOne = function(req, res){
+module.exports.userReadOne = function (req, res) {
 
-  var userId = req.params.userId;
+    var userId = req.params.userId;
 
 
     if (!userId) {

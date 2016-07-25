@@ -2,20 +2,19 @@ extends layout
 
 block content
 
-    - var page = 'myInformation';
+    - var page = 'personal-information';
 
     .col-lg-2.text-center
     .col-lg-8
-        h2 Mon compte (pierre.thiery@gmail.com)
-        br
-        br
         .container
+            .row
+                h2 My personal information
 
-            include ../_includes/user-menu.jade
+            .row
+                include ../_includes/user-menu.jade
+            .row
+                .col-lg-6(style='padding:10px')
 
-            .col-lg-6(style='padding:10px')
-
-                div My name is
+                    h4 Prochaine(s) simulation(s) d'entretien:
 
 
-    .col-lg-2.text-center

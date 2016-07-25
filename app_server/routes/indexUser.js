@@ -89,8 +89,9 @@ router.get ('/user-register', ctrlRegister.registerUser);
 router.post('/user-register', ctrlRegister.doRegisterUser);
 router.get ('/confirmation', ctrlRegister.confirmation);
 router.get ('/my-account', ctrlUser.myAccount);
-router.get ('/interview', ctrlUser.interview);
+router.get ('/interview/:interviewId', ctrlUser.interview);
 router.get ('/personal-information', ctrlUser.personalInformations);
+router.get ('/my-messages', ctrlUser.myMessages);
 router.get ('/change-language/:language', ctrlHomepage.changeLanguage);
 
 

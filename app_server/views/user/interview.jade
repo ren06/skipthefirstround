@@ -2,28 +2,45 @@ extends layout
 
 block content
 
-    - var page = 'myInterviews';
+    - var page = 'my-account';
 
     .col-lg-2.text-center
     .col-lg-8
-        h2 Interview (pierre.thiery@gmail.com)
-        br
-        br
+        h2 Interview #{interview.id}
+
         .container
             .row
                 include ../_includes/user-menu.jade
 
-            div Interview du lundi 31 mai 2016 17:30
+                .col-lg-6(style='padding:5px')
+                    h3 Information
+                    dl.dl-horizontal
+                        dt Date
+                            dd=interview.dateTimeText
+                        dt Type
+                            dd=interview.typeText
+                        dt Sector
+                            dd=interview.sectorText
+            .row
+                .col-lg-6(style='padding:5px')
+                    h3 Sequences
 
-            .col-lg-6(style='padding:5px')
-                div Sequence DCF
-                video(controls width="320" height="240" poster="images/video-poster.png")
-                    source(src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4")
-                    Your browser does not support the video tag.
-            .col-lg-6(style='padding:5px')
-                div Sequence Consolidation
-                video(controls width="320" height="240" poster="images/video-poster.png")
-                    source(src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4")
-                    Your browser does not support the video tag.
+                    table.table
+                        tr
+                            th Tag
+                            th Summary
+                            th Apprecition
+                            th Video
+                        if(interview.sequences.length === 0)
+                            tr
+                                td(colspan=4) No sequences for this interview
+                        else
+                            each sequence in interview.sequences
+                                tr
+                                    td=sequence.tagText
+                                    td=sequence.summary
+                                    td=sequence.apprecitionText
+                                    td
+                                        a(href='#{sequence.video.url}') View
 
     .col-lg-2.text-center

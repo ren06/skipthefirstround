@@ -82,29 +82,58 @@ module.exports.myAccount = function(req, res){
 
 };
 
-module.exports.interview = function(req, res){
+var renderInterview = function(req, res, interview){
 
     console.log('user/interview');
     res.render('user/interview', {
         title: res.__('Interview'),
-        pageHeader: {
-            title: '',
-        },
+        interview: interview,
     });
+
+}
+
+module.exports.interview = function(req, res){
+
+    var interviewId = req.params.interviewId
+
+    request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET', null, null ), function (err, response, body) {
+
+        if(response.statusCode === 200) {
+
+            var interview = body.data[0];
+
+            console.log(body.data);
+
+            renderInterview(req, res, interview);
+        }
+    });
+
 
 };
 
 module.exports.personalInformations = function(req, res){
 
-    console.log('user/personal-information');
     res.render('user/personal-information', {
-        title: res.__('Informations personnelles'),
+        title: res.__('My information'),
         pageHeader: {
             title: '',
         },
     });
 
 };
+
+module.exports.myMessages = function(req, res){
+
+    res.render('user/my-messages', {
+        title: res.__('My messages'),
+        pageHeader: {
+            title: '',
+        },
+    });
+
+};
+
+
 
 var renderBrowseOffers = function(req, res, formData, results, message){
 

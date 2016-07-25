@@ -10,7 +10,7 @@ var auth = jwt({
 
 var ctrlUnitTest = require('../controllers/unitTest');
 
-var ctrlUsers =  require('../controllers/users');
+var ctrlUsers =  require('../controllers/userss');
 var ctrlOptions = require('../controllers/options');
 var ctrlInterviews = require('../controllers/interviews');
 var ctrlInterviewers = require('../controllers/interviewers');
@@ -52,7 +52,7 @@ router.post('/interview/:interviewId/modify', ctrlInterviews.interviewModify);
 
 router.get ('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser);
 router.get ('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
-router.get ('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
+router.get ('/user/:userId/interviewsPast', ctrlInterviews.interviewPastByUser);
 
 router.post('/recruiter', ctrlRecruiters.createRecruiter);
 router.get ('/recruiters', ctrlRecruiters.recruiterList);
