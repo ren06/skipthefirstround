@@ -50,7 +50,10 @@ var addText = function(data, req){
             entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
 
             if(!entry.company){
-                entry['company'] = 'Not specified';
+                entry['companyText'] = 'Not specified';
+            }
+            else{
+                entry['companyText'] = entry.company;
             }
 
             if(typeof entry.sequences !== 'undefined') {

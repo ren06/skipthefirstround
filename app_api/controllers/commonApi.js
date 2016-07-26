@@ -26,6 +26,15 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
     if(!data){
         data = [];
     }
+    else{
+        //console.time("stringify");
+        //TODO DOULE CHECK IF EMPTY STRING INSTEAD OF NULL CAUSES PROBLEMS
+        data = JSON.stringify(data).replace(/null/g, '""'); //convert to JSON string
+        data = JSON.parse(data);
+
+        //console.timeEnd("stringify");
+
+    }
 
     var returnData = camelcaseKeys({
         'success': success,
