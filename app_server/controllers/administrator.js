@@ -10,13 +10,70 @@ cloudinary.config({
     //environement variable: CLOUDINARY_URL=cloudinary://577639826413541:i7mJdBgVzasUcF0bMW7Kyzl0QC0@dzfmkzqdo
 });
 
+var renderLogin = function(req, res, formData, error){
+
+    res.render('admin/login', {
+        title: 'Admin Login',
+        formData: formData,
+        error: error,
+    });
+}
+
 module.exports.homepage = function(req, res){
 
-    res.render('admin/homepage', {
-        title: 'Homepage',
+    var session = req.session;
 
+    if(session.authenticated && session.role == 'admin'){
+
+        res.redirect('admin/main-menu');
+    }
+    else if(session.authenticated){
+
+        res.render('admin/generic-text', {
+            title: 'Please log off',
+            content: 'You are logged in, but not as an administrator, please log off first.',
+        });
+    }
+    else{
+        renderLogin(req, res, {'email': '', 'password': ''}, null);
+    }
+
+};
+
+module.exports.doLogin = function(req, res){
+
+    var formData = req.body;
+
+    if((formData.email == 'rtheuillon@hotmail.com' || formData.email == 'jerome.troiano@gmail.com' ) && formData.password == 'elmaros'){
+
+            req.session.role = 'admin';
+            req.session.authenticated = true;
+            //req.session.token = token;
+
+            res.redirect('admin/main-menu');
+    }
+    else{
+        renderLogin(req, res, formData, 'Email and password do not match');
+    }
+}
+
+module.exports.mainMenu = function(req, res){
+
+    res.render('admin/main-menu', {
+        title: 'Main menu',
     });
 
+};
+
+module.exports.logout = function(req, res){
+
+    console.log('admin logout called');
+
+    req.session.destroy(function(err) {
+
+        console.log('admin session destroyed');
+        res.redirect('/admin');
+    });
 };
 
 module.exports.usersList = function(req, res){

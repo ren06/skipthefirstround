@@ -49,7 +49,7 @@ i18n.configure({
 //PG session
 app.use(session({
   store: new pgSession({
-    pg : pg,                                  // Use global pg-module
+    pg : pg,
     conString : config.get('Api.dbConfig.url'), // Connect using something else than default DATABASE_URL env variable
     tableName : 'session'               // Use another table-name than the default "session" one
   }),
@@ -127,14 +127,29 @@ app.use(function(req ,res, next){
 
 
 app.all('/api/*', function(req, res, next){
-  console.log('API call: ' + req.url);
-  if( req.url.search('/api/interview/3') != -1) {
 
-    console.log(req.headers);
-    console.log(req.headers.referer);
-  }
+  console.log('API call: ' + req.url);
+
   next();
 });
+
+app.all('/admin/*', function(req, res, next){
+
+    if(req.session.authenticated && req.session.role == 'admin'){
+        next();
+    }
+    else{
+
+        if(req.originalUrl === '/admin/logout'){ //only one OK
+            next();
+        }
+        else {
+            res.redirect('/admin');
+        }
+    }
+});
+
+
 
 app.use('/', routesUser);
 app.use('/api/', routesApi);
@@ -188,11 +203,6 @@ request(requestOptions, function (err, response, body) {
 // error handlers
 // Catch unauthorised errors
 app.use(function (err, req, res, next) {
-
-  // res.render('user/generic-text', {
-  //   title: res.__('Unauthorised'),
-  //   content: 'You are not authorised to access this page',
-  // });
 
   console.log('Error handler');
   console.log(err.name);

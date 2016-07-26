@@ -55,9 +55,9 @@ block content
             .form-group
                 label.control-label.col-sm-4(for='sector') Secteur d'activite:
                 .col-sm-8
-                    select#sector(value=formData.sector, name='sector').form-control.required
+                    select#sector(name='sector').form-control.required
                         each val, key in sectorOptions
-                            option(value=key)=val
+                            option(value=key selected=(key == formData.sector))=val
 
             .form-group.required
                 label.control-label.col-sm-4(for='company') Entreprise:

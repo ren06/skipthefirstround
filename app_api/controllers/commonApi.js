@@ -222,6 +222,15 @@ module.exports.readOne = function(req, res, tableName, id, addText){
 
 };
 
+module.exports.readAll = function(req, res, tableName, addText){
+
+    var queryString = "SELECT * FROM " + tableName ;
+
+    this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
+
+};
+
+
 module.exports.checkParametersPresent = function(parameterString, data){
 
     parameterString = parameterString.replace(/\s/g, '');

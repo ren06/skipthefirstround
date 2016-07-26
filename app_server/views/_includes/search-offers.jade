@@ -35,7 +35,7 @@ form.form-horizontal(id="searchForm", action="", method="post", role="form")
         label.control-label.col-sm-4(for='language') Language:
         .col-sm-8
             select#language(value=formData.language, name='language').form-control.required
-                each val, key in {'en': 'English', 'fr' : 'Francais'}
+                each val, key in languageOptions
                     option(value=key selected=(key == formData.language))=val
 
 

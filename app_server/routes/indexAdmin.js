@@ -3,15 +3,13 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var config = require('config');
 
-var auth = jwt({
-    secret: config.Api.Secret,//process.env.JWT_SECRET,
-    userProperty: 'payload'
-});
-
 
 var ctrlAdmin = require('../controllers/administrator');
 
 router.get ('/', ctrlAdmin.homepage);
+router.post('/', ctrlAdmin.doLogin);
+router.get ('/main-menu', ctrlAdmin.mainMenu);
+router.get ('/logout', ctrlAdmin.logout);
 router.get ('/students-list', ctrlAdmin.usersList);
 router.get ('/student-menu', ctrlAdmin.etudiant);
 router.get ('/students-interviews-list', ctrlAdmin.studentsInterviewsList);

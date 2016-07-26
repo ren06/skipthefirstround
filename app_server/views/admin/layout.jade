@@ -42,12 +42,12 @@ html
             li
 
           ul.nav.navbar-nav.navbar-right
-            if(authenticated)
+            if(session.authenticated)
               li
-                a(href="../deconnexion/") Deconnexion
+                a(href="/admin/logout") Logout
             else
               li
-                a(href="../identification/") S'identifier
+                a(href="/admin") Login
 
     .container
       .row

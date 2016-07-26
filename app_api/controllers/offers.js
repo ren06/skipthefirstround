@@ -6,6 +6,7 @@ var addTextLabel = function(entry, language){
     entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
     entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offer_type];
     entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.company_type];
+    entry['languageText'] = options.options[language].languageOptions[entry.language];
 }
 
 var addText = function(data, req){
@@ -117,10 +118,9 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
     var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_video v ON i.id_video = v.id";
 
-
     common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
 
-        common.sendJsonResponse(res, 200, true, null, null, data);
+        common.sendJsonResponse(res, 200, true, null, null, results);
 
     });
 
@@ -173,13 +173,15 @@ module.exports.offersListByRecruiter = function(req, res){
 
         var queryString =
             "SELECT (SELECT row_to_json(_) FROM (SELECT r.id, r.email, r.first_name, r.last_name, r.mobile_phone, r.company, r.language) as _) AS recruiter, ARRAY(SELECT json_build_object( \
+                'id', o.id,\
                 'idRecruiter', o.id_recruiter, \
                 'sector', o.sector, \
                 'offer_type', o.offer_type, \
                 'company_type', o.company_type, \
                 'location', o.location, \
                 'text', o.text, \
-                'language', o.language \
+                'language', o.language, \
+                'created', o.created\
                 ) \
                 FROM tbl_offer o INNER JOIN tbl_recruiter r ON o.id_recruiter = r.id ORDER BY o.id ASC) AS offers \
                 FROM tbl_recruiter r \

@@ -149,6 +149,7 @@ var renderBrowseOffers = function(req, res, formData, results, message){
             sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
             offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
             companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
+            languageOptions: req.app.locals.options[lang].languageOptions,
             locations: common.addAll(body.data),
             title: i18n.__('Browse Videos'),
             formData: formData,

@@ -50,10 +50,10 @@ block content
                         .form-group
                             label.control-label.col-sm-2(for='time_hour') Interviewer:
                             .col-sm-6
-                                -var interviewerId = (formData.interviewerId ? formData.interviewerId : interviewers[0].id )
+                                //-var interviewerId = (formData.interviewerId ? formData.interviewerId : interviewers[0].id )
                                 select#interviewer.form-control(name='interviewerId' value='#{interviewerId}')
                                     each interviewer in interviewers
-                                        option(value='#{interviewer.id}') #{interviewer.fullName}
+                                        option(value='#{interviewer.id}' selected=(interviewer.id == formData.interviewerId)) #{interviewer.fullName}
                         .form-group
                             .col-sm-offset-2.col-sm-10
                                 .checkbox

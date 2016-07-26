@@ -41,9 +41,20 @@ module.exports.createRecruiter = function(req, res){
 
 module.exports.recruiterList = function(req, res){
 
+    common.readAll(req, res, 'tbl_recruiter', null);
 }
 
 module.exports.recruiterReadOne = function(req, res){
+
+    var recruiterId = req.params.recruiterId;
+
+    if(!recruiterId){
+        common.sendJsonResponse(res, 400, false, 'No recruiterId', 'No recruiterId', null) ;
+    }
+    else{
+
+        common.readOne(req, res, 'tbl_recruiter', recruiterId, null);
+    }
 
 }
 

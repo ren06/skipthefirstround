@@ -116,6 +116,19 @@ var appreciationsOptionsEn = {
     "3": "Exceptional",
 }
 
+//language
+var languageOptionsFr = {
+    "" : 'Tous',
+    "en": "Anglais",
+    "fr": "Francais",
+}
+
+var languageOptionsEn = {
+    "" : 'All',
+    "en": "English",
+    "fr": "French",
+}
+
 var optionsFr = {
     sectorOptions: sectorOptionsFr,
     interviewStatusOptions: interviewStatusOptionsFr,
@@ -124,6 +137,7 @@ var optionsFr = {
     appreciationsOptions: appreciationsOptionsFr,
     offerTypeOptions: offerTypeOptionsFr,
     companyTypeOptions: companyTypeOptionsFr,
+    languageOptions: languageOptionsFr,
 
 }
 
@@ -135,6 +149,7 @@ var optionsEn = {
     appreciationsOptions: appreciationsOptionsEn,
     offerTypeOptions: offerTypeOptionsEn,
     companyTypeOptions: companyTypeOptionsEn,
+    languageOptions: languageOptionsEn,
 }
 
 //for locale stuff

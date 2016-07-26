@@ -10,11 +10,21 @@ block content
 
             h3 My offers
 
-
-
-
-
-
+            table.table
+                tr
+                    th Type
+                    th Sector
+                    th Company type
+                    th Language
+                    th View
+                each offer in offers
+                    tr
+                        td #{offer.offerTypeText}
+                        td #{offer.sectorText}
+                        td #{offer.companyTypeText}
+                        td #{offer.languageText}
+                        td
+                            a(href='offer/#{offer.id}') View
 
         .row
 
