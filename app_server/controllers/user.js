@@ -420,7 +420,7 @@ module.exports.doApplyOffer = function(req, res){
 
 var renderSimulation = function(req, res, formData, error){
 
-    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+    var sectorOptions = res.app.locals.options[res.getLocale()].sectorOptions;
 
     res.render('user/register-simulation', {
         title: i18n.__('Enregistrement'),
@@ -442,13 +442,11 @@ module.exports.simulation = function(req, res){
 
         var user = body.data[0];
 
-        console.log(user);
-
         var formData = {
             availability: user.availability,
             sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
             skypeId: user.skypeId,
-            mobilePhone: user.mobilePhone,
+            mobilePhone: (user.mobilePhone? user.mobilePhone: '') ,
             position: '',
             company: '',
         };
@@ -464,7 +462,7 @@ module.exports.doSimulation = function(req, res){
     var formData = req.body;
     var userId = req.session.userId;
 
-    if(!common.checkParametersPresent('position, sector, company, availability, skypeId,', formData)){
+    if(!common.checkParametersPresent('position, sector, company, availability, skypeId', formData)){
 
         renderSimulation(req, res, formData, 'Please enter all fields');
     }

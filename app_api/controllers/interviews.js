@@ -1,4 +1,4 @@
-var common = require('./common');
+var common = require('./commonApi');
 var pg = require('pg');
 var config = require('config');
 var moment = require('moment');
@@ -48,6 +48,10 @@ var addText = function(data, req){
             entry['minute'] = moment(dateTime).format("m");
             entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
             entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
+
+            if(!entry.company){
+                entry['company'] = 'Not specified';
+            }
 
             if(typeof entry.sequences !== 'undefined') {
 

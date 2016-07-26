@@ -1,4 +1,4 @@
-var common = require('./common');
+var common = require('./commonApi');
 var options = require('./options');
 
 var addTextLabel = function(entry, language){

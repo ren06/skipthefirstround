@@ -1,4 +1,4 @@
-var common = require('./common');
+var common = require('./commonApi');
 
 var pg = require('pg');
 var cryptography = require('../helper/cryptography');

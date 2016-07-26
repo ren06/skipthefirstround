@@ -1,4 +1,4 @@
-var common = require("./common");
+var common = require("./commonApi");
 
 //Offer type
 var offerTypeOptionsFr = {

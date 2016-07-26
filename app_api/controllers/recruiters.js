@@ -1,4 +1,4 @@
-var common = require('./common');
+var common = require('./commonApi');
 var cryptography = require('../helper/cryptography');
 
 module.exports.createRecruiter = function(req, res){

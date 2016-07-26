@@ -1,4 +1,4 @@
-var common = require('./common');
+var common = require('./commonApi');
 
 var addText = function(data, req){
 

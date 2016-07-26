@@ -24,21 +24,27 @@ block content
                         each interview in interviewsFuture
                             div #{interview.typeText} - #{interview.dateTimeText}
             .row
-                .col-lg-6(style='padding:10px')
+                .col-lg-8(style='padding:10px')
 
                     h4 Mes simulations d'entretien:
                     table.table
                         tr
                             th Date
-                            th Position
+                            th Type
+                            th Sector
                             th Company
                             th Competence
                         each interview in interviewsPast
                             tr
                                 td=interview.dateTimeText
+                                td=interview.typeText
+                                    //if(interview.type == 2)
+                                    //    a(href='offer/#{interview.idOffer}')=interview.typeText
+                                    //else
+
                                 td=interview.sectorText
-                                td
-                                td DCF, Consolidation, Presentation
+                                td=interview.company
+                                td 
                                 td
                                     a(href='interview/#{interview.id}') View
 

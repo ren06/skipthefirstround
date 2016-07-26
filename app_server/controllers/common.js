@@ -11,16 +11,17 @@ module.exports.checkParametersPresent = function(parameterString, data){
     var array = parameterString.split(',');
 
     for (var i = 0; i < array.length; i++){
-        var value = data[array[i]];
-        console.log('checked param: ' + array[i] + ' value:' + value);
-        console.log(value.length);
+
+        var paramName = array[i];
+        var value = data[paramName];
+        console.log('checked param: ' + paramName + ' value:' + value);
 
         if(!value || 0 === value.length || value == ' '){
-            console.log('returning false');
+            console.log('Front end missing param' + paramName );
             return false;
         }
     }
-    console.log('loop finished');
+
     return true;
 
 }
