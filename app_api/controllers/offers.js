@@ -2,7 +2,7 @@ var common = require('./commonApi');
 var options = require('./options');
 
 var addTextLabel = function(entry, language){
-
+    console.log(entry.sector);
     entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
     entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offer_type];
     entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.company_type];
@@ -57,6 +57,29 @@ var addText2 = function(data, req){
 
         return offer;
     }
+};
+
+var addTextArrayOffers = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    console.log(language);
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+    if(!language){
+        language = 'en';
+    }
+    if(typeof data !== 'undefined' && data.length > 0) {
+
+        data.forEach(function(entry){
+
+            addTextLabel(entry, language);
+
+        });
+    }
+
+    return data;
 };
 
 module.exports.offerCreate = function(req, res){
@@ -116,9 +139,9 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
     var parameters = req.params;
 
-    var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_video v ON i.id_video = v.id";
+    var queryString = "SELECT o.* FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_video v ON i.id_video = v.id";
 
-    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, null, addTextArrayOffers, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -126,17 +149,33 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
 };
 
-module.exports.offerSearchForUser = function(req, res){
+module.exports.offerSearchForGuest = function(req, res){
 
-    console.log(req.query);
+    var whereClause = common.convertQueryToWhereClause(req.query, 'o');
 
-    var whereClause = common.convertQueryToWhereClause(req.query);
-
-    var queryString = "SELECT * FROM tbl_offer " + whereClause;
+    var queryString = "SELECT o.* FROM tbl_offer o " + whereClause;
 
     console.log(queryString);
 
-    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, null, addTextArrayOffers, 'Error', 'Error', function(results){
+
+        common.sendJsonResponse(res, 200, true, null, null, results);
+
+    });
+};
+
+module.exports.offerSearchForUser = function(req, res){
+
+    var userId = req.params.userId;
+    console.log(req.query);
+
+    var whereClause = common.convertQueryToWhereClause(req.query, 'o');
+
+    var queryString = "SELECT o.* FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = $1 " + whereClause;
+
+    console.log(queryString);
+
+    common.dbHandleQuery(req, res, queryString, [userId], addTextArrayOffers, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 

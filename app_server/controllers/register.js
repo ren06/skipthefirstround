@@ -83,7 +83,7 @@ module.exports.doRegisterUser = function(req, res){
     var company = req.body.company;
 
     if(typeof language !== 'undefined'){
-        language = 'fr';
+        language = 'en';
     }
 
     var postData = {
@@ -283,6 +283,7 @@ module.exports.registerUser = function(req, res){
         firstName: '',
         lastName: '',
         password: '',
+        confirmationPassword: '',
         availability: '',
         sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
         skypeId: '',

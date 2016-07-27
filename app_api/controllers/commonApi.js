@@ -119,7 +119,7 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
 
 };
 
-module.exports.convertQueryToWhereClause = function(query){
+module.exports.convertQueryToWhereClause = function(query, tableAlias){
 
     var keys = Object.keys(query);
 
@@ -133,6 +133,9 @@ module.exports.convertQueryToWhereClause = function(query){
 
         keys.forEach(function (entry) {
 
+            if(tableAlias){
+                whereClause += tableAlias + '.'
+            }
             whereClause +=  decamelize(entry) + "='" + query[entry] + "'" + and;
         });
         console.log(whereClause);

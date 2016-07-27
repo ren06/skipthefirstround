@@ -2,60 +2,7 @@ extends layout
 
 block content
 
-    script(src='/cloudinary/jquery.ui.widget.js')
-    script(src='/cloudinary/jquery.iframe-transport.js')
-    script(src='/cloudinary/jquery.fileupload.js')
-    script(src='/cloudinary/jquery.cloudinary.js')
-
-    script.
-
-        $(document).ready(function () {
-
-            $('.progress').hide();
-
-            //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
-            var public_id   = '';
-
-            $('#cvFile').unsigned_cloudinary_upload("curriculum",
-                    {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
-                {multiple: false}, function(err){
-                        alert(err);
-                    }
-                //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
-            ).bind('fileuploadstart', function(e, data){
-
-                    $('.progress').show();
-                    $('.progress-bar').removeClass('progress-bar-danger');
-                    $('.progress-bar').removeClass('notransition');
-                    $('#progressText').html('');
-                    $('.progress-bar').css('width', '0%').attr('aria-valuenow', 0);
-
-
-            }
-            ).bind('cloudinarydone', function (e, data) {
-
-                public_id = data.result.public_id;
-
-                $('#progressText').html(data.result.original_filename + '.pdf');
-                $('#cvUniqueId').val(public_id);
-                $('.progress-bar').addClass('progress-bar-success');
-
-            }
-            ).bind('cloudinaryprogress', function (e, data) {
-
-                $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
-            }
-            )
-            .bind('fileuploadfail', function(e, data){
-
-                var errorMessage = data.jqXHR.responseJSON.error.message;
-
-                $('#progressText').html(errorMessage);
-                $('.progress-bar').addClass('progress-bar-danger');
-                $(".progress-bar").addClass('notransition');
-
-            });
-        });
+    include ../_includes/cv-upload-js
 
     .col-lg-2.text-center
     .col-lg-8
@@ -74,20 +21,7 @@ block content
             input(type='hidden' name='sector' value="#{offer.sector}")
 
             .form-group
-                label.control-label.col-sm-4(for='cvFile') Votre CV:
-                .col-sm-3
-                    label.btn.btn-default.btn-file(style='width:160px')
-                        |   Select CV file...
-                        input#cvFile(type="file" style="display: none;" name="file")
-                .col-sm-5.vertical-center
-                    div.progress
-                        div.progress-bar.progress-bar-striped(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="text-align:center")
-                            span#progressText
-                .col-sm-2
-                    div.file-title
-                input(id="cvUniqueId" type="hidden" name="cv" value="#{formData.cv}")
-                if(formData.cv !== '')
-                    a(href='#{cvLink}') See current CV
+                include ../_includes/cv-upload-control
 
             if(!session.authenticated)
 

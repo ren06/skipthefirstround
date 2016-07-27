@@ -111,13 +111,30 @@ module.exports.interview = function(req, res){
 
 };
 
-module.exports.personalInformations = function(req, res){
+var renderPersonalInformation = function(req, res, formData, error, editMode){
 
     res.render('user/personal-information', {
         title: res.__('My information'),
         pageHeader: {
             title: '',
         },
+        formData: formData,
+        editMode: editMode,
+    });
+};
+
+module.exports.personalInformations = function(req, res){
+
+    var userId = req.session.userId;
+
+    request(common.getRequestOptions(req, '/api/user/' + userId, 'GET', null, null ), function (err, response, body) {
+
+        var user = body.data[0];
+
+        var formData = user;
+
+        renderPersonalInformation(req, res, formData, null, false);
+
     });
 
 };
@@ -178,6 +195,7 @@ module.exports.offers = function(req, res){
 
 module.exports.doOffers = function(req, res){
 
+    var userId = req.session.userId;
     var formData = req.body;
     var qs = {};
 
@@ -192,7 +210,14 @@ module.exports.doOffers = function(req, res){
         }
     });
 
-    request(common.getRequestOptions(req, '/api/offers/searchForUser', 'GET', null, qs ), function (err, response, body) {
+    if(req.session.authenticated && req.session.role == 'user'){
+        var path = '/api/offers/searchForUser/' + userId;
+    }
+    else{
+        var path = '/api/offers/searchForGuest/';
+    }
+    console.log(path);
+    request(common.getRequestOptions(req, path, 'GET', null, qs ), function (err, response, body) {
 
         if(response.statusCode === 200) {
 
@@ -255,6 +280,7 @@ module.exports.applyOffer = function(req, res){
             firstName: '',
             lastName: '',
             password: '',
+            confirmationPassword: '',
             availability: '',
             sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
             skypeId: '',
@@ -322,7 +348,16 @@ module.exports.doApplyOffer = function(req, res){
 
             console.log('params ok');
 
+            //if user not authenticated it must be created
             if(!req.session.authenticated) {
+
+                var language = req.cookies.locale;
+
+                if(typeof language !== 'undefined'){
+                    language = 'en';
+                }
+
+                formData.language = language;
 
                 var requestOptions = common.getRequestOptions(req, '/api/user/', 'POST', formData);
 

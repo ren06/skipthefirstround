@@ -2,7 +2,7 @@ var common = require('./commonApi');
 
 var pg = require('pg');
 var cryptography = require('../helper/cryptography');
-//var crypto = require('crypto');
+var options = require('./options');
 var validator = require('validator');
 var config = require('config');
 
@@ -11,6 +11,28 @@ var databaseURL = config.get('Api.dbConfig.url');
 var PASSWORD_MIN_LENGTH = 8;
 
 var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
+
+
+var addUserText = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    console.log(language);
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+    if(!language){
+        language = 'en';
+    }
+
+    if(typeof data !== 'undefined') {
+
+        data['sectorText'] = options.options[language].sectorOptions[data.sector];
+        data['languageText'] = options.options[language].languageOptions[data.language];
+    }
+
+    return data;
+};
 
 
 module.exports.usersList = function (req, res) {
@@ -299,14 +321,13 @@ module.exports.userReadOne = function (req, res) {
 
     var userId = req.params.userId;
 
-
     if (!userId) {
 
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserReadMissingInput'), null);
     }
     else {
 
-        common.readOne(req, res, 'tbl_user', userId, null);
+        common.readOne(req, res, 'tbl_user', userId, addUserText);
 
     }
 

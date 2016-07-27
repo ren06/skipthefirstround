@@ -1,9 +1,13 @@
 .panel-group
 each offer in offers
     .panel.panel-default
-        .panel-heading=offer.sectorText + ' - ' + offer.location
+        .panel-heading=offer.offerTypeText + ' - ' + offer.sectorText + ' - ' + offer.companyTypeText + ' - ' + offer.location
         .panel-body !{offer.text}
         if(session.role == 'user')
         ul.list-group
             li.list-group-item.text-center
-                a(href="/apply/#{offer.id}") Apply
+
+                if(offer.idUser)
+                    | You have already applied
+                else
+                    a(href="/apply/#{offer.id}") Apply

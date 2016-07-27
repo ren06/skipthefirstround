@@ -49,6 +49,11 @@ var addText = function(data, req){
             entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
             entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
 
+            if(entry.type == 2){
+                entry['typeText'] =  entry['typeText'] + ' #' + entry.id;
+            }
+
+
             if(!entry.company){
                 entry['companyText'] = 'Not specified';
             }
