@@ -65,8 +65,9 @@ router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
 router.get ('/offers/searchForUser/:userId', ctrlOffers.offerSearchForUser);
 router.get ('/offers/searchForGuest', ctrlOffers.offerSearchForGuest);
-router.get ('/offers/searchForRecruiter/:recruiterId', ctrlOffers.offerSearchForRecruiter);
+router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);
 
+//router.get ('/videos/search', ctrlOffers.searchVideos);
 
 router.get ('/testDb', ctrlUnitTest.dbConnection);
 router.get ('/testLocale', ctrlUnitTest.locale);

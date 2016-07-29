@@ -8,51 +8,32 @@ block content
     .col-lg-8
         .row
 
-            h3 Browse videos
-            form.form-horizontal(id="searchForm", action="", method="post", role="form")
-                if(error)
-                    .alert.alert-danger() #{error}
+            h3 Browse Candidates videos
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='sector') Secteur d'activite:
-                    .col-sm-8
-                        select#sector(name='sector').form-control.required
-                            each val, key in sectorOptions
-                                option(value=key selected=(key==formData.sector))=val
+            include ../_includes/search-offers
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='offerType') Type d'offre:
-                    .col-sm-8
-                        select#offerType(name='offerType').form-control.required
-                            each val, key in offerTypeOptions
-                                option(value=key selected=(key==formData.offerType))=val
-
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='companyType') Type d'entreprise:
-                    .col-sm-8
-                        select#companyType(name='companyType').form-control.required
-                            each val, key in companyTypeOptions
-                                option(value=key selected=(key==formData.companyType))=val
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='location') Ville:
-                    .col-sm-8
-                        select#location(name='location').form-control.required
-                            each val, key in locations
-                                option(value=key selected=(key==formData.location))=val
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='language') Language:
-                    .col-sm-8
-                        select#language(value=formData.language, name='language').form-control.required
-                            each val, key in {'en': 'English', 'fr' : 'Francais'}
-                                option(value=key selected=(key==formData.language))=val
+            if (results && results.length > 0)
+                h3 Results
+                table.table
+                    tr
+                        th Name
+                        th Availability
+                        th View
+                    each result in results
+                        tr
+                            td #{result.id}
+                        tr
+                            td #{result.id}
+                            td
+                                -var id = result.providerUniqueId;
+                                -var html = cloudinary.video(id, {width: 250, height: 250, crop: "fit", controls: true});
+                                !=html
 
 
-                .form-group
-                    .col-sm-offset-4.col-sm-10
-                        button.btn.btn-default(type="submit") Chercher
+
+
+            else if (message)
+                h3=message
 
         .row
 

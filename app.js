@@ -99,13 +99,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //aclInstance.addUserRoles(0, 'guest', function(){});
 
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+    cloud_name: 'dzfmkzqdo',
+    api_key: '577639826413541',
+    api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'
+});
+
 //to use session and cookies object inside jade template
 app.use(function(req ,res, next){
-  res.locals.session = req.session;
-  res.locals.cookies = req.cookies;
-  res.locals.config = config;
+    res.locals.session = req.session;
+    res.locals.cookies = req.cookies;
+    res.locals.config = config;
+    res.locals.cloudinary = cloudinary;
  // res.locals.acl = aclInstance;
-  next();
+    next();
 });
 
 // app.use(function(req, res, next) {

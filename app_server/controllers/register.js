@@ -104,16 +104,24 @@ module.exports.doRegisterUser = function(req, res){
     formData.confirmationPassword = confirmationPassword;
 
     console.log(postData);
+
+    //TODO use express-validator
     
     //check everything is there
     if(!postData.email || !postData.password || !postData.firstName || !postData.lastName || !postData.availability || !postData.sector ){
-        renderRegister(req, res, formData, 'Tous les champs doivent etre remplis');
+        renderRegister(req, res, formData, 'All fields must be populated');
+    }
+    else if(!common.validator.isEmail(email)){
+        renderRegister(req, res, formData, 'The provided email is not a valid email address');
     }
     else if(password.length < 8){
-        renderRegister(req, res, formData, 'Le mot de passe doit faire au mois 8 caracteres');
+        renderRegister(req, res, formData, 'The password must comprise of at least 8 characters');
     }
     else if(password !== confirmationPassword){
-        renderRegister(req, res, formData, 'Le mot de passe ne correspond pas au mot de passe de verification');
+        renderRegister(req, res, formData, 'The password and password configuration do not match');
+    }
+    else if(skypeId.length < 5){
+        renderRegister(req, res, formData, 'The Skype Id must be of at least 5 characters');
     }
     else {
 

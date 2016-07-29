@@ -139,9 +139,9 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
     var parameters = req.params;
 
-    var queryString = "SELECT o.* FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_video v ON i.id_video = v.id";
+    var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video";
 
-    common.dbHandleQuery(req, res, queryString, null, addTextArrayOffers, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, parameters, null, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -232,6 +232,24 @@ module.exports.offersListByRecruiter = function(req, res){
     }
 
 };
+
+module.exports.searchVideos = function(req, res){
+
+    var userId = req.params.userId;
+    console.log(req.query);
+
+    var whereClause = common.convertQueryToWhereClause(req.query, 'o');
+
+    var queryString = "SELECT o.* FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = $1 " + whereClause;
+
+    console.log(queryString);
+
+    common.dbHandleQuery(req, res, queryString, [userId], addTextArrayOffers, 'Error', 'Error', function(results){
+
+        common.sendJsonResponse(res, 200, true, null, null, results);
+
+    });
+}
 
 
 

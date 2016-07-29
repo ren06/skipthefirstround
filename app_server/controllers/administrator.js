@@ -1,14 +1,7 @@
 var request = require('request');
 var common = require('./common');
 var moment = require('moment');
-var cloudinary = require('cloudinary');
 
-cloudinary.config({
-    cloud_name: 'dzfmkzqdo',
-    api_key: '577639826413541',
-    api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'
-    //environement variable: CLOUDINARY_URL=cloudinary://577639826413541:i7mJdBgVzasUcF0bMW7Kyzl0QC0@dzfmkzqdo
-});
 
 var renderLogin = function(req, res, formData, error){
 

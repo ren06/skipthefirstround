@@ -32,8 +32,8 @@ router.get ('/post-offer', ctrlRecruiter.postOffer);
 router.post('/post-offer', ctrlRecruiter.doPostOffer);
 router.get ('/view-favourites', ctrlRecruiter.viewFavourites);
 router.get ('/my-offers', ctrlRecruiter.myOffers);
-router.get ('/browse-videos', ctrlRecruiter.browseVideos);
-router.post('/browse-videos', ctrlRecruiter.searchVideos);
+router.get ('/browse-videos', ctrlRecruiter.searchVideos);
+router.post('/browse-videos', ctrlRecruiter.doSearchVideos);
 
 
 
