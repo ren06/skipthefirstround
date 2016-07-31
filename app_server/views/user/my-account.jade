@@ -9,31 +9,31 @@ block content
         .container
             .row
                 h2=welcome
-                //Bienvenue #{session.firstName}
+                //Welcome #{session.firstName}
             .row
                 include ../_includes/user-menu.jade
             .row
                 .col-lg-6(style='padding:10px')
 
-                    h4 Prochaine(s) simulation(s) d'entretien:
+                    h4 Upcoming mock interview(s):
 
                     if(interviewsFuture.length == 0)
-                        h5 Pas de simulation prevue
-                        a(href='simulation') Demander une nouvelle simulation
+                        h5 Nothing planned yet!
+                        a(href='simulation') Schedule another mock interview
                     else
                         each interview in interviewsFuture
                             div #{interview.typeText} - #{interview.dateTimeText}
             .row
                 .col-lg-8(style='padding:10px')
 
-                    h4 Mes simulations d'entretien:
+                    h4 Mock interviews history:
                     table.table
                         tr
                             th Date
                             th Type
                             th Sector
                             th Company
-                            th Competence
+                            th Competency
                         each interview in interviewsPast
                             tr
                                 td=interview.dateTimeText

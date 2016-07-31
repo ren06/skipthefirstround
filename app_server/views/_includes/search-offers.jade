@@ -3,14 +3,14 @@ form.form-horizontal(id="searchForm", action="", method="post", role="form")
         .alert.alert-danger() #{error}
 
     .form-group.required
-        label.control-label.col-sm-4(for='sector') Secteur d'activite:
+        label.control-label.col-sm-4(for='sector') Sectors:
         .col-sm-8
             select#sector(name='sector').form-control.required
                 each val, key in sectorOptions
                     option(value=key selected=(key == formData.sector))=val
 
     .form-group.required
-        label.control-label.col-sm-4(for='offerType') Type d'offre:
+        label.control-label.col-sm-4(for='offerType') Contract types:
         .col-sm-8
             select#offerType(name='offerType').form-control.required
                 each val, key in offerTypeOptions
@@ -18,14 +18,14 @@ form.form-horizontal(id="searchForm", action="", method="post", role="form")
 
 
     .form-group.required
-        label.control-label.col-sm-4(for='companyType') Type d'entreprise:
+        label.control-label.col-sm-4(for='companyType') Company types:
         .col-sm-8
             select#companyType(name='companyType').form-control.required
                 each val, key in companyTypeOptions
                     option(value=key selected=(key == formData.companyType))=val
 
     .form-group.required
-        label.control-label.col-sm-4(for='location') Ville:
+        label.control-label.col-sm-4(for='location') Location:
         .col-sm-8
             select#location(name='location').form-control.required
                 each val, key in locations
@@ -42,4 +42,3 @@ form.form-horizontal(id="searchForm", action="", method="post", role="form")
     .form-group
         .col-sm-offset-4.col-sm-10
             button.btn.btn-default(type="submit") Chercher
-

@@ -22,7 +22,7 @@ html
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li
-                            a(href='/about') A propos
+                            a(href='/about') About us
                         li
                             a(href='/blog') Blog
                     ul.nav.navbar-nav.navbar-right
@@ -30,18 +30,18 @@ html
                         if(!session.authenticated)
                             li
                                 if(session.role == 'recruiter')
-                                    a(href='/') Espace candidats
+                                    a(href='/') For candidates
                                 else if(session.role == 'user')
-                                    a(href='/recruiter') Espace recruteurs
+                                    a(href='/recruiter') For recruiters
                                 else
                                     | No session set
                         else if(session.role == 'user')
                             li
-                                a(href='/simulation') Simulation d'entretien
+                                a(href='/simulation') Mock interviews
                             li
                                 a() |
                             li
-                                a(href='/offers') Nos offres
+                                a(href='/offers') Our offers
 
                         -var loginUrl
                         -var registerUrl
@@ -59,17 +59,14 @@ html
                             a(href='/change-language/en') EN
                         if(session.authenticated)
                             li
-                                a(href="user-logout/") Deconnexion
+                                a(href="user-logout/") Sign out
                         else
                             li
-                                a(href="#{loginUrl}") S'identifier
+                                a(href="#{loginUrl}") Log in
                             li
-                                a(href="#{registerUrl}") S'enregistrer
+                                a(href="#{registerUrl}") Register
 
         .container
             .row
 
                 block content
-
-
-

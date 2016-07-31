@@ -37,9 +37,9 @@ block content
     .col-lg-2.text-center
     .col-lg-8
         if(!session.authenticated)
-            h2 Enregistrement pour simulation d'entretien
+            h2 Let's schedule a mock interview!
         else
-            h2 Nouvelle simulation d'entretien
+            h2 New mock interview
         br
         br
         form.form-horizontal(id="registerForm", action="", method="post", role="form")
@@ -53,19 +53,19 @@ block content
                     input#position(type="", name="position", placeholder="" value="#{formData.position}").form-control
 
             .form-group
-                label.control-label.col-sm-4(for='sector') Secteur d'activite:
+                label.control-label.col-sm-4(for='sector') Sector:
                 .col-sm-8
                     select#sector(name='sector').form-control.required
                         each val, key in sectorOptions
                             option(value=key selected=(key == formData.sector))=val
 
             .form-group.required
-                label.control-label.col-sm-4(for='company') Entreprise:
+                label.control-label.col-sm-4(for='company') Company:
                 .col-sm-8
                     input#company(type="", name="company", placeholder="" value="#{formData.company}").form-control
 
             .form-group
-                label.control-label.col-sm-4(for='cvFile') Votre CV:
+                label.control-label.col-sm-4(for='cvFile') CV upload:
                 .col-sm-3
                     label.btn.btn-default.btn-file
                         | Select CV file...
@@ -80,27 +80,27 @@ block content
             if(!session.authenticated)
 
                 .form-group.required
-                    label.control-label.col-sm-4(for='firstName') Prenom:
+                    label.control-label.col-sm-4(for='firstName') First name:
                     .col-sm-8
                         input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
 
                 .form-group.required
-                    label.control-label.col-sm-4(for='lastName') Nom:
+                    label.control-label.col-sm-4(for='lastName') Last name:
                     .col-sm-8
                         input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
 
             .form-group.required
-                label.control-label.col-sm-4(for='skypeId') Votre identifiant Skype:
+                label.control-label.col-sm-4(for='skypeId') Your Skype ID:
                 .col-sm-8.required
-                    input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
+                    input#skypeId(type="", name="skypeId", placeholder="Mock interview scheduling" value="#{formData.skypeId}").form-control
 
             .form-group.required
-                label.control-label.col-sm-4(for='availability') Vos disponibilites:
+                label.control-label.col-sm-4(for='availability') Your availabilites:
                 .col-sm-8
-                    input#availability(type="", name="availability", placeholder="Ex. tous les soirs a partir de 19h" value="#{formData.availability}").form-control
+                    input#availability(type="", name="availability", placeholder="Eg. Wednesdays and Thursdays from 5pm" value="#{formData.availability}").form-control
 
             .form-group
-                label.control-label.col-sm-4(for='mobilePhone') Telephone portable:
+                label.control-label.col-sm-4(for='mobilePhone') Mobile number:
                 .col-sm-8
                     input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
 
@@ -112,17 +112,17 @@ block content
                         input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
 
                 .form-group.required
-                    label.control-label.col-sm-4(for='password') Mot de passe:
+                    label.control-label.col-sm-4(for='password') Password:
                     .col-sm-8
                         input#password(type="password", name="password", placeholder="Password must be at least 8 characters", value="#{formData.password}").form-control
 
                 .form-group.required
-                    label.control-label.col-sm-4(for='confirmationPassword') Confirmation mot de passe:
+                    label.control-label.col-sm-4(for='confirmationPassword') Please confirm your password:
                     .col-sm-8
-                        input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Confirmation mot de passe", value="#{formData.confirmationPassword}").form-control
+                        input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Password confirmation", value="#{formData.confirmationPassword}").form-control
 
             .form-group
                 .col-sm-offset-4.col-sm-10
-                    //button(type="submit").btn.btn-default S'enregister
-                    button.btn.btn-default(type="submit") S'enregistrer
+                    //button(type="submit").btn.btn-default Register
+                    button.btn.btn-default(type="submit") Register
     .col-lg-2.text-center
