@@ -28,7 +28,7 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
     }
     else{
         //console.time("stringify");
-        //TODO DOULE CHECK IF EMPTY STRING INSTEAD OF NULL CAUSES PROBLEMS
+        //TODO DOUBLE CHECK IF EMPTY STRING INSTEAD OF NULL CAUSES PROBLEMS
         data = JSON.stringify(data).replace(/null/g, '""'); //convert to JSON string
         data = JSON.parse(data);
 
@@ -66,7 +66,8 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
             function (err, result) {
                 done();
                 if (err) {
-                    sendJsonResponse(res, 409, false, internalError + ' ' + err.code, userError);
+
+                    sendJsonResponse(res, 409, false, (internalError? internalError: err.message) + ' ' + err.code, userError);
                 }
             }
         );
@@ -180,7 +181,7 @@ module.exports.rowUpdate = function (req, res, tableName, id, data) {
 
         console.log(queryString);
 
-        this.dbHandleQuery(req, res, queryString, null, null, 'Internal Error', 'User Error');
+        this.dbHandleQuery(req, res, queryString, null, null, null, 'Error while updating content');
     }
 };
 

@@ -99,7 +99,7 @@ block content
                         .form-group
                             label.control-label.col-sm-2(for='time_hour') Interviewer:
                             .col-sm-6
-                                select#interviewer.form-control(name='interviewerId')
+                                select#interviewer.form-control(name='idInterviewer')
                                     each interviewer in interviewers
                                         option(value='#{interviewer.id}' selected=(interviewer.id == interview.idInterviewer))=interviewer.fullName
 

@@ -96,7 +96,7 @@ module.exports.usersList = function(req, res){
 
 };
 
-module.exports.etudiant = function(req, res){
+module.exports.student = function(req, res){
 
     console.log('menu etudiants');
     res.render('admin/student-menu', {
@@ -129,8 +129,6 @@ module.exports.studentInterviewsList = function(req, res){
 
 module.exports.studentsInterviewsList = function(req, res){
 
-    var language = req.cookies.locale
-    
     var requestOptions = common.getRequestOptions(req, '/api/interviews', 'GET', {}, false);
 
     request(requestOptions, function (err, response, body) {
@@ -138,13 +136,31 @@ module.exports.studentsInterviewsList = function(req, res){
         var interviews = body.data;
      
         res.render('admin/students-interviews-list', {
-            title: 'Homepage',
+            title: 'All Interviews for students',
             interviews: interviews
 
         });
     });
 
 };
+
+module.exports.studentsInterviewNoDate = function(req, res){
+
+    var requestOptions = common.getRequestOptions(req, '/api/interviews/noDate', 'GET', {}, false);
+
+    request(requestOptions, function (err, response, body) {
+        console.log(body);
+        var interviews = body.data;
+
+        res.render('admin/students-interviews-list', {
+            title: 'Interviews with no dates',
+            interviews: interviews
+
+        });
+    });
+
+};
+
 
 var renderInterview = function(req, res, editMode){
 
@@ -194,7 +210,7 @@ module.exports.interviewModify = function(req, res){
 
 var renderInterviewModifyDate = function(req, res, formData, error){
 
-    console.log('renderINtervew error: ' + error);
+    console.log('renderIntervew error: ' + error);
     var interviewId = req.params.interviewId;
 
     var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET', {}, false);
@@ -218,7 +234,7 @@ var renderInterviewModifyDate = function(req, res, formData, error){
                         formData: formData,
                         interview: interview,
                         interviewers: interviewers,
-                        title: 'Homepage',
+                        title: 'Modify Date',
                         sectorOptions: sectorOptions,
                         error: error,
                     });
@@ -246,7 +262,7 @@ module.exports.doInterviewModify = function(req, res){
     var minute = req.body.minute;
     var type = req.body.type;
     var sector = req.body.sector;
-    var interviewerId = req.body.interviewerId;
+    var idInterviewer = req.body.idInterviewer;
     var appreciation = req.body.appreciation;
     var status = req.body.status;
     var position = req.body.position;
@@ -260,7 +276,7 @@ module.exports.doInterviewModify = function(req, res){
         dateTime: dateTimeDb,
         type: type,
         sector: sector,
-        interviewerId: interviewerId,
+        idInterviewer: idInterviewer,
         appreciation: appreciation,
         status: status,
         videoId: videoId,
@@ -272,11 +288,11 @@ module.exports.doInterviewModify = function(req, res){
 
     };
 
-    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId + '/modify', 'POST', postData, false);
+    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'PUT', postData, false);
 
     request(requestOptions, function (err, response, body) {
 
-        if(response.statusCode === 200 ) {
+        if(response.statusCode === 204 ) {
 
             console.log('update OK, redirecting...');
             res.redirect('/admin/interview/' + interviewId);

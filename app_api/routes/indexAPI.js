@@ -46,7 +46,10 @@ router.get ('/interviews', ctrlInterviews.interviewList);
 router.post('/interview/:interviewId/setDate', ctrlInterviews.interviewSetDate);
 router.get ('/interview/:interviewId', ctrlInterviews.interviewReadOne);
 router.post('/interview/:interviewId/sequences/new', ctrlInterviews.interviewAddSequence);
-router.post('/interview/:interviewId/modify', ctrlInterviews.interviewModify);
+router.put ('/interview/:interviewId', ctrlInterviews.interviewModify);
+
+router.get ('/interviews/noDate', ctrlInterviews.interviewListNoDate);
+
 //router.get ('/interview/:interviewId/sequences', ctrlInterviews. );
 //router.post('/interview/:interviewId/sequences/delete', ctrlInterviews. );
 

@@ -16,14 +16,19 @@ block content
                 h3 Results
                 table.table
                     tr
-                        th Name
-                        th Availability
+                        th Sector
+                        th Contract
+                        th Company
+                        th Location
+                        th Language
                         th View
                     each result in results
                         tr
-                            td #{result.id}
-                        tr
-                            td #{result.id}
+                            td #{result.sectorText}
+                            td #{result.offerTypeText}
+                            td #{result.companyTypeText}
+                            td #{result.location}
+                            td #{result.languageText}
                             td
                                 -var id = result.providerUniqueId;
                                 -var html = cloudinary.video(id, {width: 250, height: 250, crop: "fit", controls: true});

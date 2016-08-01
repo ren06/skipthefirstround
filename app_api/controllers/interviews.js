@@ -224,6 +224,24 @@ var executeListPerUser = function(req, res, sql){
     }
 }
 
+module.exports.interviewListNoDate = function(req, res){
+
+    var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE date_time IS NULL ORDER BY u.id ASC ";
+
+    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
+
+        // var data = {};
+        //
+        // results.forEach(function(entry){
+        //
+        //     data[ entry.location] = entry.location;
+        // });
+
+        common.sendJsonResponse(res, 200, true, null, null, results);
+
+    });
+}
+
 module.exports.interviewList = function(req, res){
 
     pg.connect(conString, function(err, client, done) {
@@ -453,25 +471,29 @@ module.exports.interviewModify = function(req, res){
     var dateTime = req.body.dateTime;
     var type = req.body.type;
     var sector = req.body.sector;
-    var interviewerId = req.body.interviewerId;
-    var appreciation = req.body.appreciation;
-    var status = req.body.status;
-    var videoId = req.body.videoId;
+    var idInterviewer = req.body.idInterviewer;
+    // var appreciation = req.body.appreciation;
+    // var status = req.body.status;
+    // var videoId = req.body.videoId;
 
-    if (!dateTime || !type || !sector || !interviewerId) {
+    if (!dateTime || !type || !sector || !idInterviewer) {
 
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('InterviewModifyMissingInput'), null);
     }
     else {
 
-        var queryString = "UPDATE tbl_interview SET date_time=$1, type=$2, sector=$3, id_interviewer=$4, appreciation=$5, status=$6, id_video=$7 " +
-            "WHERE id =$8 RETURNING * ";
-        var parameters = [dateTime, type, sector, interviewerId, appreciation, status, videoId, interviewId];
-        console.log(queryString);
-        console.log(parameters);
+        // var queryString = "UPDATE tbl_interview SET date_time=$1, type=$2, sector=$3, id_interviewer=$4, appreciation=$5, status=$6, id_video=$7 " +
+        //     "WHERE id =$8 RETURNING * ";
+        // var parameters = [dateTime, type, sector, interviewerId, appreciation, status, videoId, interviewId];
+        // console.log(queryString);
+        // console.log(parameters);
+        //
+        // common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoModifyError'));
 
-        common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoModifyError'));
+        common.rowUpdate(req, res, 'tbl_interview', interviewId, req.body);
     }
+
+
 }
 
 

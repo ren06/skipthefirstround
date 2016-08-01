@@ -8,11 +8,15 @@ var ctrlAdmin = require('../controllers/administrator');
 
 router.get ('/', ctrlAdmin.homepage);
 router.post('/', ctrlAdmin.doLogin);
+
 router.get ('/main-menu', ctrlAdmin.mainMenu);
 router.get ('/logout', ctrlAdmin.logout);
+
 router.get ('/students-list', ctrlAdmin.usersList);
-router.get ('/student-menu', ctrlAdmin.etudiant);
+router.get ('/student-menu', ctrlAdmin.student);
 router.get ('/students-interviews-list', ctrlAdmin.studentsInterviewsList);
+router.get ('/students-interviews-no-date', ctrlAdmin.studentsInterviewNoDate);
+
 router.get ('/student-interviews-list', ctrlAdmin.studentInterviewsList);
 router.get ('/student-add-interview', ctrlAdmin.ajoutEntretien);
 router.get ('/interview/:interviewId', ctrlAdmin.interview);

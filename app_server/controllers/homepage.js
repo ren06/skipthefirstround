@@ -31,9 +31,10 @@ module.exports.homepage = function(req, res){
     var authenticated = req.session.authenticated;
     var userId = req.session.userId;
 
-    console.log('Homepage Authenticated: ' + authenticated + ' userID ' + userId);
-    console.log(userId);
+
     if (authenticated && userId) {
+
+        console.log('Homepage Authenticated: ' + authenticated + ' userID ' + userId);
 
         if(req.session.role == 'user') {
             res.redirect('/my-account');
@@ -51,7 +52,7 @@ module.exports.homepage = function(req, res){
         });
     }
     else {
-        console.log('render homepage');
+        console.log('Render homepage for guest');
         renderHomepage(req, res);
     }
 

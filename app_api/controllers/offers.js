@@ -141,7 +141,7 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
     var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video";
 
-    common.dbHandleQuery(req, res, queryString, parameters, null, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, parameters, addTextArrayOffers, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 

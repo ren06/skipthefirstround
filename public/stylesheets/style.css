@@ -1,3 +1,15 @@
+/*body {*/
+    /*background: url(../images/bg-user.jpg) no-repeat center center fixed;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+/*}*/
+
+/*.col-lg-8{*/
+    /*background-color: #FFFFFF;*/
+/*}*/
+
 
 .form-group.required .control-label:after {
     content:"*";
@@ -22,19 +34,6 @@
     -ms-transition: none !important;
     transition: none !important;
 }
-
-/*.container dt,.container dd {*/
-    /*width:auto;*/
-    /*margin-left:auto;*/
-    /*//display:inline-block;*/
-    /*margin-right: 10px;*/
-/*}*/
-
-/*.dl-horizontal dt*/
-/*{*/
-    /*white-space: normal;*/
-    /*width: 200px;*/
-/*}*/
 
 .container dt,.container dd {
     width:auto;
