@@ -29,10 +29,11 @@ module.exports.homepage = function(req, res){
     req.session.role = 'user';
 
     var authenticated = req.session.authenticated;
+    var userId = req.session.userId;
 
-    console.log('Homepage Authenticated: ' + authenticated );
-
-    if (authenticated) {
+    console.log('Homepage Authenticated: ' + authenticated + ' userID ' + userId);
+    console.log(userId);
+    if (authenticated && userId) {
 
         if(req.session.role == 'user') {
             res.redirect('/my-account');
@@ -40,6 +41,14 @@ module.exports.homepage = function(req, res){
         else{
             res.redirect('recruiter/main-menu');
         }
+    }
+    else if(authenticated && !userId){
+        //bug, for the time being destroy the session
+        req.session.destroy(function(err) {
+
+            console.log('Session destroyed after finding authenticated true but no User ID');
+            res.redirect('/');
+        });
     }
     else {
         console.log('render homepage');
