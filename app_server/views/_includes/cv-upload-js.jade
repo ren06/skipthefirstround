@@ -42,13 +42,13 @@ script.
                     $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
                 }
         )
-                .bind('fileuploadfail', function (e, data) {
+        .bind('fileuploadfail', function (e, data) {
 
-                    var errorMessage = data.jqXHR.responseJSON.error.message;
+            var errorMessage = data.jqXHR.responseJSON.error.message;
 
-                    $('#progressText').html(errorMessage);
-                    $('.progress-bar').addClass('progress-bar-danger');
-                    $(".progress-bar").addClass('notransition');
+            $('#progressText').html(errorMessage);
+            $('.progress-bar').addClass('progress-bar-danger');
+            $(".progress-bar").addClass('notransition');
 
-                });
+        });
     });

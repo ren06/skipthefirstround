@@ -313,7 +313,7 @@ module.exports.interviewReadOne = function(req, res){
             return res.status(500).json({ success: false, data: err});
         }
 
-        var queryString = "SELECT i.*, row_to_json(u.*) as user, row_to_json(o.*) as offer, ARRAY(SELECT json_build_object( \
+        var queryString = "SELECT i.*, row_to_json(u.*) as user, row_to_json(v.*) as video, row_to_json(o.*) as offer, ARRAY(SELECT json_build_object( \
             'id',s.id, \
             'tag', s.tag, \
             'summary', s.summary, \
@@ -326,11 +326,12 @@ module.exports.interviewReadOne = function(req, res){
                 'url', v.url \
             ) \
         ) \
-        FROM tbl_sequence s INNER JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
+        FROM tbl_sequence s LEFT JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
         ) as sequences \
         FROM tbl_interview i \
         INNER JOIN tbl_user u ON u.id = i.id_user \
         LEFT JOIN tbl_offer o ON i.id_offer = o.id \
+        LEFT JOIN tbl_video v ON i.id_video = v.id\
         WHERE i.id = $1 ORDER BY u.id ASC"
 
 
@@ -463,18 +464,17 @@ module.exports.interviewAddSequence = function(req, res) {
 module.exports.interviewModify = function(req, res){
 
     var interviewId = req.params.interviewId;
-
-    //date_time, type, sector, id_interviewer, appreciation, status, id_video
-
+    console.log('inside API interview modify');
     console.log(req.body);
 
     var dateTime = req.body.dateTime;
     var type = req.body.type;
     var sector = req.body.sector;
     var idInterviewer = req.body.idInterviewer;
-    // var appreciation = req.body.appreciation;
-    // var status = req.body.status;
-    // var videoId = req.body.videoId;
+    var idVideo = req.body.idVideo;
+
+    var videoProviderUniqueId = req.body.videoProviderUniqueId;
+    var videoUrl = req.body.videoUrl;
 
     if (!dateTime || !type || !sector || !idInterviewer) {
 
@@ -482,19 +482,49 @@ module.exports.interviewModify = function(req, res){
     }
     else {
 
-        // var queryString = "UPDATE tbl_interview SET date_time=$1, type=$2, sector=$3, id_interviewer=$4, appreciation=$5, status=$6, id_video=$7 " +
-        //     "WHERE id =$8 RETURNING * ";
-        // var parameters = [dateTime, type, sector, interviewerId, appreciation, status, videoId, interviewId];
-        // console.log(queryString);
-        // console.log(parameters);
-        //
-        // common.dbHandleQuery(req, res, queryString, parameters, null, 'Video insert error', res.__('VideoModifyError'));
+        var provider = 'cloudinary';
+        var providerCloudName = 'dzfmkzqdo';
 
-        common.rowUpdate(req, res, 'tbl_interview', interviewId, req.body);
+        delete req.body['videoProviderUniqueId'];
+        delete req.body['videoUrl'];
+
+        console.log(req.body);
+
+
+        if(idVideo && videoProviderUniqueId && videoUrl) {
+            console.log('inside update current video');
+            //update current video
+            common.rowUpdate(req, res, 'tbl_video', idVideo, {providerUniqueId: videoProviderUniqueId, url: videoUrl}, function(){
+
+                common.rowUpdate(req, res, 'tbl_interview', interviewId, req.body);
+            });
+        }
+        else if(!idVideo && videoProviderUniqueId && videoUrl){
+
+            console.log('inside create current video');
+
+            //create new video
+            // var queryString = "INSERT INTO tbl_video(provider, provider_cloud_name, provider_unique_id, url) VALUES ($1, $2, $3, $4) RETURNING *";
+            // var parameters = [provider, providerCloudName, videoProviderUniqueId, videoUrl];
+            //
+            common.rowInsert(req, res, 'tbl_video', {provider: provider, provider_cloud_name: providerCloudName, provider_unique_id: videoProviderUniqueId, url: videoUrl}, function(video){
+                console.log(video);
+                req.body['idVideo'] = video.id;
+                common.rowUpdate(req, res, 'tbl_interview', interviewId, req.body);
+            });
+        }
+        else{
+
+            console.log('inside only update interview');
+
+            //just update interview
+            common.rowUpdate(req, res, 'tbl_interview', interviewId, req.body);
+        }
+
     }
 
-
 }
+
 
 
 

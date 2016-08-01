@@ -3,6 +3,7 @@ var request = require('request');
 var common = require('./common');
 const queryString = require('query-string');
 var acl = require('acl');
+var validator = require('validator');
 
 module.exports.checkParametersPresent = function(parameterString, data){
 
@@ -150,3 +151,5 @@ module.exports.readUser = function(req, userId, callback){
     });
 
 }
+
+module.exports.validator = validator;

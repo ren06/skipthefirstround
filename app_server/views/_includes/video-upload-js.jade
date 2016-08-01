@@ -1,0 +1,92 @@
+script(src='/cloudinary/jquery.ui.widget.js')
+script(src='/cloudinary/jquery.iframe-transport.js')
+script(src='/cloudinary/jquery.fileupload.js')
+script(src='/cloudinary/jquery.cloudinary.js')
+
+script.
+
+    $(document).ready(function () {
+
+        $('.progress').hide();
+
+        //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
+        var public_id = '';
+
+        $('#videoFile').unsigned_cloudinary_upload("videos",
+                {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+                {multiple: false}, function (err) {
+                    alert(err);
+                }
+                //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
+        ).bind('fileuploadstart', function (e, data) {
+
+                    $('.progress').show();
+                    $('.progress-bar').removeClass('progress-bar-danger');
+                    $('.progress-bar').removeClass('notransition');
+                    $('#progressText').html('');
+                    $('.progress-bar').css('width', '0%').attr('aria-valuenow', 0);
+
+
+                }
+        ).bind('cloudinarydone', function (e, data) {
+
+                    public_id = data.result.public_id;
+
+                    $('#progressText').html(data.result.original_filename + '.pdf');
+                    $('#videoProviderUniqueId').val(public_id);
+                    $('#videoUrl').val(data.result.url);
+                    $('.progress-bar').addClass('progress-bar-success');
+
+                }
+        ).bind('cloudinaryprogress', function (e, data) {
+
+                    $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+                }
+        )
+                .bind('fileuploadfail', function (e, data) {
+
+                    var errorMessage = data.jqXHR.responseJSON.error.message;
+
+                    $('#progressText').html(errorMessage);
+                    $('.progress-bar').addClass('progress-bar-danger');
+                    $(".progress-bar").addClass('notransition');
+
+                });
+    });
+
+//script.
+//
+//    $(document).ready(function () {
+//
+//        //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
+//        var public_id = '';
+//
+//        var loadVideo = function () {
+//            $('#video-container').html($($.cloudinary.video(public_id, {
+//                cloud_name: 'dzfmkzqdo'
+//            })).attr('controls', 'controls').attr('autoplay', 'autoplay'));
+//        };
+//
+//
+//        $('#videoFile').unsigned_cloudinary_upload("videos", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+//                {multiple: false, resource_type: 'video'}
+//                //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
+//        ).bind('cloudinarydone', function (e, data) {
+//
+//                    public_id = data.result.public_id;
+//                    $('.video-title').html(data.result.original_filename);
+//                    //loadVideo();
+//                    $('#videoProviderUniqueId').val(public_id);
+//                    $('#videoUrl').val(data.result.url);
+//                    console.log(data.result);
+//                }
+//        ).bind('cloudinaryprogress', function (e, data) {
+//            //console.log(data.loaded);
+//            $('.progress-bar').css('width',
+//                    Math.round((data.loaded * 100.0) / data.total) + '%');
+//
+//        });
+//
+//        $('#selectedFile').addClass('btn');
+//
+//    });

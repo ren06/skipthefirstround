@@ -2,6 +2,8 @@ extends layout
 
 block content
 
+    include ../_includes/video-upload-js
+
     script.
         $(document).ready(function () {
 
@@ -12,18 +14,14 @@ block content
                 $('.btn').addClass('disabled');
             }
 
-            $("#saveLink").click(function (event) {
+            $(".saveLink").click(function (event) {
 
                 event.preventDefault();
                 $("#interview_form").submit();
 
             });
-
-            //$("#interview_form").submit(function( event ) {
-            //    event.preventDefault();
-            //});
-
         });
+
 
     .col-lg-1.text-center
     .col-lg-10
@@ -32,106 +30,125 @@ block content
             | Edit mode | &nbsp;
             a(href="/admin/interview/#{interview.id}") Cancel
             | &nbsp; | &nbsp;
-            a(id="saveLink" href="/admin/interview/#{interview.id}/save") Save
+            a(class="saveLink" href="/admin/interview/#{interview.id}/save") Save
         else
             | Display mode | &nbsp;
             a(href="/admin/interview/#{interview.id}/modify") Edit
         br
         br
-        .container
-            .row
-                .col-lg-8()
-                    form.form-horizontal(id="interview_form", action="", method="post", role="form")
-                        if(error)
-                            .alert.alert-danger(role="alert") #{error}
+        .row
+            .col-lg-8
+                form.form-horizontal(id="interview_form", action="", method="post", role="form")
+                    if(error)
+                        .alert.alert-danger(role="alert") #{error}
 
-                        input(type="hidden" name="interviewId" value="#{interview.id}")
+                    input(id='interviewId' type="hidden" name="interviewId" value="#{interview.id}")
+                    input(id='idVideo' type="hidden" name="idVideo" value="#{interview.idVideo}")
 
-                        .form-group
-                            label.control-label.col-sm-2(for='sector') Type:
-                            .col-sm-10
-                                select#type.form-control(value=interview.type, name='type')
-                                    each val, key in interviewTypeOptions
-                                        option(value=key)=val
-                        .form-group
-                            label.control-label.col-sm-2(for='status') Status:
-                            .col-sm-10
-                                select#status.form-control(value=interview.type, name='status')
-                                    each val, key in interviewStatusOptions
-                                        option(value=key)=val
-                        .form-group
-                            label.control-label.col-sm-2(for='position') Position
-                            .col-sm-10
-                                input#position(name="position", placeholder="" value="#{interview.position}").form-control
-                        .form-group
-                            label.control-label.col-sm-2(for='company') Company
-                            .col-sm-10
-                                input#company(name="company", placeholder="" value="#{interview.company}").form-control
-                        .form-group
-                            label.control-label.col-sm-2(for='datepicker') Date:
-                            .col-sm-10
-                                .input-group.date.col-sm-4(data-provide="datepicker")
-                                    input#datepicker(type="text" name="date" value='#{interview.date}').form-control
-                                    .input-group-addon
-                                        span.glyphicon.glyphicon-th
-                        .form-group
-                            label.control-label.col-sm-2(for='time_hour') Time:
-                            .col-sm-2
-                                select#time_hour.form-control(name='hour')
-                                    each val in ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
-                                        if interview.hour == val
-                                            option(value='#{val}' selected='true') #{val}
-                                        else
-                                            option(value='#{val}') #{val}
-                            .col-sm-2
-                                select#time_minute.form-control(name='minute')
-                                    each val in ['00', '15', '40', '45']
-                                        if interview.minute == val
-                                            option(value='#{val}' selected='true') #{val}
-                                        else
-                                            option(value='#{val}') #{val}
-                        .form-group
-                            label.control-label.col-sm-2(for='sector') Sector:
-                            .col-sm-10
-                                select#sector.form-control(value=interview.sector, name='sector')
-                                    each val, key in sectorOptions
-                                        option(value=key)=val
-                        .form-group
-                            label.control-label.col-sm-2(for='time_hour') Interviewer:
-                            .col-sm-6
-                                select#interviewer.form-control(name='idInterviewer')
-                                    each interviewer in interviewers
-                                        option(value='#{interviewer.id}' selected=(interviewer.id == interview.idInterviewer))=interviewer.fullName
+                    .form-group
+                        label.control-label.col-sm-2(for='sector') Type:
+                        .col-sm-10
+                            select#type.form-control(value=interview.type, name='type')
+                                each val, key in interviewTypeOptions
+                                    option(value=key)=val
+                    .form-group
+                        label.control-label.col-sm-2(for='status') Status:
+                        .col-sm-10
+                            select#status.form-control(value=interview.type, name='status')
+                                each val, key in interviewStatusOptions
+                                    option(value=key)=val
+                    .form-group
+                        label.control-label.col-sm-2(for='position') Position
+                        .col-sm-10
+                            input#position(name="position", placeholder="" value="#{interview.position}").form-control
+                    .form-group
+                        label.control-label.col-sm-2(for='company') Company
+                        .col-sm-10
+                            input#company(name="company", placeholder="" value="#{interview.company}").form-control
+                    .form-group
+                        label.control-label.col-sm-2(for='datepicker') Date:
+                        .col-sm-10
+                            .input-group.date.col-sm-4
+                                input#datepicker(type="text" name='date' value='#{interview.date}').form-control
+                                .input-group-addon
+                                    span.glyphicon.glyphicon-th
+                        script.
+                            $(function () {
+                                $('#datepicker').datepicker({
+                                    autoclose: true,
+                                    format: 'dd/mm/yyyy',
+                                    startDate: '+0d',
+                                    //https://bootstrap-datepicker.readthedocs.io/en/latest/options.html
+                                });
+                            });
 
-                        .form-group
-                            label.control-label.col-sm-2(for='') Summary:
-                            .col-sm-10
-                                textarea(rows="4").form-control
-                        .form-group
-                            label.control-label.col-sm-2(for='')  Video :
-                            .col-sm-10
-                                label.btn.btn-default.btn-file
-                                    | Select Interview video file...
-                                    input#cvFile(type="file" style="display: none;" name="file")
-                                div.progress
-                                    div.progress-bar.progress-bar-success(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
+                    .form-group
+                        label.control-label.col-sm-2(for='time_hour') Time:
+                        .col-sm-2
+                            select#time_hour.form-control(name='hour')
+                                each val in ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+                                    if interview.hour == val
+                                        option(value='#{val}' selected='true') #{val}
+                                    else
+                                        option(value='#{val}') #{val}
+                        .col-sm-2
+                            select#time_minute.form-control(name='minute')
+                                each val in ['00', '15', '40', '45']
+                                    if interview.minute == val
+                                        option(value='#{val}' selected='true') #{val}
+                                    else
+                                        option(value='#{val}') #{val}
+                    .form-group
+                        label.control-label.col-sm-2(for='sector') Sector:
+                        .col-sm-10
+                            select#sector.form-control(value=interview.sector, name='sector')
+                                each val, key in sectorOptions
+                                    option(value=key)=val
+                    .form-group
+                        label.control-label.col-sm-2(for='time_hour') Interviewer:
+                        .col-sm-6
+                            select#interviewer.form-control(name='idInterviewer')
+                                each interviewer in interviewers
+                                    option(value='#{interviewer.id}' selected=(interviewer.id == interview.idInterviewer))=interviewer.fullName
 
-                    a.btn.btn-default(href="../#{interview.id}/addSequence") Add sequence
-                    h3 Existing sequences
-                    table.table
+                    .form-group
+                        label.control-label.col-sm-2(for='') Summary:
+                        .col-sm-10
+                            textarea(rows="4").form-control
+                    .form-group
+                        include ../_includes/video-upload-control
+                br
+                if editMode
+                    | Edit mode | &nbsp;
+                    a(href="/admin/interview/#{interview.id}") Cancel
+                    | &nbsp; | &nbsp;
+                    a(class="saveLink" href="/admin/interview/#{interview.id}/save") Save
+                else
+                    | Display mode | &nbsp;
+                    a(href="/admin/interview/#{interview.id}/modify") Edit
+
+                br
+                br
+                a.btn.btn-default(href="../#{interview.id}/addSequence") Add sequence
+                br
+
+
+                h3 Existing sequences
+
+                table.table
+                    tr
+                        th Tag
+                        th Summary
+                        th Video
+                        th
+                    each sequence in interview.sequences
                         tr
-                            th Tag
-                            th Summary
-                            th Video
-                            th
-                        each sequence in interview.sequences
-                            tr
-                                td #{sequence.tagText}
-                                td #{sequence.summary}
-                                td
-                                    a(href='#{sequence.video.url}') Voir
-                                td
-                                 //   !{videoHtml}
+                            td #{sequence.tagText}
+                            td #{sequence.summary}
+                            td
+                                a(href='#{sequence.video.url}') See
+                            td
+                             //   !{videoHtml}
 
 
     .col-lg-2.text-center

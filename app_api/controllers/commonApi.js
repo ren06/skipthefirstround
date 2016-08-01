@@ -148,7 +148,7 @@ module.exports.convertQueryToWhereClause = function(query, tableAlias){
 
 };
 
-module.exports.rowUpdate = function (req, res, tableName, id, data) {
+module.exports.rowUpdate = function (req, res, tableName, id, data, callback) {
 
     if(Object.keys(data).length > 0){
 
@@ -181,11 +181,19 @@ module.exports.rowUpdate = function (req, res, tableName, id, data) {
 
         console.log(queryString);
 
-        this.dbHandleQuery(req, res, queryString, null, null, null, 'Error while updating content');
+        this.dbHandleQuery(req, res, queryString, null, null, null, 'Error while updating content', function(results){
+
+            if(callback){
+                callback(results[0]);
+            }
+            else{
+                sendJsonResponse(res, 204, true, null, null, results[0]);
+            }
+        });
     }
 };
 
-module.exports.rowInsert = function(req, res, tableName, data){
+module.exports.rowInsert = function(req, res, tableName, data, callback){
 
     //decamelise array
     var dataDecamelised = {};
@@ -222,7 +230,15 @@ module.exports.rowInsert = function(req, res, tableName, data){
     console.log(queryString);
     console.log(values);
 
-    this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error');
+    this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error', function(results){
+
+        if(callback){
+            callback(results[0]);
+        }
+        else{
+            sendJsonResponse(res, 201, true, null, null, results[0]);
+        }
+    });
 };
 
 module.exports.readOne = function(req, res, tableName, id, addText){
