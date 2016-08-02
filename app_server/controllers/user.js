@@ -166,7 +166,7 @@ var renderBrowseOffers = function(req, res, formData, results, message){
             sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
             offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
             companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
-            languageOptions: req.app.locals.options[lang].languageOptions,
+            languageOptions: common.addAll(req.app.locals.options[lang].languageOptions),
             locations: common.addAll(body.data),
             title: i18n.__('Browse Videos'),
             formData: formData,
@@ -244,14 +244,14 @@ var renderRegisterApply = function(req, res, formData, offer, error){
 
     var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
 
-    var cvLink = '';
-
-    if(formData.cv !== ''){
-
-        cloudinary.config({cloud_name: 'dzfmkzqdo', api_key: '577639826413541', api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'});
-        cvLink = cloudinary.url(formData.cv);
-
-    }
+    // var cvLink = '';
+    //
+    // if(formData.cv !== ''){
+    //
+    //     cloudinary.config({cloud_name: 'dzfmkzqdo', api_key: '577639826413541', api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'});
+    //     cvLink = cloudinary.url(formData.cv);
+    //
+    // }
 
     res.render('user/register-apply', {
         title: i18n.__('Enregistrement'),
@@ -259,7 +259,7 @@ var renderRegisterApply = function(req, res, formData, offer, error){
         sectorOptions: sectorOptions,
         error: error,
         offer: offer,
-        cvLink: cvLink,
+       // cvLink: cvLink,
     });
 };
 
@@ -273,8 +273,8 @@ module.exports.applyOffer = function(req, res){
 
     request(requestOptions, function (err, response, body) {
 
-        var offer = body.data;
-
+        var offer = body.data[0];
+        console.log(offer);
         var formData = {
             email: '',
             firstName: '',
@@ -282,7 +282,7 @@ module.exports.applyOffer = function(req, res){
             password: '',
             confirmationPassword: '',
             availability: '',
-            sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
+            sector: '0',//req.app.locals.options[res.getLocale()].sectorOptions[0],
             skypeId: '',
             mobilePhone: '',
             position: '',
@@ -485,6 +485,7 @@ module.exports.simulation = function(req, res){
             mobilePhone: (user.mobilePhone? user.mobilePhone: '') ,
             position: '',
             company: '',
+            cv: user.cv,
         };
 
         renderSimulation(req, res, formData, null);
@@ -513,7 +514,7 @@ module.exports.doSimulation = function(req, res){
                 res.redirect('/confirmation');
             }
             else{
-                console.log('error unhandled, status code:' +  response.statusCode);
+                console.log('error unhandled: ' +  body.internalError);
                 common.showError(req, res, response.statusCode);
             }
         });

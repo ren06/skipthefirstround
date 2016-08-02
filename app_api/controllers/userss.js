@@ -13,6 +13,15 @@ var PASSWORD_MIN_LENGTH = 8;
 var conString = databaseURL; //process.env.DATABASE_URL || 'postgres://admin:Santos100@localhost:5432/neris';
 
 
+var addUsersText = function(data, req){
+
+    if(typeof data !== 'undefined') {
+        data.forEach(function(entry){
+            addUserText(entry, req);
+        });
+    };
+}
+
 var addUserText = function(data, req){
 
     var language = req.header('Accept-Language');
@@ -25,13 +34,14 @@ var addUserText = function(data, req){
         language = 'en';
     }
 
+    console.log(language);
+
     if(typeof data !== 'undefined') {
 
+        console.log(options.options[language].sectorOptions[0]);
         data['sectorText'] = options.options[language].sectorOptions[data.sector];
         data['languageText'] = options.options[language].languageOptions[data.language];
     }
-
-    return data;
 };
 
 
@@ -176,11 +186,7 @@ module.exports.userCreate = function (req, res) {
     var mobilePhone = req.body.mobilePhone;
     var language = req.body.language;
     var cv = req.body.cv;
-    //var company = req.body.company;
-    //var position = req.body.position;
 
-    console.log('userCreate');
-    console.log(req.body);
 
     //check it's all there
     //took out || !company || !position only relevant for simulation
@@ -263,7 +269,7 @@ module.exports.userCreate = function (req, res) {
                         if (err) {
                             console.log('insert error');
                             //conflict error
-                            common.sendJsonResponse(res, 409, false, 'Insert error for ' + email + '. Error code ' + err.code, res.__('EmailAlreadyExists'));
+                            common.sendJsonResponse(res, 409, false, 'Insert error for ' + email + '. ' + err.message, res.__('EmailAlreadyExists'));
                         }
                     }
                 );
@@ -327,7 +333,7 @@ module.exports.userReadOne = function (req, res) {
     }
     else {
 
-        common.readOne(req, res, 'tbl_user', userId, addUserText);
+        common.readOne(req, res, 'tbl_user', userId, addUsersText);
 
     }
 

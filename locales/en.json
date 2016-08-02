@@ -31,5 +31,6 @@
 	"My information": "My information",
 	"Interview": "Interview",
 	"VideoModifyError": "VideoModifyError",
-	"InterviewModifyMissingInput": "InterviewModifyMissingInput"
+	"InterviewModifyMissingInput": "InterviewModifyMissingInput",
+	"InterviewCreationMissingInput": "InterviewCreationMissingInput"
 }

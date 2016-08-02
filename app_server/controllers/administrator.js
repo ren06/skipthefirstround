@@ -427,15 +427,18 @@ module.exports.interviewAddSequence = function(req, res){
 
     var formData = {
         tagId: Object.keys(req.app.locals.options[res.getLocale()].sequenceTagOptions)[0],
-        videoUniqueId: '',
-        videoUrl: '',
-    }
+    };
 
-    renderInterviewAddSequence(req, res, formData, null);
+    var videoData = {
+        url: '',
+        providerUniqueId: '',
+    };
+
+    renderInterviewAddSequence(req, res, formData, videoData, null);
 
 }
 
-var renderInterviewAddSequence = function(req, res, formData, error){
+var renderInterviewAddSequence = function(req, res, formData, videoData, error){
 
     var interviewId = req.params.interviewId;
 
@@ -461,7 +464,7 @@ var renderInterviewAddSequence = function(req, res, formData, error){
             appreciationsOptions: appreciationsOptions,
             title: 'Homepage',
             formData: formData,
-            //cloudinaryHtml : tag,
+            videoData: videoData,
             error: error
         });
     });
@@ -472,7 +475,7 @@ module.exports.doInterviewAddSequence = function(req, res){
     console.log(req.body);
 
     var interviewId = req.body.interviewId;
-    var videoUniqueId = req.body.videoUniqueId;
+    var videoProviderUniqueId = req.body.videoProviderUniqueId;
     var videoUrl = req.body.videoUrl;
     var tagId = req.body.tagId;
     var summary = req.body.summary;
@@ -480,28 +483,32 @@ module.exports.doInterviewAddSequence = function(req, res){
 
 
     var formData = {
-        videoUniqueId: videoUniqueId,
-        videoUrl: videoUrl,
         interviewId: interviewId,
         tagId: tagId,
         summary: summary,
         appreciationId: appreciationId
-    }
+    };
 
+    var videoData = {
+        uniqueProviderId: videoProviderUniqueId,
+        url: videoUrl,
+    };
+
+    console.log(videoProviderUniqueId);
 
     //check everything is there
     if(!interviewId || !tagId || !summary || !appreciationId){
 
-        renderInterviewAddSequence(req, res, formData, 'Please enter an appreciation and a summary');
+        renderInterviewAddSequence(req, res, formData, videoData, 'Please enter an appreciation and a summary');
     }
-    else if(!videoUniqueId) {
+    else if(!videoProviderUniqueId) {
 
-        renderInterviewAddSequence(req, res, formData, 'Please upload a video');
+        renderInterviewAddSequence(req, res, formData, videoData, 'Please upload a video');
     }
     else{
 
         var postData = {
-            videoUniqueId: videoUniqueId,
+            videoUniqueId: videoProviderUniqueId,
             videoUrl: videoUrl,
             tagId: tagId,
             summary: summary,
@@ -522,7 +529,7 @@ module.exports.doInterviewAddSequence = function(req, res){
             else if(response.statusCode === 400 || response.statusCode === 409 ){
 
                 console.log(body.internalError);
-                renderInterviewAddSequence(req, res, formData, body.userError);
+                renderInterviewAddSequence(req, res, formData, videoData, body.userError);
 
             }
             else {

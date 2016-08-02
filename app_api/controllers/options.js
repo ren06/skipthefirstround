@@ -24,6 +24,7 @@ var offerTypeOptionsEn = {
 
 //Sector
 var sectorOptionsFr = {
+    "0": "Indifferent",
     "1": "Fusions et acquisitions",
     "2": "Audit",
     "3": "Transaction services",
@@ -36,6 +37,7 @@ var sectorOptionsFr = {
     "10": "Coverage/Origination",
 };
 var sectorOptionsEn = {
+    "0": "Any",
     "1": "M&A, Private equity",
     "2": "Audit",
     "3": "Transaction services",
@@ -118,13 +120,13 @@ var appreciationsOptionsEn = {
 
 //language
 var languageOptionsFr = {
-    "" : 'Tous',
+    //"" : 'Tous',
     "en": "Anglais",
     "fr": "Francais",
 }
 
 var languageOptionsEn = {
-    "" : 'All',
+    //"" : 'All',
     "en": "English",
     "fr": "French",
 }

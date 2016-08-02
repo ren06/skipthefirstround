@@ -52,6 +52,7 @@ module.exports.dbConnect = function(callback){
     pg.connect(getConnectionString(), callback);
 };
 
+//Always return an array of rows, even if SELECT SINGLE
 module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTextFunction, internalError, userError, callback){
 
     pg.connect(getConnectionString(),function (err, client, done) {
@@ -86,7 +87,7 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
 
             if (addTextFunction && results.length > 0) {
 
-                results = addTextFunction(results, req);
+                addTextFunction(results, req);
             }
 
             if(callback){
@@ -117,7 +118,6 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
         });
     }
     );
-
 };
 
 module.exports.convertQueryToWhereClause = function(query, tableAlias){
@@ -170,9 +170,18 @@ module.exports.rowUpdate = function (req, res, tableName, id, data, callback) {
         var queryString = "UPDATE " + tableName + " SET";
 
         var comma =  ", ";
+        var value;
 
         for (var key in dataDecamelised) {
-            queryString += ' ' + key + "='" + dataDecamelised[key] + "'" + comma;
+            value = dataDecamelised[key];
+            console.log(value);
+            if(value === ''){
+                queryString += ' ' + key + "=NULL" + comma;
+            }
+            else{
+                queryString += ' ' + key + "='" + value + "'" + comma;
+            }
+
         }
 
         queryString = queryString.substring(0, queryString.length - comma.length);

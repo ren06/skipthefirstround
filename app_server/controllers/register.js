@@ -9,7 +9,9 @@ var renderRegister = function(req, res, formData, error){
 
     var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
 
-    console.log(sectorOptions);
+    //sectorOptions = common.addAll(sectorOptions);
+
+    //console.log(sectorOptions);
 
     res.render('user/register-simulation', {
         title: i18n.__('Enregistrement'),
@@ -81,6 +83,7 @@ module.exports.doRegisterUser = function(req, res){
     var language = req.cookies.locale;
     var position = req.body.position;
     var company = req.body.company;
+    var cv = req.body.cv;
 
     if(typeof language !== 'undefined'){
         language = 'en';
@@ -98,6 +101,7 @@ module.exports.doRegisterUser = function(req, res){
         language: language,
         company: company,
         position: position,
+        cv: cv,
     };
 
     var formData = postData;
@@ -109,7 +113,7 @@ module.exports.doRegisterUser = function(req, res){
     
     //check everything is there
     if(!postData.email || !postData.password || !postData.firstName || !postData.lastName || !postData.availability || !postData.sector ){
-        renderRegister(req, res, formData, 'All fields must be populated');
+        renderRegister(req, res, formData, 'All mandatory fields must be populated');
     }
     else if(!common.validator.isEmail(email)){
         renderRegister(req, res, formData, 'The provided email is not a valid email address');
@@ -120,8 +124,8 @@ module.exports.doRegisterUser = function(req, res){
     else if(password !== confirmationPassword){
         renderRegister(req, res, formData, 'The password and password configuration do not match');
     }
-    else if(skypeId.length < 5){
-        renderRegister(req, res, formData, 'The Skype Id must be of at least 5 characters');
+    else if(skypeId.length < 6){
+        renderRegister(req, res, formData, 'A Skype Id must be of at least 6 characters');
     }
     else {
 
@@ -149,10 +153,6 @@ module.exports.doRegisterUser = function(req, res){
 
                     createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
 
-                        console.log(err);
-                        console.log(body);
-
-                        console.log('create interview executed');
                         if(response.statusCode === 201) {
 
                             //redirect
@@ -293,7 +293,7 @@ module.exports.registerUser = function(req, res){
         password: '',
         confirmationPassword: '',
         availability: '',
-        sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
+        sector: '',//req.app.locals.options[res.getLocale()].sectorOptions[0],
         skypeId: '',
         mobilePhone: '',
         position: '',

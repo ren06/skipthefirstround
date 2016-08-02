@@ -3,12 +3,12 @@ label.control-label.col-sm-4(for='cvFile') Your CV:
     label.btn.btn-default.btn-file(style='width:160px')
         |   Select CV file...
         input#cvFile(type="file" style="display: none;" name="file")
-.col-sm-5.vertical-center
-    div.progress
+.col-sm-5.vertical-center(style='padding-top: 5px')
+    div.progress(style='margin-bottom: 0')
         div.progress-bar.progress-bar-striped(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="text-align:center")
             span#progressText
-.col-sm-2
-    div.file-title
-input(id="cvUniqueId" type="hidden" name="cv" value="#{formData.cv}")
-if(formData.cv !== '')
-    a(href='#{cvLink}') See current CV
+.col-sm-2(style='padding-top: 3px')
+    input(id="cvUniqueId" type="hidden" name="cv" value="#{formData.cv}")
+    if(formData.cv !== '' && typeof formData.cv !== 'undefined')
+        -var cvLink = cloudinary.url(formData.cv);
+        a(href='#{cvLink}') See current CV

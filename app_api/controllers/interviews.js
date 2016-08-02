@@ -36,8 +36,7 @@ var addText = function(data, req){
                 result = __({phrase: 'DateUndefined', locale: language});
             }
             else {
-                result = moment(dateTime).format("dddd Do MMMM YYYY H:m");
-
+                result = moment(dateTime).format("dddd Do MMMM YYYY HH:mm");
 
             }
             console.log('res: ' + result);
@@ -75,7 +74,7 @@ var addText = function(data, req){
         });
 
     }
-    return data;
+    //return data;
 }
 
 //TODO maybe split it in 2 functions, one for offer, one for simulation
@@ -95,21 +94,21 @@ module.exports.interviewCreate = function(req, res){
     console.log(req.body);
 
     //check it's all there
-    if(!userId || !type || !sector ) {
-
+    if(!userId || !type) {
+        console.log(userId + ' ' + type + ' ' + sector);
         //syntactically wrong, bad request
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('InterviewCreationMissingInput'), null);
         return;
     }
     else{
 
-        //check type and sector
-        console.log(res.getLocale());
+        if(!sector){
+            sector = 0;
+        }
 
+        //check type and sector
         var allowedTypes = options.options[res.getLocale()].interviewTypeOptions;
         var allowedSector = options.options[res.getLocale()].sectorOptions;
-
-
 
         if(typeof allowedTypes[type] === 'undefined') {
 
@@ -124,8 +123,6 @@ module.exports.interviewCreate = function(req, res){
             return;
         }
     }
-
-    console.log('ok');
 
     pg.connect(conString, function (err, client, done) {
 
@@ -180,7 +177,7 @@ module.exports.interviewCreate = function(req, res){
         }
 
     });
-}
+};
 
 var executeListPerUser = function(req, res, sql){
 
@@ -216,8 +213,8 @@ var executeListPerUser = function(req, res, sql){
             // After all data is returned, close connection and return results
             query.on('end', function () {
                 done();
-                var resultWithText = addText(results, req);
-                common.sendJsonResponse(res, 200, true, '', '', resultWithText);
+                addText(results, req);
+                common.sendJsonResponse(res, 200, true, '', '', results);
             });
 
         });
@@ -268,8 +265,8 @@ module.exports.interviewList = function(req, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            var resultWithText = addText(results, req);
-            common.sendJsonResponse(res, 200, true, '', '', resultWithText);
+            addText(results, req);
+            common.sendJsonResponse(res, 200, true, '', '', results);
         });
 
     });
@@ -346,12 +343,9 @@ module.exports.interviewReadOne = function(req, res){
         query.on('end', function() {
             done();
 
-            var result = results[0];
-            if(result){
-            var result = addText([result], req);
-            }
+            addText(results, req);
 
-            common.sendJsonResponse(res, 200, true, '', '', result);
+            common.sendJsonResponse(res, 200, true, '', '', results);
         });
 
     });
@@ -411,10 +405,9 @@ module.exports.interviewSetDate = function(req, res){
             query.on('end', function () {
                 done();
 
-                var resultWithText = addText(results, req);
-                console.log('RETURN RESPOSNE');
-                console.log(resultWithText);
-                common.sendJsonResponse(res, 200, true, null, null, resultWithText);
+                addText(results, req);
+
+                common.sendJsonResponse(res, 200, true, null, null, results);
             });
 
         });

@@ -6,32 +6,13 @@ var addText = function(data, req){
 
     data.forEach(function(entry) {
 
-        // var dateTime = entry.date_time;
-        //
-        // moment.locale(language);
-        //
-        // var result;
-        //
-        // if (dateTime == null) {
-        //
-        //     result = __({phrase: 'DateUndefined',  locale: language});
-        // }
-        // else {
-        //     result = moment(dateTime).format("dddd Do MMMM YYYY H:m");
-        //
-        //
-        // }
-        
         entry['fullName'] = entry.first_name + ' ' + entry.last_name;
 
     });
 
-    return data;
 }
 
 module.exports.interviewerCreate = function(req, res){
-
-    console.log('interviewerCreate');
 
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
@@ -96,7 +77,7 @@ module.exports.interviewerCreate = function(req, res){
 
             query.on("row", function (row, result) {
                 
-                var result = { 'interviewer': row, };
+                addText(result)
                 common.sendJsonResponse(res, 201, true, null, null, result);
             });
 
@@ -135,8 +116,8 @@ module.exports.interviewersList = function(req, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            var resultWithText = addText(results, req);
-            common.sendJsonResponse(res, 200, true, '', '', resultWithText);
+            addText(results, req);
+            common.sendJsonResponse(res, 200, true, '', '', results);
         });
 
     });
@@ -173,8 +154,8 @@ module.exports.interviewerReadOne = function(req, res){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
-            var resultWithText = addText(results, req);
-            common.sendJsonResponse(res, 200, true, '', '', resultWithText);
+            addText(results, req);
+            common.sendJsonResponse(res, 200, true, '', '', results);
         });
 
     });

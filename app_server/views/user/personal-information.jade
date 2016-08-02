@@ -38,65 +38,68 @@ block content
 
     .col-lg-2.text-center
     .col-lg-8
-        .container
-            .row
-                h2 My personal information
+        .row
+            h2 My personal information
 
-            .row
-                include ../_includes/user-menu.jade
-            .row
-                .col-lg-6
+        .row
+            include ../_includes/user-menu.jade
+        .row
+            .col-lg-6
 
-                    br
-                    form.form-horizontal(id="registerForm", action="", method="post", role="form")
-                        if(error)
-                            .alert.alert-danger(role="alert") #{error}
+                br
+                form.form-horizontal(id="registerForm", action="", method="post", role="form")
+                    if(error)
+                        .alert.alert-danger(role="alert") #{error}
 
-                        //.form-group
-                        //    include ../_includes/cv-upload-control
-                        .form-group.required
-                            label.control-label.col-sm-4(for='email') Email:
-                            .col-sm-8
-                                input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
+                    //.form-group
+                    //    include ../_includes/cv-upload-control
+                    .form-group.required
+                        label.control-label.col-sm-4(for='email') Email:
+                        .col-sm-8
+                            input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
 
-                        .form-group.required
-                            label.control-label.col-sm-4(for='firstName') First name:
-                            .col-sm-8
-                                input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
+                    .form-group.required
+                        label.control-label.col-sm-4(for='firstName') First name:
+                        .col-sm-8
+                            input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
 
-                        .form-group.required
-                            label.control-label.col-sm-4(for='lastName') Last Name:
-                            .col-sm-8
-                                input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
+                    .form-group.required
+                        label.control-label.col-sm-4(for='lastName') Last Name:
+                        .col-sm-8
+                            input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
 
-                        .form-group.required
-                            label.control-label.col-sm-4(for='skypeId') Skype Id:
-                            .col-sm-8.required
-                                input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
+                    .form-group.required
+                        label.control-label.col-sm-4(for='skypeId') Skype Id:
+                        .col-sm-8.required
+                            input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
 
-                        .form-group.required
-                            label.control-label.col-sm-4(for='availability') Availability:
-                            .col-sm-8
-                                input#availability(type="", name="availability", placeholder="" value="#{formData.availability}").form-control
+                    .form-group.required
+                        label.control-label.col-sm-4(for='availability') Availability:
+                        .col-sm-8
+                            input#availability(type="", name="availability", placeholder="" value="#{formData.availability}").form-control
 
-                        .form-group
-                            label.control-label.col-sm-4(for='mobilePhone') Telephone portable:
-                            .col-sm-8
-                                input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
+                    .form-group
+                        label.control-label.col-sm-4(for='mobilePhone') Telephone portable:
+                        .col-sm-8
+                            input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
 
-                        .form-group
-                            label.control-label.col-sm-4(for='sector') Sector:
-                            .col-sm-8
-                                input#sector(type="", name="sector", placeholder="" value="#{formData.sector}").form-control
-
-                        .form-group
-                            label.control-label.col-sm-4(for='Language') Language:
-                            .col-sm-8
-                                input#Language(type="", name="Language", placeholder="" value="#{formData.language}").form-control
-
-                        .form-group
-                            .col-sm-offset-4.col-sm-10
-                                //button(type="submit").btn.btn-default S'enregister
-                                button.buttonDisplay.btn.btn-default(type="submit") Change
-                                button.buttonEdit.btn.btn-default(type="submit") Cancel
-                                button.buttonEdit.btn.btn-default(type="submit") Save
+                    .form-group
+                        label.control-label.col-sm-4(for='sector') Sector:
+                        .col-sm-8
+                            input#sector(type="", name="sector", placeholder="" value="#{formData.sectorText}").form-control
+                    .form-group
+                        label.control-label.col-sm-4(for='Language') Language:
+                        .col-sm-8
+                            input#Language(type="", name="Language", placeholder="" value="#{formData.languageText}").form-control
+                    .form-group
+                        label.control-label.col-sm-4 Your CV:
+                        .col-sm-8(style='padding-top: 7px')
+                            if(formData.cv !== '' && typeof formData.cv !== 'undefined')
+                                -var cvLink = cloudinary.url(formData.cv);
+                                a(href='#{cvLink}') View
+                    .form-group
+                        .col-sm-offset-4.col-sm-10
+                            //button(type="submit").btn.btn-default S'enregister
+                            button.buttonDisplay.btn.btn-default(type="submit") Change
+                            button.buttonEdit.btn.btn-default(type="submit") Cancel
+                            button.buttonEdit.btn.btn-default(type="submit") Save

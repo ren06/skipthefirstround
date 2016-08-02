@@ -16,8 +16,8 @@ block content
                     dl.dl-horizontal
                         dt Date
                         dd=interview.dateTimeText
-                        dt Job Description
-                        dd
+                        dt Type
+                        dd=interview.typeText
 
             .row
                 .col-lg-8
@@ -27,8 +27,6 @@ block content
                         if(error)
                             .alert.alert-danger(role="alert") #{error}
                         input(id='interviewId' type="hidden" name="interviewId" value="#{interview.id}")
-                        input(id="videoUniqueId" type="hidden" name="videoUniqueId" value="#{formData.videoUniqueId}")
-                        input(id="videoUrl" type="hidden" name="videoUrl" value="#{formData.videoUrl}")
 
                         .form-group
                             label.control-label.col-sm-2(for='tags') Tag:
@@ -48,9 +46,8 @@ block content
                                         input(type='radio', class='radioSpans', id='appreciation', value='#{key}', name='appreciation' checked=(formData.appreciationId == key ))
                                         span=val
                         .form-group
-                            label.control-label.col-sm-2(for='videoFile') Select video file:
-                            .col-sm-6
-                                include ../_includes/video-upload-control
+                            //.col-sm-6
+                            include ../_includes/video-upload-control
 
                         .form-group
                             .col-sm-offset-4.col-sm-10

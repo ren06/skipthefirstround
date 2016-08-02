@@ -42,7 +42,7 @@ block content
 
                             .col-sm-2
                                 select#time_minute.form-control(name='minute')
-                                    each val in ['00', '15', '40', '45']
+                                    each val in ['00', '15', '30', '45']
                                         if formData.minute == val
                                             option(value='#{val}' selected='true') #{val}
                                         else

@@ -2,7 +2,7 @@ var common = require('./commonApi');
 var options = require('./options');
 
 var addTextLabel = function(entry, language){
-    console.log(entry.sector);
+
     entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
     entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offer_type];
     entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.company_type];
@@ -10,56 +10,6 @@ var addTextLabel = function(entry, language){
 }
 
 var addText = function(data, req){
-
-    var language = req.header('Accept-Language');
-
-    console.log(language);
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
-
-    if(typeof data !== 'undefined') {
-
-        var offers = data[0].offers;
-
-        offers.forEach(function (entry) {
-
-            addTextLabel(entry, language);
-
-        });
-    }
-
-    return data;
-};
-
-
-
-var addText2 = function(data, req){
-
-    var language = req.header('Accept-Language');
-
-    console.log(language);
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
-
-    if(typeof data !== 'undefined') {
-
-        var offer = data[0];
-
-        addTextLabel(offer, language);
-
-        return offer;
-    }
-};
-
-var addTextArrayOffers = function(data, req){
 
     var language = req.header('Accept-Language');
 
@@ -79,7 +29,6 @@ var addTextArrayOffers = function(data, req){
         });
     }
 
-    return data;
 };
 
 module.exports.offerCreate = function(req, res){
@@ -110,7 +59,7 @@ module.exports.offerReadOne = function(req, res){
     }
     else {
 
-        common.readOne(req, res, 'tbl_offer', offerId, addText2);
+        common.readOne(req, res, 'tbl_offer', offerId, addText);
 
     }
 };
@@ -141,7 +90,7 @@ module.exports.offerSearchForRecruiter = function(req, res){
 
     var queryString = "SELECT * FROM tbl_offer o INNER JOIN tbl_interview i ON i.id_offer = o.id INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video";
 
-    common.dbHandleQuery(req, res, queryString, parameters, addTextArrayOffers, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, parameters, addText, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -157,7 +106,7 @@ module.exports.offerSearchForGuest = function(req, res){
 
     console.log(queryString);
 
-    common.dbHandleQuery(req, res, queryString, null, addTextArrayOffers, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -175,7 +124,7 @@ module.exports.offerSearchForUser = function(req, res){
 
     console.log(queryString);
 
-    common.dbHandleQuery(req, res, queryString, [userId], addTextArrayOffers, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, [userId], addText, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -244,7 +193,7 @@ module.exports.searchVideos = function(req, res){
 
     console.log(queryString);
 
-    common.dbHandleQuery(req, res, queryString, [userId], addTextArrayOffers, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, [userId], addText, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
