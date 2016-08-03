@@ -116,6 +116,13 @@ block content
                         .col-sm-10
                             textarea(rows="4" name="summary").form-control
                     .form-group
+                        label.control-label.col-sm-2(for='appreciation') Appreciation
+                        .col-sm-6
+                            each val, key in appreciationsOptions
+                                label.radio-inline
+                                    input(type='radio', class='radioSpans', id='appreciation', value='#{key}', name='appreciation' checked=(interview.appreciation == key ))
+                                    span=val
+                    .form-group
                         include ../_includes/video-upload-control
                 br
                 if editMode

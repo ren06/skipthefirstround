@@ -10,9 +10,9 @@ label.control-label.col-sm-2(for='videoFile') Video file:
 .col-sm-2
     input(id="videoProviderUniqueId" type="hidden" name="videoProviderUniqueId" value="#{videoData.providerUniqueId}")
     input(id="videoUrl" type="hidden" name="videoUrl" value="#{videoData.url}")
-
-    if(videoData.providerUniqueId !== '')
-        a(href='#{videoData.url}') See current Video
-    else
-        div No video
+    span#videoLink
+        if(videoData.providerUniqueId !== '')
+            a(href='#{videoData.url}') See current Video
+        else
+            | No video
 

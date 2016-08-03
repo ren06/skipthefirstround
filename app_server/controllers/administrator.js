@@ -107,25 +107,6 @@ module.exports.student = function(req, res){
 };
 
 
-module.exports.ajoutEntretien = function(req, res){
-
-    console.log('etudiants');
-    res.render('admin/student-add-interview', {
-        title: 'Homepage',
-
-    });
-
-};
-
-module.exports.studentInterviewsList = function(req, res){
-
-    console.log('');
-    res.render('admin/student-interviews-list', {
-        title: 'Homepage',
-
-    });
-
-};
 
 module.exports.studentsInterviewsList = function(req, res){
 
@@ -162,7 +143,7 @@ module.exports.studentsInterviewNoDate = function(req, res){
 };
 
 
-var renderInterview = function(req, res, editMode, videoData, error){
+var renderInterview = function(req, res, editMode, formData, videoData, error){
 
     var interviewId = req.params.interviewId;
 
@@ -172,18 +153,26 @@ var renderInterview = function(req, res, editMode, videoData, error){
 
         var interview = body.data[0];
 
+        //break down date time in date, hour and minutes
+        //DD/MM/YYYY HH:mm
+        interview.date = moment(interview.dateTime).format('DD/MM/YYYY');
+        interview.hour = moment(interview.dateTime).format('HH');
+        interview.time = moment(interview.dateTime).format('mm');
+
+        console.log(interview.dateTimeText);
+        console.log(interview.dateTime);
+
         var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
         var tagOptions = req.app.locals.options[res.getLocale()].tagOptions;
         var interviewTypeOptions = req.app.locals.options[res.getLocale()].interviewTypeOptions;
         var interviewStatusOptions = req.app.locals.options[res.getLocale()].interviewStatusOptions;
+        var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
 
         requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
 
         request(requestOptions, function (err, response, body) {
 
             var interviewers = body.data;
-
-            console.log(interview.video);
 
             if(!videoData) {
 
@@ -199,12 +188,27 @@ var renderInterview = function(req, res, editMode, videoData, error){
                 }
             }
 
+            if(formData){
+                //replace interview value
+                interview.date = formData.date;
+                interview.hour = formData.hour;
+                interview.minute = formData.minute;
+                interview.type = formData.type;
+                interview.sector = formData.sector;
+                interview.company = formData.company;
+                interview.position = formData.position;
+                interview.summary = formData.summary;
+                interview.status = formData.status;
+                interview.appreciation = formData.appreciation;
+            }
+
             res.render('admin/interview', {
                 interview: interview,
                 title: 'Homepage',
                 sectorOptions: sectorOptions,
                 interviewTypeOptions: interviewTypeOptions,
                 interviewStatusOptions: interviewStatusOptions,
+                appreciationsOptions: appreciationsOptions,
                 interviewers: interviewers,
                 editMode: editMode,
                 videoData: videoData,
@@ -216,13 +220,13 @@ var renderInterview = function(req, res, editMode, videoData, error){
 
 module.exports.interview = function(req, res){
 
-    renderInterview(req, res, false, null, null);
+    renderInterview(req, res, false, null, null, null);
 
 }
 
 module.exports.interviewModify = function(req, res){
 
-    renderInterview(req, res, true, null, null);
+    renderInterview(req, res, true, null, null, null);
 }
 
 
@@ -268,11 +272,7 @@ var renderInterviewModifyDate = function(req, res, formData, error){
     });
 }
 
-module.exports.doInterviewModify = function(req, res){
-
-    console.log('saved');
-
-    console.log(req.body);
+module.exports.doInterviewModify = function(req, res) {
 
     var interviewId = req.body.interviewId;
     var date = req.body.date;
@@ -289,7 +289,11 @@ module.exports.doInterviewModify = function(req, res){
     var videoUrl = req.body.videoUrl;
     var idVideo = req.body.idVideo;
 
-    var dateTimeDb = moment(date + ' ' + hour + ':' + minute, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss');
+    var dateTimeDb = null;
+
+    if (date && hour && minute) {
+        var dateTimeDb = moment(date + ' ' + hour + ':' + minute, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss');
+    }
 
     var postData = {
         dateTime: dateTimeDb,
@@ -310,27 +314,33 @@ module.exports.doInterviewModify = function(req, res){
         url: videoUrl,
     }
 
-    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'PUT', postData, false);
+    if (status == 2 && !dateTimeDb) {
+        renderInterview(req, res, true, req.body, videoData, 'You cannot have an interview with status Booked without a Date');
+    }
+    else {
 
-    request(requestOptions, function (err, response, body) {
+        var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'PUT', postData, false);
 
-        if(response.statusCode === 204 ) {
+        request(requestOptions, function (err, response, body) {
 
-            console.log('update OK, redirecting...');
-            res.redirect('/admin/interview/' + interviewId);
-        }
-        else if(response.statusCode === 400 || response.statusCode === 409 ){
+            if (response.statusCode === 204) {
 
-            console.log(body.internalError);
-            renderInterview(req, res, true, videoData, body.userError);
+                console.log('update OK, redirecting...');
+                res.redirect('/admin/interview/' + interviewId);
+            }
+            else if (response.statusCode === 400 || response.statusCode === 409) {
 
-        }
-        else {
-            console.log('error unhandled ');
-            common.showError(req, res, response.statusCode);
-        }
+                console.log(body.internalError);
+                renderInterview(req, res, true, req.body, videoData, body.userError);
 
-    });
+            }
+            else {
+                console.log('error unhandled ');
+                common.showError(req, res, response.statusCode);
+            }
+
+        });
+    }
 
 }
 
@@ -451,12 +461,6 @@ var renderInterviewAddSequence = function(req, res, formData, videoData, error){
         var sequenceTagOptions = req.app.locals.options[res.getLocale()].sequenceTagOptions;
         var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
 
-        // var tag = cloudinary.video("x4l7x9odymscvstysue8", { width: 300, height: 300,
-        //     crop: "pad", background: "blue",
-        //     preload: "none", controls: true,
-        //     fallback_content: "Your browser does not support HTML5 video tags" });
-        //
-        // console.log(tag);
 
         res.render('admin/interview-add-sequence', {
             interview: interview,

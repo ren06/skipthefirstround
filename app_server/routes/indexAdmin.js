@@ -17,8 +17,7 @@ router.get ('/student-menu', ctrlAdmin.student);
 router.get ('/students-interviews-list', ctrlAdmin.studentsInterviewsList);
 router.get ('/students-interviews-no-date', ctrlAdmin.studentsInterviewNoDate);
 
-router.get ('/student-interviews-list', ctrlAdmin.studentInterviewsList);
-router.get ('/student-add-interview', ctrlAdmin.ajoutEntretien);
+
 router.get ('/interview/:interviewId', ctrlAdmin.interview);
 router.get ('/interview/:interviewId/modify', ctrlAdmin.interviewModify);
 router.post('/interview/:interviewId/modify', ctrlAdmin.doInterviewModify);
