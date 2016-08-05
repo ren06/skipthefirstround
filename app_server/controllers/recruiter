@@ -395,6 +395,20 @@ module.exports.doLogin = function(req, res){
 };
 
 
+module.exports.doLogout = function(req, res){
+
+    req.session.destroy(function(err) {
+        // cannot access session here
+        console.log('redirecting to homepage...');
+        var session = req.session;
+        console.log('session after logout: ' + session);
+
+        res.redirect('/recruiter');
+    });
+
+};
+
+
 
 
 

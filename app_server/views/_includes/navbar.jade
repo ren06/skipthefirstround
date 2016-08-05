@@ -1,0 +1,114 @@
+//header-container start
+.header-container
+    // header start
+    // classes:
+    // "fixed": enables fixed navigation mode (sticky menu) e.g. class="header fixed clearfix"
+    // "dark": dark version of header e.g. class="header dark clearfix"
+    // "full-width": mandatory class for the full-width menu layout
+    // "centered": mandatory class for the centered logo layout
+    // ================
+    header.header.fixed.clearfix
+        .container
+            .row
+                //.col-md-3
+                    // header-left start
+                    // ================
+                    //.header-left.clearfix
+                    //    h4
+                    //        ul.nav.navbar-nav.navbar-left
+                    //            li
+                    //                a(href='/') Demande au Finaud
+                        // logo
+                        //#logo.logo
+                        //    a(href='index.html')
+                        //        img#logo_img(src='images/logo_light_blue.png', alt='The Project')
+                        // name-and-slogan
+                        //.site-slogan
+                        //    | Multipurpose HTML5 Template
+                    // header-left end
+                .col-md-12
+                    // header-right start
+                    // ================
+                    .header-right.clearfix
+                        // main-navigation start
+                        // classes:
+                        // "onclick": Makes the dropdowns open on click, this the default bootstrap behavior e.g. class="main-navigation onclick"
+                        // "animated": Enables animations on dropdowns opening e.g. class="main-navigation animated"
+                        // "with-dropdown-buttons": Mandatory class that adds extra space, to the main navigation, for the search and cart dropdowns
+                        // ================
+                        .main-navigation.animated
+                            // navbar start
+                            // ================
+                            nav.navbar.navbar-default(role='navigation')
+                                .container-fluid
+                                    // Toggle get grouped for better mobile display
+                                    .navbar-header
+                                        button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse-1')
+                                            span.sr-only Toggle navigation
+                                            span.icon-bar
+                                            span.icon-bar
+                                            span.icon-bar
+                                    // Collect the nav links, forms, and other content for toggling
+                                    #navbar-collapse-1.collapse.navbar-collapse.scrollspy.smooth-scroll
+                                        ul.nav.navbar-nav.navbar-left
+                                            li
+                                                a(href='/') Demande au Finaud
+                                        ul.nav.navbar-nav.navbar-right
+                                            //li.dropdown.active
+                                            //    a.dropdown-toggle(href='#banner', data-toggle='dropdown') Home
+                                            //    ul.dropdown-menu
+                                            //        li
+                                                a(href='index.html') Home - Default
+                                            if(!session.authenticated)
+                                                li
+                                                    if(session.role == 'recruiter')
+                                                        a(href='/') For candidates
+                                                    else if(session.role == 'user')
+                                                        a(href='/recruiter') For recruiters
+                                                    else
+                                                        | No session set
+                                            else if(session.role == 'user')
+                                                li
+                                                    a(href='/simulation') Mock interviews
+                                                li
+                                                    a() |
+                                                li
+                                                    a(href='/offers') Our offers
+
+                                            -var loginUrl
+                                            -var registerUrl
+
+                                            if(session.role == 'user')
+                                                -loginUrl = 'user-login/'
+                                                -registerUrl = 'user-register'
+                                                -logoutUrl = 'user-logout'
+                                            else
+                                                -loginUrl = '/recruiter/recruiter-login/'
+                                                -registerUrl = '/recruiter/recruiter-register'
+                                                -logoutUrl = 'recruiter-logout'
+
+                                            li
+                                                a(href='/change-language/fr') FR
+                                            li
+                                                a(href='/change-language/en') EN
+                                            if(session.authenticated)
+                                                li
+                                                    a(href="#{logoutUrl}") Sign out
+                                            else
+                                                li
+                                                    a(href="#{loginUrl}") Log in
+                                                li
+                                                    a(href="#{registerUrl}") Register
+                                            //li
+                                            //    a(href='#about') For recruiters
+                                            //li
+                                            //    a(href='#services') Login
+                                            //li
+                                            //    a(href='#portfolio') Register
+                                            //li
+                                            //    a(href='#footer') Contact
+                            // navbar end
+                        // main-navigation end
+                    // header-right end
+    // header end
+// header-container end

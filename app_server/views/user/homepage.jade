@@ -4,36 +4,129 @@ include ../_includes/sharedHTMLfunctions
 
 block content
 
-    .col-lg-2
-    .col-lg-8
-        .row
-            h2=catchphrase
-            br
-            h3 Benefit from mock interviews and customised advise while getting noticed from recruiters who will browse through your best video interview samples!
-            h3 Réussissez vos entretiens d'embauche et bénéficiez de conseils personalisés en effectuant des simulations d'entretiens en ligne puis choisissiez les extraits accessibles à nos recruteurs!
-            br 
-            br
+    #banner.banner.dark-translucent-bg.padding-bottom-clear(style="background-image:url('images/montagne1.jpg');")
+        // section start
+        // ================
+        .container
+            .row
+                .col-md-8.text-center.col-md-offset-2.space-bottom
+                    .title.large_white=catchphrase
+                    .separator
+                    p.text-center.lead
+                        | Benefit from mock interviews and customised advise while getting noticed from recruiters who will browse through your best video interview samples!
+                    //p.text-center.lead
+                    //    | Réussissez vos entretiens d'embauche et bénéficiez de conseils personalisés en effectuant des simulations d'entretiens en ligne puis choisissiez les extraits accessibles à nos recruteurs!
+            .row.mb-20
 
-        .row
-            .col-md-6
-                ul
-                    li Schedule an appointment for a video mock interview
-                    li Get customised feedback
-                    li Full interview is downloadable so that you can practice on your own as well
-                    li Get noticed and allow recruiters to access your best interview samples!
+                .col-md-6
+                    .feature-box-2.object-non-visible(data-animation-effect='fadeInDownSmall', data-effect-delay='100')
+                        //span.icon.default-bg.small
+                        //    i.fa.fa-heart-o
+                        .body
+                            h4.title Mock interviews
+                            ul
+                                li Schedule an appointment for a video mock interview
+                                li Get customised feedback
+                                li Full interview is downloadable so that you can practice on your own as well
+                                li Get noticed and allow recruiters to access your best interview samples!
+                .col-md-6
+                    .feature-box-2.object-non-visible(data-animation-effect='fadeInDownSmall', data-effect-delay='150')
+                        //span.icon.default-bg.small
+                        //    i.fa.fa-connectdevelop
+                        .body
+                            h4.title Apply for offers
+                            ul
+                                li Browse through our job & internship opportunities
+                                li To apply, schedule an appointment for a video mock interview
+                                li Excerpts from your mock interview are directly send to the recruiter!
+            .row.text-center
+                .col-md-6
+                    a(href="user-register").btn.btn-default Schedule a mock interview
+                .col-md-6
+                    a(href="offers").btn.btn-default Discover our offers
+             br
+        // section end
+        // section start
+        // ================
+        //.pv-40.dark-translucent-bg
+        //    .container
+        //        .row
+        //            .col-md-12
+        //                .call-to-action.text-center
+        //                    form.form-inline.margin-clear
+        //                        .form-group.has-feedback
+        //                            label.sr-only(for='subscribe3') Email address
+        //                            input#subscribe3.form-control.form-control-lg(type='email', placeholder='Enter email', name='subscribe3', required='')
+        //                            i.fa.fa-envelope.form-control-feedback
+        //                        button.btn.btn-lg.btn-gray-transparent.btn-animated.margin-clear(type='submit')
+        //                            | Subscribe
+        //                            i.fa.fa-send
+        // section end
+    // banner end
+    //br
+    //br
+    //.container
+    //    .col-lg-2
+    //    .col-lg-8
+    //        .row.mb-20
+    //            .col-md-6
+    //                .feature-box-2.object-non-visible(data-animation-effect='fadeInDownSmall', data-effect-delay='100')
+    //                    span.icon.default-bg.small
+    //                        i.fa.fa-heart-o
+    //                    .body
+    //                        h4.title Mock interviews
+    //                        ul
+    //                            li Schedule an appointment for a video mock interview
+    //                            li Get customised feedback
+    //                            li Full interview is downloadable so that you can practice on your own as well
+    //                            li Get noticed and allow recruiters to access your best interview samples!
+    //            .col-md-6
+    //                .feature-box-2.object-non-visible(data-animation-effect='fadeInDownSmall', data-effect-delay='150')
+    //                    span.icon.default-bg.small
+    //                        i.fa.fa-connectdevelop
+    //                    .body
+    //                        h4.title Apply for offers
+    //                        ul
+    //                            li Browse through our job & internship opportunities
+    //                            li To apply, schedule an appointment for a video mock interview
+    //                            li Excerpts from your mock interview are directly send to the recruiter!
+    //        .row.text-center
+    //            .col-md-6
+    //                a(href="user-register").btn.btn-default Schedule a mock interview
+    //            .col-md-6
+    //                a(href="offers").btn.btn-default Discover our offers
 
-            .col-md-6
-                ul
-                    li Browse through our job & internship opportunities
-                    li To apply, schedule an appointment for a video mock interview
-                    li Excerpts from your mock interview are directly send to the recruiter!
-        .row.text-center
-            br
-            br
-            .col-md-6
-                a(href="user-register").btn.btn-default Schedule a mock interview
-            .col-md-6
-                a(href="offers").btn.btn-default Discover our offers
 
 
-    .col-lg-2
+    //.col-lg-2
+    //.col-lg-8
+    //    .row
+    //
+    //        h3 Benefit from mock interviews and customised advise while getting noticed from recruiters who will browse through your best video interview samples!
+    //        h3 Réussissez vos entretiens d'embauche et bénéficiez de conseils personalisés en effectuant des simulations d'entretiens en ligne puis choisissiez les extraits accessibles à nos recruteurs!
+    //        br
+    //        br
+    //
+    //    .row
+    //        .col-md-6
+    //            ul
+    //                li Schedule an appointment for a video mock interview
+    //                li Get customised feedback
+    //                li Full interview is downloadable so that you can practice on your own as well
+    //                li Get noticed and allow recruiters to access your best interview samples!
+    //
+    //        .col-md-6
+    //            ul
+    //                li Browse through our job & internship opportunities
+    //                li To apply, schedule an appointment for a video mock interview
+    //                li Excerpts from your mock interview are directly send to the recruiter!
+    //    .row.text-center
+    //        br
+    //        br
+    //        .col-md-6
+    //            a(href="user-register").btn.btn-default Schedule a mock interview
+    //        .col-md-6
+    //            a(href="offers").btn.btn-default Discover our offers
+    //
+    //
+    //.col-lg-2

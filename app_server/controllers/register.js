@@ -236,22 +236,13 @@ module.exports.doIdentification = function(req, res){
 
 module.exports.doLogout = function(req, res){
 
-    console.log('user logout');
-    var redirectPath;
-    if(req.session.role == 'user'){
-        redirectPath = '/';
-    }
-    else{
-        redirectPath = '/recruiter';
-    }
-
     req.session.destroy(function(err) {
         // cannot access session here
         console.log('redirecting to homepage...');
         var session = req.session;
         console.log('session after logout: ' + session);
 
-        res.redirect(redirectPath);
+        res.redirect('/');
     });
 
 };

@@ -21,8 +21,9 @@ var ctrlInformation = require('../controllers/information');
 var ctrlHomepage = require('../controllers/homepage');
 
 router.get ('/', ctrlHomepage.homepageRecruiter);
-router.get ('/recruiter-register/', ctrlRecruiter.registerRecruiter);
-router.post('/recruiter-register/', ctrlRecruiter.doRegisterRecruiter);
+router.get ('/recruiter-register', ctrlRecruiter.registerRecruiter);
+router.post('/recruiter-register', ctrlRecruiter.doRegisterRecruiter);
+router.get ('/recruiter-logout', ctrlRecruiter.doLogout);
 router.get ('/recruiter-login/', ctrlRecruiter.login);
 router.post('/recruiter-login/', ctrlRecruiter.doLogin);
 router.get ('/confirmation', ctrlRecruiter.confirmation);
