@@ -1,0 +1,1308 @@
+doctype html
+//if IE 9
+  html.ie9(lang='en')
+// [if !IE] <!
+html(lang='en')
+    // <![endif]
+    head
+        meta(charset='utf-8')
+        title The Project | Page Sign Up
+        meta(name='description', content='The Project a Bootstrap-based, Responsive HTML5 Template')
+        meta(name='author', content='htmlcoder.me')
+        // Mobile Meta
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        // Favicon
+        link(rel='shortcut icon', href='images/favicon.ico')
+        // Web Fonts
+        link(href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Raleway:700,400,300', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Pacifico', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=PT+Serif', rel='stylesheet', type='text/css')
+        // Bootstrap core CSS
+        link(href='bootstrap/css/bootstrap.css', rel='stylesheet')
+        // Font Awesome CSS
+        link(href='fonts/font-awesome/css/font-awesome.css', rel='stylesheet')
+        // Fontello CSS
+        link(href='fonts/fontello/css/fontello.css', rel='stylesheet')
+        // Plugins
+        link(href='plugins/magnific-popup/magnific-popup.css', rel='stylesheet')
+        link(href='css/animations.css', rel='stylesheet')
+        link(href='plugins/owl-carousel/owl.carousel.css', rel='stylesheet')
+        link(href='plugins/owl-carousel/owl.transitions.css', rel='stylesheet')
+        link(href='plugins/hover/hover-min.css', rel='stylesheet')
+        // The Project core CSS file
+        link(href='css/style.css', rel='stylesheet')
+        // Color Scheme (In order to change the color scheme, replace the blue.css with the color scheme that you prefer)
+        link(href='css/skins/light_blue.css', rel='stylesheet')
+        // Custom css
+        link(href='css/custom.css', rel='stylesheet')
+    // body classes:
+    // "boxed": boxed layout mode e.g. <body class="boxed">
+    // "pattern-1 ... pattern-9": background patterns for boxed layout mode e.g. <body class="boxed pattern-1">
+    // "transparent-header": makes the header transparent and pulls the banner to top
+    // "gradient-background-header": applies gradient background to header
+    // "page-loader-1 ... page-loader-6": add a page loader to the page (more info @components-page-loaders.html)
+    body.no-trans
+        // scrollToTop
+        // ================
+        .scrollToTop.circle
+            i.icon-up-open-big
+        // page wrapper start
+        // ================
+        .page-wrapper
+            // header-container start
+            .header-container
+                // header-top start
+                // classes:
+                // "dark": dark version of header top e.g. class="header-top dark"
+                // "colored": colored version of header top e.g. class="header-top colored"
+                // ================
+                .header-top.dark
+                    .container
+                        .row
+                            .col-xs-3.col-sm-6.col-md-9
+                                // header-top-first start
+                                // ================
+                                .header-top-first.clearfix
+                                    ul.social-links.circle.small.clearfix.hidden-xs
+                                        li.twitter
+                                            a(target='_blank', href='http://www.twitter.com')
+                                                i.fa.fa-twitter
+                                        li.skype
+                                            a(target='_blank', href='http://www.skype.com')
+                                                i.fa.fa-skype
+                                        li.linkedin
+                                            a(target='_blank', href='http://www.linkedin.com')
+                                                i.fa.fa-linkedin
+                                        li.googleplus
+                                            a(target='_blank', href='http://plus.google.com')
+                                                i.fa.fa-google-plus
+                                        li.youtube
+                                            a(target='_blank', href='http://www.youtube.com')
+                                                i.fa.fa-youtube-play
+                                        li.flickr
+                                            a(target='_blank', href='http://www.flickr.com')
+                                                i.fa.fa-flickr
+                                        li.facebook
+                                            a(target='_blank', href='http://www.facebook.com')
+                                                i.fa.fa-facebook
+                                        li.pinterest
+                                            a(target='_blank', href='http://www.pinterest.com')
+                                                i.fa.fa-pinterest
+                                    .social-links.hidden-lg.hidden-md.hidden-sm.circle.small
+                                        .btn-group.dropdown
+                                            button.btn.dropdown-toggle(type='button', data-toggle='dropdown')
+                                                i.fa.fa-share-alt
+                                            ul.dropdown-menu.dropdown-animation
+                                                li.twitter
+                                                    a(target='_blank', href='http://www.twitter.com')
+                                                        i.fa.fa-twitter
+                                                li.skype
+                                                    a(target='_blank', href='http://www.skype.com')
+                                                        i.fa.fa-skype
+                                                li.linkedin
+                                                    a(target='_blank', href='http://www.linkedin.com')
+                                                        i.fa.fa-linkedin
+                                                li.googleplus
+                                                    a(target='_blank', href='http://plus.google.com')
+                                                        i.fa.fa-google-plus
+                                                li.youtube
+                                                    a(target='_blank', href='http://www.youtube.com')
+                                                        i.fa.fa-youtube-play
+                                                li.flickr
+                                                    a(target='_blank', href='http://www.flickr.com')
+                                                        i.fa.fa-flickr
+                                                li.facebook
+                                                    a(target='_blank', href='http://www.facebook.com')
+                                                        i.fa.fa-facebook
+                                                li.pinterest
+                                                    a(target='_blank', href='http://www.pinterest.com')
+                                                        i.fa.fa-pinterest
+                                    ul.list-inline.hidden-sm.hidden-xs
+                                        li
+                                            i.fa.fa-map-marker.pr-5.pl-10
+                                            | One Infinity Loop Av, Tk 123456
+                                        li
+                                            i.fa.fa-phone.pr-5.pl-10
+                                            | +12 123 123 123
+                                        li
+                                            i.fa.fa-envelope-o.pr-5.pl-10
+                                            |  theproject@mail.com
+                                // header-top-first end
+                            .col-xs-9.col-sm-6.col-md-3
+                                // header-top-second start
+                                // ================
+                                #header-top-second.clearfix
+                                    // header top dropdowns start
+                                    // ================
+                                    .header-top-dropdown.text-right
+                                        .btn-group
+                                            a.btn.btn-default.btn-sm(href='page-signup.html')
+                                                i.fa.fa-user.pr-10
+                                                |  Sign Up
+                                        .btn-group.dropdown
+                                            button.btn.dropdown-toggle.btn-default.btn-sm(type='button', data-toggle='dropdown')
+                                                i.fa.fa-lock.pr-10
+                                                |  Login
+                                            ul.dropdown-menu.dropdown-menu-right.dropdown-animation
+                                                li
+                                                    form.login-form.margin-clear
+                                                        .form-group.has-feedback
+                                                            label.control-label Username
+                                                            input.form-control(type='text', placeholder='')
+                                                            i.fa.fa-user.form-control-feedback
+                                                        .form-group.has-feedback
+                                                            label.control-label Password
+                                                            input.form-control(type='password', placeholder='')
+                                                            i.fa.fa-lock.form-control-feedback
+                                                        button.btn.btn-gray.btn-sm(type='submit') Log In
+                                                        span.pl-5.pr-5 or
+                                                        button.btn.btn-default.btn-sm(type='submit') Sing Up
+                                                        ul
+                                                            li
+                                                                a(href='#') Forgot your password?
+                                                        span.text-center Login with
+                                                        ul.social-links.circle.small.colored.clearfix
+                                                            li.facebook
+                                                                a(target='_blank', href='http://www.facebook.com')
+                                                                    i.fa.fa-facebook
+                                                            li.twitter
+                                                                a(target='_blank', href='http://www.twitter.com')
+                                                                    i.fa.fa-twitter
+                                                            li.googleplus
+                                                                a(target='_blank', href='http://plus.google.com')
+                                                                    i.fa.fa-google-plus
+                                    // header top dropdowns end
+                                // header-top-second end
+                // header-top end
+                // header start
+                // classes:
+                // "fixed": enables fixed navigation mode (sticky menu) e.g. class="header fixed clearfix"
+                // "dark": dark version of header e.g. class="header dark clearfix"
+                // "full-width": mandatory class for the full-width menu layout
+                // "centered": mandatory class for the centered logo layout
+                // ================
+                header.header.fixed.clearfix
+                    .container
+                        .row
+                            .col-md-3
+                                // header-left start
+                                // ================
+                                .header-left.clearfix
+                                    // header dropdown buttons
+                                    .header-dropdown-buttons.visible-xs
+                                        .btn-group.dropdown
+                                            button.btn.dropdown-toggle(type='button', data-toggle='dropdown')
+                                                i.icon-search
+                                            ul.dropdown-menu.dropdown-menu-right.dropdown-animation
+                                                li
+                                                    form.search-box.margin-clear(role='search')
+                                                        .form-group.has-feedback
+                                                            input.form-control(type='text', placeholder='Search')
+                                                            i.icon-search.form-control-feedback
+                                        .btn-group.dropdown
+                                            button.btn.dropdown-toggle(type='button', data-toggle='dropdown')
+                                                i.icon-basket-1
+                                                span.cart-count.default-bg 8
+                                            ul.dropdown-menu.dropdown-menu-right.dropdown-animation.cart
+                                                li
+                                                    table.table.table-hover
+                                                        thead
+                                                            tr
+                                                                th.quantity QTY
+                                                                th.product Product
+                                                                th.amount Subtotal
+                                                        tbody
+                                                            tr
+                                                                td.quantity 2 x
+                                                                td.product
+                                                                    a(href='shop-product.html') Android 4.4 Smartphone
+                                                                    span.small 4.7" Dual Core 1GB
+                                                                td.amount $199.00
+                                                            tr
+                                                                td.quantity 3 x
+                                                                td.product
+                                                                    a(href='shop-product.html') Android 4.2 Tablet
+                                                                    span.small 7.3" Quad Core 2GB
+                                                                td.amount $299.00
+                                                            tr
+                                                                td.quantity 3 x
+                                                                td.product
+                                                                    a(href='shop-product.html') Desktop PC
+                                                                    span.small Quad Core 3.2MHz, 8GB RAM, 1TB Hard Disk
+                                                                td.amount $1499.00
+                                                            tr
+                                                                td.total-quantity(colspan='2') Total 8 Items
+                                                                td.total-amount $1997.00
+                                                    .panel-body.text-right
+                                                        a.btn.btn-group.btn-gray.btn-sm(href='shop-cart.html') View Cart
+                                                        a.btn.btn-group.btn-gray.btn-sm(href='shop-checkout.html') Checkout
+                                    // header dropdown buttons end
+                                    // logo
+                                    #logo.logo
+                                        a(href='index.html')
+                                            img#logo_img(src='images/logo_light_blue.png', alt='The Project')
+                                    // name-and-slogan
+                                    .site-slogan
+                                        | Multipurpose HTML5 Template
+                                // header-left end
+                            .col-md-9
+                                // header-right start
+                                // ================
+                                .header-right.clearfix
+                                    // main-navigation start
+                                    // classes:
+                                    // "onclick": Makes the dropdowns open on click, this the default bootstrap behavior e.g. class="main-navigation onclick"
+                                    // "animated": Enables animations on dropdowns opening e.g. class="main-navigation animated"
+                                    // "with-dropdown-buttons": Mandatory class that adds extra space, to the main navigation, for the search and cart dropdowns
+                                    // ================
+                                    .main-navigation.animated.with-dropdown-buttons
+                                        // navbar start
+                                        // ================
+                                        nav.navbar.navbar-default(role='navigation')
+                                            .container-fluid
+                                                // Toggle get grouped for better mobile display
+                                                .navbar-header
+                                                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse-1')
+                                                        span.sr-only Toggle navigation
+                                                        span.icon-bar
+                                                        span.icon-bar
+                                                        span.icon-bar
+                                                // Collect the nav links, forms, and other content for toggling
+                                                #navbar-collapse-1.collapse.navbar-collapse
+                                                    // main-menu
+                                                    ul.nav.navbar-nav
+                                                        // mega-menu start
+                                                        li.dropdown.mega-menu
+                                                            a.dropdown-toggle(href='index.html', data-toggle='dropdown') Home
+                                                            ul.dropdown-menu
+                                                                li
+                                                                    .row
+                                                                        .col-md-12
+                                                                            h4.title
+                                                                                i.fa.fa-laptop.pr-10
+                                                                                |  Demos
+                                                                            .row
+                                                                                .col-sm-6.col-md-3
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='index.html')
+                                                                                                i.icon-home.pr-10
+                                                                                                | Home Default
+                                                                                        li
+                                                                                            a(href='index-corporate-1.html')
+                                                                                                i.icon-suitcase.pr-10
+                                                                                                | Corporate 1
+                                                                                        li
+                                                                                            a(href='index-corporate-2.html')
+                                                                                                i.icon-suitcase.pr-10
+                                                                                                | Corporate 2
+                                                                                        li
+                                                                                            a(href='index-corporate-3.html')
+                                                                                                i.icon-suitcase.pr-10
+                                                                                                | Corporate 3
+                                                                                        li
+                                                                                            a(href='index-corporate-4.html')
+                                                                                                i.icon-home.pr-10
+                                                                                                | Corporate 4
+                                                                                                span.badge NEW
+                                                                                        li
+                                                                                            a(href='index-shop.html')
+                                                                                                i.icon-basket-1.pr-10
+                                                                                                | Commerce 1
+                                                                                .col-sm-6.col-md-3
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='index-shop-2.html')
+                                                                                                i.icon-basket-1.pr-10
+                                                                                                | Commerce 2
+                                                                                        li
+                                                                                            a(href='index-portfolio.html')
+                                                                                                i.icon-briefcase.pr-10
+                                                                                                | Portfolio/Agency
+                                                                                        li
+                                                                                            a(href='index-medical.html')
+                                                                                                i.fa.fa-ambulance.pr-10
+                                                                                                | Medical
+                                                                                        li
+                                                                                            a(href='index-restaurant.html')
+                                                                                                i.fa.fa-cutlery.pr-10
+                                                                                                | Restaurant
+                                                                                        li
+                                                                                            a(href='index-wedding.html')
+                                                                                                i.icon-heart.pr-10
+                                                                                                | Wedding
+                                                                                        li
+                                                                                            a(href='index-landing.html')
+                                                                                                i.fa.fa-star.pr-10
+                                                                                                | Landing Page
+                                                                                .col-sm-6.col-md-3
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='page-coming-soon.html')
+                                                                                                i.fa.fa-clock-o.pr-10
+                                                                                                | Coming Soon
+                                                                                        li
+                                                                                            a(href='index-one-page.html')
+                                                                                                i.icon-home.pr-10
+                                                                                                | One Page Version
+                                                                                        li
+                                                                                            a(href='index-construction.html')
+                                                                                                i.fa.fa-building.pr-10
+                                                                                                | Construction
+                                                                                                span.badge v1.1
+                                                                                        li
+                                                                                            a(href='index-education.html')
+                                                                                                i.fa.fa-graduation-cap.pr-10
+                                                                                                | Education
+                                                                                                span.badge v1.1
+                                                                                        li
+                                                                                            a(href='index-hotel.html')
+                                                                                                i.fa.fa-bed.pr-10
+                                                                                                | Hotel
+                                                                                                span.badge v1.1
+                                                                                        li
+                                                                                            a(href='index-blog.html')
+                                                                                                i.fa.fa-pencil.pr-10
+                                                                                                | Blog
+                                                                                                span.badge v1.1
+                                                                                .col-sm-6.col-md-3
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='index-beauty.html')
+                                                                                                i.fa.fa-magic.pr-10
+                                                                                                | Beauty Center
+                                                                                                span.badge v1.1
+                                                                                        li
+                                                                                            a(href='index-gym.html')
+                                                                                                i.fa.fa-heartbeat.pr-10
+                                                                                                | Gym
+                                                                                                span.badge NEW
+                                                                                        li
+                                                                                            a(href='index-resume.html')
+                                                                                                i.fa.fa-user.pr-10
+                                                                                                | Resume
+                                                                                                span.badge NEW
+                                                                                        li
+                                                                                            a(href='index-agency.html')
+                                                                                                i.fa.fa-users.pr-10
+                                                                                                | Agency
+                                                                                                span.badge NEW
+                                                                                        li
+                                                                                            a(href='index-logistics.html')
+                                                                                                i.fa.fa-truck.pr-10
+                                                                                                | Logistics
+                                                                                                span.badge NEW
+                                                        // mega-menu end
+                                                        // mega-menu start
+                                                        li.dropdown.active.mega-menu
+                                                            a.dropdown-toggle(href='#', data-toggle='dropdown') Pages
+                                                            ul.dropdown-menu
+                                                                li
+                                                                    .row
+                                                                        .col-lg-8.col-md-9
+                                                                            h4.title Pages
+                                                                            .row
+                                                                                .col-sm-4
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='page-about.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | About Us 1
+                                                                                        li
+                                                                                            a(href='page-about-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | About Us 2
+                                                                                        li
+                                                                                            a(href='page-about-3.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | About Us 3
+                                                                                        li
+                                                                                            a(href='page-about-4.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | About Us 4
+                                                                                        li
+                                                                                            a(href='page-about-me.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | About Me
+                                                                                        li
+                                                                                            a(href='page-team.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Our Team - Options 1
+                                                                                        li
+                                                                                            a(href='page-team-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Our Team - Options 2
+                                                                                        li
+                                                                                            a(href='page-team-3.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Our Team - Options 3
+                                                                                        li
+                                                                                            a(href='page-coming-soon.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Coming Soon Page
+                                                                                        li
+                                                                                            a(href='page-faq.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | FAQ page
+                                                                                .col-sm-4
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='page-services.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Services 1
+                                                                                        li
+                                                                                            a(href='page-services-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Services 2
+                                                                                        li
+                                                                                            a(href='page-services-3.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Services 3
+                                                                                        li
+                                                                                            a(href='page-contact.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Contact 1
+                                                                                        li
+                                                                                            a(href='page-contact-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Contact 2
+                                                                                        li
+                                                                                            a(href='page-contact-3.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Contact 3
+                                                                                        li
+                                                                                            a(href='page-login.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Login 1
+                                                                                        li
+                                                                                            a(href='page-login-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Login 2 - Fullsreen
+                                                                                        li.active
+                                                                                            a(href='page-signup.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Sign Up 1
+                                                                                        li
+                                                                                            a(href='page-signup-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Sign Up 2 - Fullsreen
+                                                                                .col-sm-4
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='page-404.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | 404 error
+                                                                                        li
+                                                                                            a(href='page-404-2.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | 404 error - Parallax
+                                                                                        li
+                                                                                            a(href='page-affix-sidebar.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Sidebar - Affix Menu
+                                                                                        li
+                                                                                            a(href='page-left-sidebar.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Left Sidebar
+                                                                                        li
+                                                                                            a(href='page-right-sidebar.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Right Sidebar
+                                                                                        li
+                                                                                            a(href='page-two-sidebars.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Two Sidebars
+                                                                                        li
+                                                                                            a(href='page-two-sidebars-left.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Two Sidebars Left
+                                                                                        li
+                                                                                            a(href='page-two-sidebars-right.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Two Sidebars Right
+                                                                                        li
+                                                                                            a(href='page-no-sidebars.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | No Sidebars
+                                                                                        li
+                                                                                            a(href='page-sitemap.html')
+                                                                                                i.fa.fa-angle-right
+                                                                                                | Sitemap
+                                                                        .col-lg-4.col-md-3.hidden-sm
+                                                                            h4.title Premium HTML5 Template
+                                                                            p.mb-10 The Project is perfectly suitable for corporate, business and company webpages.
+                                                                            img(src='images/section-image-3.png', alt='The Project')
+                                                        // mega-menu end
+                                                        li.dropdown
+                                                            a.dropdown-toggle(data-toggle='dropdown', href='#') Features
+                                                            ul.dropdown-menu
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                                                        | Headers
+                                                                        span.badge NEW
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-headers-default.html') Default/Semi-Transparent
+                                                                        li
+                                                                            a(href='features-headers-default-dark.html') Dark/Semi-Transparent
+                                                                        li
+                                                                            a(href='features-headers-gradient-dark.html')
+                                                                                | Gradient Dark
+                                                                                span.badge NEW
+                                                                        li
+                                                                            a(href='features-headers-gradient-light.html')
+                                                                                | Gradient Light
+                                                                                span.badge NEW
+                                                                        li
+                                                                            a(href='features-headers-classic.html') Classic Light
+                                                                        li
+                                                                            a(href='features-headers-classic-dark.html') Classic Dark
+                                                                        li
+                                                                            a(href='features-headers-colored.html') Colored/Light
+                                                                        li
+                                                                            a(href='features-headers-colored-dark.html') Colored/Dark
+                                                                        li
+                                                                            a(href='features-headers-full-width.html') Full Width
+                                                                        li
+                                                                            a(href='features-headers-offcanvas-left.html') Offcanvas Left Side
+                                                                        li
+                                                                            a(href='features-headers-offcanvas-right.html') Offcanvas Right Side
+                                                                        li
+                                                                            a(href='features-headers-logo-centered.html') Logo Centered
+                                                                        li
+                                                                            a(href='features-headers-slider-top.html') Slider Top
+                                                                        li
+                                                                            a(href='features-headers-simple.html') Simple Static
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                                                        | Sticky Headers
+                                                                        span.badge NEW
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-headers-default.html') Default
+                                                                        li
+                                                                            a(href='features-headers-sticky-2.html')
+                                                                                | Alternative
+                                                                                span.badge NEW
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Menus
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-headers-default.html') Default/On Hover Menu
+                                                                        li
+                                                                            a(href='features-menus-onhover-no-animations.html') On Hover Menu - No Animations
+                                                                        li
+                                                                            a(href='features-menus-onclick.html') On Click Menu - With Animations
+                                                                        li
+                                                                            a(href='features-menus-onclick-no-animations.html') On Click Menu - No Animations
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                                                        | Footers
+                                                                        span.badge NEW
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-footers-default.html#footer') Default
+                                                                        li
+                                                                            a(href='features-footers-contact-form.html#footer') Contact Form
+                                                                        li
+                                                                            a(href='features-footers-contact-form-2.html#footer')
+                                                                                | Contact Form 2
+                                                                                span.badge NEW
+                                                                        li
+                                                                            a(href='features-footers-google-maps.html#footer') Google Maps
+                                                                        li
+                                                                            a(href='features-footers-subscribe.html#footer') Subscribe Form
+                                                                        li
+                                                                            a(href='features-footers-minimal.html#footer') Minimal
+                                                                        li
+                                                                            a(href='features-footers-links.html#footer')
+                                                                                | Links
+                                                                                span.badge v1.1
+                                                                        li
+                                                                            a(href='features-footers-full-width.html#footer')
+                                                                                | Full Width
+                                                                                span.badge NEW
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                                                        | Main Sliders
+                                                                        span.badge NEW
+                                                                    ul.dropdown-menu
+                                                                        li.dropdown-header.default-bg SLIDER REVOLUTION 5 - NEW
+                                                                        li
+                                                                            a(href='features-sliders-fullscreen.html') Full Screen
+                                                                        li
+                                                                            a(href='features-sliders-fullwidth.html') Full Width
+                                                                        li
+                                                                            a(href='features-sliders-fullwidth-big-height.html') Full Width - Big Height
+                                                                        li
+                                                                            a(href='features-sliders-boxedwidth-light.html') Boxed Width - Light Bg
+                                                                        li
+                                                                            a(href='features-sliders-boxedwidth-dark.html') Boxed Width - Dark Bg
+                                                                        li
+                                                                            a(href='features-sliders-boxedwidth-default.html') Boxed Width - Default Bg
+                                                                        li
+                                                                            a(href='features-sliders-video-background.html') Video Background
+                                                                        li
+                                                                            a(href='features-sliders-text-rotator.html') Text Rotator
+                                                                        li.dropdown
+                                                                            a.dropdown-toggle(data-toggle='dropdown', href='#') Revolution 4
+                                                                            ul.dropdown-menu
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-fullscreen.html') Full Screen
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-fullwidth.html') Full Width
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-fullwidth-big-height.html') Full Width - Big Height
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-boxedwidth-light.html') Boxed Width - Light Bg
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-boxedwidth-dark.html') Boxed Width - Dark Bg
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-boxedwidth-default.html') Boxed Width - Default Bg
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-video-background.html') Video Background
+                                                                                li
+                                                                                    a(href='features-sliders-revolution-4-text-rotator.html') Text Rotator
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                                                                        | Email Templates
+                                                                        span.badge v1.1
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_blue.html') Blue
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_brown.html') Brown
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_cool_green.html') Cool Green
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_dark_cyan.html') Dark Cyan
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_dark_red.html') Dark Red
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_gold.html') Gold
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_gray.html') Gray
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_green.html') Green
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_light_blue.html') Light Blue
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_orange.html') Orange
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_pink.html') Pink
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_purple.html') Purple
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_red.html') Red
+                                                                        li
+                                                                            a(target='_blank', href='email_templates/email_template_vivid_red.html') Vivid Red
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Pricing Tables
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-pricing-tables-1.html') Pricing Tables 1
+                                                                        li
+                                                                            a(href='features-pricing-tables-2.html') Pricing Tables 2
+                                                                        li
+                                                                            a(href='features-pricing-tables-3.html') Pricing Tables 3
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Icons
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='features-icons-fontawesome.html') Font Awesome
+                                                                        li
+                                                                            a(href='features-icons-fontello.html') Fontello
+                                                                        li
+                                                                            a(href='features-icons-glyphicons.html') Glyphicons
+                                                                li
+                                                                    a(href='features-dark-page.html') Dark Page
+                                                                li
+                                                                    a(href='features-typography.html') Typography
+                                                                li
+                                                                    a(href='features-backgrounds.html') Backgrounds
+                                                                li
+                                                                    a(href='features-grid.html') Grid
+                                                        // mega-menu start
+                                                        li.dropdown.mega-menu.narrow
+                                                            a.dropdown-toggle(href='#', data-toggle='dropdown') Components
+                                                            ul.dropdown-menu
+                                                                li
+                                                                    .row
+                                                                        .col-md-12
+                                                                            h4.title
+                                                                                i.fa.fa-magic.pr-10
+                                                                                |  Components
+                                                                            .row
+                                                                                .col-sm-6
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='components-social-icons.html')
+                                                                                                i.icon-share.pr-10
+                                                                                                | Social Icons
+                                                                                        li
+                                                                                            a(href='components-buttons.html')
+                                                                                                i.icon-flask.pr-10
+                                                                                                | Buttons
+                                                                                        li
+                                                                                            a(href='components-forms.html')
+                                                                                                i.icon-eq.pr-10
+                                                                                                | Forms
+                                                                                        li
+                                                                                            a(href='components-tabs-and-pills.html')
+                                                                                                i.icon-dot-3.pr-10
+                                                                                                | Tabs & Pills
+                                                                                        li
+                                                                                            a(href='components-accordions.html')
+                                                                                                i.icon-menu-outline.pr-10
+                                                                                                | Accordions
+                                                                                        li
+                                                                                            a(href='components-progress-bars.html')
+                                                                                                i.icon-chart-line.pr-10
+                                                                                                | Progress Bars
+                                                                                        li
+                                                                                            a(href='components-call-to-action.html')
+                                                                                                i.icon-chat.pr-10
+                                                                                                | Call to Action Blocks
+                                                                                        li
+                                                                                            a(href='components-alerts-and-callouts.html')
+                                                                                                i.icon-info-circled.pr-10
+                                                                                                | Alerts & Callouts
+                                                                                        li
+                                                                                            a(href='components-content-sliders.html')
+                                                                                                i.icon-star-filled.pr-10
+                                                                                                | Content Sliders
+                                                                                        li
+                                                                                            a(href='components-charts.html')
+                                                                                                i.icon-chart-pie.pr-10
+                                                                                                | Charts
+                                                                                        li
+                                                                                            a(href='components-page-loaders.html')
+                                                                                                i.fa.fa-circle-o-notch.fa-spin
+                                                                                                | Page Loaders
+                                                                                                span.badge v1.1
+                                                                                .col-sm-6
+                                                                                    .divider
+                                                                                    ul.menu
+                                                                                        li
+                                                                                            a(href='components-icon-boxes.html')
+                                                                                                i.icon-picture-outline.pr-10
+                                                                                                | Icon Boxes
+                                                                                        li
+                                                                                            a(href='components-image-boxes.html')
+                                                                                                i.icon-camera-1.pr-10
+                                                                                                | Image Boxes
+                                                                                        li
+                                                                                            a(href='components-fullwidth-sections.html')
+                                                                                                i.icon-code-1.pr-10
+                                                                                                | Full Width Sections
+                                                                                        li
+                                                                                            a(href='components-animations.html')
+                                                                                                i.icon-docs.pr-10
+                                                                                                | Animations
+                                                                                        li
+                                                                                            a(href='components-video-and-audio.html')
+                                                                                                i.icon-video.pr-10
+                                                                                                | Video & Audio
+                                                                                        li
+                                                                                            a(href='components-lightbox.html')
+                                                                                                i.icon-plus.pr-10
+                                                                                                | Lightbox
+                                                                                        li
+                                                                                            a(href='components-counters.html')
+                                                                                                i.icon-sort-numeric.pr-10
+                                                                                                | Counters
+                                                                                        li
+                                                                                            a(href='components-modals.html')
+                                                                                                i.icon-popup.pr-10
+                                                                                                | Modals
+                                                                                        li
+                                                                                            a(href='components-tables.html')
+                                                                                                i.icon-th.pr-10
+                                                                                                | Tables
+                                                                                        li
+                                                                                            a(href='components-text-rotators.html')
+                                                                                                i.icon-arrows-ccw.pr-10
+                                                                                                | Text Rotators
+                                                        // mega-menu end
+                                                        li.dropdown
+                                                            a.dropdown-toggle(href='portfolio-grid-2-3-col.html', data-toggle='dropdown') Portfolio
+                                                            ul.dropdown-menu
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Portfolio Grid 1
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='portfolio-grid-1-2-col.html') 2 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-1-3-col.html') 3 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-1-4-col.html') 4 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-1-sidebar.html') With Sidebar
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Portfolio Grid 2
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='portfolio-grid-2-2-col.html') 2 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-2-3-col.html') 3 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-2-4-col.html') 4 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-2-sidebar.html') With Sidebar
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Portfolio Grid 3 - Dark
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='portfolio-grid-3-2-col.html') 2 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-3-3-col.html') 3 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-3-4-col.html') 4 Column
+                                                                        li
+                                                                            a(href='portfolio-grid-3-sidebar.html') With Sidebar
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Portfolio Fullwidth
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='portfolio-fullwidth-2-col.html') 2 Column
+                                                                        li
+                                                                            a(href='portfolio-fullwidth-3-col.html') 3 Column
+                                                                        li
+                                                                            a(href='portfolio-fullwidth-4-col.html') 4 Column
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Portfolio List
+                                                                    ul.dropdown-menu
+                                                                        li
+                                                                            a(href='portfolio-list-1.html') List - Large Images
+                                                                        li
+                                                                            a(href='portfolio-list-2.html') List - Small Images
+                                                                        li
+                                                                            a(href='portfolio-list-sidebar.html') With Sidebar
+                                                                li
+                                                                    a(href='portfolio-item.html') Single Item 1
+                                                                li
+                                                                    a(href='portfolio-item-2.html') Single Item 2
+                                                                li
+                                                                    a(href='portfolio-item-3.html') Single Item 3
+                                                        li.dropdown
+                                                            a.dropdown-toggle(href='index-shop.html', data-toggle='dropdown') Shop
+                                                            ul.dropdown-menu
+                                                                li
+                                                                    a(href='index-shop.html') Shop Home 1
+                                                                li
+                                                                    a(href='index-shop-2.html') Shop Home 2
+                                                                li
+                                                                    a(href='shop-listing-4col.html') Grid - 4 Columns
+                                                                li
+                                                                    a(href='shop-listing-3col.html') Grid - 3 Columns
+                                                                li
+                                                                    a(href='shop-listing-2col.html') Grid - 2 Columns
+                                                                li
+                                                                    a(href='shop-listing-sidebar.html') Grid - With Sidebar
+                                                                li
+                                                                    a(href='shop-listing-list.html') List
+                                                                li
+                                                                    a(href='shop-product.html') Product
+                                                                li
+                                                                    a(href='shop-cart.html') Shopping Cart
+                                                                li
+                                                                    a(href='shop-checkout.html') Checkout Page - Step 1
+                                                                li
+                                                                    a(href='shop-checkout-payment.html') Checkout Page - Step 2
+                                                                li
+                                                                    a(href='shop-checkout-review.html') Checkout Page - Step 3
+                                                                li
+                                                                    a(href='shop-invoice.html') Invoice
+                                                        li.dropdown
+                                                            a.dropdown-toggle(href='blog-large-image-right-sidebar.html', data-toggle='dropdown') Blog
+                                                            ul.dropdown-menu
+                                                                li
+                                                                    a(href='index-blog.html')
+                                                                        | Blog Home
+                                                                        span.badge v1.1
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Large Image
+                                                                    ul.dropdown-menu.to-left
+                                                                        li
+                                                                            a(href='blog-large-image-right-sidebar.html') Right Sidebar
+                                                                        li
+                                                                            a(href='blog-large-image-left-sidebar.html') Left Sidebar
+                                                                        li
+                                                                            a(href='blog-large-image-no-sidebar.html') Without Sidebar
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Medium Image
+                                                                    ul.dropdown-menu.to-left
+                                                                        li
+                                                                            a(href='blog-medium-image-right-sidebar.html') Right Sidebar
+                                                                        li
+                                                                            a(href='blog-medium-image-left-sidebar.html') Left Sidebar
+                                                                        li
+                                                                            a(href='blog-medium-image-no-sidebar.html') Without Sidebar
+                                                                li.dropdown
+                                                                    a.dropdown-toggle(data-toggle='dropdown', href='#') Masonry
+                                                                    ul.dropdown-menu.to-left
+                                                                        li
+                                                                            a(href='blog-masonry-right-sidebar.html') Right Sidebar
+                                                                        li
+                                                                            a(href='blog-masonry-left-sidebar.html') Left Sidebar
+                                                                        li
+                                                                            a(href='blog-masonry-no-sidebar.html') Without Sidebar
+                                                                li
+                                                                    a(href='blog-timeline.html') Timeline
+                                                                li
+                                                                    a(href='blog-post.html') Blog Post
+                                                    // main-menu end
+                                                    // header dropdown buttons
+                                                    .header-dropdown-buttons.hidden-xs
+                                                        .btn-group.dropdown
+                                                            button.btn.dropdown-toggle(type='button', data-toggle='dropdown')
+                                                                i.icon-search
+                                                            ul.dropdown-menu.dropdown-menu-right.dropdown-animation
+                                                                li
+                                                                    form.search-box.margin-clear(role='search')
+                                                                        .form-group.has-feedback
+                                                                            input.form-control(type='text', placeholder='Search')
+                                                                            i.icon-search.form-control-feedback
+                                                        .btn-group.dropdown
+                                                            button.btn.dropdown-toggle(type='button', data-toggle='dropdown')
+                                                                i.icon-basket-1
+                                                                span.cart-count.default-bg 8
+                                                            ul.dropdown-menu.dropdown-menu-right.dropdown-animation.cart
+                                                                li
+                                                                    table.table.table-hover
+                                                                        thead
+                                                                            tr
+                                                                                th.quantity QTY
+                                                                                th.product Product
+                                                                                th.amount Subtotal
+                                                                        tbody
+                                                                            tr
+                                                                                td.quantity 2 x
+                                                                                td.product
+                                                                                    a(href='shop-product.html') Android 4.4 Smartphone
+                                                                                    span.small 4.7" Dual Core 1GB
+                                                                                td.amount $199.00
+                                                                            tr
+                                                                                td.quantity 3 x
+                                                                                td.product
+                                                                                    a(href='shop-product.html') Android 4.2 Tablet
+                                                                                    span.small 7.3" Quad Core 2GB
+                                                                                td.amount $299.00
+                                                                            tr
+                                                                                td.quantity 3 x
+                                                                                td.product
+                                                                                    a(href='shop-product.html') Desktop PC
+                                                                                    span.small Quad Core 3.2MHz, 8GB RAM, 1TB Hard Disk
+                                                                                td.amount $1499.00
+                                                                            tr
+                                                                                td.total-quantity(colspan='2') Total 8 Items
+                                                                                td.total-amount $1997.00
+                                                                    .panel-body.text-right
+                                                                        a.btn.btn-group.btn-gray.btn-sm(href='shop-cart.html') View Cart
+                                                                        a.btn.btn-group.btn-gray.btn-sm(href='shop-checkout.html') Checkout
+                                                    // header dropdown buttons end
+                                        // navbar end
+                                    // main-navigation end
+                                // header-right end
+                // header end
+            // header-container end
+            // breadcrumb start
+            // ================
+            .breadcrumb-container
+                .container
+                    ol.breadcrumb
+                        li
+                            i.fa.fa-home.pr-10
+                            a(href='index.html') Home
+                        li.active Page Sign Up
+            // breadcrumb end
+            // main-container start
+            // ================
+            .main-container.dark-translucent-bg(style="background-image:url('images/background-img-6.jpg');")
+                .container
+                    .row
+                        // main start
+                        // ================
+                        .main.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='100')
+                            .form-block.center-block.p-30.light-gray-bg.border-clear
+                                h2.title Sign Up
+                                form.form-horizontal(role='form')
+                                    .form-group.has-feedback
+                                        label.col-sm-3.control-label(for='inputName')
+                                            | First Name
+                                            span.text-danger.small *
+                                        .col-sm-8
+                                            input#inputName.form-control(type='text', placeholder='Fisrt Name', required='')
+                                            i.fa.fa-pencil.form-control-feedback
+                                    .form-group.has-feedback
+                                        label.col-sm-3.control-label(for='inputLastName')
+                                            | Last Name
+                                            span.text-danger.small *
+                                        .col-sm-8
+                                            input#inputLastName.form-control(type='text', placeholder='Last Name', required='')
+                                            i.fa.fa-pencil.form-control-feedback
+                                    .form-group.has-feedback
+                                        label.col-sm-3.control-label(for='inputUserName')
+                                            | User Name
+                                            span.text-danger.small *
+                                        .col-sm-8
+                                            input#inputUserName.form-control(type='text', placeholder='User Name', required='')
+                                            i.fa.fa-user.form-control-feedback
+                                    .form-group.has-feedback
+                                        label.col-sm-3.control-label(for='inputEmail')
+                                            | Email
+                                            span.text-danger.small *
+                                        .col-sm-8
+                                            input#inputEmail.form-control(type='email', placeholder='Email', required='')
+                                            i.fa.fa-envelope.form-control-feedback
+                                    .form-group.has-feedback
+                                        label.col-sm-3.control-label(for='inputPassword')
+                                            | Password
+                                            span.text-danger.small *
+                                        .col-sm-8
+                                            input#inputPassword.form-control(type='password', placeholder='Password', required='')
+                                            i.fa.fa-lock.form-control-feedback
+                                    .form-group
+                                        .col-sm-offset-3.col-sm-8
+                                            .checkbox
+                                                label
+                                                    input(type='checkbox', required='')
+                                                    |  Accept our
+                                                    a(href='#') privacy policy
+                                                    |  and
+                                                    a(href='#') customer agreement
+                                    .form-group
+                                        .col-sm-offset-3.col-sm-8
+                                            button.btn.btn-group.btn-default.btn-animated(type='submit')
+                                                | Sign Up
+                                                i.fa.fa-check
+                        // main end
+            // main-container end
+            // footer top start
+            // ================
+            .dark-bg.default-hovered.footer-top.animated-text
+                .container
+                    .row
+                        .col-md-12
+                            .call-to-action.text-center
+                                .row
+                                    .col-sm-8
+                                        h2 Powerful Bootstrap Template
+                                        h2 Waste no more time
+                                    .col-sm-4
+                                        p.mt-10
+                                            a.btn.btn-animated.btn-lg.btn-gray-transparent(href='#')
+                                                | Purchase
+                                                i.fa.fa-cart-arrow-down.pl-20
+            // footer top end
+            // footer start (Add "dark" class to #footer in order to enable dark footer)
+            // ================
+            footer#footer.clearfix
+                // .footer start
+                // ================
+                .footer
+                    .container
+                        .footer-inner
+                            .row
+                                .col-md-3
+                                    .footer-content
+                                        .logo-footer
+                                            img#logo-footer(src='images/logo_light_blue.png', alt='')
+                                        p
+                                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat...
+                                            a(href='page-about.html')
+                                                | Learn More
+                                                i.fa.fa-long-arrow-right.pl-5
+                                        .separator-2
+                                        nav
+                                            ul.nav.nav-pills.nav-stacked
+                                                li
+                                                    a(target='_blank', href='http://htmlcoder.me/support') Support
+                                                li
+                                                    a(href='#') Privacy
+                                                li
+                                                    a(href='#') Terms
+                                                li
+                                                    a(href='page-about.html') About
+                                .col-md-3
+                                    .footer-content
+                                        h2.title Latest From Blog
+                                        .separator-2
+                                        .media.margin-clear
+                                            .media-left
+                                                .overlay-container
+                                                    img.media-object(src='images/blog-thumb-1.jpg', alt='blog-thumb')
+                                                    a.overlay-link.small(href='blog-post.html')
+                                                        i.fa.fa-link
+                                            .media-body
+                                                h6.media-heading
+                                                    a(href='blog-post.html') Lorem ipsum dolor sit amet...
+                                                p.small.margin-clear
+                                                    i.fa.fa-calendar.pr-10
+                                                    | Mar 23, 2016
+                                            hr
+                                        .media.margin-clear
+                                            .media-left
+                                                .overlay-container
+                                                    img.media-object(src='images/blog-thumb-2.jpg', alt='blog-thumb')
+                                                    a.overlay-link.small(href='blog-post.html')
+                                                        i.fa.fa-link
+                                            .media-body
+                                                h6.media-heading
+                                                    a(href='blog-post.html') Lorem ipsum dolor sit amet...
+                                                p.small.margin-clear
+                                                    i.fa.fa-calendar.pr-10
+                                                    | Mar 22, 2016
+                                            hr
+                                        .media.margin-clear
+                                            .media-left
+                                                .overlay-container
+                                                    img.media-object(src='images/blog-thumb-3.jpg', alt='blog-thumb')
+                                                    a.overlay-link.small(href='blog-post.html')
+                                                        i.fa.fa-link
+                                            .media-body
+                                                h6.media-heading
+                                                    a(href='blog-post.html') Lorem ipsum dolor sit amet...
+                                                p.small.margin-clear
+                                                    i.fa.fa-calendar.pr-10
+                                                    | Mar 21, 2016
+                                            hr
+                                        .media.margin-clear
+                                            .media-left
+                                                .overlay-container
+                                                    img.media-object(src='images/blog-thumb-4.jpg', alt='blog-thumb')
+                                                    a.overlay-link.small(href='blog-post.html')
+                                                        i.fa.fa-link
+                                            .media-body
+                                                h6.media-heading
+                                                    a(href='blog-post.html') Lorem ipsum dolor sit amet...
+                                                p.small.margin-clear
+                                                    i.fa.fa-calendar.pr-10
+                                                    | Mar 21, 2016
+                                        .text-right.space-top
+                                            a.link-dark(href='blog-large-image-right-sidebar.html')
+                                                i.fa.fa-plus-circle.pl-5.pr-5
+                                                | More
+                                .col-md-3
+                                    .footer-content
+                                        h2.title Portfolio Gallery
+                                        .separator-2
+                                        .row.grid-space-10
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-1.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-2.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-3.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-4.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-5.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                            .col-xs-4.col-md-6
+                                                .overlay-container.mb-10
+                                                    img(src='images/gallery-6.jpg', alt='')
+                                                    a.overlay-link.small(href='portfolio-item.html')
+                                                        i.fa.fa-link
+                                        .text-right.space-top
+                                            a.link-dark(href='portfolio-grid-2-3-col.html')
+                                                i.fa.fa-plus-circle.pl-5.pr-5
+                                                | More
+                                .col-md-3
+                                    .footer-content
+                                        h2.title Find Us
+                                        .separator-2
+                                        p
+                                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium odio voluptatem necessitatibus illo vel dolorum soluta.
+                                        ul.social-links.circle.animated-effect-1
+                                            li.facebook
+                                                a(target='_blank', href='http://www.facebook.com')
+                                                    i.fa.fa-facebook
+                                            li.twitter
+                                                a(target='_blank', href='http://www.twitter.com')
+                                                    i.fa.fa-twitter
+                                            li.googleplus
+                                                a(target='_blank', href='http://plus.google.com')
+                                                    i.fa.fa-google-plus
+                                            li.linkedin
+                                                a(target='_blank', href='http://www.linkedin.com')
+                                                    i.fa.fa-linkedin
+                                            li.xing
+                                                a(target='_blank', href='http://www.xing.com')
+                                                    i.fa.fa-xing
+                                        .separator-2
+                                        ul.list-icons
+                                            li
+                                                i.fa.fa-map-marker.pr-10.text-default
+                                                |  One infinity loop, 54100
+                                            li
+                                                i.fa.fa-phone.pr-10.text-default
+                                                |  +00 1234567890
+                                            li
+                                                a(href='mailto:info@theproject.com')
+                                                    i.fa.fa-envelope-o.pr-10
+                                                    | info@theproject.com
+                // .footer end
+                // .subfooter start
+                // ================
+                .subfooter
+                    .container
+                        .subfooter-inner
+                            .row
+                                .col-md-12
+                                    p.text-center
+                                        | Copyright © 2016 The Project by
+                                        a(target='_blank', href='http://htmlcoder.me') HtmlCoder
+                                        | . All Rights Reserved
+                // .subfooter end
+            // footer end
+        // page-wrapper end
+        // JavaScript files placed at the end of the document so the pages load faster
+        // ==================================================
+        // Jquery and Bootstap core js files
+        script(type='text/javascript', src='plugins/jquery.min.js')
+        script(type='text/javascript', src='bootstrap/js/bootstrap.min.js')
+        // Modernizr javascript
+        script(type='text/javascript', src='plugins/modernizr.js')
+        // Magnific Popup javascript
+        script(type='text/javascript', src='plugins/magnific-popup/jquery.magnific-popup.min.js')
+        // Appear javascript
+        script(type='text/javascript', src='plugins/waypoints/jquery.waypoints.min.js')
+        // Count To javascript
+        script(type='text/javascript', src='plugins/jquery.countTo.js')
+        // Parallax javascript
+        script(src='plugins/jquery.parallax-1.1.3.js')
+        // Contact form
+        script(src='plugins/jquery.validate.js')
+        // Owl carousel javascript
+        script(type='text/javascript', src='plugins/owl-carousel/owl.carousel.js')
+        // SmoothScroll javascript
+        script(type='text/javascript', src='plugins/jquery.browser.js')
+        script(type='text/javascript', src='plugins/SmoothScroll.js')
+        // Initialization of Plugins
+        script(type='text/javascript', src='js/template.js')
+        // Custom Scripts
+        script(type='text/javascript', src='js/custom.js')

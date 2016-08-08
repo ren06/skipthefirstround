@@ -36,85 +36,180 @@ block content
 
     include ../_includes/cv-upload-js
 
-    .col-lg-2.text-center
-    .col-lg-8
-        if(!session.authenticated)
-            h2 Let's schedule a mock interview!
-        else
-            h2 New mock interview
-        br
+    // main-container start
+                // ================
+    .main-container.dark-translucent-bg(style="background-image:url('images/montagne1.jpg');")
+        .container
+            .row
+                // main start
+                // ================
+                .main.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='100')
+                    .form-block.center-block.p-30.light-gray-bg.border-clear
+                        if(!session.authenticated)
+                            h2.title Let's schedule a mock interview!
+                        else
+                            h2.title New mock interview
 
-        form.form-horizontal(id="registerForm", action="", method="post", role="form")
+                        //        .form-group
+                        //            label.control-label.col-sm-4(for='sector') Sector:
+                        //            .col-sm-8
+                        //                select#sector(name='sector').form-control.required
+                        //                    each val, key in sectorOptions
+                        //                        option(value=key selected=(key == formData.sector))=val
 
-            if(error)
-                .alert.alert-danger(role="alert") #{error}
+                        form.form-horizontal(id="registerForm", action="", method="post", role="form")
 
-            .form-group.required
-                label.control-label.col-sm-4(for='firstName') Position:
-                .col-sm-8
-                    input#position(type="", name="position", placeholder="" value="#{formData.position}").form-control
+                            if(error)
+                                .alert.alert-danger(role="alert") #{error}
 
-            .form-group
-                label.control-label.col-sm-4(for='sector') Sector:
-                .col-sm-8
-                    select#sector(name='sector').form-control.required
-                        each val, key in sectorOptions
-                            option(value=key selected=(key == formData.sector))=val
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='position')
+                                    | Position
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#position.form-control(type='text', placeholder='Position', required='', value="#{formData.position}")
+                                    i.fa.fa-pencil.form-control-feedback
 
-            .form-group.required
-                label.control-label.col-sm-4(for='company') Company:
-                .col-sm-8
-                    input#company(type="", name="company", placeholder="" value="#{formData.company}").form-control
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='sector')
+                                    | Sector
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    select#sector(name='sector').form-control.required
+                                        each val, key in sectorOptions
+                                            option(value=key selected=(key == formData.sector))=val
 
-            .form-group
-                include ../_includes/cv-upload-control
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='inputName')
+                                    | First Name
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#inputName.form-control(type='text', placeholder='Fisrt Name', required='')
+                                    i.fa.fa-pencil.form-control-feedback
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='inputLastName')
+                                    | Last Name
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#inputLastName.form-control(type='text', placeholder='Last Name', required='')
+                                    i.fa.fa-pencil.form-control-feedback
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='inputUserName')
+                                    | User Name
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#inputUserName.form-control(type='text', placeholder='User Name', required='')
+                                    i.fa.fa-user.form-control-feedback
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='inputEmail')
+                                    | Email
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#inputEmail.form-control(type='email', placeholder='Email', required='')
+                                    i.fa.fa-envelope.form-control-feedback
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='inputPassword')
+                                    | Password
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#inputPassword.form-control(type='password', placeholder='Password', required='')
+                                    i.fa.fa-lock.form-control-feedback
+                            .form-group
+                                .col-sm-offset-3.col-sm-8
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', required='')
+                                            |  Accept our
+                                            a(href='#') privacy policy
+                                            |  and
+                                            a(href='#') customer agreement
+                            .form-group
+                                .col-sm-offset-3.col-sm-8
+                                    button.btn.btn-group.btn-default.btn-animated(type='submit')
+                                        | Register
+                                        i.fa.fa-check
+                            // main end
+                // main-container end
 
-            if(!session.authenticated)
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='firstName') First name:
-                    .col-sm-8
-                        input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='lastName') Last name:
-                    .col-sm-8
-                        input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
-
-            .form-group.required
-                label.control-label.col-sm-4(for='skypeId') Your Skype ID:
-                .col-sm-8.required
-                    input#skypeId(type="", name="skypeId", placeholder="Mock interview scheduling" value="#{formData.skypeId}").form-control
-
-            .form-group.required
-                label.control-label.col-sm-4(for='availability') Your availabilites:
-                .col-sm-8
-                    input#availability(type="", name="availability", placeholder="Eg. Wednesdays and Thursdays from 5pm" value="#{formData.availability}").form-control
-
-            .form-group
-                label.control-label.col-sm-4(for='mobilePhone') Mobile number:
-                .col-sm-8
-                    input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
-
-            if(!session.authenticated)
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='email') Email:
-                    .col-sm-8
-                        input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='password') Password:
-                    .col-sm-8
-                        input#password(type="password", name="password", placeholder="Password must be at least 8 characters", value="#{formData.password}").form-control
-
-                .form-group.required
-                    label.control-label.col-sm-4(for='confirmationPassword') Please confirm your password:
-                    .col-sm-8
-                        input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Password confirmation", value="#{formData.confirmationPassword}").form-control
-
-            .form-group
-                .col-sm-offset-4.col-sm-10
-                    //button(type="submit").btn.btn-default Register
-                    button.btn.btn-default(type="submit") Register
-    .col-lg-2.text-center
+    //.col-lg-2.text-center
+    //.col-lg-8
+    //    if(!session.authenticated)
+    //        h2.title Let's schedule a mock interview!
+    //    else
+    //        h2.title New mock interview
+    //    br
+    //
+    //    form.form-horizontal(id="registerForm", action="", method="post", role="form")
+    //
+    //        if(error)
+    //            .alert.alert-danger(role="alert") #{error}
+    //
+    //        .form-group.required
+    //            label.control-label.col-sm-4(for='firstName') Position:
+    //            .col-sm-8
+    //                input#position(type="", name="position", placeholder="" value="#{formData.position}").form-control
+    //
+    //        .form-group
+    //            label.control-label.col-sm-4(for='sector') Sector:
+    //            .col-sm-8
+    //                select#sector(name='sector').form-control.required
+    //                    each val, key in sectorOptions
+    //                        option(value=key selected=(key == formData.sector))=val
+    //
+    //        .form-group.required
+    //            label.control-label.col-sm-4(for='company') Company:
+    //            .col-sm-8
+    //                input#company(type="", name="company", placeholder="" value="#{formData.company}").form-control
+    //
+    //        .form-group
+    //            include ../_includes/cv-upload-control
+    //
+    //        if(!session.authenticated)
+    //
+    //            .form-group.required
+    //                label.control-label.col-sm-4(for='firstName') First name:
+    //                .col-sm-8
+    //                    input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
+    //
+    //            .form-group.required
+    //                label.control-label.col-sm-4(for='lastName') Last name:
+    //                .col-sm-8
+    //                    input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
+    //
+    //        .form-group.required
+    //            label.control-label.col-sm-4(for='skypeId') Your Skype ID:
+    //            .col-sm-8.required
+    //                input#skypeId(type="", name="skypeId", placeholder="Mock interview scheduling" value="#{formData.skypeId}").form-control
+    //
+    //        .form-group.required
+    //            label.control-label.col-sm-4(for='availability') Your availabilites:
+    //            .col-sm-8
+    //                input#availability(type="", name="availability", placeholder="Eg. Wednesdays and Thursdays from 5pm" value="#{formData.availability}").form-control
+    //
+    //        .form-group
+    //            label.control-label.col-sm-4(for='mobilePhone') Mobile number:
+    //            .col-sm-8
+    //                input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
+    //
+    //        if(!session.authenticated)
+    //
+    //            .form-group.required
+    //                label.control-label.col-sm-4(for='email') Email:
+    //                .col-sm-8
+    //                    input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
+    //
+    //            .form-group.required
+    //                label.control-label.col-sm-4(for='password') Password:
+    //                .col-sm-8
+    //                    input#password(type="password", name="password", placeholder="Password must be at least 8 characters", value="#{formData.password}").form-control
+    //
+    //            .form-group.required
+    //                label.control-label.col-sm-4(for='confirmationPassword') Please confirm your password:
+    //                .col-sm-8
+    //                    input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Password confirmation", value="#{formData.confirmationPassword}").form-control
+    //
+    //        .form-group
+    //            .col-sm-offset-4.col-sm-10
+    //                //button(type="submit").btn.btn-default Register
+    //                button.btn.btn-default(type="submit") Register
+    //.col-lg-2.text-center
