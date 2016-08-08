@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2e138a3-559c-434b-8a35-f6789ccde8f1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_server/views/_includes/test-singup.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/_includes/navbar.jade" afterPath="$PROJECT_DIR$/app_server/views/_includes/navbar.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/user/homepage.jade" afterPath="$PROJECT_DIR$/app_server/views/user/homepage.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/user/register-simulation.jade" afterPath="$PROJECT_DIR$/app_server/views/user/register-simulation.jade" />
     </list>
     <ignored path="daf.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,8 +48,8 @@
       <file leaf-file-name="homepage.jade" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_server/views/user/homepage.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+            <state relative-caret-position="-1727">
+              <caret line="1099" column="70" selection-start-line="1099" selection-start-column="70" selection-end-line="1099" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -886,7 +882,7 @@
       <workItem from="1470298415557" duration="1085000" />
       <workItem from="1470299593018" duration="6654000" />
       <workItem from="1470324317355" duration="8470000" />
-      <workItem from="1470643946464" duration="4980000" />
+      <workItem from="1470643946464" duration="5294000" />
     </task>
     <task id="LOCAL-00001" summary="New push">
       <created>1468588754348</created>
@@ -920,7 +916,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="578170000" />
+    <option name="totallyTimeSpent" value="578484000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1344,8 +1340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app_server/views/user/homepage.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+        <state relative-caret-position="-1727">
+          <caret line="1099" column="70" selection-start-line="1099" selection-start-column="70" selection-end-line="1099" selection-end-column="70" />
           <folding />
         </state>
       </provider>
