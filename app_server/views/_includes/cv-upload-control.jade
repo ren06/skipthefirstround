@@ -1,9 +1,20 @@
-label.control-label.col-sm-4(for='cvFile') Your CV:
+//.form-group.has-feedback
+//    label.col-sm-3.control-label(for='inputName') Company
+//        span.text-danger.small *
+//    .col-sm-8
+//        input#inputName.form-control(type='text', placeholder='Company', required='', value="#{formData.company}")
+//        i.fa.fa-pencil.form-control-feedback
+
+
+label.col-sm-3.control-label(for='cvFile') Your CV
+    span.text-danger.small
 .col-sm-3
-    label.btn.btn-default.btn-file(style='width:160px')
-        |   Select CV file...
+    label.btn.btn-default-transparent.btn-sm
+        | Select pdf file &nbsp;
+        i.fa.fa-upload
         input#cvFile(type="file" style="display: none;" name="file")
-.col-sm-5.vertical-center(style='padding-top: 5px')
+
+.col-sm-5.vertical-center(style='padding-top: 10px')
     div.progress(style='margin-bottom: 0')
         div.progress-bar.progress-bar-striped(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="text-align:center")
             span#progressText

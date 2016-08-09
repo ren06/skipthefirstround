@@ -11,10 +11,12 @@
 /*}*/
 
 
-.form-group.required .control-label:after {
-    content:"*";
-    color:red;
-}
+/*.form-group.required .control-label:after {*/
+    /*content:"*";*/
+    /*color:red;*/
+/*}*/
+
+
 
 .row-margin {
     margin-top: 10px;

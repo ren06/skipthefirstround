@@ -1,9 +1,15 @@
-/* Theme Name: The Project - Responsive Website Template
-Author:HtmlCoder
-Author URI:http://www.htmlcoder.me
-Author e-mail:htmlcoder.me@gmail.com
-Version:1.2.0
-Created:December 2014
-License URI:http://support.wrapbootstrap.com/
-File Description: Place here your custom CSS styles
-*/
+
+.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    lightgrey;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    lightgrey;
+    opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    lightgrey;
+    opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    lightgrey;
+}
