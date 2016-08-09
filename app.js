@@ -16,7 +16,10 @@ var acl = require('acl');
 var routesUser = require('./app_server/routes/indexUser');
 var routesRecruiter = require('./app_server/routes/indexRecruiter');
 var routesAdmin = require('./app_server/routes/indexAdmin');
+var routesTest = require('./app_server/routes/indexTest');
+
 var routesApi = require('./app_api/routes/indexAPI');
+
 
 //Create application
 var app = express();
@@ -164,6 +167,7 @@ app.use('/', routesUser);
 app.use('/api/', routesApi);
 app.use('/recruiter/', routesRecruiter);
 app.use('/admin/', routesAdmin);
+app.use('/test/', routesTest);
 
 
 // // catch 404 and forward to error handler
