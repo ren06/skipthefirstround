@@ -2,23 +2,82 @@ extends layout
 
 block content
 
-    .col-lg-2.text-center
-    .col-lg-8
-        h2 Identification
-        br
-        br
-        form.form-horizontal(id="loginForm", action="", method="post", role="form")
-            if(error)
-                .alert.alert-danger(role="alert") #{error}
-            .form-group
-                label.control-label.col-sm-4(for='email') Email:
-                .col-sm-8
-                    input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
-            .form-group
-                label.control-label.col-sm-4(for='password') Mot de passe:
-                .col-sm-8
-                    input#password(type="password", name="password", placeholder="Password").form-control
-            .form-group
-                .col-sm-offset-4.col-sm-10
-                    button(type="submit").btn.btn-default S'identifier
-    .col-lg-2.text-center
+    .main-container.dark-translucent-bg(style="background-image:url('/images/montagne1.jpg');")
+        .container
+            .row
+                // main start
+                // ================
+                .main.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='100')
+                    .form-block.center-block.p-30.light-gray-bg.border-clear
+
+                        h2.title Login
+
+                        form.form-horizontal(id="loginForm", action="", method="post", role="form")
+
+                            if(error)
+                                .alert.alert-danger(role="alert") #{error}
+
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='email') Email
+                                .col-sm-8
+                                    input#email(type="email", name="email", placeholder="Email", required='', value="#{formData.email}").form-control
+                                    i.fa.fa-user.form-control-feedback
+
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='password') Password
+                                .col-sm-8
+                                    input#password.form-control(type='password', name="password", required='', placeholder='Password')
+                                    i.fa.fa-lock.form-control-feedback
+
+                            .form-group
+                                .col-sm-offset-3.col-sm-8
+                                    //.checkbox
+                                    //    label
+                                    //        input(type='checkbox', required='')
+                                    //        |  Remember me.
+                                    button.btn.btn-group.btn-default.btn-animated(type='submit')
+                                        | Log In
+                                        i.fa.fa-user
+                                    ul.space-top
+                                        li
+                                            a(href='#') Forgot your password?
+                                    //span.text-center.text-muted Login with
+                                    //ul.social-links.colored.circle.clearfix
+                                    //    li.facebook
+                                    //        a(href='http://www.facebook.com', target='_blank')
+                                    //            i.fa.fa-facebook
+                                    //    li.twitter
+                                    //        a(href='http://www.twitter.com', target='_blank')
+                                    //            i.fa.fa-twitter
+                                    //    li.googleplus
+                                    //        a(href='http://plus.google.com', target='_blank')
+                                    //            i.fa.fa-google-plus
+                        p.text-center.space-top
+                            | Don't have an account yet?
+                            =" "
+                            a(href='/user-register') Register
+                            =" "
+                            | now.
+                        // main end
+
+
+    //.col-lg-2.text-center
+    //.col-lg-8
+    //    h2 Identification
+    //    br
+    //    br
+    //    form.form-horizontal(id="loginForm", action="", method="post", role="form")
+    //        if(error)
+    //            .alert.alert-danger(role="alert") #{error}
+    //        .form-group
+    //            label.control-label.col-sm-4(for='email') Email:
+    //            .col-sm-8
+    //                input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
+    //        .form-group
+    //            label.control-label.col-sm-4(for='password') Mot de passe:
+    //            .col-sm-8
+    //                input#password(type="password", name="password", placeholder="Password").form-control
+    //        .form-group
+    //            .col-sm-offset-4.col-sm-10
+    //                button(type="submit").btn.btn-default S'identifier
+    //.col-lg-2.text-center

@@ -12,37 +12,73 @@ block content
             .row
                 include ../_includes/user-menu.jade
             .row
-                .col-lg-6(style='padding:10px')
-
-                    h3 Upcoming mock interview(s):
-
-                    if(interviewsFuture.length == 0)
-                        h5 Nothing planned yet!
-                        a(href='simulation') Schedule another mock interview
-                    else
-                        each interview in interviewsFuture
-                            div #{interview.typeText} - #{interview.dateTimeText}
-            .row
                 .col-lg-12(style='padding:10px')
 
-                    h3 Mock interviews history:
-                    table.table
-                        tr
-                            th Date
-                            th Type
-                            th Sector
-                            th Company
-                            th Position
-                            th Details
-                        each interview in interviewsPast
-                            tr
-                                td=interview.dateTimeText
-                                td=interview.typeText
-                                td=interview.sectorText
-                                td=interview.company
-                                td=interview.position
-                                td
-                                    a(href='interview/#{interview.id}') View
+                    .panel.panel-default
+                        .panel-heading
+                            h4  Upcoming mock interview(s)
+                        .panel-body
+                            if(interviewsFuture.length == 0)
+                                h4 Nothing planned yet!
+                                a(href='simulation') Schedule another mock interview
+                            else
+                                each interview in interviewsFuture
+                                    div #{interview.typeText} - #{interview.dateTimeText}
+                    .panel.panel-default
+                        .panel-heading
+                            h4 Mock interviews history
+                        .panel-body
+                            if(interviewsPast.length == 0)
+                                h4 No past interviews
+                            else
+                                table.table
+                                    tr
+                                        th Date
+                                        th Type
+                                        th Sector
+                                        th Company
+                                        th Position
+                                        th Details
+                                    each interview in interviewsPast
+                                        tr
+                                            td=interview.dateTimeText
+                                            td=interview.typeText
+                                            td=interview.sectorText
+                                            td=interview.company
+                                            td=interview.position
+                                            td
+                                                a(href='interview/#{interview.id}') View
+
+
+            //        h3 Upcoming mock interview(s):
+            //
+            //        if(interviewsFuture.length == 0)
+            //            h5 Nothing planned yet!
+            //            a(href='simulation') Schedule another mock interview
+            //        else
+            //            each interview in interviewsFuture
+            //                div #{interview.typeText} - #{interview.dateTimeText}
+            //.row
+            //    .col-lg-12(style='padding:10px')
+            //
+            //        h3 Mock interviews history:
+            //        table.table
+            //            tr
+            //                th Date
+            //                th Type
+            //                th Sector
+            //                th Company
+            //                th Position
+            //                th Details
+            //            each interview in interviewsPast
+            //                tr
+            //                    td=interview.dateTimeText
+            //                    td=interview.typeText
+            //                    td=interview.sectorText
+            //                    td=interview.company
+            //                    td=interview.position
+            //                    td
+            //                        a(href='interview/#{interview.id}') View
 
 
     .col-lg-2.text-center

@@ -2,43 +2,11 @@ extends layout
 
 block content
 
-    //script(src='/cloudinary/jquery.ui.widget.js')
-    //script(src='/cloudinary/jquery.iframe-transport.js')
-    //script(src='/cloudinary/jquery.fileupload.js')
-    //script(src='/cloudinary/jquery.cloudinary.js')
-    //
-    //script.
-    //
-    //    $(document).ready(function () {
-    //
-    //        //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
-    //        var public_id   = '';
-    //
-    //        $('#cvFile').unsigned_cloudinary_upload("curriculum", {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
-    //            {multiple: false, resource_type: 'raw', allowed_formats: '[pdf]'}
-    //            //http://cloudinary.com/documentation/upload_videos#upload_parameters_reference
-    //        ).bind('cloudinarydone', function (e, data) {
-    //
-    //            public_id = data.result.public_id;
-    //
-    //        $('.file-title').html(data.result.original_filename);
-    //
-    //            $('#cvUniqueId').val(public_id);
-    //        }
-    //        ).bind('cloudinaryprogress', function (e, data) {
-    //
-    //            $('.progress-bar').css('width',
-    //
-    //                Math.round((data.loaded * 100.0) / data.total) + '%');
-    //            }
-    //        );
-    //    });
-
     include ../_includes/cv-upload-js
 
     // main-container start
-                // ================
-    .main-container.dark-translucent-bg(style="background-image:url('images/montagne1.jpg');")
+    // ================
+    .main-container.dark-translucent-bg(style="background-image:url('/images/montagne1.jpg');")
         .container
             .row
                 // main start
