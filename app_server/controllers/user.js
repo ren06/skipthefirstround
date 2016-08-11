@@ -7,6 +7,8 @@ var register = require('./register');
 
 module.exports.myAccount = function(req, res){
 
+    console.log('id: ' + req.session.userId);
+
     var language = req.cookies.locale
 
     console.log('My account current locale: ' + language);

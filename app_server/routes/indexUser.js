@@ -171,8 +171,5 @@ router.get ('/information', ctrlInformation.information);
 router.get('/about', ctrlHomepage.about);
 
 
-router.get ('/testEmail', ctrlEmails.testEmail);
-
-
 
 module.exports = router;

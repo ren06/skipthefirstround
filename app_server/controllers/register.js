@@ -140,20 +140,24 @@ module.exports.doRegisterUser = function(req, res){
 
             if (response.statusCode === 201) {
 
-                //create interview
-
                 //authenticate user
                 var token = body.data.token;
+                console.log(body.data);
+
                 common.setSessionData(req, res, body.data.user, 'user', token, function(){
 
+                    console.log('id: ' + req.session.userId);
+
                     //send email
-                    emails.sendEmailResistration(req.session.email, req.session.fullName);
+                    emails.to_User_Registration(req.session.email, req.session.fullName);
 
-                    //send le finaud email
-
+                    //create interview
                     createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
 
                         if(response.statusCode === 201) {
+
+                            //send le finaud email
+                            emails.to_Admin_New_Interview(1, req.session.email, req.session.fullName);
 
                             //redirect
                             res.redirect('/confirmation');
@@ -249,6 +253,7 @@ module.exports.doLogout = function(req, res){
 
 module.exports.confirmation = function(req, res){
     console.log('conf');
+    console.log('id: ' + req.session.userId);
     res.render('user/confirmation', {
         title: i18n.__('Confirmation'),
     });

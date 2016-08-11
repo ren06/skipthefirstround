@@ -54,9 +54,9 @@ var renderView = function(templateName, data){
     var renderedTemplate = jadeFn(data);
 
     return renderedTemplate;
-}
+};
 
-var sendEmail_Registration = function(email, userName){
+module.exports.to_User_Registration = function(email, userName){
 
     var html = renderView('email/user-registration', {data: {userName: userName}});
 
@@ -64,7 +64,7 @@ var sendEmail_Registration = function(email, userName){
 
 };
 
-var sendEmail_Offer_Confirmation = function(email, userName){
+module.exports.to_Recruiter_Registration = function(email, userName){
 
     var html = renderView('email/user-registration', {data: {userName: userName}});
 
@@ -72,9 +72,25 @@ var sendEmail_Offer_Confirmation = function(email, userName){
 
 };
 
+module.exports.to_User_Offer_Confirmation = function(email, userName){
 
+    var html = renderView('email/user-registration', {data: {userName: userName}});
 
+    sendEmail(email, html);
 
-module.exports.testEmail = testEmail;
-module.exports.sendEmailResistration = sendEmail_Registration;
-module.exports.sendEmailOfferConfirmation = sendEmail_Offer_Confirmation;
+};
+
+/**
+ *
+ * @param type 1 simulation 2 offer
+ * @param email
+ * @param userName
+ */
+module.exports.to_Admin_New_Interview = function(type, email, userName){
+
+    var html = renderView('email/user-registration', {data: {userName: userName}});
+
+    sendEmail(email, html);
+
+};
+

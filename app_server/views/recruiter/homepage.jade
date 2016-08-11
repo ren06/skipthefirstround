@@ -4,23 +4,83 @@ include ../_includes/sharedHTMLfunctions
 
 block content
 
-    .col-lg-2.text-center
-    .col-lg-8
-        .row.text-center
-            h2 Confiez nous votre premier tour d'entretien!
-            br
-            h3 Nous posons les questions pertinentes, challangeons les candidats et filtrons les meilleures reponses
-            br
-            h4 Accedez a nos simulations d'entretien pour immediatement identifier le potentiel de nos candidats
+    #banner.banner.dark-translucent-bg.padding-bottom-clear(style="background-image:url('images/seahorizon.jpg');")
+        // section start
+        // ================
+        .container
+            .row
+                .col-md-8.text-center.col-md-offset-2.space-bottom
+                    .title.large_white Confiez nous votre premier tour d'entretien!
+                    .separator
+                    p.text-center.lead  Nous posons les questions pertinentes, challangeons les candidats et filtrons les meilleures reponses
+
+                    h4 Accedez a nos simulations d'entretien pour immediatement identifier le potentiel de nos candidats
+                    //p.text-center.lead
+                    //    | Réus
+            .row.text-center
+                //.container.text-center
+                //.col-md-2()
+                .col-md-6()
+                    a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregister
+                .col-md-6
+                    a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
             br
 
-        .row.text-center
-            //.container.text-center
-            //.col-md-2()
-            .col-md-6()
-                a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregister
-            .col-md-6
-                a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
+    section#about.main-container
+        .container
+            .col-md-8.col-md-offset-2
+                h2.text-center.title
+                    | Le
+                    strong  Concept
+                .separator
+                p.large.text-center
+                    | Le constat est sans appel: le recrutement basé sur les CVs est dépassé!  Ceux-ci ne permettent en effet plus aux bons candidats de se différencier. En outre les recruteurs ne parviennent pas à détecter de façon efficiente les profils les plus adaptés à leurs besoins.
+            .row
+                .col-md-8.col-md-offset-2
+                    h3.text-center.title
+                        | Notre but:
+                        span.text-rotator(data-rotator-animation-effect='fadeIn')  faciliter le match candidats/recruteurs
 
+                    p.text-center
+                        | Les techniques de recrutement telles que nous les connaissons sont ammener à profondément évoluer.
+                        span.text-default
 
-    .col-lg-2.text-center
+                        strong Nous sommes pionners de cette transformation
+                        |  et nous attachons à:
+                        p.text-center
+                    ul.list-icons
+                        li.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='100')
+                            i.icon-check-1
+                            |  Assurer aux candidats une formation aux entretiens de recrutement
+                        li.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='150')
+                            i.icon-check-1
+                            |  Simplifier le premier tour des entretiens à l'aide de séquences vidéos
+                        li.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='200')
+                            i.icon-check-1
+                            |  Tester les compétences clés en situations d'entretien
+                        li.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='250')
+                            i.icon-check-1
+                            |  Assurer un screening des offres et candidats le plus efficent et efficace possible à l'aide de critères propres à chaque poste
+                    p
+                um
+
+    //.col-lg-2.text-center
+    //.col-lg-8
+    //    .row.text-center
+    //        h2 Confiez nous votre premier tour d'entretien!
+    //        br
+    //        h3 Nous posons les questions pertinentes, challangeons les candidats et filtrons les meilleures reponses
+    //        br
+    //        h4 Accedez a nos simulations d'entretien pour immediatement identifier le potentiel de nos candidats
+    //        br
+    //
+    //    .row.text-center
+    //        //.container.text-center
+    //        //.col-md-2()
+    //        .col-md-6()
+    //            a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregister
+    //        .col-md-6
+    //            a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
+    //
+    //
+    //.col-lg-2.text-center
