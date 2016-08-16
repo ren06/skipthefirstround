@@ -8,10 +8,19 @@ $ SELECT * FROM tbl_user;
 
 $ pg_dump --host=localhost --schema-only --create --clean --format=c --no-acl --no-owner --username=admin --file "db.dump" "daf"
 
+$ pg_dump -Fc --no-acl --schema-only --format=c --create --clean --no-owner -h localhost -U admin daf > db.dump
+
+$ pg_dump -U admin --no-owner --no-acl --schema-only --create --clean daf -f backup.sql 
+
 3) master data : none so far
 
 4) run script
 
+ heroku pg:backups restore 'https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0' DATABASE_URL
+
+ heroku pgbackups:restore DATABASE_URL 'https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0'
+
+===
 Does not work so far:
 heroku pg:psql --app demande-au-finaud < db.dump
 
