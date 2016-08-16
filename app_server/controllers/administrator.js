@@ -71,7 +71,6 @@ module.exports.logout = function(req, res){
 
 module.exports.usersList = function(req, res){
 
-
     var requestOptions = common.getRequestOptions(req, '/api/users', 'GET');
 
     request(requestOptions, function (err, response, body) {
@@ -544,18 +543,64 @@ module.exports.doInterviewAddSequence = function(req, res){
     }
 
 
-}
+};
 
-module.exports.doUploadVideo = function(req, res){
+module.exports.interviewerList = function(req, res){
 
-    cloudinary.uploader.upload("C:/Users/rtheu/Desktop/SampleVideo_1280x720_1mb.mp4",
-        function(result) {console.log(result); },
-        { resource_type: "video" });
-}
+    var requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET');
 
-module.exports.viewUploadVideo = function(req, res){
+    request(requestOptions, function (err, response, body) {
 
-    cloudinary.video("qenbobntlvupehao7au4");
-}
+        var interviewers = body.data;
+
+        res.render('admin/interviewers-list', {
+            interviewers: interviewers,
+            title: 'Interviewer List',
+
+        });
+
+    });
+};
+
+var renderInterviewCreate = function(req, res, formData, error){
+
+    res.render('admin/interviewer-create', {
+
+        title: 'Interviewer Create',
+        formData: formData,
+        error: error,
+
+    });
+};
+
+module.exports.interviewerCreate = function(req, res){
+
+    renderInterviewCreate(req, res, {email: '', firstName: '', lastName: '', password: '', confirmationPassword: '', mobilePhone: ''});
+
+};
+
+module.exports.doInterviewerCreate = function(req, res){
+
+    var formData =  req.body;
+
+    var requestOptions = common.getRequestOptions(req, '/api/interviewer', 'POST', req.body);
+
+    request(requestOptions, function (err, response, body) {
+
+        console.log(body);
+
+        if(response.statusCode === 201 ) {
+
+            res.redirect('/admin/interviewers/');
+        }
+        else{
+
+            renderInterviewCreate(req, res, formData, body.userError);
+        }
+
+    });
+
+};
+
 
 

@@ -1,0 +1,16 @@
+
+1) To connect to remote client:
+$ heroku pg:psql
+at the prompt you can enter some SQL like 
+$ SELECT * FROM tbl_user;
+
+2) get a dump with structure only and drop and create database
+
+$ pg_dump --host=localhost --schema-only --create --clean --format=plain --username=admin --file "dump.sql" "daf"
+
+3) master data : none so far
+
+4) run script
+
+heroku pg:psql --app demande-au-finaud < dump.sql
+

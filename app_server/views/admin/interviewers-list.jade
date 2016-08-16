@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+
+    .col-lg-2.text-center
+    .col-lg-6(style='padding:10px')
+        .row
+
+            h2  Interviewer List
+
+            table.table
+                each interviewer in interviewers
+                    tr
+                        td #{interviewer.firstName} #{interviewer.lastName}
+                        td #{interviewer.email}
+                        td #{interviewer.mobilePhone}
+                        td
+                            a(href='student-menu') See interviews
+                        td
+                            a(href='student-menu') See details
+
+        .row
+            a(href='interviewer-create') Create Interviewer
+
+    .col-lg-2.text-center

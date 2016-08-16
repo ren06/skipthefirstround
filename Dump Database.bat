@@ -1,0 +1,1 @@
+pg_dump --host=localhost --schema-only --create --clean --format=plain --username=admin --file "dump.sql" "daf"

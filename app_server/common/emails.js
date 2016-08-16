@@ -56,39 +56,56 @@ var renderView = function(templateName, data){
     return renderedTemplate;
 };
 
-module.exports.to_User_Registration = function(email, userName){
+//SEND USER REGISTRATION EMAIL
+module.exports.to_User_RegistrationHtml = function(email, firstName){
 
-    var html = renderView('email/user-registration', {data: {userName: userName}});
+    return renderView('email/user-registration', {data: {firstName: firstName, email: email}});
+};
+
+module.exports.to_User_Registration = function(email, firstName){
+
+    var html = this.to_User_RegistrationHtml(email, firstName);
 
     sendEmail(email, html);
 
 };
 
+//SEND RECRUITER REGISTRATION EMAIL
+module.exports.to_Recruiter_RegistrationHtml = function(email, userName){
+
+    var html = renderView('email/recruiter-registration', {data: {userName: userName}});
+
+    sendEmail(email, html);
+
+};
 module.exports.to_Recruiter_Registration = function(email, userName){
 
-    var html = renderView('email/user-registration', {data: {userName: userName}});
+    var html = to_Recruiter_RegistrationHtml(email, userName);
 
     sendEmail(email, html);
 
 };
 
-module.exports.to_User_Offer_Confirmation = function(email, userName){
 
-    var html = renderView('email/user-registration', {data: {userName: userName}});
 
-    sendEmail(email, html);
-
-};
-
+//SEND USER INTERVIEW CONFIRMATION
 /**
- *
  * @param type 1 simulation 2 offer
- * @param email
- * @param userName
  */
-module.exports.to_Admin_New_Interview = function(type, email, userName){
+module.exports.to_Admin_New_InterviewHtml = function(type, firstName, position, date, time, skypeId){
 
-    var html = renderView('email/user-registration', {data: {userName: userName}});
+    return renderView('email/user-interview-confirmation', {data: {
+        type: type,
+        firstName: firstName,
+        position: position,
+        date: date,
+        time: time,
+        skypeId: skypeId,
+    }});
+}
+module.exports.to_Admin_New_Interview = function(type, email, firstName, position, date, time, skypeId){
+
+    var html = this.to_Admin_New_InterviewHtml(type, firstName, position, date, time, skypeId);
 
     sendEmail(email, html);
 

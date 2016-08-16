@@ -239,7 +239,7 @@ module.exports.rowInsert = function(req, res, tableName, data, callback){
     console.log(queryString);
     console.log(values);
 
-    this.dbHandleQuery(req, res, queryString, values, null, 'Internal Error', 'User Error', function(results){
+    this.dbHandleQuery(req, res, queryString, values, null, null, 'Error', function(results){
 
         if(callback){
             callback(results[0]);
