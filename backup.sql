@@ -13,15 +13,15 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE daf;
+DROP DATABASE d71kad5c6r40uv;
 --
--- Name: daf; Type: DATABASE; Schema: -; Owner: -
+-- Name: d71kad5c6r40uv; Type: DATABASE; Schema: -; Owner: -
 --
 
-CREATE DATABASE daf WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
+CREATE DATABASE d71kad5c6r40uv WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
 
 
-\connect daf
+\connect d71kad5c6r40uv
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -70,7 +70,7 @@ CREATE FUNCTION update_modified_column() RETURNS trigger
     AS $$
 BEGIN
     NEW.modified = now();
-    RETURN NEW;	
+    RETURN NEW;
 END;
 $$;
 
@@ -746,4 +746,3 @@ ALTER TABLE ONLY tbl_sequence
 --
 -- PostgreSQL database dump complete
 --
-
