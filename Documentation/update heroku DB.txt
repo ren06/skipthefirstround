@@ -6,11 +6,26 @@ $ SELECT * FROM tbl_user;
 
 2) get a dump with structure only and drop and create database
 
-$ pg_dump --host=localhost --schema-only --create --clean --format=plain --username=admin --file "dump.sql" "daf"
+$ pg_dump --host=localhost --schema-only --create --clean --format=c --no-acl --no-owner --username=admin --file "db.dump" "daf"
 
 3) master data : none so far
 
 4) run script
 
-heroku pg:psql --app demande-au-finaud < dump.sql
+Does not work so far:
+heroku pg:psql --app demande-au-finaud < db.dump
+
+
+heroku pg:backups restore 'https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0' HEROKU_POSTGRESQL_CYAN -a demande-au-finaud
+heroku pg:psql --app demande-au-finaud HEROKU_POSTGRESQL_CYAN < db.dump
+
+
+
+heroku pg:backups restore `heroku pg:backups https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0 -a demande-au-finaud` HEROKU_POSTGRESQL_CYAN --app demande-au-finaud --confirm demande-au-finaud
+
+
+heroku pg:psql --app YOUR_APP_NAME_HERE < updates.sql
+
+pg_restore --verbose --clean --no-acl --no-owner -h <HOSTNAME> -U <USER> -d <DATABASE> -p <PORT> <FILEPATH> password=<PASS>
+
 

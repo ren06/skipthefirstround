@@ -70,7 +70,7 @@ heroku pg:psql --app demande-au-finaud < dump.sql
 LOCAL:
 pg_restore -Fc -C db.dump
 
-COPY DATE FROM HEROKU TO LOCAL:
+COPY DATA FROM HEROKU TO LOCAL:
 pg_restore -d yournewdb -U yournewuser --role=yournewuser /tmp/b001.dump
 
 ==
