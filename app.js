@@ -183,7 +183,7 @@ app.use(function(req, res, next) {
 
 //Once set, the value of app.locals properties persist throughout the life of the application,
 //in contrast with res.locals properties that are valid only for the lifetime of the request.
-app.locals.title = 'DemandeAuFinaud';
+app.locals.title = 'SkipTheFirstRound.com';
 
 
 //Store in the app.locals.options all the dropdown options
