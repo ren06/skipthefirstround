@@ -17,13 +17,16 @@ block content
                     h4 Gagnez en visibilité tout en optimisant vos processus de recrutement, pourquoi perdre du temps et de l'argent à screener des CVs qui ne reflètent pas nécessairement les compétences et personnalité des candidats? 
                     //p.text-center.lead
                     //    | Réus
-            .row.text-center  
+            .row
                 //.container.text-center
                 //.col-md-2()
-                .col-md-6()
-                    a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregistrer
-                .col-md-6
-                    a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
+                .col-md-8.col-md-offset-2.text-center
+                    .row.text-center
+                        .col-md-6
+                            a(href="/recruiter/recruiter-register" style="padding: 6px 40px").btn.btn-default S'enregistrer
+                        .col-md-6
+                            a(href="/recruiter/recruiter-login" style="padding: 6px 40px").btn.btn-default Se connecter
+
             br
 
      //
@@ -131,12 +134,12 @@ block content
                     strong  Equipe
                 .separator-2
                 .row.grid-space-10
-                    .col-sm-4
+                    .col-sm-6
                         .team-member.image-box.style-2.shadow.bordered.light-gray-bg.text-center
+
                             .overlay-container.overlay-visible
-                                img(src='template/images/team-member-1.jpg', alt='')
-                                .overlay-bottom
-                                  
+                                    img.img-circle.center(src='/images/jerome.jpg', alt='', width="100", style='display: block; margin: auto auto;' )
+
                             .body
                                 h3.margin-clear Jerome
                                 small CEO & Co-Fondateur
@@ -146,19 +149,17 @@ block content
                                 a.btn.btn-lg-link.link-dark(href='mailto:info@theproject.com')
                                     i.pr-10.fa.fa-envelope-o
                                     | Contactez moi!
-                    .col-sm-4
+                    .col-sm-6
                         .team-member.image-box.style-2.shadow.bordered.light-gray-bg.text-center
                             .overlay-container.overlay-visible
-                                img(src='template/images/team-member-2.jpg', alt='')
-                                .overlay-bottom
-              
-              
+                                    img.img-circle.center(src='/images/renaud.jpg', alt='', , width="100", style='display: block; margin: auto auto;')
+
                             .body
                                 h3.margin-clear Renaud
                                 small COO & Co-Fondateur
                                 .separator.mt-10
                                 p.small.margin-clear
-                                    | 10 ans d'expérience en programmation, services aux entreprises. Co-fondateur d'une start-up.
+                                    | Consultant développeur avec plus de 12 ans d'expérience. Co-fondateur d'une start-up.
                                 a.btn.btn-lg-link.link-dark(href='mailto:info@theproject.com')
                                     i.pr-10.fa.fa-envelope-o
                                     | Contactez moi!

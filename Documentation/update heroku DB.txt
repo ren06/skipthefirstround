@@ -6,21 +6,22 @@ $ heroku pg:psql
 at the prompt you can enter some SQL like 
 $ SELECT * FROM tbl_user;
 
-/list
+\l
+
+ SELECT current_database();
 
 2) get a dump with structure only and drop and create database
 
-$ pg_dump --host=localhost --schema-only --create --clean --format=c --no-acl --no-owner --username=admin --file "db.dump" "daf"
+$ pg_dump -U admin --no-owner --no-acl --schema-only --create --clean --file=backup.sql daf
 
-$ pg_dump -Fc --no-acl --schema-only --format=c --create --clean --no-owner -h localhost -U admin daf > db.dump
-
---> OK $ pg_dump -U admin --no-owner --no-acl --schema-only --create --clean --file=backup.sql daf
-
-3) master data : none so far
+3) modify the backupsql file, replace daf by d71kad5c6r40uv
 
 4) run script
 
- --> OK $ heroku pg:psql --app demande-au-finaud < backup.sql 
+$ heroku pg:psql --app demande-au-finaud < backup.sql 
+
+
+== OTHER
 
  heroku pg:backups restore 'https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0' DATABASE_URL
 
@@ -28,19 +29,9 @@ $ pg_dump -Fc --no-acl --schema-only --format=c --create --clean --no-owner -h l
 
 ===
 Does not work so far:
-heroku pg:psql --app demande-au-finaud < db.dump
-
 
 heroku pg:backups restore 'https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0' HEROKU_POSTGRESQL_CYAN -a demande-au-finaud
 heroku pg:psql --app demande-au-finaud HEROKU_POSTGRESQL_CYAN < db.dump
 
 
-
 heroku pg:backups restore `heroku pg:backups https://www.dropbox.com/s/7pjtn636lfs79qj/db.dump?dl=0 -a demande-au-finaud` HEROKU_POSTGRESQL_CYAN --app demande-au-finaud --confirm demande-au-finaud
-
-
-heroku pg:psql --app YOUR_APP_NAME_HERE < updates.sql
-
-pg_restore --verbose --clean --no-acl --no-owner -h <HOSTNAME> -U <USER> -d <DATABASE> -p <PORT> <FILEPATH> password=<PASS>
-
-

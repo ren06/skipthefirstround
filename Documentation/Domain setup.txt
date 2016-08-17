@@ -1,0 +1,15 @@
+1) Buy domain name on GoDaddy
+
+2) In command line type 
+
+$ heroku domains 
+
+to see the list of your domains
+
+3) To add a custom domain with a subdomain, use the domains:add command in the Heroku CLI:
+
+$ heroku domains:add www.skipthefirstround.com
+
+4) In go daddy set:
+
+cname 	www 	demande-au-finaud.herokuapp.com

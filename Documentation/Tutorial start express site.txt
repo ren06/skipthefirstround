@@ -65,12 +65,12 @@ $ pg_dump -h localhost -U admin -Fc daf > db.dump
 There is a psql connection string in the DB info page: heroku pg:psql --app demande-au-finaud HEROKU_POSTGRESQL_CYAN
 
 WORKS:
-heroku pg:psql --app demande-au-finaud < dump.sql
+heroku pg:psql --app demande-au-finaud HEROKU_POSTGRESQL_CYAN < dump.sql
 
 LOCAL:
 pg_restore -Fc -C db.dump
 
-COPY DATA FROM HEROKU TO LOCAL:
+COPY DATE FROM HEROKU TO LOCAL:
 pg_restore -d yournewdb -U yournewuser --role=yournewuser /tmp/b001.dump
 
 ==
@@ -87,7 +87,7 @@ http://www.postgresqltutorial.com/postgresql-restore-database/
 
 (PGUSER=admin PGPWD=Santos100 heroku pg:push daf HEROKU_POSTGRESQL_CYAN --app demande-au-finaud
 
-heroku pg:backups restore 'https://www.dropbox.com/s/wbkzdfozpd21uwu/db.dump?dl=0' DATABASE -a demande-au-finaud
+heroku pg:backups restore 'https://www.dropbox.com/s/wbkzdfozpd21uwu/db.dump?dl=0' DATABASE_URL -a demande-au-finaud
 
 heroku logs
 
