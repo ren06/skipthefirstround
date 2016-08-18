@@ -1,3 +1,4 @@
+- Fix skipthefirstround.com so it works as www.skipthefirstround.com
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)
