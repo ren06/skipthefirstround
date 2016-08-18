@@ -61,18 +61,22 @@
                                             if(!session.authenticated)
                                                 li
                                                     if(session.role == 'recruiter')
-                                                        a(href='/') For candidates
+                                                        a(href='/')
+                                                            b For candidates
                                                     else if(session.role == 'user')
-                                                        a(href='/recruiter') For recruiters
+                                                        a(href='/recruiter')
+                                                            b For recruiters
                                                     else
                                                         | No session set
                                             else if(session.role == 'user')
                                                 li
-                                                    a(href='/simulation') Mock interviews
+                                                    a(href='/simulation')
+                                                        span Mock interviews
+                                                //li
+                                                //    a() |
                                                 li
-                                                    a() |
-                                                li
-                                                    a(href='/offers') Our offers
+                                                    a(href='/offers')
+                                                        span Our offers
 
                                             -var loginUrl
                                             -var registerUrl
@@ -90,6 +94,10 @@
                                             //    a(href='/change-language/fr') FR
                                             //li
                                             //    a(href='/change-language/en') EN
+
+                                            li
+                                                a() |
+
                                             if(session.authenticated)
                                                 li
                                                     a(href="#{logoutUrl}") Sign out

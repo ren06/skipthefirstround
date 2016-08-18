@@ -46,13 +46,15 @@ var identification = function(req, res){
 
 };
 
-var createInterview = function(req, userId, type, sector, offerId, callback){
+var createInterview = function(req, userId, type, sector, offerId, position, company, callback){
 
     var postData = {
         userId: userId,
         type: type,
         sector: sector,
-        offerId: offerId
+        offerId: offerId,
+        position: position,
+        company: company,
     };
 
     var requestOptions = common.getRequestOptions(req, '/api/interview/', 'POST', postData, null, true);
@@ -152,7 +154,7 @@ module.exports.doRegisterUser = function(req, res){
                     emails.to_User_Registration(req.session.email, req.session.fullName);
 
                     //create interview
-                    createInterview(req, body.data.user.id, 1, body.data.user.sector, null, function(err, response, body){
+                    createInterview(req, body.data.user.id, 1, sector, null, position, company, function(err, response, body){
 
                         if(response.statusCode === 201) {
 

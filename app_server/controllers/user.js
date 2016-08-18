@@ -377,7 +377,7 @@ module.exports.doApplyOffer = function(req, res){
 
                             //send le finaud email
                             //TODO later merge register and user
-                            register.createInterview(req, body.data.user.id, 2, sector, offerId, function (err, response, body) {
+                            register.createInterview(req, body.data.user.id, 2, sector, offerId, null, null, function (err, response, body) {
 
                                 console.log(err);
                                 console.log(body);
@@ -416,7 +416,7 @@ module.exports.doApplyOffer = function(req, res){
 
                 //send le finaud email
                 //TODO later merge register and user
-                register.createInterview(req, userId, 2, sector, offerId, function (err, response, body) {
+                register.createInterview(req, userId, 2, sector, offerId, null, null, function (err, response, body) {
 
                     //update
 
@@ -500,6 +500,8 @@ module.exports.doSimulation = function(req, res){
 
     var formData = req.body;
     var userId = req.session.userId;
+    var company = req.body.company;
+    var position = req.body.position;
 
     if(!common.checkParametersPresent('position, sector, company, availability, skypeId', formData)){
 
@@ -507,7 +509,7 @@ module.exports.doSimulation = function(req, res){
     }
     else{
 
-        register.createInterview(req, userId, 1, formData.sector, null, function(err, response, body){
+        register.createInterview(req, userId, 1, formData.sector, null, position, company, function(err, response, body){
 
             console.log('create interview executed');
             if(response.statusCode === 201) {

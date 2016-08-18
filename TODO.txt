@@ -1,0 +1,6 @@
+- finsih apply offer page
+- test emails
+- check wordings on all page (and English vs French)
+- A to Z scneario
+- Nice to have: cloudniary, different setup for dev and prod
+- Contact form send email
