@@ -1,4 +1,5 @@
 var request = require('request');
+var emails = require('../common/emails');
 
 var renderHomepage = function(req, res) {
 
@@ -84,3 +85,24 @@ module.exports.homepageRecruiter = function(req, res){
     res.render('recruiter/homepage', {title:  res.__('About'),});
 
 };
+
+module.exports.doContactForm = function(req, res) {
+
+    console.log('doContactForm');
+
+    var name = req.body.name;
+    var email = req.body.email;
+    var message = req.body.message;
+
+    if (name && email && message) {
+
+        emails.to_Admin_Contact_Form(name, email, message);
+
+        res.json('success');
+    }
+    else{
+        res.json('error');
+    }
+
+};
+

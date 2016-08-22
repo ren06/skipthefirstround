@@ -516,7 +516,22 @@ module.exports.interviewModify = function(req, res){
 
     }
 
-}
+};
+
+module.exports.searchMockInterviewsForRecruiter = function(req, res){
+
+    var parameters = req.params;
+
+    var queryString = "SELECT * FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video WHERE type = 1";
+
+    common.dbHandleQuery(req, res, queryString, parameters, addText, 'Error', 'Error', function(results){
+
+        common.sendJsonResponse(res, 200, true, null, null, results);
+
+    });
+
+};
+
 
 
 

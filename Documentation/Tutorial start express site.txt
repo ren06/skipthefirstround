@@ -47,6 +47,9 @@ $ npm install express-jwt --save
 
 Test heroku : heroku local
 
+$ heroku login
+$ heroku git:remote -a applicationname
+
 A  SIMPLE UPDATE PROCESS
 Now that the Heroku application is set up, updating it will be really easy. Every time you
 want to push some new changes through, you just need three terminal commands:

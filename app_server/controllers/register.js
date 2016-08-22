@@ -291,16 +291,25 @@ module.exports.registerUser = function(req, res){
         password: '',
         confirmationPassword: '',
         availability: '',
-        sector: '',//req.app.locals.options[res.getLocale()].sectorOptions[0],
+        sector: '1',//req.app.locals.options[res.getLocale()].sectorOptions[0],
         skypeId: '',
         mobilePhone: '',
-        position: '',
+        position: '1',
         company: '',
     };
 
     renderRegister(req, res, formData, null);
 
 };
+
+module.exports.getPositions = function(req, res){
+
+    var value = req.query.sector;
+
+    var positions = req.app.locals.options[res.getLocale()].sectorOptions[value].positions;
+
+    res.json(positions);
+}
 
 module.exports.createInterview = createInterview;
 

@@ -23,32 +23,110 @@ var offerTypeOptionsEn = {
 };
 
 //Sector
-var sectorOptionsFr = {
-    "0": "Indifferent",
-    "1": "Fusions et acquisitions",
-    "2": "Audit",
-    "3": "Transaction services",
-    "4": "DCM",
-    "5": "ECM",
-    "6": "Coverage/Origination",
-    "7": "Structured finance",
-    "8": "Private banking/wealth management",
-    "9": "Spring/Summer internships/Graduate programmes",
-    "10": "Coverage/Origination",
+
+var buysideOptionsEn = {
+    "1": "Hedge Fund",
+    "2": "Insurance",
+    "3": "Portfolio Management",
+    "4": "Marketing & Sales",
+    "5": "Private Banking",
+    "6": "Risk & Reporting",
 };
+
+var corporateBankingOptionsEn = {
+    "1": "Coverage & Origination",
+    "2": "Retail",
+    "3": "Credit & Risk Analysis",
+    "4": "Microfinance",
+};
+
+var corporateFinanceOptionsEn = {
+    "1": "M&A",
+    "2": "DCM",
+    "3": "PE",
+    "4": "Coverage & Origination",
+    "5": "Structured Finance",
+    "6": "Real Estate",
+};
+
+var financialAnalysisOptionsEn = {
+    "1": "External Audit",
+    "2": "Controlling",
+    "3": "Financial Analysis",
+    "4": "Business Analysis",
+    "5": "Internal Audit",
+    "6": "Consultancy",
+    "7": "Transaction Services",
+    "8": "Financial Advisory",
+};
+
+var financialMarketsOptionsEn = {
+    "1": "Trading",
+    "2": "Sales",
+    "3": "Research",
+    "4": "Risk",
+    "5": "Middle Office",
+    "6": "Rotation",
+    "7": "Structuring",
+    "8": "Hedging",
+};
+
+var transversalOptionsEn = {
+    "1": "Risk",
+    "2": "Compliance",
+    "3": "Legal",
+    "4": " Sales & Marketing",
+    "5": "IT",
+};
+
 var sectorOptionsEn = {
-    "0": "Any",
-    "1": "M&A, Private equity",
-    "2": "Audit",
-    "3": "Transaction services",
-    "4": "DCM",
-    "5": "ECM",
-    "6": "Coverage/Origination",
-    "7": "Structured finance",
-    "8": "Private banking/wealth management",
-    "9": "Spring/Summer internships/Graduate programmes",
-    "10": "Coverage/Origination",
+    "1": {"label" : "Buyside", "positions" : buysideOptionsEn},
+    "2": {"label" : "Corporate Banking", "positions" : corporateBankingOptionsEn},
+    "3": {"label" : "Corporate Finance", "positions" : corporateFinanceOptionsEn},
+    "4": {"label" : "Financial Analysis, Control, Audit, Consultancy", "positions" : financialAnalysisOptionsEn},
+    "5": {"label" : "Financial Markets", "positions" : financialMarketsOptionsEn},
+    "6": {"label" : "Transversal Functions", "positions" : transversalOptionsEn},
+    "7": {"label" : "Other", "positions" : {"1": "Other"}},
 };
+
+var sectorOptionsFr = {
+    "1": {"label" : "Buyside", "positions" : buysideOptionsEn},
+    "2": {"label" : "Corporate Banking", "positions" : corporateBankingOptionsEn},
+    "3": {"label" : "Corporate Finance", "positions" : corporateFinanceOptionsEn},
+    "4": {"label" : "Financial Analysis, Control, Audit, Consultancy", "positions" : financialAnalysisOptionsEn},
+    "5": {"label" : "Financial Markets", "positions" : financialMarketsOptionsEn},
+    "6": {"label" : "Transversal Functions", "positions" : transversalOptionsEn},
+    "7": {"label" : "Other", "positions" : {"1": "Other"}},
+};
+
+
+
+// var sectorOptionsFr = {
+//     "0": "Indifferent",
+//     "1": "Fusions et acquisitions",
+//     "2": "Audit",
+//     "3": "Transaction services",
+//     "4": "DCM",
+//     "5": "ECM",
+//     "6": "Coverage/Origination",
+//     "7": "Structured finance",
+//     "8": "Private banking/wealth management",
+//     "9": "Spring/Summer internships/Graduate programmes",
+//     "10": "Coverage/Origination",
+// };
+// var sectorOptionsEn = {
+//     "0": "Any",
+//     "1": "M&A, Private equity",
+//     "2": "Audit",
+//     "3": "Transaction services",
+//     "4": "DCM",
+//     "5": "ECM",
+//     "6": "Coverage/Origination",
+//     "7": "Structured finance",
+//     "8": "Private banking/wealth management",
+//     "9": "Spring/Summer internships/Graduate programmes",
+//     "10": "Coverage/Origination",
+// };
 
 //Company types
 var companyTypeOptionsFr = {
@@ -67,6 +145,9 @@ var companyTypeOptionsEn = {
     "5": "Corporate",
     "6": "Fintech/Startup",
 };
+
+
+
 
 //Interview status
 var interviewStatusOptionsFr = {

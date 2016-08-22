@@ -12,19 +12,20 @@ block content
 
             table.table
                 tr
-                    th Type
-                    th Sector
-                    th Company type
-                    th Language
-                    th View
+                    th Offer
+                    th Number Views
+                    th Number Applicatns
+                    th Details
+                    th Applicants
                 each offer in offers
                     tr
-                        td #{offer.offerTypeText}
-                        td #{offer.sectorText}
-                        td #{offer.companyTypeText}
-                        td #{offer.languageText}
+                        td=offerTypeText + ' - ' + offer.sectorText + ' - ' + offer.companyTypeText + ' - ' + offer.location
+                        td 23
+                        td 3
                         td
-                            a(href='offer/#{offer.id}') View
+                            a(href='offer/#{offer.id}') View Details
+                        td
+                            a(href='offer/#{offer.id}') View Applicants (TODO show videos)
 
         .row
 

@@ -2,9 +2,9 @@ extends template
 
 block content
 
-    p Dear Admin
+    p Dear Admin,
 
-    p The following user has requested an interview, please get in touch with him
+    p The following user has requested an interview, please get in touch with him within 12 hours
 
     ul
         li Name: #{data.firstName} #{data.lastName}
@@ -13,3 +13,5 @@ block content
         li Availability: #{data.date}
         li Interview type: #{data.date}
         li SkypeId: #{data.skypeId}
+
+        //TODO foutre un lien vers le CV si il y en a un

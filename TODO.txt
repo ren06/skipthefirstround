@@ -1,7 +1,31 @@
+- Utiliser l'email du finaud pour les drop down
+
+a.       Buyside
+b.       Corporate Banking
+c.       Corporate Finance
+d.       Financial Analysis, Control, Audit, Consultancy
+e.       Financial Markets
+f.       Transversal Functions
+g.       Other
+
+  Buyside: Hedge Fund, Insurance, Portfolio Management, Marketing & Sales, Private Banking, Risk & Reporting, Other
+  Corporate Banking: Coverage & Origination, Retail, Credit & Risk Analysis, Microfinance, Other
+  etc... voir email
+
+
 - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)
-- A to Z scneario
+- A to Z scenario
 - Nice to have: cloudniary, different setup for dev and prod
-- Contact form send email
+OK - Contact form send email
+- Put a link to the CV in the email for admin when new interview
+- Block access to recruiter after registration until administrator activates the account
+- Faire un lien dans email confirmation d'interview "Go to my account"
+- Change status To be confirmed -> scheduled -> completed
+- Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
+- Recruiter, in my offer, see how many people applied, number of views
+
+--> Parcourir les extraits videos : mock interview ONLY. Afficher le CV a cote de la video
+   --> see applicatns : real interview for offers

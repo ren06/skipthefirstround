@@ -46,17 +46,26 @@ block content
                     input(id='idVideo' type="hidden" name="idVideo" value="#{interview.idVideo}")
 
                     .form-group
-                        label.control-label.col-sm-2(for='sector') Type:
-                        .col-sm-10
-                            select#type.form-control(value=interview.type, name='type')
-                                each val, key in interviewTypeOptions
-                                    option(value=key)=val
-                    .form-group
                         label.control-label.col-sm-2(for='status') Status:
                         .col-sm-10
                             select#status.form-control(value=interview.type, name='status')
                                 each val, key in interviewStatusOptions
                                     option(value=key)=val
+
+                    .form-group
+                        label.control-label.col-sm-2(for='sector') Type:
+                        .col-sm-10
+                            select#type.form-control(value=interview.type, name='type')
+                                each val, key in interviewTypeOptions
+                                    option(value=key)=val
+
+                    .form-group
+                        label.control-label.col-sm-2(for='sector') Sector:
+                        .col-sm-10
+                            select#sector.form-control(value=interview.sector, name='sector')
+                                each val, key in sectorOptions
+                                    option(value=key)=val
+
                     .form-group
                         label.control-label.col-sm-2(for='position') Position
                         .col-sm-10
@@ -98,12 +107,7 @@ block content
                                         option(value='#{val}' selected='true') #{val}
                                     else
                                         option(value='#{val}') #{val}
-                    .form-group
-                        label.control-label.col-sm-2(for='sector') Sector:
-                        .col-sm-10
-                            select#sector.form-control(value=interview.sector, name='sector')
-                                each val, key in sectorOptions
-                                    option(value=key)=val
+
                     .form-group
                         label.control-label.col-sm-2(for='time_hour') Interviewer:
                         .col-sm-6

@@ -104,20 +104,52 @@ block content
                                         | We have received your message, we will contact you very soon.
                                     #MessageNotSent2.alert.alert-danger.hidden
                                         | Oops! Something went wrong please refresh the page and try again.
-                                    form#footer-form.margin-clear(role='form')
+                                    form#contact-form.margin-clear(role='form', action='')
                                         .form-group.has-feedback.mb-10
-                                            label.sr-only(for='name2') Name
-                                            input#name2.form-control(type='text', placeholder='Name', name='name2')
+                                            label.sr-only(for='name') Name
+                                            input#name.form-control(type='text', placeholder='Name', name='name')
                                             i.fa.fa-user.form-control-feedback
                                         .form-group.has-feedback.mb-10
-                                            label.sr-only(for='email2') Email address
-                                            input#email2.form-control(type='email', placeholder='Enter email', name='email2')
+                                            label.sr-only(for='email') Email address
+                                            input#email.form-control(type='email', placeholder='Enter email', name='email')
                                             i.fa.fa-envelope.form-control-feedback
                                         .form-group.has-feedback.mb-10
-                                            label.sr-only(for='message2') Message
-                                            textarea#message2.form-control(rows='4', placeholder='Message', name='message2')
+                                            label.sr-only(for='message') Message
+                                            textarea#message.form-control(rows='4', placeholder='Message', name='message')
                                             i.fa.fa-pencil.form-control-feedback
                                         input.margin-clear.submit-button.btn.btn-default(type='submit', value='Send')
+
+                                        div#messageResult.alert
+
+                                    script.
+                                        $(".submit-button").click(function (e) {
+                                            e.preventDefault();
+
+
+                                            $("#messageResult").html = '';
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                data: $("#contact-form").serialize(),
+                                                url: 'contactForm',
+                                                success: function (data) {
+                                                    $("#contact-form").reset
+                                                    if(data == 'success'){
+
+                                                        $("#messageResult").html('Message sent. We will get back to you shortly');
+                                                        $("#messageResult").addClass('alert-success');
+                                                        $("#contact-form")[0].reset();
+                                                    }
+                                                    else{
+                                                        $("#messageResult").html('Please fill in all fields');
+                                                        $("#messageResult").addClass('alert-danger');
+                                                    }
+                                                }
+                                            });
+                                        });
+
+
+
             // .footer end
             // .subfooter start
             // ================

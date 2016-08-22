@@ -146,6 +146,8 @@ router.get ('/', ctrlHomepage.homepage);
 
 router.get ('/user-register', checkPermission(['guest']), ctrlRegister.registerUser);
 router.post('/user-register',  checkPermission(['guest']), ctrlRegister.doRegisterUser);
+router.get ('/getPositions', ctrlRegister.getPositions);
+
 router.get ('/confirmation', ctrlRegister.confirmation);
 router.get ('/my-account', checkPermission(['user']), ctrlUser.myAccount);
 router.get ('/interview/:interviewId', checkPermission(['user']), ctrlUser.interview);
@@ -169,6 +171,8 @@ router.post('/simulation', ctrlUser.doSimulation);
 
 router.get ('/information', ctrlInformation.information);
 router.get('/about', ctrlHomepage.about);
+
+router.post('/contactForm', ctrlHomepage.doContactForm);
 
 
 

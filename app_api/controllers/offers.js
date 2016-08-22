@@ -84,6 +84,8 @@ module.exports.offerLocationsList = function(req, res){
 
 };
 
+//TODO should not be used anymore, recruiters cannot see offers of others
+//TODO another method to see videos of their posted offers
 module.exports.offerSearchForRecruiter = function(req, res){
 
     var parameters = req.params;

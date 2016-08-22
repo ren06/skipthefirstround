@@ -70,6 +70,8 @@ router.get ('/offers/searchForUser/:userId', ctrlOffers.offerSearchForUser);
 router.get ('/offers/searchForGuest', ctrlOffers.offerSearchForGuest);
 router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);
 
+router.get ('/interviews/searchMockInterviewsForRecruiter', ctrlInterviews.searchMockInterviewsForRecruiter);
+
 //router.get ('/videos/search', ctrlOffers.searchVideos);
 
 router.get ('/testDb', ctrlUnitTest.dbConnection);

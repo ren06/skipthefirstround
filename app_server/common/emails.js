@@ -2,14 +2,14 @@ var nodemailer = require('nodemailer');
 var jade = require('jade');
 var config = require('config');
 
-function testEmail(req, res) {
+// function testEmail(req, res) {
+//
+//     var result = sendEmail_Registration('rtheuillon@hotmail.com', 'Renaud', 'Test');
+//     res.json(result);
+//
+// }
 
-    var result = sendEmail_Registration('rtheuillon@hotmail.com', 'Renaud');
-    res.json(result);
-
-}
-
-var sendEmail = function(to, html){
+var sendEmail = function(to, html, subject){
 
     var sendEmail = config.get('Email.sendEmail');
     console.log(sendEmail);
@@ -19,14 +19,14 @@ var sendEmail = function(to, html){
         var transporter = nodemailer.createTransport({
             service: 'Mailgun',
             auth: {
-                user: 'admin@demandeaufinaud.com',
+                user: 'admin@skipthefirstround.com',
                 pass: 'admin'
             }
         });
         var mailOptions = {
-            from: 'admin@demandeaufinaud.com',
+            from: 'admin@skipthefirstround.com',
             to: to,
-            subject: 'test subject',
+            subject: subject,
             text: 'test message form mailgun',
             html: html,
         };
@@ -66,7 +66,7 @@ module.exports.to_User_Registration = function(email, firstName){
 
     var html = this.to_User_RegistrationHtml(email, firstName);
 
-    sendEmail(email, html);
+    sendEmail(email, html, 'Registration');
 
 };
 
@@ -75,20 +75,18 @@ module.exports.to_Recruiter_RegistrationHtml = function(email, userName){
 
     var html = renderView('email/recruiter-registration', {data: {userName: userName}});
 
-    sendEmail(email, html);
-
 };
 module.exports.to_Recruiter_Registration = function(email, userName){
 
     var html = to_Recruiter_RegistrationHtml(email, userName);
 
-    sendEmail(email, html);
+    sendEmail(email, html, 'Registration');
 
 };
 
 
 
-//SEND USER INTERVIEW CONFIRMATION
+//SEND ADMIN NEW INTERVIEW
 /**
  * @param type 1 simulation 2 offer
  */
@@ -107,7 +105,27 @@ module.exports.to_Admin_New_Interview = function(type, email, firstName, positio
 
     var html = this.to_Admin_New_InterviewHtml(type, firstName, position, date, time, skypeId);
 
-    sendEmail(email, html);
+    sendEmail(email, html, 'New interview');
 
+};
+
+
+//SEND USER INTERVIEW CONFIRMATION
+
+
+//SEND CONTACT FORM
+module.exports.to_Admin_Contact_FormHtml = function(name, email, message){
+
+    return renderView('email/contact-form', {data: {
+        name: name,
+        email: email,
+        message: message,
+    }});
+}
+module.exports.to_Admin_Contact_Form = function(name, email, message){
+
+    var html = this.to_Admin_Contact_FormHtml(name, email, message);
+
+    sendEmail(email, html, 'New inquiry from contact form');
 };
 

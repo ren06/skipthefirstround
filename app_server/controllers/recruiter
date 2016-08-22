@@ -254,7 +254,7 @@ module.exports.doSearchVideos = function(req, res){
     console.log(qs);
 
     //call api
-    var requestOptions = common.getRequestOptions(req, '/api/offers/searchForRecruiter', 'GET', null, qs);
+    var requestOptions = common.getRequestOptions(req, '/api/interviews/searchMockInterviewsForRecruiter', 'GET', null, qs);
 
     request(requestOptions, function (err, response, body) {
 

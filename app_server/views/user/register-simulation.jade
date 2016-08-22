@@ -4,6 +4,33 @@ block content
 
     include ../_includes/cv-upload-js
 
+
+    script.
+        $(document).ready(function () {
+            $('#sector').change(function () {
+
+                $.ajax({
+                    type: 'GET',
+                    data: {sector: $('#sector').val()},
+                    url: 'getPositions',
+                    success: function (data) {
+
+                        var select = $("#position")[0];
+
+                        $('#position').empty();
+
+                        for (var key in data) {
+                            if (data.hasOwnProperty(key)) {
+
+                                select.add(new Option(data[key], key));
+
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
     // main-container start
     // ================
     .main-container.dark-translucent-bg(style="background-image:url('/images/montagne1.jpg');")
@@ -24,25 +51,28 @@ block content
                                 .alert.alert-danger(role="alert") #{error}
 
                             .form-group.has-feedback
-                                label.col-sm-3.control-label(for='position') Position
-                                    span.text-danger.small *
-                                .col-sm-8
-                                    input#position.form-control(type='text', name='position', placeholder='Eg Financial Analyst', required='', value="#{formData.position}")
-                                    i.fa.fa-pencil.form-control-feedback
-
-                            .form-group.has-feedback
                                 label.col-sm-3.control-label(for='sector') Sector
                                     span.text-danger.small *
                                 .col-sm-8
                                     select#sector(name='sector').form-control
                                         each val, key in sectorOptions
-                                            option(value=key selected=(key == formData.sector))=val
+                                            option(value=key selected=(key == formData.sector))=val.label
+
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='position') Position
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    //input#position.form-control(type='text', name='position', placeholder='Eg Financial Analyst', required='', value="#{formData.position}")
+                                    //i.fa.fa-pencil.form-control-feedback
+                                    select#position(name='position').form-control
+                                        each val, key in sectorOptions[formData.sector].positions
+                                            option(value=key selected=(key == formData.position))=val
 
                             .form-group.has-feedback
                                 label.col-sm-3.control-label(for='company') Company
-                                    span.text-danger.small *
+                                    //span.text-danger.small *
                                 .col-sm-8
-                                    input#company.form-control(type='text', name='company', placeholder='Eg BNP Paribas', required='', value="#{formData.company}")
+                                    input#company.form-control(type='text', name='company', placeholder='Eg BNP Paribas', value="#{formData.company}")
                                     i.fa.fa-pencil.form-control-feedback
 
                             .form-group.has-feedback
@@ -68,7 +98,7 @@ block content
                                 label.col-sm-3.control-label(for='skypeId') Your Skype ID:
                                     span.text-danger.small *
                                 .col-sm-8.required
-                                    input#skypeId(type="", name="skypeId", placeholder="Mock interview scheduling", required='', value="#{formData.skypeId}").form-control
+                                    input#skypeId(type="", name="skypeId", placeholder="Min. 6 characters", required='', value="#{formData.skypeId}").form-control
                                     i.fa.fa-skype.form-control-feedback
 
                             .form-group.has-feedback
