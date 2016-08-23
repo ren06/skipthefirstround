@@ -13,7 +13,7 @@ g.       Other
   etc... voir email
 
 
-- Fix skipthefirstround.com so it works as www.skipthefirstround.com
+OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)
@@ -21,7 +21,7 @@ g.       Other
 - Nice to have: cloudniary, different setup for dev and prod
 OK - Contact form send email
 - Put a link to the CV in the email for admin when new interview
-- Block access to recruiter after registration until administrator activates the account
+WIP - Block access to recruiter after registration until administrator activates the account
 - Faire un lien dans email confirmation d'interview "Go to my account"
 - Change status To be confirmed -> scheduled -> completed
 - Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
@@ -29,3 +29,4 @@ OK - Contact form send email
 
 --> Parcourir les extraits videos : mock interview ONLY. Afficher le CV a cote de la video
    --> see applicatns : real interview for offers
+

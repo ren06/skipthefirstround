@@ -89,6 +89,8 @@ module.exports.doRegisterRecruiter = function(req, res){
                 var token = body.data.token;
                 console.log(token);
 
+                body.data.active = false;
+
                 common.setSessionData(req, res, body.data, 'recruiter', token, function(){
 
                     //send email

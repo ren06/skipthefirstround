@@ -27,7 +27,10 @@ module.exports.homepage = function(req, res){
         res.setLocale('fr');
     }
 
-    req.session.role = 'user';
+    if(!req.session.role){
+        req.session.role = 'guest';
+        console.log('Role not set, set to guest by default');
+    };
 
     var authenticated = req.session.authenticated;
     var userId = req.session.userId;
@@ -80,7 +83,11 @@ module.exports.about = function(req, res){
 module.exports.homepageRecruiter = function(req, res){
 
     //res.cookie('role', 'recruiter');
-    req.session.role = 'recruiter';
+    //req.session.role = 'guest';
+    if(!req.session.role){
+        req.session.role = 'guest';
+        console.log('Role not set, set to guest by default');
+    };
 
     res.render('recruiter/homepage', {title:  res.__('About'),});
 

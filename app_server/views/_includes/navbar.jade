@@ -58,16 +58,33 @@
                                             //    ul.dropdown-menu
                                             //        li
                                                 a(href='index.html') Home - Default
+
+                                            -var isRecruiter = session.req.originalUrl.indexOf('recruiter') !== -1;
+
                                             if(!session.authenticated)
+
                                                 li
-                                                    if(session.role == 'recruiter')
-                                                        a(href='/')
+                                                    a(href='/')
+                                                        if(!isRecruiter)
+                                                            u
+                                                                b For candidates
+                                                        else
                                                             b For candidates
-                                                    else if(session.role == 'user')
-                                                        a(href='/recruiter')
+                                                li
+                                                    a(href='/recruiter')
+                                                        if(isRecruiter)
+                                                            u
+                                                                b For recruiters
+                                                        else
                                                             b For recruiters
-                                                    else
-                                                        | No session set
+                                                    //if(session.role == 'recruiter')
+                                                    //    a(href='/')
+                                                    //        b For candidates
+                                                    //else if(session.role == 'user')
+                                                    //    a(href='/recruiter')
+                                                    //        b For recruiters
+                                                    //else
+                                                    //    | No session set
                                             else if(session.role == 'user')
                                                 li
                                                     a(href='/simulation')
@@ -81,7 +98,7 @@
                                             -var loginUrl
                                             -var registerUrl
 
-                                            if(session.role == 'user')
+                                            if(!isRecruiter)
                                                 -loginUrl = 'user-login/'
                                                 -registerUrl = 'user-register'
                                                 -logoutUrl = 'user-logout'

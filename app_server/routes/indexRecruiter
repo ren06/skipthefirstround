@@ -1,17 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-// function isAuthenticated(req, res, next){
-//     if(req.session.authenticated){
-//         next();
-//     }else{
-//         //next(new Error(401));
-//         res.render('user/generic-text', {
-//             title: res.__('Unauthorised'),
-//             content: 'You are not authorised, please login first',
-//         });
-//     }
-// }
+var common = require('../controllers/common');
 
 
 var ctrlRegister = require('../controllers/register');
@@ -28,7 +17,7 @@ router.get ('/recruiter-login/', ctrlRecruiter.login);
 router.post('/recruiter-login/', ctrlRecruiter.doLogin);
 router.get ('/confirmation', ctrlRecruiter.confirmation);
 
-router.get ('/main-menu', ctrlRecruiter.mainMenu);
+router.get ('/main-menu', common.checkPermission(['recruiter']), ctrlRecruiter.mainMenu);
 router.get ('/post-offer', ctrlRecruiter.postOffer);
 router.post('/post-offer', ctrlRecruiter.doPostOffer);
 router.get ('/view-favourites', ctrlRecruiter.viewFavourites);

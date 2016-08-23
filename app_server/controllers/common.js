@@ -105,6 +105,13 @@ module.exports.setSessionData = function(req, res, user, role, token, callback){
     req.session.role = role;
     req.session.authenticated = true;
     req.session.token = token;
+    if(role === 'user'){
+        req.session.active = true;
+    }
+    else{
+        req.session.active = user.active;
+    }
+
 
     // var aclInstance = res.locals.acl;
     // aclInstance.addUserRoles(user.id, role, function(){});
@@ -150,6 +157,70 @@ module.exports.readUser = function(req, userId, callback){
         }
     });
 
-}
+};
+
+var renderNotAuthenticated = function(res) {
+
+    res.render('user/not-authenticated', { });
+};
+
+module.exports.checkPermission = function(roles){
+
+    return function(req, res, next) {
+
+        var authenticated = req.session.authenticated;
+        var authOk = true;
+
+        console.log('checking roles ' + roles);
+        console.log('authenticated: ' + authenticated);
+        console.log('role: ' + req.session.role);
+
+        var isGuest = true;
+        var roleOk = false;
+
+        //check for guest
+        if (roles.indexOf('guest') > -1) {
+
+            console.log('role is guest');
+
+            if (!authenticated) {
+                next()
+            }
+            else{
+                renderNotAuthenticated(res);
+            }
+        }
+        else if(authenticated) {
+
+            var currentRole = req.session.role;
+
+            var active = req.session.active;
+
+            console.log('User is active: ' + active);
+
+            if (currentRole) {
+
+                if (roles.indexOf(currentRole) > -1) {
+
+                    if(active) {
+                        console.log(currentRole + ' found in array of roles');
+                        next();
+                    }
+                    else{
+                        res.render('user/not-active', {});
+                    }
+                }
+                else {
+                    renderNotAuthenticated(res);
+                }
+            }
+        }
+        else{
+            renderNotAuthenticated(res);
+        }
+
+    }
+};
+
 
 module.exports.validator = validator;
