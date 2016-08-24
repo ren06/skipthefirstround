@@ -250,19 +250,23 @@ module.exports.rowInsert = function(req, res, tableName, data, callback){
     });
 };
 
-module.exports.readOne = function(req, res, tableName, id, addText){
+module.exports.readOne = function(req, res, tableName, id, addText, callback){
 
     var queryString = "SELECT * FROM " + tableName + " WHERE id = " + id;
 
     console.log(queryString);
 
-    this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
+    this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error', callback);
 
 };
 
-module.exports.readAll = function(req, res, tableName, addText){
+module.exports.readAll = function(req, res, tableName, addText, orderBy){
 
     var queryString = "SELECT * FROM " + tableName ;
+
+    if(orderBy){
+        queryString += ' ORDER BY ' + orderBy;
+    }
 
     this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
 

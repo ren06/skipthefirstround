@@ -207,7 +207,21 @@ module.exports.checkPermission = function(roles){
                         next();
                     }
                     else{
-                        res.render('user/not-active', {});
+
+                        var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + req.session.userId + '/isActive', 'GET');
+
+                        request(requestOptions, function (err, response, body) {
+
+                            if(body.data.active == true){
+                                req.session.active = true;
+                                next();
+                            }
+                            else{
+                                res.render('user/not-active', {});
+                            }
+
+                        });
+
                     }
                 }
                 else {

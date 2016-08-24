@@ -12,7 +12,11 @@ g.       Other
   Corporate Banking: Coverage & Origination, Retail, Credit & Risk Analysis, Microfinance, Other
   etc... voir email
 
-
+- Recruiter, in my offer, see how many people applied, number of views
+OK - Parcourir les extraits videos : mock interview ONLY. 
+OK - Block access to recruiter after registration until administrator activates the account
+OK - Do admin menu to active/deactivate recruiters
+- Afficher le CV a cote de la video dans par courir extraits
 OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 - finsih apply offer page
 - test emails
@@ -21,12 +25,11 @@ OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 - Nice to have: cloudniary, different setup for dev and prod
 OK - Contact form send email
 - Put a link to the CV in the email for admin when new interview
-WIP - Block access to recruiter after registration until administrator activates the account
 - Faire un lien dans email confirmation d'interview "Go to my account"
 - Change status To be confirmed -> scheduled -> completed
 - Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
-- Recruiter, in my offer, see how many people applied, number of views
 
---> Parcourir les extraits videos : mock interview ONLY. Afficher le CV a cote de la video
+
+
    --> see applicatns : real interview for offers
 

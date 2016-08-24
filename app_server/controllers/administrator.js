@@ -603,4 +603,36 @@ module.exports.doInterviewerCreate = function(req, res){
 };
 
 
+module.exports.recruitersList = function(req, res){
+
+    var requestOptions = common.getRequestOptions(req, '/api/recruiters', 'GET');
+
+    request(requestOptions, function (err, response, body) {
+
+        var recruiters = body.data;
+
+        res.render('admin/recruiters-list', {
+            recruiters: recruiters,
+            title: 'Recruiters List',
+
+        });
+
+    });
+};
+
+module.exports.toggleActiveInactive = function(req, res){
+
+    var recruiterId = req.params.recruiterId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + recruiterId + '/toggleActiveInactive' , 'POST');
+
+    request(requestOptions, function (err, response, body) {
+
+       res.redirect('/admin/recruiters');
+
+    });
+};
+
+
+
 

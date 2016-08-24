@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+
+    .col-lg-2.text-center
+    .col-lg-8(style='padding:10px')
+        .row
+
+            h2  Interviewer List
+
+            table.table
+                each recruiter in recruiters
+                    -var active = (recruiter.active == true ? 'Active' : 'Inactive');
+                    tr
+                        td #{recruiter.firstName} #{recruiter.lastName}
+                        td #{recruiter.email}
+                        td #{recruiter.mobilePhone}
+                        td=active
+                        td
+                            a(href='/admin/recruiter/#{recruiter.id}/toggleActiveInactive') Toggle Active/Inactive
+                        td
+                            a(href='') See offers
+
+
+        .row
+
+
+    .col-lg-2.text-center

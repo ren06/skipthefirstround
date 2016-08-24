@@ -31,6 +31,11 @@ router.get ('/interviewers/', ctrlAdmin.interviewerList);
 router.get ('/interviewer-create/', ctrlAdmin.interviewerCreate);
 router.post('/interviewer-create/', ctrlAdmin.doInterviewerCreate);
 
+router.get ('/recruiters/', ctrlAdmin.recruitersList);
+router.get ('/recruiter/:recruiterId/toggleActiveInactive', ctrlAdmin.toggleActiveInactive);
+
+
+
 
 
 

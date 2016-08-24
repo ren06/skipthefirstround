@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2e138a3-559c-434b-8a35-f6789ccde8f1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_server/views/user/not-active.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_server/views/user/not-authenticated.jade" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_server/views/admin/recruiters-list.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO.txt" afterPath="$PROJECT_DIR$/TODO.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_api/controllers/commonApi.js" afterPath="$PROJECT_DIR$/app_api/controllers/commonApi.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_api/controllers/recruiters.js" afterPath="$PROJECT_DIR$/app_api/controllers/recruiters.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_api/routes/indexAPI.js" afterPath="$PROJECT_DIR$/app_api/routes/indexAPI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/controllers/administrator.js" afterPath="$PROJECT_DIR$/app_server/controllers/administrator.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/controllers/common.js" afterPath="$PROJECT_DIR$/app_server/controllers/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/controllers/homepage.js" afterPath="$PROJECT_DIR$/app_server/controllers/homepage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/controllers/recruiter" afterPath="$PROJECT_DIR$/app_server/controllers/recruiter" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/routes/indexRecruiter" afterPath="$PROJECT_DIR$/app_server/routes/indexRecruiter" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/routes/indexUser.js" afterPath="$PROJECT_DIR$/app_server/routes/indexUser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/_includes/navbar.jade" afterPath="$PROJECT_DIR$/app_server/views/_includes/navbar.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/user/generic-text.jade" afterPath="$PROJECT_DIR$/app_server/views/user/generic-text.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/routes/indexAdmin.js" afterPath="$PROJECT_DIR$/app_server/routes/indexAdmin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade" afterPath="$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_server/views/admin/main-menu.jade" afterPath="$PROJECT_DIR$/app_server/views/admin/main-menu.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/newrelic_agent.log" afterPath="$PROJECT_DIR$/newrelic_agent.log" />
     </list>
     <ignored path="daf.iws" />
@@ -36,11 +36,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="indexUser.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/routes/indexUser.js">
+      <file leaf-file-name="main-menu.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_server/views/admin/main-menu.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state relative-caret-position="425">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indexAdmin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_server/routes/indexAdmin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="34" column="83" selection-start-line="34" selection-start-column="83" selection-end-line="34" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="administrator.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="recruiters-list.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_server/views/admin/recruiters-list.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="recruiters.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_api/controllers/recruiters.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="160" column="22" selection-start-line="160" selection-start-column="22" selection-end-line="160" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -49,88 +89,48 @@
       <file leaf-file-name="indexRecruiter" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_server/routes/indexRecruiter">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+            <state relative-caret-position="323">
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_server/controllers/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2771">
-              <caret line="163" column="46" selection-start-line="163" selection-start-column="46" selection-end-line="163" selection-end-column="46" />
+            <state relative-caret-position="322">
+              <caret line="225" column="17" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="not-authenticated.jade" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app_server/views/user/not-authenticated.jade">
+      <file leaf-file-name="offers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_api/controllers/offers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+            <state relative-caret-position="329">
+              <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="recruiter" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/controllers/recruiter">
+      <file leaf-file-name="commonApi.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_api/controllers/commonApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6392">
-              <caret line="376" column="23" selection-start-line="376" selection-start-column="23" selection-end-line="376" selection-end-column="23" />
+            <state relative-caret-position="730">
+              <caret line="305" column="0" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="generic-text.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/views/user/generic-text.jade">
+      <file leaf-file-name="indexAPI.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="not-active.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/views/user/not-active.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/views/user/layout.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navbar.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/views/_includes/navbar.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1700">
-              <caret line="100" column="59" selection-start-line="100" selection-start-column="59" selection-end-line="100" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="homepage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app_server/controllers/homepage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="89" column="6" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
+            <state relative-caret-position="1071">
+              <caret line="63" column="84" selection-start-line="63" selection-start-column="84" selection-end-line="63" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -154,8 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app_server/views/user/my-account.jade" />
-        <option value="$PROJECT_DIR$/config/default.json" />
         <option value="$PROJECT_DIR$/public/template/css/style.css" />
         <option value="$PROJECT_DIR$/app_server/views/_includes/user-menu.jade" />
         <option value="$PROJECT_DIR$/app_server/views/_includes/cv-upload-control.jade" />
@@ -163,12 +161,7 @@
         <option value="$PROJECT_DIR$/app_server/routes/indexTest.js" />
         <option value="$PROJECT_DIR$/app_server/views/email/admin-user-registered.pug" />
         <option value="$PROJECT_DIR$/app_server/views/email/admin-user-registered.jade" />
-        <option value="$PROJECT_DIR$/app_server/views/admin/main-menu.jade" />
-        <option value="$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade" />
-        <option value="$PROJECT_DIR$/app_server/routes/indexAdmin.js" />
         <option value="$PROJECT_DIR$/app_server/views/admin/interviewer-create.jade" />
-        <option value="$PROJECT_DIR$/app_server/controllers/administrator.js" />
-        <option value="$PROJECT_DIR$/app_api/controllers/commonApi.js" />
         <option value="$PROJECT_DIR$/app_api/controllers/interviewers.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/app_server/views/recruiter/homepage.jade" />
@@ -190,7 +183,6 @@
         <option value="$PROJECT_DIR$/app_server/views/user/homepage.jade" />
         <option value="$PROJECT_DIR$/app_api/controllers/offers.js" />
         <option value="$PROJECT_DIR$/app_api/controllers/interviews.js" />
-        <option value="$PROJECT_DIR$/app_api/routes/indexAPI.js" />
         <option value="$PROJECT_DIR$/app_server/views/user/register-simulation.jade" />
         <option value="$PROJECT_DIR$/app_api/controllers/options.js" />
         <option value="$PROJECT_DIR$/app_server/views/user/generic-text.jade" />
@@ -203,8 +195,16 @@
         <option value="$PROJECT_DIR$/app_server/controllers/homepage.js" />
         <option value="$PROJECT_DIR$/app_server/views/user/not-active.jade" />
         <option value="$PROJECT_DIR$/app_server/views/user/not-authenticated.pug" />
-        <option value="$PROJECT_DIR$/app_server/controllers/common.js" />
         <option value="$PROJECT_DIR$/app_server/views/user/not-authenticated.jade" />
+        <option value="$PROJECT_DIR$/app_server/views/admin/main-menu.jade" />
+        <option value="$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade" />
+        <option value="$PROJECT_DIR$/app_server/routes/indexAdmin.js" />
+        <option value="$PROJECT_DIR$/app_server/controllers/administrator.js" />
+        <option value="$PROJECT_DIR$/app_server/views/admin/recruiters-list.jade" />
+        <option value="$PROJECT_DIR$/app_api/controllers/commonApi.js" />
+        <option value="$PROJECT_DIR$/app_api/routes/indexAPI.js" />
+        <option value="$PROJECT_DIR$/app_api/controllers/recruiters.js" />
+        <option value="$PROJECT_DIR$/app_server/controllers/common.js" />
       </list>
     </option>
   </component>
@@ -280,7 +280,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -436,6 +436,28 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="daf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="daf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -543,7 +565,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -558,17 +580,17 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\email" />
-      <recent name="C:\Users\rtheu\Dropbox\daf" />
-      <recent name="C:\Users\rtheu\Dropbox\daf\public\images" />
-      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\admin" />
-      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\user" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rtheu\Dropbox\daf\public\images" />
       <recent name="C:\Users\rtheu\Dropbox\daf\app_server\common" />
       <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\site_user" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\admin" />
+      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\email" />
+      <recent name="C:\Users\rtheu\Dropbox\daf" />
+      <recent name="C:\Users\rtheu\Dropbox\daf\public\images" />
+      <recent name="C:\Users\rtheu\Dropbox\daf\app_server\views\user" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.homepage.js">
@@ -881,6 +903,9 @@
       <workItem from="1471978294426" duration="1646000" />
       <workItem from="1471980302773" duration="2599000" />
       <workItem from="1471982921368" duration="598000" />
+      <workItem from="1472037795326" duration="1368000" />
+      <workItem from="1472039184586" duration="1896000" />
+      <workItem from="1472041102202" duration="1171000" />
     </task>
     <task id="LOCAL-00001" summary="New push">
       <created>1468588754348</created>
@@ -914,7 +939,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="658869000" />
+    <option name="totallyTimeSpent" value="663304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -927,26 +952,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1452" height="867" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2560113" sideWeight="0.65531063" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1562942" sideWeight="0.65531063" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44959128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23684211" sideWeight="0.5108992" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18335684" sideWeight="0.34468937" order="1" side_tool="true" content_ui="tabs" x="218" y="93" width="389" height="835" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23684211" sideWeight="0.5108992" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30204082" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44959128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30204082" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -971,49 +996,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app_api/controllers/userss.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2975">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10013">
-          <caret line="589" column="26" selection-start-line="589" selection-start-column="26" selection-end-line="589" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/views/admin/interview-add-sequence.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/views/admin/interviewer-create.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/production.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="135" selection-start-line="4" selection-start-column="121" selection-end-line="4" selection-end-column="135" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_server/views/user/information.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1145,13 +1127,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_api/controllers/commonApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_server/views/email/contact-form.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1187,13 +1162,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="72" column="74" selection-start-line="72" selection-start-column="74" selection-end-line="72" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_server/views/user/register-simulation.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1212,13 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
           <caret line="98" column="59" selection-start-line="98" selection-start-column="59" selection-end-line="98" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_api/controllers/offers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="87" column="58" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -1255,7 +1216,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1513">
           <caret line="89" column="6" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1263,7 +1223,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1271,7 +1230,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
           <caret line="100" column="59" selection-start-line="100" selection-start-column="59" selection-end-line="100" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,7 +1237,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1287,7 +1244,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1299,27 +1255,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/routes/indexRecruiter">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app_server/routes/indexUser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_server/controllers/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2771">
-          <caret line="163" column="46" selection-start-line="163" selection-start-column="46" selection-end-line="163" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1327,6 +1266,92 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/views/admin/interviewers-list.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/views/admin/main-menu.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/views/admin/recruiters-list.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/routes/indexRecruiter">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_api/routes/indexAPI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="63" column="84" selection-start-line="63" selection-start-column="84" selection-end-line="63" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_api/controllers/recruiters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="160" column="22" selection-start-line="160" selection-start-column="22" selection-end-line="160" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/routes/indexAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="34" column="83" selection-start-line="34" selection-start-column="83" selection-end-line="34" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_api/controllers/commonApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="730">
+          <caret line="305" column="0" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_api/controllers/offers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/controllers/administrator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_server/controllers/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="225" column="17" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
           <folding />
         </state>
       </provider>
