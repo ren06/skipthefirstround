@@ -464,3 +464,10 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":14712,"time":"2016-08-24T12:25:36.844Z","msg":"Starting New Relic for Node.js connection process."}
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":14712,"time":"2016-08-24T12:25:41.083Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":14712,"time":"2016-08-24T12:25:41.084Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 92640539199620991.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":9228,"time":"2016-08-27T08:53:55.531Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":9228,"time":"2016-08-27T08:54:26.034Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":9228,"time":"2016-08-27T08:54:26.035Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 97758070059182701.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":9228,"time":"2016-08-27T08:54:28.235Z","msg":"not collecting slow-query because transaction_tracer.record_sql was set to off","component":"query_tracer"}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":11508,"time":"2016-08-27T09:16:42.367Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":11508,"time":"2016-08-27T09:16:46.215Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"JTROIANO","pid":11508,"time":"2016-08-27T09:16:46.216Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 97758070059274725.","component":"collector_api"}
