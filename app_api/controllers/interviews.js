@@ -369,54 +369,59 @@ module.exports.interviewSetDate = function(req, res){
 
     var dateTime = req.body.dateTime;
     var interviewerId = req.body.interviewerId;
+    var status = req.body.status;
 
-    if(!interviewId || !dateTime || !interviewerId){
+    if(!interviewId || !dateTime || !interviewerId || !status){
         console.log(interviewId + dateTime + interviewerId);
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('InterviewSetDateMissingInput'), null);
     }
     else {
 
-        common.dbConnect(function (err, client, done) {
+        var data = {dateTime: dateTime, status: status, idInterviewer: interviewerId};
 
-            var results = [];
+        common.rowUpdate(req, res, 'tbl_interview', interviewId, data);
 
-            // Handle connection errors
-            if (err) {
-                done();
-                console.log(err);
-                return res.status(500).json({success: false, data: err});
-            }
-
-            var queryString = "UPDATE tbl_interview SET date_time = $2, id_interviewer = $3 WHERE id = $1 RETURNING *";
-            console.log(queryString);
-            console.log(dateTime);
-            var query = client.query(queryString, [interviewId, dateTime, interviewerId],
-                function (err, result) {
-                    done();
-                    if (err) {
-                        console.log('insert error');
-
-                        common.sendJsonResponse(res, 409, false, 'Insert error for ' + interviewId + '. Error code ' + err.code, res.__('InterviewerDoesNotExist'));
-                    }
-                }
-            );
-
-            // Stream results back one row at a time
-            query.on('row', function (row) {
-
-                results.push(row);
-            });
-
-            // After all data is returned, close connection and return results
-            query.on('end', function () {
-                done();
-
-                addText(results, req);
-
-                common.sendJsonResponse(res, 200, true, null, null, results);
-            });
-
-        });
+        // common.dbConnect(function (err, client, done) {
+        //
+        //     var results = [];
+        //
+        //     // Handle connection errors
+        //     if (err) {
+        //         done();
+        //         console.log(err);
+        //         return res.status(500).json({success: false, data: err});
+        //     }
+        //
+        //     var queryString = "UPDATE tbl_interview SET date_time = $2, id_interviewer = $3 WHERE id = $1 RETURNING *";
+        //     console.log(queryString);
+        //     console.log(dateTime);
+        //     var query = client.query(queryString, [interviewId, dateTime, interviewerId],
+        //         function (err, result) {
+        //             done();
+        //             if (err) {
+        //                 console.log('insert error');
+        //
+        //                 common.sendJsonResponse(res, 409, false, 'Insert error for ' + interviewId + '. Error code ' + err.code, res.__('InterviewerDoesNotExist'));
+        //             }
+        //         }
+        //     );
+        //
+        //     // Stream results back one row at a time
+        //     query.on('row', function (row) {
+        //
+        //         results.push(row);
+        //     });
+        //
+        //     // After all data is returned, close connection and return results
+        //     query.on('end', function () {
+        //         done();
+        //
+        //         addText(results, req);
+        //
+        //         common.sendJsonResponse(res, 200, true, null, null, results);
+        //     });
+        //
+        // });
     }
 
 };

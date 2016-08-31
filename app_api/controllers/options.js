@@ -157,13 +157,15 @@ var companyTypeOptionsEn = {
 
 //Interview status
 var interviewStatusOptionsFr = {
-    "1": "Demande",
+    "1": "A confirmer",
     "2": "Rendez vous pris",
+    "3": "Realisee",
 };
 
 var interviewStatusOptionsEn = {
-    "1": "Proposed",
-    "2": "Booked",
+    "1": "To be confirmed",
+    "2": "Scheduled",
+    "3": "Completed",
 };
 
 //Interview type

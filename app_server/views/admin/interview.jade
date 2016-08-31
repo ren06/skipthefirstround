@@ -12,6 +12,7 @@ block content
 
                 $('.form-control').prop('disabled', true);
                 $('.btn').addClass('disabled');
+                $(':radio').prop('disabled', true);
             }
 
             $(".saveLink").click(function (event) {
@@ -155,7 +156,8 @@ block content
                     .form-group
                         label.control-label.col-sm-2(for='') Summary:
                         .col-sm-10
-                            textarea(rows="4" name="summary").form-control
+                            textarea(rows="4" name="summary").form-control=interview.summary
+
                     .form-group
                         label.control-label.col-sm-2(for='appreciation') Appreciation
                         .col-sm-6
@@ -163,6 +165,15 @@ block content
                                 label.radio-inline
                                     input(type='radio', class='radioSpans', id='appreciation', value='#{key}', name='appreciation' checked=(interview.appreciation == key ))
                                     span=val
+
+                    .form-group
+                        label.control-label.col-sm-2(for='language') Language
+                        .col-sm-6
+                            each val, key in {"en": "English", "fr": "French" }
+                                label.radio-inline
+                                    input(type='radio', class='radioSpans', id='language', value='#{key}', name='language' checked=(interview.language == key ))
+                                    span=val
+
                     .form-group
                         include ../_includes/video-upload-control
                 br

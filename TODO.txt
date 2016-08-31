@@ -7,12 +7,13 @@ OK - Do admin menu to active/deactivate recruiters
 OK - Afficher le CV a cote de la video dans parcourir extraits
 OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 OK - Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
+OK - set language of interview in interview admin menu
+OK - Change status To be confirmed -> scheduled -> completed
 
 - Recruiters ->  My offers --> see applicants : real interview for offers
 - Mark 'already applied' for interview already applied
 - list jobs with 'view details' and count views
-- set language of interview in interview admin menu
-- Change status To be confirmed -> scheduled -> completed
+
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)

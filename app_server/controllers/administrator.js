@@ -205,6 +205,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
                 interview.status = formData.status;
                 interview.jobType = formData.jobType;
                 interview.appreciation = formData.appreciation;
+                interview.language = formData.language;
             }
 
             res.render('admin/interview', {
@@ -280,6 +281,8 @@ var renderInterviewModifyDate = function(req, res, formData, error){
 
 module.exports.doInterviewModify = function(req, res) {
 
+    console.log(req.body);
+
     var interviewId = req.body.interviewId;
     var date = req.body.date;
     var hour = req.body.hour;
@@ -295,6 +298,8 @@ module.exports.doInterviewModify = function(req, res) {
     var videoProviderUniqueId = req.body.videoProviderUniqueId;
     var videoUrl = req.body.videoUrl;
     var idVideo = req.body.idVideo;
+    var summary = req.body.summary;
+    var language = req.body.language;
 
     var dateTimeDb = null;
 
@@ -315,6 +320,8 @@ module.exports.doInterviewModify = function(req, res) {
         videoProviderUniqueId: videoProviderUniqueId,
         videoUrl: videoUrl,
         idVideo: idVideo,
+        summary: summary,
+        language: language,
     };
 
     var videoData = {
@@ -390,7 +397,6 @@ module.exports.doInterviewModifyDate = function(req, res){
         hour: hour,
         minute: minute,
         sendEmail: sendEmail,
-
     };
 
     //check everything is there
@@ -406,7 +412,8 @@ module.exports.doInterviewModifyDate = function(req, res){
 
         var postData = {
             dateTime: dateTimeDb,
-            interviewerId: interviewerId
+            interviewerId: interviewerId,
+            status: 2, //booked
         };
 
         var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId + '/setDate', 'POST', postData, false);
@@ -417,7 +424,7 @@ module.exports.doInterviewModifyDate = function(req, res){
 
             console.log('request Executed ' + response.statusCode);
 
-            if(response.statusCode === 200 ) {
+            if(response.statusCode === 204 ) {
 
                 if(sendEmail){
                     //send email to student to confirm booking
