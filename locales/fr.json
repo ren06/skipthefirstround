@@ -17,5 +17,6 @@
 	"My information": "My information",
 	"My messages": "My messages",
 	"Interview": "Interview",
-	"InterviewerCreationMissingInput": "InterviewerCreationMissingInput"
+	"InterviewerCreationMissingInput": "InterviewerCreationMissingInput",
+	"InterviewModifyMissingInput": "InterviewModifyMissingInput"
 }
