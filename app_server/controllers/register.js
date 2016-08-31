@@ -90,6 +90,7 @@ module.exports.doRegisterUser = function(req, res){
     if(typeof language !== 'undefined'){
         language = 'en';
     }
+    console.log('CV :' + cv);
 
     var postData = {
         email: email,
@@ -116,6 +117,9 @@ module.exports.doRegisterUser = function(req, res){
     //check everything is there
     if(!postData.email || !postData.password || !postData.firstName || !postData.lastName || !postData.availability || !postData.sector ){
         renderRegister(req, res, formData, 'All mandatory fields must be populated');
+    }
+    else if(!postData.cv){
+        renderRegister(req, res, formData, 'Please upload your CV as a pdf file');
     }
     else if(!common.validator.isEmail(email)){
         renderRegister(req, res, formData, 'The provided email is not a valid email address');
@@ -296,6 +300,7 @@ module.exports.registerUser = function(req, res){
         mobilePhone: '',
         position: '1',
         company: '',
+        cv: '',
     };
 
     renderRegister(req, res, formData, null);
@@ -305,11 +310,17 @@ module.exports.registerUser = function(req, res){
 module.exports.getPositions = function(req, res){
 
     var value = req.query.sector;
+    var positions;
 
-    var positions = req.app.locals.options[res.getLocale()].sectorOptions[value].positions;
+    if(positions = req.app.locals.options[res.getLocale()].sectorOptions[value]){
+        positions = req.app.locals.options[res.getLocale()].sectorOptions[value].positions;
+    }
+    else{
+        positions = {};
+    }
 
     res.json(positions);
-}
+};
 
 module.exports.createInterview = createInterview;
 

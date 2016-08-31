@@ -1,44 +1,80 @@
+script.
+    $(document).ready(function () {
+        $('#sector').change(function () {
+
+            $.ajax({
+                type: 'GET',
+                data: {sector: $('#sector').val()},
+                url: '/getPositions',
+                success: function (data) {
+
+                    var select = $("#position")[0];
+
+                    $('#position').empty();
+                    select.add(new Option('Tous', '0'));
+                    for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+
+                            select.add(new Option(data[key], key));
+
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+
 form.form-horizontal(id="searchForm", action="", method="post", role="form")
     if(error)
         .alert.alert-danger() #{error}
 
     .form-group.required
-        label.control-label.col-sm-4(for='sector') Sectors:
+        label.col-sm-3.control-label(for='sector') Secteur d'activite
         .col-sm-8
             select#sector(name='sector').form-control.required
                 each val, key in sectorOptions
-                    option(value=key selected=(key == formData.sector))=val
+                    option(value=key selected=(key == formData.sector))=val.label
 
     .form-group.required
-        label.control-label.col-sm-4(for='offerType') Contract types:
+        label.col-sm-3.control-label(for='position') Position
         .col-sm-8
-            select#offerType(name='offerType').form-control.required
-                each val, key in offerTypeOptions
-                    option(value=key selected=(key == formData.offerType))=val
-
-
-    .form-group.required
-        label.control-label.col-sm-4(for='companyType') Company types:
-        .col-sm-8
-            select#companyType(name='companyType').form-control.required
-                each val, key in companyTypeOptions
-                    option(value=key selected=(key == formData.companyType))=val
+            select#position(name='position').form-control
+                - var positions = sectorOptions[formData.sector].positions;
+                //- positions['0'] = 'Tous';
+                each val, key in positions
+                    option(value=key selected=(key == formData.position))=val
 
     .form-group.required
-        label.control-label.col-sm-4(for='location') Location:
+        label.col-sm-3.control-label(for='position') Type de Position
         .col-sm-8
-            select#location(name='location').form-control.required
-                each val, key in locations
-                    option(value=key selected=(key == formData.location))=val
+            select#jobType(name='jobType').form-control
+                - console.log(formData.jobType);
+                each val, key in jobTypeOptions
+                    option(value=key selected=(key == formData.jobType))=val
 
-    .form-group.required
-        label.control-label.col-sm-4(for='language') Language:
-        .col-sm-8
-            select#language(value=formData.language, name='language').form-control.required
-                each val, key in languageOptions
-                    option(value=key selected=(key == formData.language))=val
+    //.form-group.required
+    //    label.control-label.col-sm-4(for='companyType') Company types:
+    //    .col-sm-8
+    //        select#companyType(name='companyType').form-control.required
+    //            each val, key in companyTypeOptions
+    //                option(value=key selected=(key == formData.companyType))=val
+
+    //.form-group.required
+    //    label.col-sm-3.control-label(for='location') Location
+    //    .col-sm-8
+    //        select#location(name='location').form-control.required
+    //            each val, key in locations
+    //                option(value=key selected=(key == formData.location))=val
+
+    //.form-group.required
+    //    label.control-label.col-sm-4(for='language') Language:
+    //    .col-sm-8
+    //        select#language(value=formData.language, name='language').form-control.required
+    //            each val, key in languageOptions
+    //                option(value=key selected=(key == formData.language))=val
 
 
     .form-group
         .col-sm-offset-4.col-sm-10
-            button.btn.btn-default(type="submit") Chercher
+            button.btn.btn-default(type="submit") Search

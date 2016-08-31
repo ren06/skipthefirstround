@@ -19,8 +19,6 @@ var addText = function(data, req){
 
     console.log('header language: ' + language);
 
-    console.log(data);
-
     if(typeof data !== 'undefined') {
 
         data.forEach(function (entry) {
@@ -29,29 +27,40 @@ var addText = function(data, req){
 
             moment.locale(language);
 
-            var result;
-
             if (dateTime == null) {
 
-                result = __({phrase: 'DateUndefined', locale: language});
+                entry['dateTimeText'] = __({phrase: 'DateUndefined', locale: language});
+                entry['date'] = '';
             }
             else {
-                result = moment(dateTime).format("dddd Do MMMM YYYY HH:mm");
-
+                var result = moment(dateTime).format("dddd Do MMMM YYYY HH:mm");
+                entry['dateTimeText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
+                entry['date'] = moment(dateTime).format("DD/MM/YYYY");
             }
-            console.log('res: ' + result);
 
-            entry['dateTimeText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
-            entry['date'] = moment(dateTime).format("DD/MM/YYYY");
             entry['hour'] = moment(dateTime).format("H");
             entry['minute'] = moment(dateTime).format("m");
             entry['typeText'] = options.options[language].interviewTypeOptions[entry.type];
-            entry['sectorText'] = options.options[language].sectorOptions[entry.sector];
+
+            if(entry.sector && entry.position) {
+                entry['positionText'] = options.options[language].sectorOptions[entry.sector].positions[entry.position];
+            }
+            else{
+                entry['positionText'] = 'No position';
+            }
+
+            if(options.options[language].sectorOptions[entry.sector]) {
+                entry['sectorText'] = options.options[language].sectorOptions[entry.sector].label;
+
+            }
+            else{
+                entry['sectorText'] = 'No sector';
+                entry['positionText'] = 'No position';
+            }
 
             if(entry.type == 2){
                 entry['typeText'] =  entry['typeText'] + ' #' + entry.id;
             }
-
 
             if(!entry.company){
                 entry['companyText'] = 'Not specified';
@@ -68,14 +77,13 @@ var addText = function(data, req){
                     entry['appreciationText'] = options.options[language].appreciationsOptions[entry.appreciation];
 
                 });
-
             }
 
         });
 
     }
     //return data;
-}
+};
 
 //TODO maybe split it in 2 functions, one for offer, one for simulation
 module.exports.interviewCreate = function(req, res){
@@ -126,8 +134,6 @@ module.exports.interviewCreate = function(req, res){
 
     pg.connect(conString, function (err, client, done) {
 
-        var results = [];
-
         console.log('create interview');
 
         // Handle connection errors
@@ -144,12 +150,12 @@ module.exports.interviewCreate = function(req, res){
 
             if(offerId){
                 params.push(offerId);
-                var queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, id_offer) VALUES($1, $2, $3, $4, $5) RETURNING *";
+                queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, id_offer) VALUES($1, $2, $3, $4, $5) RETURNING *";
             }
             else{
                 params.push(company);
                 params.push(position);
-                var queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, company, position) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
+                queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, company, position) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
             }
 
             console.log(params);
@@ -219,7 +225,7 @@ var executeListPerUser = function(req, res, sql){
 
         });
     }
-}
+};
 
 module.exports.interviewListNoDate = function(req, res){
 
@@ -237,7 +243,7 @@ module.exports.interviewListNoDate = function(req, res){
         common.sendJsonResponse(res, 200, true, null, null, results);
 
     });
-}
+};
 
 module.exports.interviewList = function(req, res){
 
@@ -270,23 +276,23 @@ module.exports.interviewList = function(req, res){
         });
 
     });
-}
+};
 
 
 module.exports.interviewListByUser = function(req, res){
     var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 ORDER BY id ASC";
     executeListPerUser(req, res, sql);
-}
+};
 
 module.exports.interviewPastByUser = function(req, res){
     var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND date_time < now() ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
-}
+};
 
 module.exports.interviewUpcomingByUser = function(req, res){
     var sql = "SELECT i.* FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE id_user = $1 AND (date_time IS NULL OR date_time >= now() ) ORDER BY date_time ASC";
     executeListPerUser(req, res, sql);
-}
+};
 
 //GET
 module.exports.interviewReadOne = function(req, res){
@@ -329,7 +335,7 @@ module.exports.interviewReadOne = function(req, res){
         INNER JOIN tbl_user u ON u.id = i.id_user \
         LEFT JOIN tbl_offer o ON i.id_offer = o.id \
         LEFT JOIN tbl_video v ON i.id_video = v.id\
-        WHERE i.id = $1 ORDER BY u.id ASC"
+        WHERE i.id = $1 ORDER BY u.id ASC";
 
 
         //console.log(queryString);
@@ -350,11 +356,11 @@ module.exports.interviewReadOne = function(req, res){
 
     });
 
-}
+};
 
 module.exports.interviewUpdateOne = function(req, res){
 
-}
+};
 
 //POST
 module.exports.interviewSetDate = function(req, res){
@@ -413,7 +419,7 @@ module.exports.interviewSetDate = function(req, res){
         });
     }
 
-}
+};
 
 //POST
 module.exports.interviewAddSequence = function(req, res) {
@@ -452,7 +458,7 @@ module.exports.interviewAddSequence = function(req, res) {
 
         });
     }
-}
+};
 
 module.exports.interviewModify = function(req, res){
 
@@ -463,13 +469,15 @@ module.exports.interviewModify = function(req, res){
     var dateTime = req.body.dateTime;
     var type = req.body.type;
     var sector = req.body.sector;
+    var position = req.body.position;
+    var jobType = req.body.jobType;
     var idInterviewer = req.body.idInterviewer;
     var idVideo = req.body.idVideo;
 
     var videoProviderUniqueId = req.body.videoProviderUniqueId;
     var videoUrl = req.body.videoUrl;
 
-    if (!dateTime || !type || !sector || !idInterviewer) {
+    if (!dateTime || !type || !sector || !idInterviewer || !position || !jobType) {
 
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('InterviewModifyMissingInput'), null);
     }
@@ -520,9 +528,17 @@ module.exports.interviewModify = function(req, res){
 
 module.exports.searchMockInterviewsForRecruiter = function(req, res){
 
-    var parameters = req.params;
+    var parameters = req.query;
+    console.log(parameters);
 
-    var queryString = "SELECT * FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video WHERE type = 1";
+    var queryString = "SELECT i.*, v.*, u.cv FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id " +
+        "INNER JOIN tbl_video v ON v.id = s.id_video " +
+        "INNER JOIN tbl_user u ON u.id = i.id_user";
+
+    parameters['type'] = '1';
+    queryString = queryString + ' ' + common.convertQueryToWhereClause(parameters, 'i');
+
+    console.log(queryString);
 
     common.dbHandleQuery(req, res, queryString, parameters, addText, 'Error', 'Error', function(results){
 

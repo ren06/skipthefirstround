@@ -31,6 +31,7 @@ var buysideOptionsEn = {
     "4": "Marketing & Sales",
     "5": "Private Banking",
     "6": "Risk & Reporting",
+    "99": "Other",
 };
 
 var corporateBankingOptionsEn = {
@@ -38,6 +39,7 @@ var corporateBankingOptionsEn = {
     "2": "Retail",
     "3": "Credit & Risk Analysis",
     "4": "Microfinance",
+    "99": "Other",
 };
 
 var corporateFinanceOptionsEn = {
@@ -47,6 +49,7 @@ var corporateFinanceOptionsEn = {
     "4": "Coverage & Origination",
     "5": "Structured Finance",
     "6": "Real Estate",
+    "99": "Other",
 };
 
 var financialAnalysisOptionsEn = {
@@ -58,6 +61,7 @@ var financialAnalysisOptionsEn = {
     "6": "Consultancy",
     "7": "Transaction Services",
     "8": "Financial Advisory",
+    "99": "Other",
 };
 
 var financialMarketsOptionsEn = {
@@ -69,6 +73,7 @@ var financialMarketsOptionsEn = {
     "6": "Rotation",
     "7": "Structuring",
     "8": "Hedging",
+    "99": "Other",
 };
 
 var transversalOptionsEn = {
@@ -77,6 +82,7 @@ var transversalOptionsEn = {
     "3": "Legal",
     "4": " Sales & Marketing",
     "5": "IT",
+    "99": "Other",
 };
 
 var sectorOptionsEn = {
@@ -86,7 +92,7 @@ var sectorOptionsEn = {
     "4": {"label" : "Financial Analysis, Control, Audit, Consultancy", "positions" : financialAnalysisOptionsEn},
     "5": {"label" : "Financial Markets", "positions" : financialMarketsOptionsEn},
     "6": {"label" : "Transversal Functions", "positions" : transversalOptionsEn},
-    "7": {"label" : "Other", "positions" : {"1": "Other"}},
+    "99": {"label" : "Other", "positions" : {"99": "Other"}},
 };
 
 var sectorOptionsFr = {
@@ -96,7 +102,7 @@ var sectorOptionsFr = {
     "4": {"label" : "Financial Analysis, Control, Audit, Consultancy", "positions" : financialAnalysisOptionsEn},
     "5": {"label" : "Financial Markets", "positions" : financialMarketsOptionsEn},
     "6": {"label" : "Transversal Functions", "positions" : transversalOptionsEn},
-    "7": {"label" : "Other", "positions" : {"1": "Other"}},
+    "99": {"label" : "Other", "positions" : {"99": "Other"}},
 };
 
 
@@ -164,12 +170,12 @@ var interviewStatusOptionsEn = {
 var interviewTypeOptionsFr = {
     "1": "Simulation",
     "2": "Offre",
-}
+};
 
 var interviewTypeOptionsEn = {
     "1": "Simulation",
     "2": "Offer",
-}
+};
 
 //Sequence tag
 var sequenceTagOptionsFr = {
@@ -177,40 +183,52 @@ var sequenceTagOptionsFr = {
     "2": "Consolidation",
     "3": "Methodes de valorisation",
     "4": "LBO"
-}
+};
 
 var sequenceTagOptionsEn = {
     "1": "DCF",
     "2": "Consolidation",
     "3": "Methodes de valorisation",
     "4": "LBO"
-}
+};
 
 //appreciations
 var appreciationsOptionsFr = {
     "1": "Standard",
     "2": "Tres bien",
     "3": "Exceptionnel",
-}
+};
 
 var appreciationsOptionsEn = {
     "1": "Standard",
     "2": "Very good",
     "3": "Exceptional",
-}
+};
+
+var jobTypeOptionsFr = {
+    "1": "Penultimate year",
+    "2": "Final year",
+
+};
+
+var jobTypeOptionsEn = {
+    "1": "Avant-derniere annee",
+    "2": "Derniere annee",
+};
+
 
 //language
 var languageOptionsFr = {
     //"" : 'Tous',
     "en": "Anglais",
     "fr": "Francais",
-}
+};
 
 var languageOptionsEn = {
     //"" : 'All',
     "en": "English",
     "fr": "French",
-}
+};
 
 var optionsFr = {
     sectorOptions: sectorOptionsFr,
@@ -221,8 +239,9 @@ var optionsFr = {
     offerTypeOptions: offerTypeOptionsFr,
     companyTypeOptions: companyTypeOptionsFr,
     languageOptions: languageOptionsFr,
+    jobTypeOptions: jobTypeOptionsFr,
 
-}
+};
 
 var optionsEn = {
     sectorOptions: sectorOptionsEn,
@@ -233,7 +252,8 @@ var optionsEn = {
     offerTypeOptions: offerTypeOptionsEn,
     companyTypeOptions: companyTypeOptionsEn,
     languageOptions: languageOptionsEn,
-}
+    jobTypeOptions: jobTypeOptionsEn,
+};
 
 //for locale stuff
 module.exports.options =  {"en": optionsEn, "fr": optionsFr};
@@ -242,7 +262,7 @@ module.exports.options =  {"en": optionsEn, "fr": optionsFr};
 module.exports.getAllOptions = function (req, res) {
 
     common.sendJsonResponse(res, 200, true, null, null, {"en": optionsEn, "fr": optionsFr});
-}
+};
 
 
 module.exports.getSectorOptions = function (req, res) {
@@ -254,16 +274,16 @@ module.exports.getInterviewStatusOptions = function (req, res) {
 
     common.sendJsonResponse(res, 200, true, null, null,  {"en": interviewStatusOptionsEn, "fr": interviewStatusOptionsFr} );
 
-}
+};
 
 module.exports.getInterviewTypeOptions = function (req, res) {
 
     common.sendJsonResponse(res, 200, true, null, null,  {"en": interviewTypeOptionsEn, "fr": interviewTypeOptionsFr} );
 
-}
+};
 
 module.exports.getSequenceTagOptions = function (req, res) {
 
     common.sendJsonResponse(res, 200, true, null, null,  {"en": sequenceTagOptionsEn, "fr": sequenceTagOptionsFr} );
 
-}
+};

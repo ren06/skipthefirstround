@@ -115,21 +115,21 @@ module.exports.doRegisterRecruiter = function(req, res){
             }
         });
     }
-}
+};
 
 module.exports.confirmation = function(req, res){
 
     res.render('recruiter/confirmation', {
         title: i18n.__('Confirmation'),
     });
-}
+};
 
 module.exports.mainMenu = function(req, res){
 
     res.render('recruiter/main-menu', {
         title: i18n.__('Menu'),
     });
-}
+};
 
 var renderPostOffer = function(req, res, formData, error){
 
@@ -141,25 +141,26 @@ var renderPostOffer = function(req, res, formData, error){
         formData: formData,
         error: error,
     });
-}
+};
 
 module.exports.postOffer = function(req, res){
 
     var recruiterId = req.session.userId;
 
     var formData = {
-        sector: '',
+        sector: '1',
+        position: '1',
         offerType: '',
         language: '',
         companyType: '',
         location: '',
         text: '',
         idRecruiter: recruiterId,
-    }
+    };
 
     renderPostOffer(req, res, formData);
 
-}
+};
 
 module.exports.doPostOffer = function(req, res){
 
@@ -191,7 +192,7 @@ module.exports.doPostOffer = function(req, res){
         });
     }
 
-}
+};
 
 var renderBrowseVideos = function(req, res, formData, results, message){
 
@@ -204,14 +205,20 @@ var renderBrowseVideos = function(req, res, formData, results, message){
 
         var lang = res.getLocale();
 
-        var languageOptions =  common.addAll(req.app.locals.options[lang].languageOptions);
-        console.log(languageOptions);
+        //var languageOptions =  common.addAll(req.app.locals.options[lang].languageOptions);
+
+        var sectorOptions = req.app.locals.options[lang].sectorOptions;
+        sectorOptions['0'] = {"label" : "Tous", positions: {'0' : 'Tous'}};
+
+        var jobTypeOptions =  req.app.locals.options[lang].jobTypeOptions;
+        jobTypeOptions['0'] = 'Tous';
+
         res.render('recruiter/browse-videos', {
-            sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
-            offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
-            companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
-            languageOptions: languageOptions,
-            locations: common.addAll(body.data),
+            sectorOptions: sectorOptions,
+            //offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
+            //companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
+            jobTypeOptions: jobTypeOptions,
+            //locations: common.addAll(body.data),
             title: i18n.__('Browse Videos'),
             formData: formData,
             results: results,
@@ -219,23 +226,19 @@ var renderBrowseVideos = function(req, res, formData, results, message){
         });
     });
 
-
-}
+};
 
 module.exports.searchVideos = function(req, res){
 
     var formData = {
-        sector: '0',
-        offerType: '0',
-        language: '',
-        companyType: '0',
-        location: '0',
-
-    }
+        sector: '0', //All
+        position: '0',
+        jobType: '0',
+    };
 
     renderBrowseVideos(req, res, formData, null, null);
 
-}
+};
 
 module.exports.doSearchVideos = function(req, res){
 
@@ -275,10 +278,7 @@ module.exports.doSearchVideos = function(req, res){
         }
     });
 
-
-
-
-}
+};
 
 
 module.exports.viewFavourites = function(req, res){
@@ -286,7 +286,7 @@ module.exports.viewFavourites = function(req, res){
     res.render('recruiter/view-favourites', {
         title: i18n.__('View Favourites'),
     });
-}
+};
 
 module.exports.myOffers = function(req, res){
 
@@ -312,16 +312,42 @@ module.exports.myOffers = function(req, res){
         }
     });
 
-}
-
-
-//GET method
-var logOff = function(req, res){
-
-    req.session.destroy();
-    console.log('deconnexion ok');
-    res.redirect('/');
 };
+
+
+var renderOffer = function(req, res, formData, error){
+
+    res.render('recruiter/offer', {
+        sectorOptions: req.app.locals.options[res.getLocale()].sectorOptions,
+        offerTypeOptions: req.app.locals.options[res.getLocale()].offerTypeOptions,
+        companyTypeOptions: req.app.locals.options[res.getLocale()].companyTypeOptions,
+        formData: formData,
+        error: error,
+    });
+};
+
+module.exports.offer = function(req, res){
+
+    //var recruiterId = req.session.userId; //used for security
+    var offerId = req.params.offerId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        if (response.statusCode === 200) {
+
+            renderOffer(req, res, body.data[0]);
+
+        }
+        else{
+            console.log('error: ' + response.statusCode);
+            console.log(body.internalError);
+        }
+    });
+
+};
+
 
 
 var renderLogin = function(req, res, formData, error){
@@ -345,7 +371,7 @@ module.exports.login = function(req, res){
 
     renderLogin(req, res, formData, '');
 
-}
+};
 
 module.exports.doLogin = function(req, res){
 

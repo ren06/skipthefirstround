@@ -7,9 +7,9 @@
 
 
 label.col-sm-3.control-label(for='cvFile') Your CV
-    span.text-danger.small
+    span.text-danger.small *
 .col-sm-3
-    label.btn.btn-default-transparent.btn-sm
+    label.btn.btn-default-transparent.btn-sm(required='')
         | Select pdf file &nbsp;
         i.fa.fa-upload
         input#cvFile(type="file" style="display: none;" name="file")

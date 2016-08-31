@@ -23,17 +23,6 @@ block content
                 $(".buttonEdit").hide()
             }
 
-
-
-            //$("#saveLink").click(function (event) {
-            //    event.preventDefault();
-            //    $("#interview_form").submit();
-            //});
-
-        //$("#interview_form").submit(function( event ) {
-        //    event.preventDefault();
-        //});
-
         });
 
     .col-lg-2.text-center
@@ -96,7 +85,36 @@ block content
                         .col-sm-8(style='padding-top: 7px')
                             if(formData.cv !== '' && typeof formData.cv !== 'undefined')
                                 -var cvLink = cloudinary.url(formData.cv);
-                                a(href='#{cvLink}') View
+                                a(href='#{cvLink}' target='_blank') View
+                            //    a.ls-modal(href='#{cvLink}') View
+                            //#myModal.modal.fade
+                            //    .modal-dialog
+                            //        .modal-content
+                            //            .modal-header
+                            //                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                            //                h4.modal-title Event
+                            //            .modal-body
+                            //                p Loading...
+                            //            .modal-footer
+                            //                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                            //                button.btn.btn-primary(type='submit') Save changes
+
+                    ////JS script
+                    //script(src="/pdfobject/pdfobject.js")
+                    //script.
+                    //
+                    //    $('.ls-modal').on('click', function(e){
+                    //        e.preventDefault();
+                    //        $('#myModal').modal('show').find('.modal-body').load($(this).attr('href'));
+                    //    });
+                    //
+                    //    if(PDFObject.supportsPDFs){
+                    //        console.log("Yay, this browser supports inline PDFs.");
+                    //    } else {
+                    //        console.log("Boo, inline PDFs are not supported by this browser");
+                    //    }
+
+
                     .form-group
                         .col-sm-offset-4.col-sm-10
                             //button(type="submit").btn.btn-default S'enregister

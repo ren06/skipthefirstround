@@ -8,24 +8,24 @@ block content
     .col-lg-8
         .row
 
-            h3 My offers
+            h3 Mes offres
 
             table.table
                 tr
-                    th Offer
-                    th Number Views
-                    th Number Applicatns
+                    th Offre
+                    //th Nombre de vues
+                    th Nombre de candidatures
                     th Details
-                    th Applicants
+                    th Candidats
                 each offer in offers
                     tr
-                        td=offerTypeText + ' - ' + offer.sectorText + ' - ' + offer.companyTypeText + ' - ' + offer.location
-                        td 23
-                        td 3
+                        td=offer.sectorText + ' - ' + offer.positionText + ' - ' + offer.offerTypeText + ' - ' + offer.companyTypeText + ' - ' + offer.location
+                        //td=offer.viewCount
+                        td=offer.applyCount
                         td
-                            a(href='offer/#{offer.id}') View Details
+                            a(href='offer/#{offer.id}') Details
                         td
-                            a(href='offer/#{offer.id}') View Applicants (TODO show videos)
+                            a(href='offer/#{offer.id}') Voir candidats (TODO show videos)
 
         .row
 

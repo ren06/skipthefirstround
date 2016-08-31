@@ -17,9 +17,10 @@ block content
 
     .col-lg-2.text-center
     .col-lg-8
+
         .row
 
-            h3 Post offer
+            h3 View offer
             form.form-horizontal(id="registerForm", action="", method="post", role="form")
                 if(error)
                     .alert.alert-danger() #{error}
@@ -29,7 +30,7 @@ block content
                 .form-group.required
                     label.control-label.col-sm-4(for='sector') Secteur d'activite
                     .col-sm-8
-                        select#sector(value=formData.sector, name='sector').form-control.required
+                        select#sector(name='sector').form-control.required
                             each val, key in sectorOptions
                                 option(value=key selected=(key == formData.sector))=val.label
 
@@ -37,15 +38,16 @@ block content
                     label.control-label.col-sm-4(for='sector') Position
                     .col-sm-8
                         select#position(name='position').form-control
+                            - console.log(formData);
                             each val, key in sectorOptions[formData.sector].positions
                                 option(value=key selected=(key == formData.position))=val
 
                 .form-group.required
                     label.control-label.col-sm-4(for='offerType') Type d'offre
                     .col-sm-8
-                        select#offerType(value=formData.offerType, name='offerType').form-control.required
+                        select#offerType(name='offerType').form-control.required
                             each val, key in offerTypeOptions
-                                option(value=key)=val
+                                option(value=key selected=(key == formData.offerType))=val
 
                 .form-group
                     label.control-label.col-sm-4(for='location') Nom entreprise
@@ -56,9 +58,9 @@ block content
                 .form-group
                     label.control-label.col-sm-4(for='companyType') Type d'entreprise
                     .col-sm-8
-                        select#companyType(value=formData.offerType, name='companyType').form-control.required
+                        select#companyType(name='companyType').form-control.required
                             each val, key in companyTypeOptions
-                                option(value=key)=val
+                                option(value=key selected=(key == formData.companyType))=val
 
                 .form-group.required
                     label.control-label.col-sm-4(for='location') Ville
@@ -68,9 +70,9 @@ block content
                 .form-group.required
                     label.control-label.col-sm-4(for='language') Language
                     .col-sm-8
-                        select#language(value=formData.language, name='language').form-control.required
+                        select#language(name='language').form-control.required
                             each val, key in {'en': 'English', 'fr' : 'Francais'}
-                                option(value=key)=val
+                                option(value=key selected=(key == formData.language))=val
 
                 .form-group.required
                     label.control-label.col-sm-4(for='text') Texte

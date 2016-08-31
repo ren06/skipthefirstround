@@ -67,8 +67,8 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
             function (err, result) {
                 done();
                 if (err) {
-
-                    sendJsonResponse(res, 409, false, (internalError? internalError: err.message) + ' ' + err.code, userError);
+                    console.log(err);
+                    sendJsonResponse(res, 409, false, (internalError? internalError : err.message) + ' ' + err.code, userError);
                 }
             }
         );
@@ -139,7 +139,6 @@ module.exports.convertQueryToWhereClause = function(query, tableAlias){
             }
             whereClause +=  decamelize(entry) + "='" + query[entry] + "'" + and;
         });
-        console.log(whereClause);
         //remove last AND
         whereClause = whereClause.substr(0, whereClause.length - and.length);
     }

@@ -38,7 +38,6 @@ var sendEmail = function(to, html, subject){
                 console.log('Message sent: ' + info.response);
                 return {'success': true, 'message': info.response};
             }
-            ;
         });
     }
     else{
@@ -48,7 +47,7 @@ var sendEmail = function(to, html, subject){
 
 var renderView = function(templateName, data){
 
-    var pathToTemplate = require('path').resolve(__dirname, '../views') + '/' + templateName + '.jade'
+    var pathToTemplate = require('path').resolve(__dirname, '../views') + '/' + templateName + '.jade';
     var template = require('fs').readFileSync(pathToTemplate, 'utf8');
     var jadeFn = jade.compile(template, {filename: pathToTemplate, pretty: true});
     var renderedTemplate = jadeFn(data);
@@ -70,10 +69,24 @@ module.exports.to_User_Registration = function(email, firstName){
 
 };
 
+//SEND USER CONFIMAMTION NEW INTERVIEW
+module.exports.to_User_InterviewConfirmationHtml = function(email, firstName){
+
+    return renderView('email/user-interview-confirmation', {data: {firstName: firstName, email: email}});
+};
+
+module.exports.to_User_NewInterview = function(email, firstName){
+
+    var html = this.to_User_InterviewConfirmation(email, firstName);
+
+    sendEmail(email, html, 'Registration');
+
+};
+
 //SEND RECRUITER REGISTRATION EMAIL
 module.exports.to_Recruiter_RegistrationHtml = function(email, userName){
 
-    var html = renderView('email/recruiter-registration', {data: {userName: userName}});
+    return renderView('email/recruiter-registration', {data: {userName: userName}});
 
 };
 module.exports.to_Recruiter_Registration = function(email, userName){
@@ -92,7 +105,7 @@ module.exports.to_Recruiter_Registration = function(email, userName){
  */
 module.exports.to_Admin_New_InterviewHtml = function(type, firstName, position, date, time, skypeId){
 
-    return renderView('email/user-interview-confirmation', {data: {
+    return renderView('email/admin-new-interview', {data: {
         type: type,
         firstName: firstName,
         position: position,

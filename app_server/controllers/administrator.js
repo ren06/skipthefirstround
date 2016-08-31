@@ -10,7 +10,7 @@ var renderLogin = function(req, res, formData, error){
         formData: formData,
         error: error,
     });
-}
+};
 
 module.exports.homepage = function(req, res){
 
@@ -48,7 +48,7 @@ module.exports.doLogin = function(req, res){
     else{
         renderLogin(req, res, formData, 'Email and password do not match');
     }
-}
+};
 
 module.exports.mainMenu = function(req, res){
 
@@ -154,9 +154,11 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
         //break down date time in date, hour and minutes
         //DD/MM/YYYY HH:mm
-        interview.date = moment(interview.dateTime).format('DD/MM/YYYY');
-        interview.hour = moment(interview.dateTime).format('HH');
-        interview.time = moment(interview.dateTime).format('mm');
+        if(interview.date) {
+            interview.date = moment(interview.dateTime).format('DD/MM/YYYY');
+            interview.hour = moment(interview.dateTime).format('HH');
+            interview.time = moment(interview.dateTime).format('mm');
+        }
 
         console.log(interview.dateTimeText);
         console.log(interview.dateTime);
@@ -166,6 +168,9 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
         var interviewTypeOptions = req.app.locals.options[res.getLocale()].interviewTypeOptions;
         var interviewStatusOptions = req.app.locals.options[res.getLocale()].interviewStatusOptions;
         var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
+        var jobTypeOptions = req.app.locals.options[res.getLocale()].jobTypeOptions;
+
+        jobTypeOptions['0'] = ' -- Select --';
 
         requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
 
@@ -198,6 +203,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
                 interview.position = formData.position;
                 interview.summary = formData.summary;
                 interview.status = formData.status;
+                interview.jobType = formData.jobType;
                 interview.appreciation = formData.appreciation;
             }
 
@@ -205,6 +211,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
                 interview: interview,
                 title: 'Homepage',
                 sectorOptions: sectorOptions,
+                jobTypeOptions: jobTypeOptions,
                 interviewTypeOptions: interviewTypeOptions,
                 interviewStatusOptions: interviewStatusOptions,
                 appreciationsOptions: appreciationsOptions,
@@ -215,18 +222,18 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
             });
         });
     });
-}
+};
 
 module.exports.interview = function(req, res){
 
     renderInterview(req, res, false, null, null, null);
 
-}
+};
 
 module.exports.interviewModify = function(req, res){
 
     renderInterview(req, res, true, null, null, null);
-}
+};
 
 
 var renderInterviewModifyDate = function(req, res, formData, error){
@@ -269,7 +276,7 @@ var renderInterviewModifyDate = function(req, res, formData, error){
             common.showError(req, res, response.statusCode);
         }
     });
-}
+};
 
 module.exports.doInterviewModify = function(req, res) {
 
@@ -283,6 +290,7 @@ module.exports.doInterviewModify = function(req, res) {
     var appreciation = req.body.appreciation;
     var status = req.body.status;
     var position = req.body.position;
+    var jobType = req.body.jobType;
     var company = req.body.company;
     var videoProviderUniqueId = req.body.videoProviderUniqueId;
     var videoUrl = req.body.videoUrl;
@@ -291,7 +299,7 @@ module.exports.doInterviewModify = function(req, res) {
     var dateTimeDb = null;
 
     if (date && hour && minute) {
-        var dateTimeDb = moment(date + ' ' + hour + ':' + minute, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss');
+        dateTimeDb = moment(date + ' ' + hour + ':' + minute, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss');
     }
 
     var postData = {
@@ -301,6 +309,7 @@ module.exports.doInterviewModify = function(req, res) {
         idInterviewer: idInterviewer,
         appreciation: appreciation,
         status: status,
+        jobType: jobType,
         company: company,
         position: position,
         videoProviderUniqueId: videoProviderUniqueId,
@@ -311,7 +320,7 @@ module.exports.doInterviewModify = function(req, res) {
     var videoData = {
         providerUniqueId: videoProviderUniqueId,
         url: videoUrl,
-    }
+    };
 
     if (status == 2 && !dateTimeDb) {
         renderInterview(req, res, true, req.body, videoData, 'You cannot have an interview with status Booked without a Date');
@@ -341,7 +350,7 @@ module.exports.doInterviewModify = function(req, res) {
         });
     }
 
-}
+};
 
 module.exports.interviewModifyDate = function(req, res){
 
@@ -353,11 +362,11 @@ module.exports.interviewModifyDate = function(req, res){
         minute: '00',
         sendMail: true,
         interviewerId: ''
-    }
+    };
 
     renderInterviewModifyDate(req, res, formData, null, false);
 
-}
+};
 
 module.exports.doInterviewModifyDate = function(req, res){
 
@@ -382,7 +391,7 @@ module.exports.doInterviewModifyDate = function(req, res){
         minute: minute,
         sendEmail: sendEmail,
 
-    }
+    };
 
     //check everything is there
     if(!formData.date || !formData.hour || !formData.minute || !formData.interviewId || !formData.interviewerId  ){
@@ -445,7 +454,7 @@ module.exports.interviewAddSequence = function(req, res){
 
     renderInterviewAddSequence(req, res, formData, videoData, null);
 
-}
+};
 
 var renderInterviewAddSequence = function(req, res, formData, videoData, error){
 
@@ -471,7 +480,7 @@ var renderInterviewAddSequence = function(req, res, formData, videoData, error){
             error: error
         });
     });
-}
+};
 
 module.exports.doInterviewAddSequence = function(req, res){
 
@@ -516,7 +525,7 @@ module.exports.doInterviewAddSequence = function(req, res){
             tagId: tagId,
             summary: summary,
             appreciationId: appreciationId
-        }
+        };
 
         var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId + '/sequences/new', 'POST', postData, false);
 

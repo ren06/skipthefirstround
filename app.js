@@ -62,7 +62,7 @@ app.use(session({
   resave: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
   saveUninitialized: true,
-}))
+}));
 
 
 app.use(i18n.init);
@@ -111,6 +111,9 @@ cloudinary.config({
     api_key: '577639826413541',
     api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'
 });
+
+app.use('/pdfobject', express.static(__dirname + '/node_modules/pdfobject/'));
+
 
 //to use session and cookies object inside jade template
 app.use(function(req ,res, next){

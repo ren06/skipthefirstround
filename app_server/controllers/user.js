@@ -9,7 +9,7 @@ module.exports.myAccount = function(req, res){
 
     console.log('id: ' + req.session.userId);
 
-    var language = req.cookies.locale
+    var language = req.cookies.locale;
 
     console.log('My account current locale: ' + language);
 
@@ -40,7 +40,7 @@ module.exports.myAccount = function(req, res){
 
                 var interviewsPast = body.data;
 
-                requestOptions.url = apiOptions.server + '/api/user/' + userId + '/interviewsUpcoming',
+                requestOptions.url = apiOptions.server + '/api/user/' + userId + '/interviewsUpcoming';
 
                 request(requestOptions, function (err, response, body) {
 
@@ -92,11 +92,11 @@ var renderInterview = function(req, res, interview){
         interview: interview,
     });
 
-}
+};
 
 module.exports.interview = function(req, res){
 
-    var interviewId = req.params.interviewId
+    var interviewId = req.params.interviewId;
 
     request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET', null, null ), function (err, response, body) {
 
@@ -131,9 +131,7 @@ module.exports.personalInformations = function(req, res){
 
     request(common.getRequestOptions(req, '/api/user/' + userId, 'GET', null, null ), function (err, response, body) {
 
-        var user = body.data[0];
-
-        var formData = user;
+        var formData = body.data[0];
 
         renderPersonalInformation(req, res, formData, null, false);
 
@@ -163,33 +161,38 @@ var renderBrowseOffers = function(req, res, formData, results, message){
 
         var lang = res.getLocale();
 
+        var sectorOptions = req.app.locals.options[lang].sectorOptions;
+        sectorOptions['0'] = {"label" : "All", positions: {'0' : 'All'}};
+
+        var jobTypeOptions =  req.app.locals.options[lang].jobTypeOptions;
+        jobTypeOptions['0'] = 'All';
+
         res.render('user/offers', {
-            title: res.__('Offers'),
-            sectorOptions: common.addAll(req.app.locals.options[lang].sectorOptions),
+            sectorOptions: sectorOptions,
+            jobTypeOptions: jobTypeOptions,
             offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
             companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
             languageOptions: common.addAll(req.app.locals.options[lang].languageOptions),
             locations: common.addAll(body.data),
-            title: i18n.__('Browse Videos'),
+            message: message,
             formData: formData,
             offers: results
         });
     });
 
 
-}
+};
 
 
 module.exports.offers = function(req, res){
 
     var formData = {
-        sector: '0',
+        sector: '0', //All
         offerType: '0',
         language: '',
         companyType: '0',
         location: '0',
-
-    }
+    };
 
     renderBrowseOffers(req, res, formData, {}, null);
 
@@ -212,11 +215,13 @@ module.exports.doOffers = function(req, res){
         }
     });
 
+    var path = null;
+
     if(req.session.authenticated && req.session.role == 'user'){
-        var path = '/api/offers/searchForUser/' + userId;
+        path = '/api/offers/searchForUser/' + userId;
     }
     else{
-        var path = '/api/offers/searchForGuest/';
+        path = '/api/offers/searchForGuest/';
     }
     console.log(path);
     request(common.getRequestOptions(req, path, 'GET', null, qs ), function (err, response, body) {
@@ -323,7 +328,7 @@ module.exports.doApplyOffer = function(req, res){
 
     var offerId = formData.offerId;
     var sector = formData.sector;
-    var cv = formData.cv
+    var cv = formData.cv;
 
     //get offer data
     var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
@@ -350,6 +355,8 @@ module.exports.doApplyOffer = function(req, res){
 
             console.log('params ok');
 
+            var interviewType = 2;
+
             //if user not authenticated it must be created
             if(!req.session.authenticated) {
 
@@ -373,11 +380,11 @@ module.exports.doApplyOffer = function(req, res){
                         common.setSessionData(req, res, body.data.user, 'user', token, function(){
 
                             //send email
-                            emails.sendEmailResistration(req.session.email, req.session.fullName);
+                            emails.to_User_Registration(req.session.email, req.session.fullName);
 
                             //send le finaud email
                             //TODO later merge register and user
-                            register.createInterview(req, body.data.user.id, 2, sector, offerId, null, null, function (err, response, body) {
+                            register.createInterview(req, body.data.user.id, interviewType, sector, offerId, null, null, function (err, response, body) {
 
                                 console.log(err);
                                 console.log(body);
@@ -412,11 +419,12 @@ module.exports.doApplyOffer = function(req, res){
                 var userId = req.session.userId;
 
                 //send email
-                emails.sendEmailOfferConfirmation(req.session.email, req.session.fullName);
+                emails.to_User_InterviewConfirmation(interviewType, req.session.email, req.session.fullName);
 
                 //send le finaud email
+                emails.to_Admin_New_Interview(interviewType, req.session.email, req.session.fullName);
                 //TODO later merge register and user
-                register.createInterview(req, userId, 2, sector, offerId, null, null, function (err, response, body) {
+                register.createInterview(req, userId, interviewType, sector, offerId, null, null, function (err, response, body) {
 
                     //update
 
@@ -461,7 +469,6 @@ var renderSimulation = function(req, res, formData, error){
     var sectorOptions = res.app.locals.options[res.getLocale()].sectorOptions;
 
     res.render('user/register-simulation', {
-        title: i18n.__('Enregistrement'),
         formData: formData,
         sectorOptions: sectorOptions,
         error: error,
@@ -482,7 +489,7 @@ module.exports.simulation = function(req, res){
 
         var formData = {
             availability: user.availability,
-            sector: req.app.locals.options[res.getLocale()].sectorOptions[0],
+            sector: '1',
             skypeId: user.skypeId,
             mobilePhone: (user.mobilePhone? user.mobilePhone: '') ,
             position: '',

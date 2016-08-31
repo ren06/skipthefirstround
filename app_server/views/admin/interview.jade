@@ -22,6 +22,32 @@ block content
             });
         });
 
+    script.
+        $(document).ready(function () {
+            $('#sector').change(function () {
+
+                $.ajax({
+                    type: 'GET',
+                    data: {sector: $('#sector').val()},
+                    url: '/getPositions',
+                    success: function (data) {
+
+                        var select = $("#position")[0];
+
+                        $('#position').empty();
+
+                        for (var key in data) {
+                            if (data.hasOwnProperty(key)) {
+
+                                select.add(new Option(data[key], key));
+
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
 
     .col-lg-1.text-center
     .col-lg-10
@@ -48,28 +74,38 @@ block content
                     .form-group
                         label.control-label.col-sm-2(for='status') Status:
                         .col-sm-10
-                            select#status.form-control(value=interview.type, name='status')
+                            select#status.form-control(name='status')
                                 each val, key in interviewStatusOptions
-                                    option(value=key)=val
+                                    option(value=key selected=(key == interview.status))=val
 
                     .form-group
                         label.control-label.col-sm-2(for='sector') Type:
                         .col-sm-10
-                            select#type.form-control(value=interview.type, name='type')
+                            select#type.form-control(name='type')
                                 each val, key in interviewTypeOptions
-                                    option(value=key)=val
+                                    option(value=key selected=(key == interview.type))=val
 
                     .form-group
                         label.control-label.col-sm-2(for='sector') Sector:
                         .col-sm-10
-                            select#sector.form-control(value=interview.sector, name='sector')
+                            select#sector.form-control(name='sector')
                                 each val, key in sectorOptions
-                                    option(value=key)=val
+                                    option(value=key selected=(key == interview.sector))=val.label
 
                     .form-group
                         label.control-label.col-sm-2(for='position') Position
                         .col-sm-10
-                            input#position(name="position", placeholder="" value="#{interview.position}").form-control
+                            select#position.form-control(name='position')
+                                each val, key in sectorOptions[interview.position].positions
+                                    option(value=key selected=(key == interview.position))=val
+
+                    .form-group
+                        label.control-label.col-sm-2(for='jobType') Job type:
+                        .col-sm-10
+                            select#jobType.form-control(name='jobType')
+                                each val, key in jobTypeOptions
+                                    option(value=key selected=(key == interview.jobType))=val
+
                     .form-group
                         label.control-label.col-sm-2(for='company') Company
                         .col-sm-10
@@ -78,6 +114,7 @@ block content
                         label.control-label.col-sm-2(for='datepicker') Date:
                         .col-sm-10
                             .input-group.date.col-sm-4
+                                - console.log(interview.date);
                                 input#datepicker(type="text" name='date' value='#{interview.date}').form-control
                                 .input-group-addon
                                     span.glyphicon.glyphicon-th

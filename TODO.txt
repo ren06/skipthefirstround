@@ -1,35 +1,27 @@
-- Utiliser l'email du finaud pour les drop down
-
-a.       Buyside
-b.       Corporate Banking
-c.       Corporate Finance
-d.       Financial Analysis, Control, Audit, Consultancy
-e.       Financial Markets
-f.       Transversal Functions
-g.       Other
-
-  Buyside: Hedge Fund, Insurance, Portfolio Management, Marketing & Sales, Private Banking, Risk & Reporting, Other
-  Corporate Banking: Coverage & Origination, Retail, Credit & Risk Analysis, Microfinance, Other
-  etc... voir email
-
-- Recruiter, in my offer, see how many people applied, number of views
+OK - Contact form send email
+OK - Utiliser l'email du finaud pour les drop down
+OK - Recruiter, in my offer, see how many people applied, number of views
 OK - Parcourir les extraits videos : mock interview ONLY. 
 OK - Block access to recruiter after registration until administrator activates the account
 OK - Do admin menu to active/deactivate recruiters
-- Afficher le CV a cote de la video dans par courir extraits
+OK - Afficher le CV a cote de la video dans parcourir extraits
 OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
+OK - Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
+
+- Recruiters ->  My offers --> see applicants : real interview for offers
+- Mark 'already applied' for interview already applied
+- list jobs with 'view details' and count views
+- set language of interview in interview admin menu
+- Change status To be confirmed -> scheduled -> completed
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)
 - A to Z scenario
-- Nice to have: cloudniary, different setup for dev and prod
-OK - Contact form send email
+
+
+
 - Put a link to the CV in the email for admin when new interview
 - Faire un lien dans email confirmation d'interview "Go to my account"
-- Change status To be confirmed -> scheduled -> completed
-- Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
 
 
-
-   --> see applicatns : real interview for offers
-
+- Nice to have: cloudniary, different setup for dev and prod

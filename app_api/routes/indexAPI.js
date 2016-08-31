@@ -63,14 +63,15 @@ router.get ('/recruiter/:recruiterId', ctrlRecruiters.recruiterReadOne);
 router.get ('/recruiter/:recruiterId/offers', ctrlOffers.offersListByRecruiter);
 router.post('/recruiter/:recruiterId/toggleActiveInactive', ctrlRecruiters.toggleActiveInactive);
 router.get ('/recruiter/:recruiterId/isActive', ctrlRecruiters.isActive);
-router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate)
+router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate);
 
 router.post('/offer', ctrlOffers.offerCreate);
 router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
+router.get ('/offer/:offerId/videos', ctrlOffers.offerReadOneVideos);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
 router.get ('/offers/searchForUser/:userId', ctrlOffers.offerSearchForUser);
 router.get ('/offers/searchForGuest', ctrlOffers.offerSearchForGuest);
-router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);
+//router.get ('/offers/searchForRecruiter', ctrlOffers.offerSearchForRecruiter);
 
 router.get ('/interviews/searchMockInterviewsForRecruiter', ctrlInterviews.searchMockInterviewsForRecruiter);
 

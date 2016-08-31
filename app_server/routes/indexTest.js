@@ -19,7 +19,7 @@ router.get ('/email/user-register', function(req, res){
 
 router.get ('/email/user-interview-confirmation', function(req, res){
 
-    var html = emails.to_Admin_New_InterviewHtml(1, 'Renaud', 'Junior Analyst', '17/10/2016', '12:30', 'renaudt');
+    var html = emails.to_Admin_New_Interview(1, 'Renaud', 'Junior Analyst', '17/10/2016', '12:30', 'renaudt');
     res.send(html);
 
 });

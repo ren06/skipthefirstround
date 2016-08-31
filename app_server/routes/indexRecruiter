@@ -3,10 +3,7 @@ var router = express.Router();
 var common = require('../controllers/common');
 
 
-var ctrlRegister = require('../controllers/register');
 var ctrlRecruiter = require('../controllers/recruiter');
-var ctrlEmails = require('../common/emails');
-var ctrlInformation = require('../controllers/information');
 var ctrlHomepage = require('../controllers/homepage');
 
 router.get ('/', ctrlHomepage.homepageRecruiter);
@@ -22,6 +19,7 @@ router.get ('/post-offer', ctrlRecruiter.postOffer);
 router.post('/post-offer', ctrlRecruiter.doPostOffer);
 router.get ('/view-favourites', ctrlRecruiter.viewFavourites);
 router.get ('/my-offers', ctrlRecruiter.myOffers);
+router.get ('/offer/:offerId', ctrlRecruiter.offer);
 router.get ('/browse-videos', ctrlRecruiter.searchVideos);
 router.post('/browse-videos', ctrlRecruiter.doSearchVideos);
 

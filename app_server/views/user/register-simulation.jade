@@ -4,7 +4,6 @@ block content
 
     include ../_includes/cv-upload-js
 
-
     script.
         $(document).ready(function () {
             $('#sector').change(function () {
@@ -62,8 +61,6 @@ block content
                                 label.col-sm-3.control-label(for='position') Position
                                     span.text-danger.small *
                                 .col-sm-8
-                                    //input#position.form-control(type='text', name='position', placeholder='Eg Financial Analyst', required='', value="#{formData.position}")
-                                    //i.fa.fa-pencil.form-control-feedback
                                     select#position(name='position').form-control
                                         each val, key in sectorOptions[formData.sector].positions
                                             option(value=key selected=(key == formData.position))=val
