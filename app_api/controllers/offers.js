@@ -103,7 +103,27 @@ module.exports.offerReadOneVideos = function(req, res){
     }
     else {
 
-        var queryString = "SELECT * FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video WHERE i.id_offer = $1";
+        //var queryString = "SELECT * FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video WHERE i.id_offer = $1";
+
+        var queryString = "SELECT i.*, row_to_json(v.*) as video, row_to_json(o.*) as offer, ARRAY(SELECT json_build_object( \
+            'id',s.id, \
+            'tag', s.tag, \
+            'summary', s.summary, \
+            'visible', s.visible, \
+            'appreciation', s.appreciation, \
+            'video', json_build_object( \
+                'provider', v.provider, \
+                'provider_unique_id', v.provider_unique_id, \
+                'provider_cloud_name', v.provider_cloud_name, \
+                'url', v.url \
+            ) \
+        ) \
+        FROM tbl_sequence s LEFT JOIN tbl_video v ON v.id = s.id_video WHERE s.id_interview = i.id \
+        ) as sequences \
+        FROM tbl_interview i \
+        INNER JOIN tbl_offer o ON i.id_offer = o.id \
+        INNER JOIN tbl_video v ON i.id_video = v.id\
+        WHERE o.id = $1";
 
         console.log(queryString);
 
@@ -228,7 +248,8 @@ module.exports.offersListByRecruiter = function(req, res){
                 'text', o.text, \
                 'language', o.language, \
                 'created', o.created,\
-                'apply_count', (SELECT COUNT(*) FROM tbl_interview i WHERE i.id_offer = o.id)\
+                'apply_count', (SELECT COUNT(*) FROM tbl_interview i WHERE i.id_offer = o.id),\
+                'video_count', (SELECT COUNT(*) FROM tbl_interview i INNER JOIN tbl_video v on i.id_video = v.id WHERE i.id_offer = o.id)\
                 ) \
                 FROM tbl_offer o INNER JOIN tbl_recruiter r ON o.id_recruiter = r.id ORDER BY o.id ASC) AS offers \
                 FROM tbl_recruiter r \

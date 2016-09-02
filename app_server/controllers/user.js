@@ -380,7 +380,7 @@ module.exports.doApplyOffer = function(req, res){
                         common.setSessionData(req, res, body.data.user, 'user', token, function(){
 
                             //send email
-                            emails.to_User_Registration(req.session.email, req.session.fullName);
+                            emails.to_User_Registration(req.session.email, req.session.fullName, 2);
 
                             //send le finaud email
                             //TODO later merge register and user

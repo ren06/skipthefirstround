@@ -14,7 +14,8 @@ block content
                 tr
                     th Offre
                     //th Nombre de vues
-                    th Nombre de candidatures
+                    th Candidatures en cours
+                    th Interviews realisees
                     th Details
                     th Candidats
                 each offer in offers
@@ -22,10 +23,11 @@ block content
                         td=offer.sectorText + ' - ' + offer.positionText + ' - ' + offer.offerTypeText + ' - ' + offer.companyTypeText + ' - ' + offer.location
                         //td=offer.viewCount
                         td=offer.applyCount
+                        td=offer.videoCount
                         td
                             a(href='offer/#{offer.id}') Details
                         td
-                            a(href='offer/#{offer.id}') Voir candidats (TODO show videos)
+                            a(href='offer/#{offer.id}/videos') Videos Candidats
 
         .row
 

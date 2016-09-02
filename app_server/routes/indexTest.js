@@ -31,6 +31,15 @@ router.get ('/email/recruiter-register', function(req, res){
 
 });
 
+router.get ('/email/sendTestEmail', function(req, res){
+
+    emails.sendTestEmail('test@skipthefirstround.com', function(result){
+        console.log(result);
+        res.send(result);
+    });
+
+});
+
 
 
 

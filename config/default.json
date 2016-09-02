@@ -18,6 +18,6 @@
   },
   "Email":{
     "sendEmail": true,
-    "adminEmail" : "admin@skipthefirstround.com",
+    "adminEmail" : "info@skipthefirstround.com",
   }
 }

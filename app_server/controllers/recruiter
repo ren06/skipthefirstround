@@ -348,6 +348,31 @@ module.exports.offer = function(req, res){
 
 };
 
+module.exports.videos = function(req, res){
+
+    var offerId = req.params.offerId;
+
+    var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId + '/videos', 'GET', null);
+
+    request(requestOptions, function (err, response, body) {
+
+        if (response.statusCode === 200) {
+
+            res.render('recruiter/offer-candidates', {
+                offerId: offerId,
+                interviews: body.data,
+            });
+
+        }
+        else{
+            console.log('error: ' + response.statusCode);
+            console.log(body.internalError);
+        }
+    });
+
+};
+
+
 
 
 var renderLogin = function(req, res, formData, error){

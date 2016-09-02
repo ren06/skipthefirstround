@@ -1,0 +1,38 @@
+extends ../user/layout
+
+block content
+
+    .col-lg-2.text-center
+    .col-lg-8
+        .row
+
+            h3 Offre ##{offerId}
+
+            table.table
+                tr
+                    th Video
+                    th Sequences
+                    th Summary
+
+                each interview in interviews
+                    tr
+                        td
+                            -var id = interview.video.providerUniqueId;
+                            -var html = cloudinary.video(id, {width: 250, height: 250, crop: "fit", controls: true});
+                            !=html
+
+                        td
+                            table.table
+                            each sequence in interview.sequences
+                                tr
+                                    td =sequence.id
+                        td
+                           | #{interview.summary}
+
+        .row
+
+        .row
+
+
+
+    .col-lg-2.text-center

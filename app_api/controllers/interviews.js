@@ -59,7 +59,7 @@ var addText = function(data, req){
             }
 
             if(entry.type == 2){
-                entry['typeText'] =  entry['typeText'] + ' #' + entry.id;
+                entry['typeText'] =  entry['typeText'] + ' #' + entry.id_offer;
             }
 
             if(!entry.company){

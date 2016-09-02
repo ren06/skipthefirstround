@@ -155,7 +155,7 @@ module.exports.doRegisterUser = function(req, res){
                     console.log('id: ' + req.session.userId);
 
                     //send email
-                    emails.to_User_Registration(req.session.email, req.session.fullName);
+                    emails.to_User_Registration(req.session.email, req.session.fullName, 1);
 
                     //create interview
                     createInterview(req, body.data.user.id, 1, sector, null, position, company, function(err, response, body){
