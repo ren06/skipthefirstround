@@ -34,8 +34,14 @@ var addText = function(data, req){
             }
             else {
                 var result = moment(dateTime).format("dddd Do MMMM YYYY HH:mm");
+
                 entry['dateTimeText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
                 entry['date'] = moment(dateTime).format("DD/MM/YYYY");
+
+                result = moment(dateTime).format("dddd Do MMMM YYYY");
+
+                entry['dateText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
+                entry['timeText'] = moment(dateTime).format("HH:mm");
             }
 
             entry['hour'] = moment(dateTime).format("H");

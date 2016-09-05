@@ -9,17 +9,14 @@ OK - Fix skipthefirstround.com so it works as www.skipthefirstround.com
 OK - Post offer: implementer champ position, mettre meme contenu dans la drop down secteur comme user registration
 OK - set language of interview in interview admin menu
 OK - Change status To be confirmed -> scheduled -> completed
+OK - Recruiters ->  My offers --> see applicants : real interview for offers
+OK - list jobs with 'view details' and count views
 
-- Recruiters ->  My offers --> see applicants : real interview for offers
 - Mark 'already applied' for interview already applied
-- list jobs with 'view details' and count views
-
 - finsih apply offer page
 - test emails
 - check wordings on all page (and English vs French)
 - A to Z scenario
-
-
 
 - Put a link to the CV in the email for admin when new interview
 - Faire un lien dans email confirmation d'interview "Go to my account"

@@ -1,16 +1,18 @@
--var interviewTypeText
-if interviewType == 1
-    -interviewTypeText = 'mock interview';
-else
-    -interviewTypeText = 'job interview';
 
 extends template
 
 block content
 
+    -var interviewTypeText
+    if data.interviewType == 1
+        -interviewTypeText = 'mock interview';
+    else
+        -interviewTypeText = 'job interview';
+
+
     p Dear #{data.firstName},
 
-    p We are happy to confirm the below details ahead of our #{typeText} :
+    p We are happy to confirm the below details ahead of your #{interviewTypeText} :
     ul
         li Position: #{data.position}
         li Date: #{data.date}
@@ -22,4 +24,4 @@ block content
     p We will also give you personalised feedback & advise and offer you the opportunity to display some of the content to partnering recruiters. To this end business attire is highly recommended.
     p Looking forward to speaking with you!
 
-    p The Interviewing Team @ SkipThe FirstRound.com
+    p The Interviewing Team @ SkipTheFirstRound.com

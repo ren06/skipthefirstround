@@ -1,3 +1,6 @@
+
+To add a new account, login as master and press the Cog button -> Control panel
+
 admin@skipthefirstround.com => master account
 
 
@@ -5,4 +8,7 @@ test@skiptthefirstround.com
 demandeaufinaud
 
 info@skiptthefirstround.com
+demandeaufinaud
+
+recruiter@skiptthefirstround.com
 demandeaufinaud

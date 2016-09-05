@@ -1,12 +1,13 @@
--var interviewTypeText
-if interviewType == 1
-    -interviewTypeText = 'mock interview';
-else
-    -interviewTypeText = 'job interview';
 
 extends template
 
 block content
+
+    -var interviewTypeText
+    if data.interviewType == 1
+        -interviewTypeText = 'mock interview';
+    else
+        -interviewTypeText = 'job interview';
 
     | Dear #{data.firstName},
 
@@ -16,9 +17,9 @@ block content
     | Thank you very much for getting in touch for requesting a new interview.
     br
     br
-    | We will get back to you within 12 hours to arrange the date and time of your #{typeText}. If urgent please contact us directly at info@skipthefirstround.com.
+    | We will get back to you within 12 hours to arrange the date and time of your #{interviewTypeText}. If urgent please contact us directly at info@skipthefirstround.com.
 
     br
     br
 
-    | The Interviewing Team @ SkipThe FirstRound.com
+    | The Interviewing Team @ SkipTheFirstRound.com

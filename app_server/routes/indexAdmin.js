@@ -26,6 +26,7 @@ router.post('/interview/:interviewId/modifyDate', ctrlAdmin.doInterviewModifyDat
 router.get ('/interview/:interviewId/addSequence', ctrlAdmin.interviewAddSequence);
 router.post('/interview/:interviewId/addSequence', ctrlAdmin.doInterviewAddSequence);
 
+router.get ('/offers/', ctrlAdmin.offersList);
 
 router.get ('/interviewers/', ctrlAdmin.interviewerList);
 router.get ('/interviewer-create/', ctrlAdmin.interviewerCreate);

@@ -67,6 +67,7 @@ router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate);
 
 router.post('/offer', ctrlOffers.offerCreate);
 router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
+router.get ('/offers', ctrlOffers.offersList);
 router.get ('/offer/:offerId/videos', ctrlOffers.offerReadOneVideos);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
 router.get ('/offers/searchForUser/:userId', ctrlOffers.offerSearchForUser);
@@ -79,6 +80,6 @@ router.get ('/interviews/searchMockInterviewsForRecruiter', ctrlInterviews.searc
 
 router.get ('/testDb', ctrlUnitTest.dbConnection);
 router.get ('/testLocale', ctrlUnitTest.locale);
-
+router.get ('/test/renameEmailAddress', ctrlUnitTest.renameEmailAddress);
 
 module.exports = router;

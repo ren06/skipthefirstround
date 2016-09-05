@@ -77,14 +77,7 @@
                                                                 b For recruiters
                                                         else
                                                             b For recruiters
-                                                    //if(session.role == 'recruiter')
-                                                    //    a(href='/')
-                                                    //        b For candidates
-                                                    //else if(session.role == 'user')
-                                                    //    a(href='/recruiter')
-                                                    //        b For recruiters
-                                                    //else
-                                                    //    | No session set
+
                                             else if(session.role == 'user')
                                                 li
                                                     a(href='/simulation')
@@ -105,7 +98,7 @@
                                             else
                                                 -loginUrl = '/recruiter/recruiter-login/'
                                                 -registerUrl = '/recruiter/recruiter-register'
-                                                -logoutUrl = '/recruiter-logout'
+                                                -logoutUrl = '/recruiter/recruiter-logout'
 
                                             //li
                                             //    a(href='/change-language/fr') FR
@@ -123,14 +116,7 @@
                                                     a(href="#{loginUrl}") Log in
                                                 li
                                                     a(href="#{registerUrl}") Register
-                                            //li
-                                            //    a(href='#about') For recruiters
-                                            //li
-                                            //    a(href='#services') Login
-                                            //li
-                                            //    a(href='#portfolio') Register
-                                            //li
-                                            //    a(href='#footer') Contact
+
                             // navbar end
                         // main-navigation end
                     // header-right end

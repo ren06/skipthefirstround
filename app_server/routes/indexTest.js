@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 var emails = require('../common/emails');
+var common = require('../controllers/common');
 
 router.get ('/email', function(req, res){
 
@@ -11,15 +13,17 @@ router.get ('/email', function(req, res){
 });
 
 router.get ('/email/user-register', function(req, res){
-
-    var html = emails.to_User_RegistrationHtml('rtheuillon@hotmail.com', 'Renaud');
+    var data =  {firstName: 'Renaud', interviewType: 1};
+    var html = emails.to_User_RegistrationHtml(data);
     res.send(html);
 
 });
 
 router.get ('/email/user-interview-confirmation', function(req, res){
 
-    var html = emails.to_Admin_New_Interview(1, 'Renaud', 'Junior Analyst', '17/10/2016', '12:30', 'renaudt');
+    var data = {firstName: 'Renaud', skypeId: 'renaudt'};
+
+    var html = emails.to_Admin_New_InterviewHtml(data);
     res.send(html);
 
 });
@@ -39,6 +43,19 @@ router.get ('/email/sendTestEmail', function(req, res){
     });
 
 });
+
+router.get ('/renameEmailAddress/', function(req, res){
+
+    var requestOptions = common.getRequestOptions(req, '/api/test/renameEmailAddress', 'GET');
+
+    request(requestOptions, function (err, response, body) {
+
+        res.send(response);
+    });
+
+});
+
+
 
 
 

@@ -155,7 +155,7 @@ module.exports.doRegisterUser = function(req, res){
                     console.log('id: ' + req.session.userId);
 
                     //send email
-                    emails.to_User_Registration(req.session.email, req.session.fullName, 1);
+                    emails.to_User_Registration(email, {firstName:firstName, interviewType: 1});
 
                     //create interview
                     createInterview(req, body.data.user.id, 1, sector, null, position, company, function(err, response, body){
@@ -163,7 +163,12 @@ module.exports.doRegisterUser = function(req, res){
                         if(response.statusCode === 201) {
 
                             //send le finaud email
-                            emails.to_Admin_New_Interview(1, req.session.email, req.session.fullName);
+                            var cvLink = res.locals.cloudinary.url(cv);
+                            console.log('CV: ' + cvLink);
+                            var data = { firstName: firstName,lastName: lastName ,email: email, mobilePhone: mobilePhone,
+                                availability: availability, interviewType: 1, skypeId: skypeId, cvLink: cvLink};
+
+                            emails.to_Admin_New_Interview(data);
 
                             //redirect
                             res.redirect('/confirmation');

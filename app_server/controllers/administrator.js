@@ -1,7 +1,7 @@
 var request = require('request');
 var common = require('./common');
 var moment = require('moment');
-
+var emails = require('../common/emails');
 
 var renderLogin = function(req, res, formData, error){
 
@@ -383,7 +383,7 @@ module.exports.doInterviewModifyDate = function(req, res){
     var minute = req.body.minute;
     var interviewerId = req.body.interviewerId;
     var sendEmail = req.body.sendEmail;
-    console.log('send mail raw ' + sendEmail);
+
     if(sendEmail === 'checked'){
         sendEmail = true;
     }
@@ -427,12 +427,27 @@ module.exports.doInterviewModifyDate = function(req, res){
             if(response.statusCode === 204 ) {
 
                 if(sendEmail){
-                    //send email to student to confirm booking
-                    console.log('Sending Email to user');
+
+                    //Get user data
+                    req.setLocale('en');
+                    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET');
+
+                    request(requestOptions, function (err, response, body) {
+
+                        var interview = body.data[0];
+                        var user = interview.user;
+
+                        var data = {firstName: user.firstName, interviewType: interview.type, position: interview.positionText,
+                            time: interview.timeText, date: interview.dateText, skypeId: user.skypeId};
+
+                        console.log(data);
+
+                        //send email to student to confirm booking
+                        emails.to_User_InterviewConfirmation(user.email, data);
+                    });
                 }
 
-                console.log('update OK, redirecting...');
-                res.redirect('/admin/students-interviews-list');
+                //res.redirect('/admin/students-interviews-list');
             }
             else if(response.statusCode === 400 || response.statusCode === 409 ){
 
@@ -577,6 +592,24 @@ module.exports.interviewerList = function(req, res){
 
     });
 };
+
+module.exports.offersList = function(req, res){
+
+    var requestOptions = common.getRequestOptions(req, '/api/offers', 'GET');
+
+    request(requestOptions, function (err, response, body) {
+
+        var offers = body.data;
+
+        res.render('admin/offers-list', {
+            offers: offers,
+
+
+        });
+
+    });
+};
+
 
 var renderInterviewCreate = function(req, res, formData, error){
 

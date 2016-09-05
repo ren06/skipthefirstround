@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+
+    .col-lg-2.text-center
+    .col-lg-8(style='padding:10px')
+        .row
+
+            h2  Offers List
+
+            table.table
+                tr
+                    th Id
+                    th Sector
+                    th Position
+                    th Offer type
+                    th Company type
+                    th Text
+
+                each offer in offers
+
+                    tr
+                        td #{offer.id}
+                        td #{offer.sectorText}
+                        td #{offer.positionText}
+                        td #{offer.offerTypeText}
+                        td #{offer.companyTypeText}
+                        td !{offer.text}
+
+        .row
+            a(href='interviewer-create') Create Interviewer
+
+    .col-lg-2.text-center

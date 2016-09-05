@@ -2,16 +2,27 @@ extends template
 
 block content
 
+    -var interviewTypeText
+    if data.interviewType == 1
+        -interviewTypeText = 'mock interview';
+    else
+        -interviewTypeText = 'job interview';
+
     p Dear Admin,
 
     p The following user has requested an interview, please get in touch with him within 12 hours
 
     ul
         li Name: #{data.firstName} #{data.lastName}
-        li Email: #{data.date}
-        li Phone: #{data.time}
-        li Availability: #{data.date}
-        li Interview type: #{data.date}
+        li Email: #{data.email}
+        li Phone: #{data.mobilePhone}
+        li Availability: #{data.availability}
+        li Interview type: #{interviewTypeText}
         li SkypeId: #{data.skypeId}
-
-        //TODO foutre un lien vers le CV si il y en a un
+        if(data.cvLink)
+            li CV:
+                a(href='#{data.cvLink}') Voir
+        else
+            li No CV
+        if(data.interviewType == 2)
+        li Job Offer

@@ -9,7 +9,6 @@ var sendEmail = function(to, html, subject, callback){
 
     var sendEmail = config.get('Email.sendEmail');
 
-
     console.log(sendEmail);
 
     var result = null;
@@ -37,14 +36,15 @@ var sendEmail = function(to, html, subject, callback){
             //text: 'test message form mailgun',
         }, function (err, info) {
 
-            if(callback) {
+            if (err) {
+                result = {'success': false, 'message': err};
+            }
+            else {
+                result = {'success': true, 'message': info};
+            }
+            console.log(result);
 
-                if (err) {
-                    result = {'success': false, 'message': err};
-                }
-                else {
-                    result = {'success': true, 'message': info.response};
-                }
+            if(callback) {
                 callback(result);
             }
         });
@@ -72,14 +72,14 @@ var renderView = function(templateName, data){
 //********************************************
 //*** SEND USER REGISTRATION EMAIL
 //********************************************
-module.exports.to_User_RegistrationHtml = function(email, firstName){
+module.exports.to_User_RegistrationHtml = function(data){
 
-    return renderView('email/user-registration', {data: {firstName: firstName, email: email, interviewType: interviewType}});
+    return renderView('email/user-registration', {data: data});
 };
 
-module.exports.to_User_Registration = function(email, firstName, interviewType){
+module.exports.to_User_Registration = function(email, data){
 
-    var html = this.to_User_RegistrationHtml(email, firstName, interviewType);
+    var html = this.to_User_RegistrationHtml(data);
 
     sendEmail(email, html, 'Welcome to SkipTheFirstRound.com');
 };
@@ -87,14 +87,14 @@ module.exports.to_User_Registration = function(email, firstName, interviewType){
 //****************************************************************
 //*** SEND USER CONFIRMATION OF BOOKED INTERVIEW (after date set)
 //****************************************************************
-module.exports.to_User_InterviewConfirmationHtml = function(email, firstName, interviewType){
+module.exports.to_User_InterviewConfirmationHtml = function(email,data){
 
-    return renderView('email/user-interview-confirmation', {data: {firstName: firstName, email: email, interviewType: interviewType}});
+    return renderView('email/user-interview-confirmation', {data: data});
 };
 
-module.exports.to_User_InterviewConfirmation = function(email, firstName, interviewType){
+module.exports.to_User_InterviewConfirmation = function(email, data){
 
-    var html = this.to_User_InterviewConfirmationHtml(email, firstName, interviewType);
+    var html = this.to_User_InterviewConfirmationHtml(email, data);
 
     sendEmail(email, html, 'Interview Confirmation');
 
@@ -127,7 +127,7 @@ module.exports.to_Recruiter_RegistrationHtml = function(email, userName){
 };
 module.exports.to_Recruiter_Registration = function(email, userName){
 
-    var html = to_Recruiter_RegistrationHtml(email, userName);
+    var html = this.to_Recruiter_RegistrationHtml(email, userName);
 
     sendEmail(email, html, 'Bienvenue sur SkipTheFirstRound.com');
 
@@ -138,20 +138,13 @@ module.exports.to_Recruiter_Registration = function(email, userName){
 //*** SEND ADMIN: USER ASKED FOR NEW INTERVIEW
 //********************************************
 // @param type 1 simulation 2 offer
-module.exports.to_Admin_New_InterviewHtml = function(type, firstName, position, date, time, skypeId){
+module.exports.to_Admin_New_InterviewHtml = function(data){
 
-    return renderView('email/admin-new-interview', {data: {
-        type: type,
-        firstName: firstName,
-        position: position,
-        date: date,
-        time: time,
-        skypeId: skypeId,
-    }});
+    return renderView('email/admin-new-interview', {data: data});
 }
-module.exports.to_Admin_New_Interview = function(type, email, firstName, position, date, time, skypeId){
+module.exports.to_Admin_New_Interview = function(data){
 
-    var html = this.to_Admin_New_InterviewHtml(type, firstName, position, date, time, skypeId);
+    var html = this.to_Admin_New_InterviewHtml(data);
 
     sendEmail(adminEmail, html, 'New interview request');
 

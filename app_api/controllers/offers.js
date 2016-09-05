@@ -59,6 +59,48 @@ var addTextOffers = function(data, req){
 
 };
 
+var addTextOffersSequence = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+    if(!language){
+        language = 'en';
+    }
+
+    var offers = data[0].offers;
+    console.log(offers);
+
+    if(typeof offers !== 'undefined' && offers.length > 0) {
+
+        offers.forEach(function(entry){
+
+            addTextLabel(entry, language);
+
+        });
+    }
+
+    var sequences = data[0].sequences;
+
+    if(typeof sequences !== 'undefined' && sequences.length > 0) {
+
+        sequences.forEach(function(entry){
+
+            entry['tagText'] = options.options[language].sequenceTagOptions[entry.tag];
+            entry['appreciationText'] = options.options[language].appreciationsOptions[entry.appreciation];
+
+
+        });
+    }
+
+    var interview = data[0];
+
+    interview['appreciationText'] = options.options[language].appreciationsOptions[interview.appreciation];
+
+};
+
 module.exports.offerCreate = function(req, res){
 
     var data = req.body;
@@ -80,7 +122,6 @@ module.exports.offerReadOne = function(req, res){
 
     var offerId = req.params.offerId;
 
-
     if (!offerId) {
 
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferReadMissingInput'), null);
@@ -92,10 +133,14 @@ module.exports.offerReadOne = function(req, res){
     }
 };
 
+module.exports.offersList = function(req, res){
+
+    common.readAll(req, res, 'tbl_offer', addText, 'id');
+};
+
 module.exports.offerReadOneVideos = function(req, res){
 
     var offerId = req.params.offerId;
-
 
     if (!offerId) {
 
@@ -105,7 +150,8 @@ module.exports.offerReadOneVideos = function(req, res){
 
         //var queryString = "SELECT * FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id INNER JOIN tbl_video v ON v.id = s.id_video WHERE i.id_offer = $1";
 
-        var queryString = "SELECT i.*, row_to_json(v.*) as video, row_to_json(o.*) as offer, ARRAY(SELECT json_build_object( \
+        var queryString = "SELECT i.*, row_to_json(v.*) as video, row_to_json(o.*) as offer, row_to_json(u.*) as user, \
+            ARRAY(SELECT json_build_object( \
             'id',s.id, \
             'tag', s.tag, \
             'summary', s.summary, \
@@ -122,12 +168,13 @@ module.exports.offerReadOneVideos = function(req, res){
         ) as sequences \
         FROM tbl_interview i \
         INNER JOIN tbl_offer o ON i.id_offer = o.id \
-        INNER JOIN tbl_video v ON i.id_video = v.id\
+        INNER JOIN tbl_video v ON i.id_video = v.id \
+        INNER JOIN tbl_user u ON i.id_user = u.id \
         WHERE o.id = $1";
 
         console.log(queryString);
 
-        common.dbHandleQuery(req, res, queryString, [offerId], addText, null, null, function(results){
+        common.dbHandleQuery(req, res, queryString, [offerId], addTextOffersSequence, null, null, function(results){
 
             common.sendJsonResponse(res, 200, true, null, null, results);
 

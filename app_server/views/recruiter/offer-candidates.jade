@@ -10,9 +10,11 @@ block content
 
             table.table
                 tr
-                    th Video
-                    th Sequences
-                    th Summary
+                    th Entretien en entier
+                    th Séquences de l'entretien
+                    th Résumé
+                    th Appréciation
+                    th CV
 
                 each interview in interviews
                     tr
@@ -22,12 +24,24 @@ block content
                             !=html
 
                         td
-                            table.table
-                            each sequence in interview.sequences
-                                tr
-                                    td =sequence.id
+                                each sequence in interview.sequences
+
+                                    div
+                                        u=sequence.tagText
+                                    -var idSequence = sequence.video.providerUniqueId;
+                                    -var html = cloudinary.video(idSequence, {width: 250, height: 250, crop: "fit", controls: true});
+                                    div=sequence.summary
+                                    div=sequence.appreciationText
+                                    !=html
+                                    div &nbsp;
                         td
                            | #{interview.summary}
+                        td
+                            | #{interview.appreciationText}
+                        td
+                            if(interview.user.cv !== '' && typeof interview.user.cv !== 'undefined')
+                                -var cvLink = cloudinary.url(interview.user.cv);
+                                a(href='#{cvLink}' target='_blank') Voir
 
         .row
 
