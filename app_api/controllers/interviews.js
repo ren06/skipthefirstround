@@ -91,6 +91,34 @@ var addText = function(data, req){
     //return data;
 };
 
+var addTextSearchSequence = function(data, req){
+
+    var language = req.header('Accept-Language');
+
+    if(!language){
+        language = 'en';
+    }
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+
+    if(typeof data !== 'undefined' && data.length > 0) {
+
+        data.forEach(function (entry) {
+
+            entry['tagText'] = options.options[language].sequenceTagOptions[entry.sequence_tag];
+            entry['appreciationText'] = options.options[language].appreciationsOptions[entry.sequence_appreciation];
+
+            entry['sectorText'] = options.options[language].sectorOptions[entry.interview_sector].label;
+            entry['positionText'] = options.options[language].sectorOptions[entry.interview_sector].positions[entry.interview_position];
+
+        });
+
+    }
+    //return data;
+};
+
+
 //TODO maybe split it in 2 functions, one for offer, one for simulation
 module.exports.interviewCreate = function(req, res){
 
@@ -237,14 +265,7 @@ module.exports.interviewListNoDate = function(req, res){
 
     var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE date_time IS NULL ORDER BY u.id ASC ";
 
-    common.dbHandleQuery(req, res, queryString, null, null, 'Error', 'Error', function(results){
-
-        // var data = {};
-        //
-        // results.forEach(function(entry){
-        //
-        //     data[ entry.location] = entry.location;
-        // });
+    common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 
@@ -266,19 +287,11 @@ module.exports.interviewList = function(req, res){
 
         // SQL Query > Select Data
         var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user ORDER BY u.id ASC";
-        console.log(queryString);
-        var query = client.query(queryString);
 
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
+        common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
 
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            done();
-            addText(results, req);
-            common.sendJsonResponse(res, 200, true, '', '', results);
+            common.sendJsonResponse(res, 200, true, null, null, results);
+
         });
 
     });
@@ -542,16 +555,33 @@ module.exports.searchMockInterviewsForRecruiter = function(req, res){
     var parameters = req.query;
     console.log(parameters);
 
-    var queryString = "SELECT i.*, v.*, u.cv FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id " +
+    //remove sequence_tag which applies to sequence table, not interview
+
+    var sequenceTag = parameters.sequenceTag;
+
+    if(sequenceTag) {
+
+        delete parameters['sequenceTag'];
+    }
+
+    var queryString = "SELECT row_to_json(v.*) as video, u.id as user_id, u.cv as user_cv, " +
+        "s.summary as sequence_summary, s.appreciation as sequence_appreciation, s.tag as sequence_tag, " +
+        "i.position as interview_position, i.sector as interview_sector " +
+        "FROM tbl_interview i INNER JOIN tbl_sequence s ON s.id_interview = i.id " +
         "INNER JOIN tbl_video v ON v.id = s.id_video " +
         "INNER JOIN tbl_user u ON u.id = i.id_user";
 
-    parameters['type'] = '1';
+    parameters['type'] = '1'; //only mock interviews
     queryString = queryString + ' ' + common.convertQueryToWhereClause(parameters, 'i');
+
+    if(sequenceTag){
+
+        queryString = queryString + " AND s.tag = '" + sequenceTag + "'";
+    }
 
     console.log(queryString);
 
-    common.dbHandleQuery(req, res, queryString, parameters, addText, 'Error', 'Error', function(results){
+    common.dbHandleQuery(req, res, queryString, parameters, addTextSearchSequence, 'Error', 'Error', function(results){
 
         common.sendJsonResponse(res, 200, true, null, null, results);
 

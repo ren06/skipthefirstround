@@ -447,7 +447,7 @@ module.exports.doInterviewModifyDate = function(req, res){
                     });
                 }
 
-                //res.redirect('/admin/students-interviews-list');
+                res.redirect('/admin/students-interviews-list');
             }
             else if(response.statusCode === 400 || response.statusCode === 409 ){
 

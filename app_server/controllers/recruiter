@@ -205,21 +205,21 @@ var renderBrowseVideos = function(req, res, formData, results, message){
 
         var lang = res.getLocale();
 
-        //var languageOptions =  common.addAll(req.app.locals.options[lang].languageOptions);
-
         var sectorOptions = req.app.locals.options[lang].sectorOptions;
         sectorOptions['0'] = {"label" : "Tous", positions: {'0' : 'Tous'}};
 
         var jobTypeOptions =  req.app.locals.options[lang].jobTypeOptions;
         jobTypeOptions['0'] = 'Tous';
 
+        var sequenceTagOptions =  req.app.locals.options[lang].sequenceTagOptions;
+        sequenceTagOptions['0'] = 'Tous';
+
         res.render('recruiter/browse-videos', {
             sectorOptions: sectorOptions,
             //offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
             //companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
             jobTypeOptions: jobTypeOptions,
-            //locations: common.addAll(body.data),
-            title: i18n.__('Browse Videos'),
+            sequenceTagOptions: sequenceTagOptions,
             formData: formData,
             results: results,
             message: message,
@@ -234,6 +234,7 @@ module.exports.searchVideos = function(req, res){
         sector: '0', //All
         position: '0',
         jobType: '0',
+        sequenceTag: '0',
     };
 
     renderBrowseVideos(req, res, formData, null, null);

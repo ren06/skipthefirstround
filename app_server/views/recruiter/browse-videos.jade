@@ -63,9 +63,17 @@ block content
                             each val, key in jobTypeOptions
                                 option(value=key selected=(key == formData.jobType))=val
 
+                .form-group.required
+                    label.col-sm-3.control-label(for='position') Extraits
+                    .col-sm-8
+                        select#sequenceTag(name='sequenceTag').form-control
+
+                            each val, key in sequenceTagOptions
+                                option(value=key selected=(key == formData.sequenceTag))=val
+
                 .form-group
                     .col-sm-offset-4.col-sm-10
-                        button.btn.btn-default(type="submit") Search
+                        button.btn.btn-default(type="submit") Chercher
 
             if (results && results.length > 0)
                 h3 Results
@@ -73,18 +81,20 @@ block content
                     tr
                         th Secteur
                         th Position
+                        th Extrait
                         th Voir
                         th CV
                     each result in results
                         tr
                             td #{result.sectorText}
                             td #{result.positionText}
+                            td #{result.tagText}
                             td
-                                -var id = result.providerUniqueId;
-                                -var html = cloudinary.video(id, {width: 250, height: 250, crop: "fit", controls: true});
+                                -var videoId = result.video.providerUniqueId;
+                                -var html = cloudinary.video(videoId, {width: 250, height: 250, crop: "fit", controls: true});
                                 !=html
                             td
-                                -var cvLink = cloudinary.url(result.cv);
+                                -var cvLink = cloudinary.url(result.userCv);
                                 a(href='#{cvLink}' target="_blank") Voir CV
 
 
