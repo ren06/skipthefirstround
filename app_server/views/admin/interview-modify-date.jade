@@ -54,13 +54,17 @@ block content
                                 //-var interviewerId = (formData.interviewerId ? formData.interviewerId : interviewers[0].id )
                                 select#interviewer.form-control(name='interviewerId' value='#{interviewerId}')
                                     each interviewer in interviewers
-                                        option(value='#{interviewer.id}' selected=(interviewer.id == formData.interviewerId)) #{interviewer.fullName}
+                                        option(value='#{interviewer.id}' selected=(interviewer.id == formData.interviewerId)) #{interviewer.fullName} - #{interviewer.email}
                         .form-group
                             .col-sm-offset-2.col-sm-10
                                 .checkbox
                                     label
-                                        input(type='checkbox', name='sendEmail', value='checked' checked=formData.sendMail?"checked":undefined)
-                                        |   Send Confirmation email to interviewees
+                                        input(type='checkbox', name='sendEmailUser', value='checked' checked=formData.sendEmailUser?"checked":undefined)
+                                        |   Send Confirmation email to User
+                                .checkbox
+                                    label
+                                        input(type='checkbox', name='sendEmailInterviewer', value='checked' checked=formData.sendEmailInterviewer ? "checked" : undefined)
+                                        |   Send Confirmation email to Interviewer
                         .form-group
                             .col-sm-offset-4.col-sm-10
                                 button.btn.btn-default(type="submit") Save

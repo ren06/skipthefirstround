@@ -1,0 +1,27 @@
+
+extends template
+
+block content
+
+    -var interviewTypeText
+    if data.interviewType == 1
+        -interviewTypeText = 'mock interview';
+    else
+        -interviewTypeText = 'job interview';
+
+
+    p Dear #{data.firstNameRecruiter},
+
+    p Here is a summary for the upcoming #{interviewTypeText} you will conduct:
+    ul
+        li Position: #{data.position}
+        li Date: #{data.date}
+        li Time: #{data.time}
+        li Interviewee name: #{data.firstNameUser} #{data.lastNameUser}
+        li Interviewee email: #{data.email}
+        li Interviewee SkypeId: #{data.skypeId}
+        li Interviewee phone: #{data.mobilePhone}
+
+    p
+
+    p The Interviewing Team @ SkipTheFirstRound.com

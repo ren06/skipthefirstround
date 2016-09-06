@@ -110,7 +110,7 @@ module.exports.to_User_NewInterviewRequestHtml = function(firstName, interviewTy
 
 module.exports.to_User_NewInterviewRequest = function(email, firstName, interviewType){
 
-    var html = this.to_User_NewInterviewRequest(firstName, interviewType);
+    var html = this.to_User_NewInterviewRequestHtml(firstName, interviewType);
 
     sendEmail(email, html, 'Request for a new interview');
 
@@ -141,7 +141,7 @@ module.exports.to_Recruiter_Registration = function(email, userName){
 module.exports.to_Admin_New_InterviewHtml = function(data){
 
     return renderView('email/admin-new-interview', {data: data});
-}
+};
 module.exports.to_Admin_New_Interview = function(data){
 
     var html = this.to_Admin_New_InterviewHtml(data);
@@ -149,6 +149,21 @@ module.exports.to_Admin_New_Interview = function(data){
     sendEmail(adminEmail, html, 'New interview request');
 
 };
+
+//********************************************
+//*** SEND INTERVIEWER: INTERVIEW CONFIRMATION
+//********************************************
+module.exports.to_Interviewer_InterviewConfirmationHtml = function(data){
+
+    return renderView('email/interviewer-interview-confirmation', {data: data});
+};
+module.exports.to_Interviewer_InterviewConfirmation = function(email, data){
+
+    var html = this.to_Interviewer_InterviewConfirmationHtml(data);
+    sendEmail(email, html, 'Interview confirmation');
+
+};
+
 
 //**********************************
 //*** SEND CONTACT FORM
@@ -160,7 +175,7 @@ module.exports.to_Admin_Contact_FormHtml = function(name, email, message){
         email: email,
         message: message,
     }});
-}
+};
 module.exports.to_Admin_Contact_Form = function(name, email, message){
 
     var html = this.to_Admin_Contact_FormHtml(name, email, message);

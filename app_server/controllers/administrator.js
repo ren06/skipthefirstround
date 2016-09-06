@@ -109,16 +109,12 @@ module.exports.student = function(req, res){
 
 module.exports.studentsInterviewsList = function(req, res){
 
-    var requestOptions = common.getRequestOptions(req, '/api/interviews', 'GET', {}, false);
+    request(common.getRequestOptions(req, '/api/interviews', 'GET'), function (err, response, body) {
 
-    request(requestOptions, function (err, response, body) {
-        console.log(body);
         var interviews = body.data;
      
         res.render('admin/students-interviews-list', {
-            title: 'All Interviews for students',
             interviews: interviews
-
         });
     });
 
@@ -367,7 +363,8 @@ module.exports.interviewModifyDate = function(req, res){
         date: defaultDate,
         hour: '12',
         minute: '00',
-        sendMail: true,
+        sendEmailUser: true,
+        sendEmailInterviewer: true,
         interviewerId: ''
     };
 
@@ -382,13 +379,11 @@ module.exports.doInterviewModifyDate = function(req, res){
     var hour = req.body.hour;
     var minute = req.body.minute;
     var interviewerId = req.body.interviewerId;
-    var sendEmail = req.body.sendEmail;
+    var sendEmailUser = (req.body.sendEmailUser === 'checked' ? true: false);
+    var sendEmailInterviewer =  (req.body.sendEmailInterviewer === 'checked' ? true: false);
 
-    if(sendEmail === 'checked'){
-        sendEmail = true;
-    }
 
-    console.log('sendMail: ' + sendEmail);
+    console.log('sendEmailUser: ' + sendEmailUser, ' sendEmailInterviewer: ' + sendEmailInterviewer);
 
     var formData = {
         interviewId: interviewId,
@@ -396,7 +391,8 @@ module.exports.doInterviewModifyDate = function(req, res){
         date: date,
         hour: hour,
         minute: minute,
-        sendEmail: sendEmail,
+        sendEmailUser: sendEmailUser,
+        sendEmailInterviewer: sendEmailInterviewer,
     };
 
     //check everything is there
@@ -422,17 +418,15 @@ module.exports.doInterviewModifyDate = function(req, res){
 
         request(requestOptions, function (err, response, body) {
 
-            console.log('request Executed ' + response.statusCode);
-
             if(response.statusCode === 204 ) {
 
-                if(sendEmail){
+                if(sendEmailUser || sendEmailInterviewer){
 
-                    //Get user data
+                    //In both case get user data
                     req.setLocale('en');
-                    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET');
 
-                    request(requestOptions, function (err, response, body) {
+                    request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET'), function (err, response, body) {
+
 
                         var interview = body.data[0];
                         var user = interview.user;
@@ -440,10 +434,34 @@ module.exports.doInterviewModifyDate = function(req, res){
                         var data = {firstName: user.firstName, interviewType: interview.type, position: interview.positionText,
                             time: interview.timeText, date: interview.dateText, skypeId: user.skypeId};
 
-                        console.log(data);
-
                         //send email to student to confirm booking
-                        emails.to_User_InterviewConfirmation(user.email, data);
+                        if(sendEmailUser){
+                            emails.to_User_InterviewConfirmation(user.email, data);
+                        }
+
+                        if(sendEmailInterviewer) {
+
+                            request(common.getRequestOptions(req, '/api/interviewer/' + interviewerId, 'GET'), function (err, response, body) {
+
+                                var interviewer = body.data[0];
+
+                                var data = {
+                                    firstNameRecruiter: interviewer.firstName,
+                                    firstNameUser: user.firstName,
+                                    lastNameUser: user.lastName,
+                                    interviewType: interview.type,
+                                    position: interview.positionText,
+                                    time: interview.timeText,
+                                    date: interview.dateText,
+                                    mobilePhone: user.mobilePhone,
+                                    skypeId: user.skypeId,
+                                    email: user.email,
+                                };
+
+                                //send email to student to confirm booking
+                                emails.to_Interviewer_InterviewConfirmation(interviewer.email, data);
+                            });
+                        }
                     });
                 }
 

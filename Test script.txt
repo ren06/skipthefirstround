@@ -1,0 +1,23 @@
+Mock interview
+==============
+
+1) S'enregistrer avec un utilisateur avec une vraie email address (e.g. test@skipthefirstround.com) en demandant une simulation
+-> verifier que l'email d'enregisrement est conforme
+-> verifier que l'administrateur recoive un email lui indiquant qu'une nouvelle interview a ete demande
+
+2) Demander directemnet une autre mock interview (meme si ca n'a pas de sens, juste pour tester)
+-> verifier que l'email nouvelle interview est correcte
+-> verifier que l'administrateur recoive un email lui indiquant qu'une nouvelle interview a ete demande
+
+3) En tant qu'administrateur, definir une date pour les deux entretiens
+-> verifier que l'utilisateur recoit bien un email de confirmation, pour chaque interview
+-> verifier que l'utilisateur voir bien la date dans son menu
+-> verifier que l'interviewer recoive un email avec tous les details sur l'interview qu'il va conduire, pour chaque interview
+
+4) Dans l'hypothese que l'interview a ete realise, uploader les videos pour l'interview et les sequences
+
+5) Se logger en tant que recruiter et verifier si les videos uploadees sont bien disonibles dans la recherche d'extraits
+
+
+Apply Offer
+===========

@@ -510,16 +510,37 @@ module.exports.doSimulation = function(req, res){
     var company = req.body.company;
     var position = req.body.position;
 
-    if(!common.checkParametersPresent('position, sector, company, availability, skypeId', formData)){
+    var simulation = 1;
+
+    if(!common.checkParametersPresent('position, sector, availability, skypeId', formData)){
 
         renderSimulation(req, res, formData, 'Please enter all fields');
     }
     else{
 
-        register.createInterview(req, userId, 1, formData.sector, null, position, company, function(err, response, body){
+        register.createInterview(req, userId, simulation, formData.sector, null, position, company, function(err, response, body){
 
             console.log('create interview executed');
             if(response.statusCode === 201) {
+
+                //send email to user
+                emails.to_User_NewInterviewRequest(req.session.email, req.session.firstName, simulation);
+
+                //send admin an email
+
+                //first fetch required data
+                request(common.getRequestOptions(req, '/api/user/' + userId, 'GET'), function (err, response, body) {
+
+                    var user = body.data[0];
+
+                    var cvLink = res.locals.cloudinary.url(user.cv);
+
+                    var data = { firstName: user.firstName, lastName: user.lastName ,email: user.email, mobilePhone: user.mobilePhone,
+                        availability: user.availability, interviewType: simulation, skypeId: user.skypeId, cvLink: cvLink};
+
+                    emails.to_Admin_New_Interview(data);
+
+                });
 
                 //redirect
                 res.redirect('/confirmation');

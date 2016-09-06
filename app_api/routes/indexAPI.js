@@ -32,7 +32,7 @@ router.put ('/user/:userId', ctrlUsers.userModify);
 
 router.post('/interviewer/', ctrlInterviewers.interviewerCreate);
 router.get ('/interviewers/', ctrlInterviewers.interviewersList);
-router.get ('/interviewer/:interviewId', ctrlInterviewers.interviewerReadOne);
+router.get ('/interviewer/:interviewerId', ctrlInterviewers.interviewerReadOne);
 
 
 router.get ('/options/sector', ctrlOptions.getSectorOptions);

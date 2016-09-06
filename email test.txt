@@ -7,8 +7,14 @@ admin@skipthefirstround.com => master account
 test@skiptthefirstround.com
 demandeaufinaud
 
+user@skiptthefirstround.com
+demandeaufinaud
+
 info@skiptthefirstround.com
 demandeaufinaud
 
 recruiter@skiptthefirstround.com
+demandeaufinaud
+
+interviewer@skiptthefirstround.com
 demandeaufinaud
