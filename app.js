@@ -74,7 +74,12 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
+var morganOptions = {
+    skip: function (req, res) { return res.statusCode == 304; }
+};
+
+app.use(logger('dev', morganOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -222,16 +227,16 @@ request(requestOptions, function (err, response, body) {
 // Catch unauthorised errors
 app.use(function (err, req, res, next) {
 
-  console.log('Error handler');
-  console.log(err.name);
-  console.log(err.status);
+  console.log('Error: ' + err.name + ' ' + err.status);
 
   if (err.name === 'UnauthorizedError') {
-
-    console.log('This is unauthroised');
-
+      console.log('API call is unauthorised');
+      res.render('user/not-authorised');
+      next();
   }
-    next(err);
+
+      next(err);
+
 });
 
 // development error handler

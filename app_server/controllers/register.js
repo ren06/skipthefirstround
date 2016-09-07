@@ -7,19 +7,11 @@ var apiOptions = common.getApiOptions();
 
 var renderRegister = function(req, res, formData, error){
 
-    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
-
-    //sectorOptions = common.addAll(sectorOptions);
-
-    //console.log(sectorOptions);
+    var sectorOptions = req.app.locals.options[req.getLocale()].sectorOptions;
 
     res.render('user/register-simulation', {
-        title: i18n.__('Enregistrement'),
         formData: formData,
         sectorOptions: sectorOptions,
-        pageHeader: {
-            title: 'DaF',
-        },
         error: error,
     });
 };
@@ -72,6 +64,15 @@ var createInterview = function(req, userId, type, sector, offerId, position, com
 
 module.exports.doRegisterUser = function(req, res){
 
+    //TODO later get language from browser
+    //var language = req.cookies.locale;
+    //if(typeof language !== 'undefined'){
+    //    language = 'en';
+    //}
+
+    //for now default user language to en
+    var language = 'en';
+
     //collect data
     var email = req.body.email;
     var firstName = req.body.firstName;
@@ -82,14 +83,11 @@ module.exports.doRegisterUser = function(req, res){
     var mobilePhone = req.body.mobilePhone;
     var password = req.body.password;
     var confirmationPassword = req.body.confirmationPassword;
-    var language = req.cookies.locale;
     var position = req.body.position;
     var company = req.body.company;
     var cv = req.body.cv;
 
-    if(typeof language !== 'undefined'){
-        language = 'en';
-    }
+
     console.log('CV :' + cv);
 
     var postData = {
@@ -300,7 +298,7 @@ module.exports.registerUser = function(req, res){
         password: '',
         confirmationPassword: '',
         availability: '',
-        sector: '1',//req.app.locals.options[res.getLocale()].sectorOptions[0],
+        sector: '1',//req.app.locals.options[req.getLocale()].sectorOptions[0],
         skypeId: '',
         mobilePhone: '',
         position: '1',
@@ -316,9 +314,10 @@ module.exports.getPositions = function(req, res){
 
     var value = req.query.sector;
     var positions;
+    var language = req.getLocale();
 
-    if(positions = req.app.locals.options[res.getLocale()].sectorOptions[value]){
-        positions = req.app.locals.options[res.getLocale()].sectorOptions[value].positions;
+    if(positions = req.app.locals.options[language].sectorOptions[value]){
+        positions = req.app.locals.options[language].sectorOptions[value].positions;
     }
     else{
         positions = {};

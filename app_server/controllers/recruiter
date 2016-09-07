@@ -38,6 +38,17 @@ module.exports.registerRecruiter =  function(req, res){
 
 module.exports.doRegisterRecruiter = function(req, res){
 
+    //TODO later get language from browser
+    //var language = req.cookies.locale;
+
+    //if(typeof language !== 'undefined'){
+    //    language = 'fr';
+    //}
+
+    //for now default recruiter language to fr
+    var language = 'fr';
+
+
     //collect data
     var email = req.body.email;
     var firstName = req.body.firstName;
@@ -46,11 +57,7 @@ module.exports.doRegisterRecruiter = function(req, res){
     var company = req.body.company;
     var password = req.body.password;
     var confirmationPassword = req.body.confirmationPassword;
-    var language = req.cookies.locale;
 
-    if(typeof language !== 'undefined'){
-        language = 'fr';
-    }
 
     var postData = {
         email: email,
@@ -126,6 +133,8 @@ module.exports.confirmation = function(req, res){
 
 module.exports.mainMenu = function(req, res){
 
+    console.log('Recruiter language in main menu: ' + req.getLocale());
+
     res.render('recruiter/main-menu', {
         title: i18n.__('Menu'),
     });
@@ -133,11 +142,13 @@ module.exports.mainMenu = function(req, res){
 
 var renderPostOffer = function(req, res, formData, error){
 
+    var language = req.getLocale();
+
     res.render('recruiter/post-offer', {
-        sectorOptions: req.app.locals.options[res.getLocale()].sectorOptions,
-        offerTypeOptions: req.app.locals.options[res.getLocale()].offerTypeOptions,
-        companyTypeOptions: req.app.locals.options[res.getLocale()].companyTypeOptions,
-        title: i18n.__('Post Offer'),
+        languageOptions: req.app.locals.options[language].languageOptions,
+        sectorOptions: req.app.locals.options[language].sectorOptions,
+        offerTypeOptions: req.app.locals.options[language].offerTypeOptions,
+        companyTypeOptions: req.app.locals.options[language].companyTypeOptions,
         formData: formData,
         error: error,
     });
@@ -203,21 +214,20 @@ var renderBrowseVideos = function(req, res, formData, results, message){
 
         //add 'all' to all drop downs
 
-        var lang = res.getLocale();
+        var language = req.getLocale();
+        console.log('Recruiter language in browser video: ' + language);
 
-        var sectorOptions = req.app.locals.options[lang].sectorOptions;
+        var sectorOptions = req.app.locals.options[language].sectorOptions;
         sectorOptions['0'] = {"label" : "Tous", positions: {'0' : 'Tous'}};
 
-        var jobTypeOptions =  req.app.locals.options[lang].jobTypeOptions;
+        var jobTypeOptions =  req.app.locals.options[language].jobTypeOptions;
         jobTypeOptions['0'] = 'Tous';
 
-        var sequenceTagOptions =  req.app.locals.options[lang].sequenceTagOptions;
+        var sequenceTagOptions =  req.app.locals.options[language].sequenceTagOptions;
         sequenceTagOptions['0'] = 'Tous';
 
         res.render('recruiter/browse-videos', {
             sectorOptions: sectorOptions,
-            //offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
-            //companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
             jobTypeOptions: jobTypeOptions,
             sequenceTagOptions: sequenceTagOptions,
             formData: formData,
@@ -318,10 +328,12 @@ module.exports.myOffers = function(req, res){
 
 var renderOffer = function(req, res, formData, error){
 
+    var language = req.getLocale();
+
     res.render('recruiter/offer', {
-        sectorOptions: req.app.locals.options[res.getLocale()].sectorOptions,
-        offerTypeOptions: req.app.locals.options[res.getLocale()].offerTypeOptions,
-        companyTypeOptions: req.app.locals.options[res.getLocale()].companyTypeOptions,
+        sectorOptions: req.app.locals.options[language].sectorOptions,
+        offerTypeOptions: req.app.locals.options[language].offerTypeOptions,
+        companyTypeOptions: req.app.locals.options[language].companyTypeOptions,
         formData: formData,
         error: error,
     });

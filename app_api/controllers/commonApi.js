@@ -305,6 +305,19 @@ module.exports.generateJwt = function(id, email, lastName) {
     }, config.Api.Secret); //USE dotenv module
 };
 
+module.exports.getLanguage = function(req){
+
+    var language = req.header('Accept-Language');
+
+    if(!language){
+        language = 'en';
+    }
+    if(language.length > 2) {
+        language = language.substring(0, 2);
+    }
+
+    return language;
+};
 
 module.exports.sendJsonResponse = sendJsonResponse;
 

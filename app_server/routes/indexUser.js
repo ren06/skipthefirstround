@@ -21,7 +21,7 @@ function isAuthenticated(req, res, next){
     }
 }
 
-router.get ('/', ctrlHomepage.homepage);
+router.get ('/', ctrlHomepage.homepageUser);
 
 router.get ('/user-register', common.checkPermission(['guest']), ctrlRegister.registerUser);
 router.post('/user-register',  common.checkPermission(['guest']), ctrlRegister.doRegisterUser);

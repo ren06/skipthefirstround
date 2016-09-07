@@ -14,14 +14,8 @@ var addTextLabel = function(entry, language){
 
 var addText = function(data, req){
 
-    var language = req.header('Accept-Language');
+    var language = common.getLanguage(req);
 
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
     if(typeof data !== 'undefined' && data.length > 0) {
 
         data.forEach(function(entry){
@@ -36,14 +30,7 @@ var addText = function(data, req){
 //used when data structure is like: "data": [{"offers": [ ...] }]
 var addTextOffers = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
+    var language = common.getLanguage(req);
 
     var offers = data[0].offers;
     console.log(offers);
@@ -61,14 +48,7 @@ var addTextOffers = function(data, req){
 
 var addTextOffersSequence = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
+    var language = common.getLanguage(req);
 
     var offers = data[0].offers;
     console.log(offers);

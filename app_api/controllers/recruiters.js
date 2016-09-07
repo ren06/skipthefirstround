@@ -73,7 +73,7 @@ module.exports.doRecruiterAuthenticate = function(req, res) {
         return;
     }
 
-    var queryString = "SELECT id, email, first_name, last_name, password_hash FROM tbl_recruiter WHERE email= ($1)";
+    var queryString = "SELECT id, email, first_name, last_name, language, password_hash FROM tbl_recruiter WHERE email= ($1)";
 
     common.dbHandleQuery(req, res, queryString, [email], null, 'noUser', 'Email or password does not exist', function (results) {
 
@@ -92,7 +92,8 @@ module.exports.doRecruiterAuthenticate = function(req, res) {
                             id: row.id,
                             email: row.email,
                             first_name: row.first_name,
-                            last_name: row.last_name
+                            last_name: row.last_name,
+                            language: row.language
                         }, 'token': token
                     };
                     common.sendJsonResponse(res, 200, true, 'User authorised', 'Utilisateur authentifie', result);

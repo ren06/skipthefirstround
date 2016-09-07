@@ -8,14 +8,7 @@ var conString = config.get('Api.dbConfig.url');
 
 var addText = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    if(!language){
-        language = 'en';
-    }
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
+    var language = common.getLanguage(req);
 
     console.log('header language: ' + language);
 
@@ -93,14 +86,7 @@ var addText = function(data, req){
 
 var addTextSearchSequence = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    if(!language){
-        language = 'en';
-    }
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
+    var language = common.getLanguage(req);
 
     if(typeof data !== 'undefined' && data.length > 0) {
 
@@ -149,8 +135,11 @@ module.exports.interviewCreate = function(req, res){
         }
 
         //check type and sector
-        var allowedTypes = options.options[res.getLocale()].interviewTypeOptions;
-        var allowedSector = options.options[res.getLocale()].sectorOptions;
+
+        var language = common.getLanguage(req);
+
+        var allowedTypes = options.options[language].interviewTypeOptions;
+        var allowedSector = options.options[language].sectorOptions;
 
         if(typeof allowedTypes[type] === 'undefined') {
 

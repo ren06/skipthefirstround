@@ -7,29 +7,13 @@ var register = require('./register');
 
 module.exports.myAccount = function(req, res){
 
-    console.log('id: ' + req.session.userId);
-
-    var language = req.cookies.locale;
-
-    console.log('My account current locale: ' + language);
-
-    var apiOptions = common.getApiOptions();
-
     var userId = req.session.userId;
-    var token = req.session.token;
 
-    var requestOptions = {
-        url: apiOptions.server + '/api/user/' + userId + '/interviewsPast',
-        method: 'GET',
-        headers:{
-            'Authorization': 'Bearer ' + token,
-            'Accept-Language': language,
-        },
-        json: {},
-        qs: {}
-    };
+    console.log('User language in main menu: ' + req.getLocale());
+    console.log('id: ' + req.session.userId);
+    var language = req.getLocale();
 
-    request(requestOptions, function (err, response, body) {
+    request(common.getRequestOptions(req, '/api/user/' + userId + '/interviewsPast', 'GET'), function (err, response, body) {
 
         if (err) {
             console.log('call error ' + err);
@@ -40,9 +24,7 @@ module.exports.myAccount = function(req, res){
 
                 var interviewsPast = body.data;
 
-                requestOptions.url = apiOptions.server + '/api/user/' + userId + '/interviewsUpcoming';
-
-                request(requestOptions, function (err, response, body) {
+                request(common.getRequestOptions(req, '/api/user/' + userId + '/interviewsUpcoming', 'GET'), function (err, response, body) {
 
                     if (err) {
                         console.log('call error ' + err);
@@ -52,22 +34,15 @@ module.exports.myAccount = function(req, res){
 
                             var interviewsFuture = body.data;
 
-                            var options = req.app.locals.options[res.getLocale()];
- 
-                            console.log(interviewsPast);
+                            var options = req.app.locals.options[language];
 
                             var userFirstName = req.session.firstName;
-                            console.log(userFirstName);
 
                             res.render('user/my-account', {
                                 welcome: res.__('Welcome %s', userFirstName),
-                                title: res.__('MyAccount'),
                                 interviewsPast: interviewsPast,
                                 interviewsFuture: interviewsFuture,
                                 options: options,
-                                pageHeader: {
-                                    title: '',
-                                },
                             });
                         }
                         else{
@@ -86,7 +61,6 @@ module.exports.myAccount = function(req, res){
 
 var renderInterview = function(req, res, interview){
 
-    console.log('user/interview');
     res.render('user/interview', {
         title: res.__('Interview'),
         interview: interview,
@@ -98,7 +72,7 @@ module.exports.interview = function(req, res){
 
     var interviewId = req.params.interviewId;
 
-    request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET', null, null ), function (err, response, body) {
+    request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET'), function (err, response, body) {
 
         if(response.statusCode === 200) {
 
@@ -159,20 +133,22 @@ var renderBrowseOffers = function(req, res, formData, results, message){
 
     request(requestOptions, function (err, response, body) {
 
-        var lang = res.getLocale();
+        var language = req.getLocale();
 
-        var sectorOptions = req.app.locals.options[lang].sectorOptions;
+        console.log('user language: ' + language);
+
+        var sectorOptions = req.app.locals.options[language].sectorOptions;
         sectorOptions['0'] = {"label" : "All", positions: {'0' : 'All'}};
 
-        var jobTypeOptions =  req.app.locals.options[lang].jobTypeOptions;
+        var jobTypeOptions =  req.app.locals.options[language].jobTypeOptions;
         jobTypeOptions['0'] = 'All';
 
         res.render('user/offers', {
             sectorOptions: sectorOptions,
             jobTypeOptions: jobTypeOptions,
-            offerTypeOptions: common.addAll(req.app.locals.options[lang].offerTypeOptions),
-            companyTypeOptions: common.addAll(req.app.locals.options[lang].companyTypeOptions),
-            languageOptions: common.addAll(req.app.locals.options[lang].languageOptions),
+            offerTypeOptions: common.addAll(req.app.locals.options[language].offerTypeOptions),
+            companyTypeOptions: common.addAll(req.app.locals.options[language].companyTypeOptions),
+            languageOptions: common.addAll(req.app.locals.options[language].languageOptions),
             locations: common.addAll(body.data),
             message: message,
             formData: formData,
@@ -209,9 +185,7 @@ module.exports.doOffers = function(req, res){
     keys.forEach(function(entry){
 
         if(formData[entry] != 0){
-
-                qs[entry] = formData[entry];
-
+            qs[entry] = formData[entry];
         }
     });
 
@@ -249,15 +223,13 @@ module.exports.doOffers = function(req, res){
 
 var renderRegisterApply = function(req, res, formData, offer, error){
 
-    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+    var sectorOptions = req.app.locals.options[req.getLocale()].sectorOptions;
 
     res.render('user/register-apply', {
-        title: i18n.__('Enregistrement'),
         formData: formData,
         sectorOptions: sectorOptions,
         error: error,
         offer: offer,
-       // cvLink: cvLink,
     });
 };
 
@@ -280,7 +252,7 @@ module.exports.applyOffer = function(req, res){
             password: '',
             confirmationPassword: '',
             availability: '',
-            sector: '0',//req.app.locals.options[res.getLocale()].sectorOptions[0],
+            sector: '0',//req.app.locals.options[req.getLocale()].sectorOptions[0],
             skypeId: '',
             mobilePhone: '',
             position: '',
@@ -351,11 +323,14 @@ module.exports.doApplyOffer = function(req, res){
             //if user not authenticated it must be created
             if(!req.session.authenticated) {
 
-                var language = req.cookies.locale;
 
-                if(typeof language !== 'undefined'){
-                    language = 'en';
-                }
+                //TODO later uncomment this
+                // var language = req.cookies.locale;
+                //
+                // if(typeof language !== 'undefined'){
+                //     language = 'en';
+                // }
+                var language = 'en';
 
                 formData.language = language;
 
@@ -457,7 +432,7 @@ module.exports.doApplyOffer = function(req, res){
 
 var renderSimulation = function(req, res, formData, error){
 
-    var sectorOptions = res.app.locals.options[res.getLocale()].sectorOptions;
+    var sectorOptions = res.app.locals.options[req.getLocale()].sectorOptions;
 
     res.render('user/register-simulation', {
         formData: formData,

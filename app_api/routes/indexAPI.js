@@ -55,7 +55,7 @@ router.get ('/interviews/noDate', ctrlInterviews.interviewListNoDate);
 
 router.get ('/user/:userId/interviews', auth, ctrlInterviews.interviewListByUser);
 router.get ('/user/:userId/interviewsUpcoming', auth, ctrlInterviews.interviewUpcomingByUser);
-router.get ('/user/:userId/interviewsPast', ctrlInterviews.interviewPastByUser);
+router.get ('/user/:userId/interviewsPast', auth, ctrlInterviews.interviewPastByUser);
 
 router.post('/recruiter', ctrlRecruiters.createRecruiter);
 router.get ('/recruiters', ctrlRecruiters.recruiterList);

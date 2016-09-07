@@ -1,5 +1,6 @@
 var request = require('request');
 var emails = require('../common/emails');
+var common = require('./common');
 
 var renderHomepage = function(req, res) {
 
@@ -15,17 +16,24 @@ var renderHomepage = function(req, res) {
 
 }
 
-module.exports.homepage = function(req, res){
+module.exports.homepageUser = function(req, res){
 
+    console.log('User language in homepage: ' + req.getLocale());
+
+    //TODO uncomment when proper language handling
     //use current cookie value for locale if there is one
-    if(req.cookies.locale){
-        res.setLocale(req.cookies.locale);
-    }
-    else{
-        //default cookie to fr
-        res.cookie('locale', 'fr');
-        res.setLocale('fr');
-    }
+    // if(req.cookies.locale){
+    //     res.setLocale(req.cookies.locale);
+    // }
+    // else{
+    //     //default cookie to fr
+    //     res.cookie('locale', 'fr');
+    //     res.setLocale('fr');
+    // }
+
+
+    //for now user part is always in en
+    common.setLanguage(res, 'en');
 
     if(!req.session.role){
         req.session.role = 'guest';
@@ -63,12 +71,13 @@ module.exports.homepage = function(req, res){
 };
 
 
+
+
 module.exports.changeLanguage = function(req, res){
 
     var language = req.params.language;
 
-    res.cookie('locale', language);
-    res.setLocale(language);
+    common.setLanguage(res, language);
 
     res.redirect('back');
 
@@ -82,14 +91,16 @@ module.exports.about = function(req, res){
 
 module.exports.homepageRecruiter = function(req, res){
 
-    //res.cookie('role', 'recruiter');
-    //req.session.role = 'guest';
+    console.log('Recruiter language in homepage: ' + req.getLocale());
+
     if(!req.session.role){
         req.session.role = 'guest';
         console.log('Role not set, set to guest by default');
     };
 
-    res.render('recruiter/homepage', {title:  res.__('About'),});
+    common.setLanguage(res, 'fr');
+
+    res.render('recruiter/homepage');
 
 };
 

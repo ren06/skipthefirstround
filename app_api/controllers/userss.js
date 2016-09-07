@@ -24,15 +24,7 @@ var addUsersText = function(data, req){
 
 var addUserText = function(data, req){
 
-    var language = req.header('Accept-Language');
-
-    console.log(language);
-    if(language.length > 2) {
-        language = language.substring(0, 2);
-    }
-    if(!language){
-        language = 'en';
-    }
+    var language = common.getLanguage(req);
 
     console.log(language);
 
@@ -105,7 +97,7 @@ module.exports.doUserAuthenticate = function (req, res) {
         }
 
         // Select user
-        var queryString = "SELECT id, email, first_name, last_name, password_hash FROM tbl_user WHERE email= ($1)";
+        var queryString = "SELECT id, email, first_name, last_name, language, password_hash FROM tbl_user WHERE email= ($1)";
         console.log(queryString);
         console.log(email);
 
@@ -156,7 +148,8 @@ module.exports.doUserAuthenticate = function (req, res) {
                             id: row.id,
                             email: row.email,
                             first_name: row.first_name,
-                            last_name: row.last_name
+                            last_name: row.last_name,
+                            language: row.language
                         }, 'token': token
                     };
                     common.sendJsonResponse(res, 200, true, 'User authorised', 'Utilisateur authentifie', result);

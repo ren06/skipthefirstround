@@ -142,6 +142,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
     var interviewId = req.params.interviewId;
 
+
     var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId);
 
     request(requestOptions, function (err, response, body) {
@@ -159,12 +160,14 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
         console.log(interview.dateTimeText);
         console.log(interview.dateTime);
 
-        var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
-        var tagOptions = req.app.locals.options[res.getLocale()].tagOptions;
-        var interviewTypeOptions = req.app.locals.options[res.getLocale()].interviewTypeOptions;
-        var interviewStatusOptions = req.app.locals.options[res.getLocale()].interviewStatusOptions;
-        var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
-        var jobTypeOptions = req.app.locals.options[res.getLocale()].jobTypeOptions;
+        var language = req.getLocale();
+
+        var sectorOptions = req.app.locals.options[language].sectorOptions;
+        var tagOptions = req.app.locals.options[language].tagOptions;
+        var interviewTypeOptions = req.app.locals.options[language].interviewTypeOptions;
+        var interviewStatusOptions = req.app.locals.options[language].interviewStatusOptions;
+        var appreciationsOptions = req.app.locals.options[language].appreciationsOptions;
+        var jobTypeOptions = req.app.locals.options[language].jobTypeOptions;
 
         jobTypeOptions['0'] = ' -- Select --';
 
@@ -253,7 +256,7 @@ var renderInterviewModifyDate = function(req, res, formData, error){
                 if (response.statusCode === 200) {
 
                     var interviewers = body.data;
-                    var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
+                    var sectorOptions = req.app.locals.options[req.getLocale()].sectorOptions;
 
                     res.render('admin/interview-modify-date', {
                         formData: formData,
@@ -484,7 +487,7 @@ module.exports.doInterviewModifyDate = function(req, res){
 module.exports.interviewAddSequence = function(req, res){
 
     var formData = {
-        tagId: Object.keys(req.app.locals.options[res.getLocale()].sequenceTagOptions)[0],
+        tagId: Object.keys(req.app.locals.options[req.getLocale()].sequenceTagOptions)[0],
     };
 
     var videoData = {
@@ -506,8 +509,10 @@ var renderInterviewAddSequence = function(req, res, formData, videoData, error){
 
         var interview = body.data[0];
 
-        var sequenceTagOptions = req.app.locals.options[res.getLocale()].sequenceTagOptions;
-        var appreciationsOptions = req.app.locals.options[res.getLocale()].appreciationsOptions;
+        var language = req.getLocale();
+
+        var sequenceTagOptions = req.app.locals.options[language].sequenceTagOptions;
+        var appreciationsOptions = req.app.locals.options[language].appreciationsOptions;
 
 
         res.render('admin/interview-add-sequence', {

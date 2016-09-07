@@ -4,7 +4,7 @@ var cryptography = require('../helper/cryptography');
 //expects array
 var addText = function(data, req){
 
-    var language = req.header('Accept-Language');
+    var language = common.getLanguage(req);
 
     if(typeof data !== 'undefined') {
 

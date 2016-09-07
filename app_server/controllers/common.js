@@ -58,7 +58,7 @@ module.exports.getApiOptions =  function(){
     return apiOptions;
 }
 
-module.exports.getRequestOptions = function(req, path, method, json, qs, authenticatedMode){
+module.exports.getRequestOptions = function(req, path, method, json, qs){
 
     var apiOptions = this.getApiOptions();
 
@@ -75,42 +75,42 @@ module.exports.getRequestOptions = function(req, path, method, json, qs, authent
 
     console.log(requestOptions);
 
-    if(authenticatedMode){
+    var userId = req.session.userId;
+    var token = req.session.token;
 
-        var userId = req.session.userId;
-        var token = req.session.token;
+    requestOptions['headers'] = {
+        'Authorization': 'Bearer ' + token,
+        'Accept-Language': req.getLocale(),
+    };
 
-        requestOptions['headers'] = {
-            'Authorization': 'Bearer ' + token,
-            'Accept-Language': req.getLocale(),
-        };
-    }
-    else{
-        requestOptions['headers'] = {
-            'Accept-Language': req.getLocale(),
-        };
-    }
+    console.log('API call locale: ' + req.getLocale());
 
     return requestOptions;
 
 }
 
-module.exports.setSessionData = function(req, res, user, role, token, callback){
+//person can be user or recruiter
+module.exports.setSessionData = function(req, res, person, role, token, callback){
 
-    req.session.email = user.email;
-    req.session.userId = user.id;
-    req.session.firstName = user.firstName;
-    req.session.lastName = user.lastName;
-    req.session.fullName = user.firstName + ' ' + user.lastName;
+    req.session.email = person.email;
+    req.session.userId = person.id;
+    req.session.firstName = person.firstName;
+    req.session.lastName = person.lastName;
+    req.session.fullName = person.firstName + ' ' + person.lastName;
     req.session.role = role;
     req.session.authenticated = true;
     req.session.token = token;
+    req.session.language = person.language;
+
+    common.setLanguage(res, person.language);
+
     if(role === 'user'){
         req.session.active = true;
     }
     else{
-        req.session.active = user.active;
+        req.session.active = person.active;
     }
+
 
 
     // var aclInstance = res.locals.acl;
@@ -234,6 +234,15 @@ module.exports.checkPermission = function(roles){
         }
 
     }
+};
+
+module.exports.setLanguage = function(res, language){
+
+    res.cookie('locale', language);
+    res.setLocale(language);
+
+    console.log('Language set to ' + language);
+
 };
 
 
