@@ -15,7 +15,7 @@ SET row_security = off;
 
 DROP DATABASE d71kad5c6r40uv;
 --
--- Name: d71kad5c6r40uv; Type: DATABASE; Schema: -; Owner: -
+-- Name: daf; Type: DATABASE; Schema: -; Owner: -
 --
 
 CREATE DATABASE d71kad5c6r40uv WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
@@ -70,7 +70,7 @@ CREATE FUNCTION update_modified_column() RETURNS trigger
     AS $$
 BEGIN
     NEW.modified = now();
-    RETURN NEW;
+    RETURN NEW;	
 END;
 $$;
 
@@ -141,7 +141,9 @@ CREATE TABLE tbl_interview (
     id_video integer,
     "position" character varying(50),
     company character varying(50),
-    summary text
+    summary text,
+    job_type smallint DEFAULT 0,
+    language character varying(5)
 );
 
 
@@ -166,6 +168,13 @@ COMMENT ON COLUMN tbl_interview.type IS '1 = simulation
 
 COMMENT ON COLUMN tbl_interview.status IS '1=proposed
 2=defined';
+
+
+--
+-- Name: COLUMN tbl_interview.job_type; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN tbl_interview.job_type IS '1=penultimate(internhip), 2=last year (permanent position)';
 
 
 --
@@ -238,7 +247,9 @@ CREATE TABLE tbl_offer (
     modified time with time zone,
     language character varying(5),
     company_name character varying(50),
-    status smallint
+    status smallint,
+    "position" character varying(50),
+    view_count smallint DEFAULT 0
 );
 
 
@@ -282,7 +293,8 @@ CREATE TABLE tbl_recruiter (
     password_hash character varying(255) NOT NULL,
     language character varying(5),
     created timestamp with time zone DEFAULT clock_timestamp(),
-    modified timestamp with time zone
+    modified timestamp with time zone,
+    active boolean DEFAULT false
 );
 
 
@@ -358,8 +370,31 @@ CREATE TABLE tbl_user (
     language character varying(5) DEFAULT 'fr'::bpchar,
     created timestamp with time zone DEFAULT clock_timestamp(),
     modified timestamp with time zone,
-    cv character varying(50)
+    cv character varying(50),
+    job_type smallint DEFAULT 0
 );
+
+
+--
+-- Name: COLUMN tbl_user.sector; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN tbl_user.sector IS 'Used to store last choicie when user books another interview';
+
+
+--
+-- Name: COLUMN tbl_user.availability; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN tbl_user.availability IS 'Used to store last choicie when user books another interview';
+
+
+--
+-- Name: COLUMN tbl_user.job_type; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN tbl_user.job_type IS '1=penultimate(internhip), 2=last year (permanent position)
+Used to store last choicie when user books another mock interview';
 
 
 --
@@ -746,3 +781,4 @@ ALTER TABLE ONLY tbl_sequence
 --
 -- PostgreSQL database dump complete
 --
+
