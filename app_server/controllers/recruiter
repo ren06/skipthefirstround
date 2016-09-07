@@ -269,7 +269,7 @@ module.exports.doSearchVideos = function(req, res){
             var results = body.data;
             var message;
             if (!results || results.length == 0) {
-                message = 'No results'
+                message = 'Pas de résultats';
             }
             renderBrowseVideos(req, res, formData, results, message);
         }

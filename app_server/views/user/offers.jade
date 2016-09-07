@@ -6,9 +6,9 @@ block content
     .col-lg-2.text-center
     .col-lg-8
         .row
-
+            br
             h3 Browse offers
-
+            br
             script.
                 $(document).ready(function () {
                     $('#sector').change(function () {
@@ -41,7 +41,7 @@ block content
                     .alert.alert-danger() #{error}
 
                 .form-group.required
-                    label.col-sm-3.control-label(for='sector') Secteur d'activite
+                    label.col-sm-3.control-label(for='sector') Sector
                     .col-sm-8
                         select#sector(name='sector').form-control.required
                             each val, key in sectorOptions
@@ -84,6 +84,7 @@ block content
 
             if (offers && offers.length > 0)
                 h3 Results
+                br
                 include ../_includes/offers-result
             else if (message)
                 h3=message

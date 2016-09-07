@@ -19,8 +19,9 @@ block content
     .col-lg-8
 
         .row
-
-            h3 View offer
+            br
+            h3 Offre ##{formData.id}
+            br
             form.form-horizontal(id="registerForm", action="", method="post", role="form")
                 if(error)
                     .alert.alert-danger() #{error}
@@ -81,7 +82,7 @@ block content
 
                 .form-group
                     .col-sm-offset-4.col-sm-10
-                        button.btn.btn-default(type="submit") Poster l'offre
+                        //button.btn.btn-default(type="submit") Poster l'offre
 
 
         .row

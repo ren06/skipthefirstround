@@ -18,8 +18,9 @@ block content
     .col-lg-2.text-center
     .col-lg-8
         .row
-
-            h3 Post offer
+            br
+            h3 Poster une nouvelle offre
+            br
             form.form-horizontal(id="registerForm", action="", method="post", role="form")
                 if(error)
                     .alert.alert-danger() #{error}
@@ -27,7 +28,7 @@ block content
                 input(id='idRecruiter' type="hidden" name="idRecruiter" value="#{formData.idRecruiter}")
 
                 .form-group.required
-                    label.control-label.col-sm-4(for='sector') Secteur d'activite
+                    label.control-label.col-sm-4(for='sector') Secteur d'activité
                     .col-sm-8
                         select#sector(value=formData.sector, name='sector').form-control.required
                             each val, key in sectorOptions

@@ -7,16 +7,17 @@ block content
     .col-lg-2.text-center
     .col-lg-8
         .row
-
+            br
             h3 Mes offres
+            br
 
             table.table
                 tr
                     th Offre
                     //th Nombre de vues
                     th Candidatures en cours
-                    th Interviews realisees
-                    th Details
+                    th Interviews realisées
+                    th Détails
                     th Candidats
                 each offer in offers
                     tr
@@ -25,9 +26,9 @@ block content
                         td=offer.applyCount
                         td=offer.videoCount
                         td
-                            a(href='offer/#{offer.id}') Details
+                            a(href='offer/#{offer.id}') Détails
                         td
-                            a(href='offer/#{offer.id}/videos') Videos Candidats
+                            a(href='offer/#{offer.id}/videos') Vidéos Candidats
 
         .row
 

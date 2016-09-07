@@ -234,7 +234,7 @@ module.exports.doOffers = function(req, res){
 
             var message;
             if (!results || results.length == 0) {
-                message = 'No results'
+                message = 'Pas de résultats';
             }
 
             renderBrowseOffers(req, res, formData, results, message);
@@ -250,15 +250,6 @@ module.exports.doOffers = function(req, res){
 var renderRegisterApply = function(req, res, formData, offer, error){
 
     var sectorOptions = req.app.locals.options[res.getLocale()].sectorOptions;
-
-    // var cvLink = '';
-    //
-    // if(formData.cv !== ''){
-    //
-    //     cloudinary.config({cloud_name: 'dzfmkzqdo', api_key: '577639826413541', api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'});
-    //     cvLink = cloudinary.url(formData.cv);
-    //
-    // }
 
     res.render('user/register-apply', {
         title: i18n.__('Enregistrement'),

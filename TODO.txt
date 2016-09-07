@@ -11,15 +11,22 @@ OK - set language of interview in interview admin menu
 OK - Change status To be confirmed -> scheduled -> completed
 OK - Recruiters ->  My offers --> see applicants : real interview for offers
 OK - list jobs with 'view details' and count views
+OK- Put a link to the CV in the email for admin when new interview
 
-- Mark 'already applied' for interview already applied
-- finsih apply offer page
+Go-live:
+
+- Afficher les recherches d'offre en tableau
+- Ajouter un compteur de vue pour les offres
+- Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule
+- finish tagging apply offer page
+- reset password page
+- error message if already applied
+
+Other:
+- Mark 'already applied' for interview already applied (at least error message)
 - test emails
 - check wordings on all page (and English vs French)
 - A to Z scenario
-
-- Put a link to the CV in the email for admin when new interview
 - Faire un lien dans email confirmation d'interview "Go to my account"
-
-
+- Recruiter can modify/delete their offers
 - Nice to have: cloudniary, different setup for dev and prod

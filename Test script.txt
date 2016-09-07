@@ -21,3 +21,5 @@ Mock interview
 
 Apply Offer
 ===========
+
+1) Page principale -> Discover our offers

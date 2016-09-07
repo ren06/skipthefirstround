@@ -78,7 +78,7 @@ module.exports.doRecruiterAuthenticate = function(req, res) {
     common.dbHandleQuery(req, res, queryString, [email], null, 'noUser', 'Email or password does not exist', function (results) {
 
         var row = results[0];
-
+        console.log(row);
         if (row && row.email && row.password_hash) {
 
             var buffer = new Buffer(row.password_hash, 'hex');
@@ -104,7 +104,7 @@ module.exports.doRecruiterAuthenticate = function(req, res) {
             });
         }
         else {
-            common.sendJsonResponse(res, 404, false, 'Unexpected error, email should be provided', 'Unexpected error, email should be provided');
+            common.sendJsonResponse(res, 404, false, 'Email not found', 'Email non reconnu');
         }
 
     });

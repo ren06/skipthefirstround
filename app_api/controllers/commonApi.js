@@ -27,12 +27,16 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
         data = [];
     }
     else{
-        //console.time("stringify");
-        //TODO DOUBLE CHECK IF EMPTY STRING INSTEAD OF NULL CAUSES PROBLEMS
-        data = JSON.stringify(data).replace(/null/g, '""'); //convert to JSON string
-        data = JSON.parse(data);
+        //replaces null values with blank string
+        data = JSON.stringify(data, function(key, value) {
 
-        //console.timeEnd("stringify");
+            if(value === null) {
+                return "";
+            }
+            return value;
+        });
+
+        data = JSON.parse(data);
 
     }
 
