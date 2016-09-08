@@ -21,36 +21,37 @@ function isAuthenticated(req, res, next){
     }
 }
 
-router.get ('/', ctrlHomepage.homepageUser);
+router.get ('/', common.checkPermission(['guest', 'user']), ctrlHomepage.homepageUser);
 
 router.get ('/user-register', common.checkPermission(['guest']), ctrlRegister.registerUser);
 router.post('/user-register',  common.checkPermission(['guest']), ctrlRegister.doRegisterUser);
 router.get ('/getPositions', ctrlRegister.getPositions);
 
-router.get ('/confirmation', ctrlRegister.confirmation);
+router.get ('/confirmation', common.checkPermission(['user']), ctrlRegister.confirmation);
 router.get ('/my-account', common.checkPermission(['user']), ctrlUser.myAccount);
 router.get ('/interview/:interviewId', common.checkPermission(['user']), ctrlUser.interview);
 router.get ('/personal-information',  common.checkPermission(['user']), ctrlUser.personalInformations);
-router.get ('/my-messages', ctrlUser.myMessages);
+router.get ('/my-messages',  common.checkPermission(['user']), ctrlUser.myMessages);
 router.get ('/change-language/:language', ctrlHomepage.changeLanguage);
 
 
-router.get ('/user-login', ctrlRegister.identification);
-router.post('/user-login', ctrlRegister.doIdentification);
-router.get ('/user-logout', ctrlRegister.doLogout);
-router.get ('/password-reset', ctrlRegister.passwordReset);
-router.post('/password-reset', ctrlRegister.doPasswordReset);
-router.get ('/change-password/:code', ctrlRegister.changePassword);
-router.post('/change-password', ctrlRegister.doChangePassword);
+router.get ('/user-login', common.checkPermission(['guest']), ctrlRegister.identification);
+router.post('/user-login', common.checkPermission(['guest']), ctrlRegister.doIdentification);
+router.get ('/user-logout', common.checkPermission(['user']),  ctrlRegister.doLogout);
+router.get ('/password-reset', common.checkPermission(['guest']), ctrlRegister.passwordReset);
+router.post('/password-reset', common.checkPermission(['guest']), ctrlRegister.doPasswordReset);
+router.get ('/change-password/:code', common.checkPermission(['guest']), ctrlRegister.changePassword);
+router.post('/change-password/:code', common.checkPermission(['guest']),  ctrlRegister.doChangePassword);
+router.get ('/change-password-confirmation', common.checkPermission(['guest']),  ctrlRegister.changePasswordConfirmation);
 
-router.get ('/offers', ctrlUser.offers);
-router.post('/offers', ctrlUser.doOffers);
+router.get ('/offers', common.checkPermission(['guest', 'user']), ctrlUser.offers);
+router.post('/offers', common.checkPermission(['guest', 'user']), ctrlUser.doOffers);
 
-router.get ('/apply/:offerId', ctrlUser.applyOffer);
-router.post('/apply/:offerId', ctrlUser.doApplyOffer);
+router.get ('/apply/:offerId', common.checkPermission(['user']), ctrlUser.applyOffer);
+router.post('/apply/:offerId', common.checkPermission(['user']), ctrlUser.doApplyOffer);
 
-router.get ('/simulation', ctrlUser.simulation);
-router.post('/simulation', ctrlUser.doSimulation);
+router.get ('/simulation', common.checkPermission(['user']), ctrlUser.simulation);
+router.post('/simulation', common.checkPermission(['user']), ctrlUser.doSimulation);
 
 router.get ('/information', ctrlInformation.information);
 router.get('/about', ctrlHomepage.about);

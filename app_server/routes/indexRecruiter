@@ -6,23 +6,23 @@ var common = require('../controllers/common');
 var ctrlRecruiter = require('../controllers/recruiter');
 var ctrlHomepage = require('../controllers/homepage');
 
-router.get ('/', ctrlHomepage.homepageRecruiter);
-router.get ('/recruiter-register', ctrlRecruiter.registerRecruiter);
-router.post('/recruiter-register', ctrlRecruiter.doRegisterRecruiter);
-router.get ('/recruiter-logout', ctrlRecruiter.doLogout);
-router.get ('/recruiter-login/', ctrlRecruiter.login);
-router.post('/recruiter-login/', ctrlRecruiter.doLogin);
-router.get ('/confirmation', ctrlRecruiter.confirmation);
+router.get ('/', common.checkPermission(['guest', 'recruiter']), ctrlHomepage.homepageRecruiter);
+router.get ('/recruiter-register', common.checkPermission(['guest']), ctrlRecruiter.registerRecruiter);
+router.post('/recruiter-register', common.checkPermission(['guest']), ctrlRecruiter.doRegisterRecruiter);
+router.get ('/recruiter-logout', common.checkPermission(['recruiter']), ctrlRecruiter.doLogout);
+router.get ('/recruiter-login/', common.checkPermission(['guest']), ctrlRecruiter.login);
+router.post('/recruiter-login/', common.checkPermission(['guest']), ctrlRecruiter.doLogin);
+router.get ('/confirmation', common.checkPermission(['recruiter']), ctrlRecruiter.confirmation);
 
 router.get ('/main-menu', common.checkPermission(['recruiter']), ctrlRecruiter.mainMenu);
-router.get ('/post-offer', ctrlRecruiter.postOffer);
-router.post('/post-offer', ctrlRecruiter.doPostOffer);
-router.get ('/view-favourites', ctrlRecruiter.viewFavourites);
-router.get ('/my-offers', ctrlRecruiter.myOffers);
-router.get ('/offer/:offerId', ctrlRecruiter.offer);
-router.get ('/offer/:offerId/videos', ctrlRecruiter.videos);
-router.get ('/browse-videos', ctrlRecruiter.searchVideos);
-router.post('/browse-videos', ctrlRecruiter.doSearchVideos);
+router.get ('/post-offer', common.checkPermission(['recruiter']), ctrlRecruiter.postOffer);
+router.post('/post-offer', common.checkPermission(['recruiter']), ctrlRecruiter.doPostOffer);
+router.get ('/view-favourites', common.checkPermission(['recruiter']), ctrlRecruiter.viewFavourites);
+router.get ('/my-offers', common.checkPermission(['recruiter']), ctrlRecruiter.myOffers);
+router.get ('/offer/:offerId', common.checkPermission(['recruiter']), ctrlRecruiter.offer);
+router.get ('/offer/:offerId/videos', common.checkPermission(['recruiter']), ctrlRecruiter.videos);
+router.get ('/browse-videos', common.checkPermission(['recruiter']), ctrlRecruiter.searchVideos);
+router.post('/browse-videos', common.checkPermission(['recruiter']), ctrlRecruiter.doSearchVideos);
 
 
 

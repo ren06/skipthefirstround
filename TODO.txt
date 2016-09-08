@@ -24,6 +24,7 @@ Go-live:
 - 
 
 Other:
+- Possibility to delete (or hide if associations) offers
 - Mark 'already applied' for interview already applied (at least error message)
 - test emails
 - check wordings on all page (and English vs French)

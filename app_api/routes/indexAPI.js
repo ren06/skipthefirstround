@@ -30,6 +30,7 @@ router.get ('/users', ctrlUsers.usersList);
 router.get ('/users/search', ctrlUsers.userSearch);
 router.get ('/user/:userId', ctrlUsers.userReadOne);
 router.put ('/user/:userId', ctrlUsers.userModify);
+router.post('/user/changePassword', ctrlUsers.userChangePassword);
 
 router.post('/interviewer/', ctrlInterviewers.interviewerCreate);
 router.get ('/interviewers/', ctrlInterviewers.interviewersList);

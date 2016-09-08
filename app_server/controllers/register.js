@@ -369,7 +369,7 @@ module.exports.doPasswordReset = function(req, res){
             }
             else{
 
-                renderPasswordReset(req, res, {email: email, password: '', confirmPassword: ''}, 'The email does not exist, please contact us at info@skipthefirstround.com');
+                renderPasswordReset(req, res, {email: email}, 'The email does not exist, please contact us at info@skipthefirstround.com');
             }
 
         });
@@ -378,10 +378,10 @@ module.exports.doPasswordReset = function(req, res){
 };
 
 
-var renderChangePassword = function(req, res, formData, error){
+var renderChangePassword = function(req, res, success, error){
 
     res.render('user/change-password', {
-        formData: formData,
+        success: success,
         error: error
     });
 }
@@ -390,20 +390,52 @@ module.exports.changePassword = function(req, res) {
 
     var code = req.params.code;
 
-    console.log('code: ' + code);
-
     var result = common.decryptResetPasswordUrl(code);
     var success = result.success;
-    var formData = {email: result.email,};
 
-    renderChangePassword(req, res, formData, (success? null: 'The link has expired, please request a new email'));
+    renderChangePassword(req, res, success, (success? null: 'The link has expired, please request a new email'));
 };
 
 module.exports.doChangePassword = function(req, res) {
 
+    var formData = req.body;
+
+    var code = req.params.code;
+    var result = common.decryptResetPasswordUrl(code);
+    var success = result.success;
+    var email = result.email;
+
+    if(success) {
+
+        if (formData.password !== formData.confirmationPassword) {
+
+            renderChangePassword(req, res, success, "The passwords don't match");
+        }
+        else if(formData.password.length < 8){
+
+            renderChangePassword(req, res, success, 'The password must comprise of at least 8 characters');
+        }
+        else{
+
+            //set password
+            request(common.getRequestOptions(req, '/api/user/changePassword', 'POST', {email: email, password: formData.password}), function (err, response, body) {
+
+                res.redirect('/change-password-confirmation');
+            });
+        }
+    }
+    else{
+        renderChangePassword(req, res, success, 'The link has expired, please request a new email');
+    }
+
 };
 
+module.exports.changePasswordConfirmation = function(req, res){
 
+    res.render('user/change-password-confirmation', {
+
+    });
+};
 
 module.exports.createInterview = createInterview;
 

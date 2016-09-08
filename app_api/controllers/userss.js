@@ -310,7 +310,41 @@ module.exports.userModify = function (req, res) {
         common.rowUpdate(req, res, 'tbl_user', userId, data);
 
     }
+};
 
+module.exports.userChangePassword = function (req, res) {
+
+    var data = req.body;
+
+    console.log('data: ');
+    console.log(data);
+
+    var email = data.email;
+    var password = data.password;
+
+    if (!email) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('PasswordUpdateMissingInput'), null);
+    }
+    else {
+        cryptography.hashPassword(password, function (err, buffer) {
+
+            var passwordHash = buffer.toString('hex');
+
+            console.log('new hash: ' + passwordHash);
+
+            var queryString = "SELECT id FROM tbl_user WHERE email = $1";
+            console.log(queryString);
+            common.dbHandleQuery(req, res, queryString, [email] , null, 'Error', 'Error', function(results){
+
+                var userId = results[0].id;
+                console.log(results);
+                common.rowUpdate(req, res, 'tbl_user', userId, {'passwordHash': passwordHash});
+            })
+
+
+        });
+    }
 };
 
 module.exports.userReadOne = function (req, res) {
