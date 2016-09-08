@@ -55,6 +55,15 @@ router.get ('/renameEmailAddress/', function(req, res){
 
 });
 
+router.get ('/encryptUrl/', function(req, res){
+
+    var encryptedData = common.encryptResetPasswordUrl('rtheuillon@hotmail.com');
+
+    var data =  common.decryptResetPasswordUrl(encryptedData);
+
+    console.log(data);
+
+});
 
 
 

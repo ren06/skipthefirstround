@@ -16,6 +16,8 @@ $ pg_dump -U admin --no-owner --no-acl --schema-only --create --clean --file=bac
 
 3) modify the backupsql file, replace daf by d71kad5c6r40uv
 
+-->>> problem with drop database, probably need to delete all tables first
+
 4) run script
 
 $ heroku pg:psql --app demande-au-finaud < backup.sql 

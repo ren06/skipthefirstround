@@ -1,7 +1,5 @@
 extends ../user/layout
 
-include ../_includes/sharedHTMLfunctions
-
 block content
 
     script(src="//cdn.tinymce.com/4/tinymce.min.js")
@@ -14,6 +12,8 @@ block content
             statusbar: false,
             //width : 600
         });
+
+    include ../_includes/sector-position-js
 
     .col-lg-2.text-center
     .col-lg-8

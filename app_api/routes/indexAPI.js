@@ -27,6 +27,7 @@ router.use(function(req, res, next) {
 router.post('/user/', ctrlUsers.userCreate);
 router.post('/userLogin', ctrlUsers.doUserAuthenticate);
 router.get ('/users', ctrlUsers.usersList);
+router.get ('/users/search', ctrlUsers.userSearch);
 router.get ('/user/:userId', ctrlUsers.userReadOne);
 router.put ('/user/:userId', ctrlUsers.userModify);
 

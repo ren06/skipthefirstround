@@ -38,6 +38,10 @@ router.get ('/change-language/:language', ctrlHomepage.changeLanguage);
 router.get ('/user-login', ctrlRegister.identification);
 router.post('/user-login', ctrlRegister.doIdentification);
 router.get ('/user-logout', ctrlRegister.doLogout);
+router.get ('/password-reset', ctrlRegister.passwordReset);
+router.post('/password-reset', ctrlRegister.doPasswordReset);
+router.get ('/change-password/:code', ctrlRegister.changePassword);
+router.post('/change-password', ctrlRegister.doChangePassword);
 
 router.get ('/offers', ctrlUser.offers);
 router.post('/offers', ctrlUser.doOffers);

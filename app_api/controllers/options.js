@@ -9,7 +9,7 @@ var offerTypeOptionsFr = {
     "2": "CDI",
     "3": "CDD",
     "4": "Stage pre-embauche",
-    "5": "Stage cesure",
+    "5": "Stage",
     "6": "Summer internship",
     "7": "Spring internship",
 };
@@ -19,7 +19,7 @@ var offerTypeOptionsEn = {
     "2": "CDI",
     "3": "CDD",
     "4": "Stage pre-embauche",
-    "5": "Stage cesure",
+    "5": "Stage",
     "6": "Summer internship",
     "7": "Spring internship",
 };

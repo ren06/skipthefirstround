@@ -326,6 +326,85 @@ module.exports.getPositions = function(req, res){
     res.json(positions);
 };
 
+var renderPasswordReset = function(req, res, formData, error){
+
+    res.render('user/password-reset', {
+        formData: formData,
+        error: error
+    });
+}
+
+module.exports.passwordReset = function(req, res){
+
+    renderPasswordReset(req, res, {email: ''});
+
+};
+
+module.exports.doPasswordReset = function(req, res){
+
+    var email = req.body.email
+
+    //check if email is valid and present\
+    if(!common.validator.isEmail(email)){
+        renderPasswordReset(req, res, {email: email}, 'The email is not a valid email');
+    }
+    else{
+
+        //search for email
+        request(common.getRequestOptions(req, '/api/users/search', 'GET', null, {email: email}), function (err, response, body) {
+
+            var users = body.data;
+
+            if(users && users.length === 1){
+
+                res.render('user/password-reset-confirmation');
+
+                var param = common.encryptResetPasswordUrl(email);
+                var url = req.protocol + "://" + req.get('host') + '/change-password/' + param;
+
+                console.log('first name' + users[0].firstName);
+
+                //send email
+                emails.to_User_ResetPassword(email, users[0].firstName, url);
+            }
+            else{
+
+                renderPasswordReset(req, res, {email: email, password: '', confirmPassword: ''}, 'The email does not exist, please contact us at info@skipthefirstround.com');
+            }
+
+        });
+    }
+
+};
+
+
+var renderChangePassword = function(req, res, formData, error){
+
+    res.render('user/change-password', {
+        formData: formData,
+        error: error
+    });
+}
+
+module.exports.changePassword = function(req, res) {
+
+    var code = req.params.code;
+
+    console.log('code: ' + code);
+
+    var result = common.decryptResetPasswordUrl(code);
+    var success = result.success;
+    var formData = {email: result.email,};
+
+    renderChangePassword(req, res, formData, (success? null: 'The link has expired, please request a new email'));
+};
+
+module.exports.doChangePassword = function(req, res) {
+
+};
+
+
+
 module.exports.createInterview = createInterview;
 
 module.exports.identification = identification;

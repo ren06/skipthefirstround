@@ -26,11 +26,8 @@ var addUserText = function(data, req){
 
     var language = common.getLanguage(req);
 
-    console.log(language);
-
     if(typeof data !== 'undefined') {
 
-        console.log(options.options[language].sectorOptions[0]);
         data['sectorText'] = options.options[language].sectorOptions[data.sector];
         data['languageText'] = options.options[language].languageOptions[data.language];
     }
@@ -325,9 +322,17 @@ module.exports.userReadOne = function (req, res) {
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('UserReadMissingInput'), null);
     }
     else {
-
         common.readOne(req, res, 'tbl_user', userId, addUsersText);
-
     }
+};
+
+module.exports.userSearch = function (req, res) {
+
+    console.log('user search ');
+    console.log(req.query);
+
+    common.readAll(req, res, 'tbl_user', addUsersText, 'id', req.query);
 
 };
+
+

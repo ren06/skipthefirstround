@@ -4,6 +4,8 @@ var common = require('./common');
 const queryString = require('query-string');
 var acl = require('acl');
 var validator = require('validator');
+var encryptor = require('simple-encryptor')('demande au finaud');
+var moment = require('moment');
 
 module.exports.checkParametersPresent = function(parameterString, data){
 
@@ -244,6 +246,48 @@ module.exports.setLanguage = function(res, language){
     console.log('Language set to ' + language);
 
 };
+
+
+module.exports.encryptResetPasswordUrl = function(email){
+
+    var validity = moment().add(30, 'minutes').format();
+
+    var data = email + '---' + validity;
+
+    var encrypted = encryptor.encrypt(data);
+
+    encrypted = encodeURIComponent(encrypted);
+    // var buffer = new Buffer(encrypted);
+    // var toBase64 = buffer.toString('base64');
+    //
+    // console.log(toBase64);
+
+    return encrypted;
+
+};
+
+module.exports.decryptResetPasswordUrl = function(encryptedData){
+
+    encryptedData = decodeURIComponent(encryptedData);
+
+    var data = encryptor.decrypt(encryptedData);
+
+    console.log(data);
+
+    var res = data.split("---");
+
+    var email = res[0];
+    var validity = res[1];
+
+    console.log(res);
+
+    var now =  moment().format();
+    var success = moment(validity).isAfter(now);
+
+    return {'email': email, 'success': success};
+
+};
+
 
 
 module.exports.validator = validator;

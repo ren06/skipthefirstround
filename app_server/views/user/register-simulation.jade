@@ -4,31 +4,7 @@ block content
 
     include ../_includes/cv-upload-js
 
-    script.
-        $(document).ready(function () {
-            $('#sector').change(function () {
-
-                $.ajax({
-                    type: 'GET',
-                    data: {sector: $('#sector').val()},
-                    url: 'getPositions',
-                    success: function (data) {
-
-                        var select = $("#position")[0];
-
-                        $('#position').empty();
-
-                        for (var key in data) {
-                            if (data.hasOwnProperty(key)) {
-
-                                select.add(new Option(data[key], key));
-
-                            }
-                        }
-                    }
-                });
-            });
-        });
+    include ../_includes/sector-position-js
 
     // main-container start
     // ================

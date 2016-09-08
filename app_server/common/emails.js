@@ -184,6 +184,24 @@ module.exports.to_Admin_Contact_Form = function(name, email, message){
 };
 
 
+//**********************************
+//*** RESET PASSWORD
+//**********************************
+module.exports.to_User_ResetPasswordHtml = function(name, url){
+    console.log(name);
+    return renderView('email/user-password-reset', {data: {
+        name: name,
+        url: url,
+    }});
+};
+module.exports.to_User_ResetPassword = function(email, name, url){
+
+    var html = this.to_User_ResetPasswordHtml(name, url);
+
+    sendEmail(email, html, 'Password reset request');
+};
+
+
 
 //**********************************
 //*** TEST

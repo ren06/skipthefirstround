@@ -33,7 +33,13 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
             if(value === null) {
                 return "";
             }
-            return value;
+            else if(key === 'password_hash'){
+                delete data[key];
+            }
+            else{
+                return value;
+            }
+
         });
 
         data = JSON.parse(data);
@@ -126,6 +132,7 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
 
 module.exports.convertQueryToWhereClause = function(query, tableAlias){
 
+    //query is GET query string
     var keys = Object.keys(query);
 
     var whereClause = "";
@@ -134,7 +141,7 @@ module.exports.convertQueryToWhereClause = function(query, tableAlias){
 
         var and = " AND ";
 
-        whereClause += "WHERE ";
+        whereClause += " WHERE ";
 
         keys.forEach(function (entry) {
 
@@ -263,13 +270,22 @@ module.exports.readOne = function(req, res, tableName, id, addText, callback){
 
 };
 
-module.exports.readAll = function(req, res, tableName, addText, orderBy){
+module.exports.readAll = function(req, res, tableName, addText, orderBy, whereFilters){ //whereFilters is json object, like qs
 
     var queryString = "SELECT * FROM " + tableName ;
+
+    console.log(whereFilters);
+
+    if(whereFilters){
+
+        queryString += this.convertQueryToWhereClause(whereFilters);
+    }
 
     if(orderBy){
         queryString += ' ORDER BY ' + orderBy;
     }
+
+    console.log(queryString);
 
     this.dbHandleQuery(req, res, queryString, null, addText, 'Internal Error', 'User Error');
 
@@ -291,7 +307,6 @@ module.exports.checkParametersPresent = function(parameterString, data){
     }
 
     return true;
-
 };
 
 module.exports.generateJwt = function(id, email, lastName) {

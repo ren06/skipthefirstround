@@ -9,32 +9,7 @@ block content
             h3 Parcourir les extraits de videos des candidats
             br
 
-            script.
-                $(document).ready(function () {
-                    $('#sector').change(function () {
-
-                        $.ajax({
-                            type: 'GET',
-                            data: {sector: $('#sector').val()},
-                            url: '/getPositions',
-                            success: function (data) {
-
-                                var select = $("#position")[0];
-
-                                $('#position').empty();
-                                select.add(new Option('Tous', '0'));
-                                for (var key in data) {
-                                    if (data.hasOwnProperty(key)) {
-
-                                        select.add(new Option(data[key], key));
-
-                                    }
-                                }
-                            }
-                        });
-                    });
-                });
-
+            include ../_includes/sector-position-js
 
             form.form-horizontal(id="searchForm", action="", method="post", role="form")
                 if(error)
