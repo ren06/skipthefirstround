@@ -15,6 +15,7 @@ OK- Put a link to the CV in the email for admin when new interview
 
 Go-live:
 
+- Tag Register after apply
 - Afficher les recherches d'offre en tableau
 - Ajouter un compteur de vue pour les offres
 - Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule

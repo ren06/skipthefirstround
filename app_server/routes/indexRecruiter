@@ -9,10 +9,10 @@ var ctrlHomepage = require('../controllers/homepage');
 router.get ('/', common.checkPermission(['guest', 'recruiter']), ctrlHomepage.homepageRecruiter);
 router.get ('/recruiter-register', common.checkPermission(['guest']), ctrlRecruiter.registerRecruiter);
 router.post('/recruiter-register', common.checkPermission(['guest']), ctrlRecruiter.doRegisterRecruiter);
-router.get ('/recruiter-logout', common.checkPermission(['recruiter']), ctrlRecruiter.doLogout);
+router.get ('/recruiter-logout', ctrlRecruiter.doLogout);
 router.get ('/recruiter-login/', common.checkPermission(['guest']), ctrlRecruiter.login);
 router.post('/recruiter-login/', common.checkPermission(['guest']), ctrlRecruiter.doLogin);
-router.get ('/confirmation', common.checkPermission(['recruiter']), ctrlRecruiter.confirmation);
+router.get ('/confirmation', ctrlRecruiter.confirmation); //no access control, since we want the user to see the message even if not active
 
 router.get ('/main-menu', common.checkPermission(['recruiter']), ctrlRecruiter.mainMenu);
 router.get ('/post-offer', common.checkPermission(['recruiter']), ctrlRecruiter.postOffer);

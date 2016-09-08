@@ -113,13 +113,6 @@ module.exports.setSessionData = function(req, res, person, role, token, callback
         req.session.active = person.active;
     }
 
-
-
-    // var aclInstance = res.locals.acl;
-    // aclInstance.addUserRoles(user.id, role, function(){});
-    // console.log('Role ' + role + ' set to userId ' + user.id);
-    //
-    // console.log('session set: ' + req.session.userId + ' authenticated ' + req.session.authenticated);
     if(callback) {
         callback();
     }
@@ -166,72 +159,83 @@ var renderNotAuthenticated = function(res) {
     res.render('user/not-authenticated', { });
 };
 
+var checkRole = function(req, res, roles, next){
+
+    var currentRole = req.session.role;
+    var active = req.session.active;
+
+    console.log('User is active: ' + active);
+
+    if (currentRole) {
+
+        if (roles.indexOf(currentRole) > -1) {
+
+            if(active) {
+                console.log("Role '" + currentRole + "' found in array of roles, Access Granted");
+                next();
+            }
+            else{
+
+                var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + req.session.userId + '/isActive', 'GET');
+
+                request(requestOptions, function (err, response, body) {
+
+                    if(body.data.active == true){
+                        req.session.active = true;
+                        next();
+                    }
+                    else{
+                        res.render('user/not-active');
+                    }
+
+                });
+            }
+        }
+        else {
+            renderNotAuthenticated(res);
+        }
+    }
+    else {
+        renderNotAuthenticated(res);
+    }
+
+};
+
 module.exports.checkPermission = function(roles){
 
     return function(req, res, next) {
 
         var authenticated = req.session.authenticated;
-        var authOk = true;
 
-        console.log('checking roles ' + roles);
-        console.log('authenticated: ' + authenticated);
-        console.log('role: ' + req.session.role);
+        console.log('Checking roles: ' + roles);
+        console.log('Authenticated? ' + authenticated);
+        console.log("Current Role: '" + req.session.role + "'");
+        var currentRole = req.session.role;
 
         var isGuest = true;
         var roleOk = false;
 
-        //check for guest
+        //Check if current action is available gor Guest
         if (roles.indexOf('guest') > -1) {
 
-            console.log('role is guest');
+            if(currentRole == 'guest' || !authenticated){ //after a logout the role is not set yet
 
-            if (!authenticated) {
-                next()
+                console.log('Action available to Guest, User is Guest, Access Granted');
+                next();
             }
             else{
-                renderNotAuthenticated(res);
+
+                //User is not guest, check if action has access to roles
+                checkRole(req, res, roles, next);
             }
+
         }
         else if(authenticated) {
 
-            var currentRole = req.session.role;
-
-            var active = req.session.active;
-
-            console.log('User is active: ' + active);
-
-            if (currentRole) {
-
-                if (roles.indexOf(currentRole) > -1) {
-
-                    if(active) {
-                        console.log(currentRole + ' found in array of roles');
-                        next();
-                    }
-                    else{
-
-                        var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + req.session.userId + '/isActive', 'GET');
-
-                        request(requestOptions, function (err, response, body) {
-
-                            if(body.data.active == true){
-                                req.session.active = true;
-                                next();
-                            }
-                            else{
-                                res.render('user/not-active', {});
-                            }
-
-                        });
-
-                    }
-                }
-                else {
-                    renderNotAuthenticated(res);
-                }
-            }
+            checkRole(req, res, roles, next);
         }
         else{
+            //Current action does not allowed Guest, and the user is not authenticated
             renderNotAuthenticated(res);
         }
 

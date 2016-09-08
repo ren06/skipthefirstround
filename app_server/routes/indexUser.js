@@ -21,7 +21,7 @@ function isAuthenticated(req, res, next){
     }
 }
 
-router.get ('/', common.checkPermission(['guest', 'user']), ctrlHomepage.homepageUser);
+router.get ('/', ctrlHomepage.homepageUser); //No access control for homepage at all
 
 router.get ('/user-register', common.checkPermission(['guest']), ctrlRegister.registerUser);
 router.post('/user-register',  common.checkPermission(['guest']), ctrlRegister.doRegisterUser);
@@ -37,7 +37,7 @@ router.get ('/change-language/:language', ctrlHomepage.changeLanguage);
 
 router.get ('/user-login', common.checkPermission(['guest']), ctrlRegister.identification);
 router.post('/user-login', common.checkPermission(['guest']), ctrlRegister.doIdentification);
-router.get ('/user-logout', common.checkPermission(['user']),  ctrlRegister.doLogout);
+router.get ('/user-logout', ctrlRegister.doLogout);
 router.get ('/password-reset', common.checkPermission(['guest']), ctrlRegister.passwordReset);
 router.post('/password-reset', common.checkPermission(['guest']), ctrlRegister.doPasswordReset);
 router.get ('/change-password/:code', common.checkPermission(['guest']), ctrlRegister.changePassword);
@@ -47,8 +47,8 @@ router.get ('/change-password-confirmation', common.checkPermission(['guest']), 
 router.get ('/offers', common.checkPermission(['guest', 'user']), ctrlUser.offers);
 router.post('/offers', common.checkPermission(['guest', 'user']), ctrlUser.doOffers);
 
-router.get ('/apply/:offerId', common.checkPermission(['user']), ctrlUser.applyOffer);
-router.post('/apply/:offerId', common.checkPermission(['user']), ctrlUser.doApplyOffer);
+router.get ('/apply/:offerId', common.checkPermission(['guest', 'user']), ctrlUser.applyOffer);
+router.post('/apply/:offerId', common.checkPermission(['guest', 'user']), ctrlUser.doApplyOffer);
 
 router.get ('/simulation', common.checkPermission(['user']), ctrlUser.simulation);
 router.post('/simulation', common.checkPermission(['user']), ctrlUser.doSimulation);

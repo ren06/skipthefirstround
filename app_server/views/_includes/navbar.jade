@@ -109,13 +109,23 @@
                                                 a() |
 
                                             if(session.authenticated)
-                                                li
-                                                    a(href="#{logoutUrl}") Sign out
+                                                if(!isRecruiter)
+                                                    li
+                                                        a(href="#{logoutUrl}") Sign out
+                                                else
+                                                    li
+                                                        a(href="#{logoutUrl}") Déconnexion
                                             else
-                                                li
-                                                    a(href="#{loginUrl}") Log in
-                                                li
-                                                    a(href="#{registerUrl}") Register
+                                                if(!isRecruiter)
+                                                    li
+                                                        a(href="#{loginUrl}") Log in
+                                                    li
+                                                        a(href="#{registerUrl}") Register
+                                                else
+                                                    li
+                                                        a(href="#{loginUrl}") Se connecter
+                                                    li
+                                                        a(href="#{registerUrl}") S'enregistrer
 
                             // navbar end
                         // main-navigation end
