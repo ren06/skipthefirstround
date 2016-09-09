@@ -73,9 +73,30 @@ block content
                             input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
 
                     .form-group
-                        label.control-label.col-sm-4(for='sector') Sector:
+                        label.control-label.col-sm-4(for='sector') Last Sector:
                         .col-sm-8
-                            input#sector(type="", name="sector", placeholder="" value="#{formData.sectorText}").form-control
+                            input#sector(type="", name="sector", placeholder="" value="#{formData.sectorText.label}").form-control
+
+                    .form-group
+                        label.control-label.col-sm-4(for='sector') Last Position:
+                        .col-sm-8
+                            input#position(type="", name="position", placeholder="" value="#{formData.sectorText.positions[formData.sector]}").form-control
+
+                    //.form-group.has-feedback
+                    //    label.col-sm-3.control-label(for='sector') Sector
+                    //        span.text-danger.small *
+                    //    .col-sm-8
+                    //        select#sector(name='sector').form-control
+                    //            each val, key in sectorOptions
+                    //                option(value=key selected=(key == formData.sector))=val.label
+                    //
+                    //.form-group.has-feedback
+                    //    label.col-sm-3.control-label(for='position') Position
+                    //        span.text-danger.small *
+                    //    .col-sm-8
+                    //        select#position(name='position').form-control
+                    //            each val, key in sectorOptions[formData.sector].positions
+                    //                option(value=key selected=(key == formData.position))=val
                     .form-group
                         label.control-label.col-sm-4(for='Language') Language:
                         .col-sm-8

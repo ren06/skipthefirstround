@@ -286,32 +286,32 @@ module.exports.applyOffer = function(req, res){
 module.exports.doApplyOffer = function(req, res){
 
     var formData = req.body;
-
-    console.log(formData);
-
+    var email = formData.email;
     var offerId = formData.offerId;
-    var sector = formData.sector;
     var cv = formData.cv;
+
+    console.log('Offer Id: ' + offerId);
 
     //get offer data
     var requestOptions = common.getRequestOptions(req, '/api/offer/' + offerId, 'GET', null);
 
     request(requestOptions, function (err, response, body) {
 
-        var offer = body.data;
+        var offer = body.data[0];
 
         var checkParams = '';
 
         if(req.session.authenticated){
-            checkParams = 'skypeId, sector, availability';
+            checkParams = 'skypeId, availability, cv';
         }
         else{
-            checkParams = 'email, firstName, lastName, password, confirmationPassword, availability, skypeId, sector';
+            checkParams = 'email, firstName, lastName, password, confirmationPassword, availability, skypeId, cv';
         }
         console.log(checkParams);
         if(!common.checkParametersPresent(checkParams, formData)){
 
             console.log('params NOT ok');
+            console.log(offer);
             renderRegisterApply(req, res, formData, offer, 'Please enter all fields');
         }
         else{
@@ -323,7 +323,6 @@ module.exports.doApplyOffer = function(req, res){
             //if user not authenticated it must be created
             if(!req.session.authenticated) {
 
-
                 //TODO later uncomment this
                 // var language = req.cookies.locale;
                 //
@@ -334,23 +333,27 @@ module.exports.doApplyOffer = function(req, res){
 
                 formData.language = language;
 
-                var requestOptions = common.getRequestOptions(req, '/api/user/', 'POST', formData);
 
-                request(requestOptions, function (err, response, body) {
+                formData['sector'] = offer.sector;
+                formData['position'] = offer.position;
+                //formData['company'] = offer.company;
+
+                request(common.getRequestOptions(req, '/api/user/', 'POST', formData), function (err, response, body) {
 
                     if (response.statusCode === 201) {
 
                         //authenticate user
+                        var user = body.data.user;
                         var token = body.data.token;
                         console.log(token);
-                        common.setSessionData(req, res, body.data.user, 'user', token, function(){
+                        common.setSessionData(req, res, user, 'user', token, function(){
 
                             //send email
-                            emails.to_User_Registration(req.session.email, req.session.fullName, 2);
+                            emails.to_User_Registration(email, {firstName: user.firstName, interviewType: 2});
 
                             //send le finaud email
                             //TODO later merge register and user
-                            register.createInterview(req, body.data.user.id, interviewType, sector, offerId, null, null, function (err, response, body) {
+                            register.createInterview(req, user.id, interviewType, offer.sector, offer.id, offer.position, offer.company, function (err, response, body) {
 
                                 console.log(err);
                                 console.log(body);
@@ -371,7 +374,8 @@ module.exports.doApplyOffer = function(req, res){
                     else if (( response.statusCode === 400 || response.statusCode === 409 || response.statusCode === 422 ) && body.success === false) {
 
                         console.log(body.internalError);
-                        renderRegisterApply(req, res, formData, body.userError);
+                        console.log(offer);
+                        renderRegisterApply(req, res, formData, offer, body.userError);
 
                     }
                     else {
@@ -381,43 +385,56 @@ module.exports.doApplyOffer = function(req, res){
                 });
             }
             else{
+                //***********************
+                //** User already exists
+                //***********************
 
                 var userId = req.session.userId;
 
-                //send email
-                emails.to_User_InterviewConfirmation(interviewType, req.session.email, req.session.fullName);
+                //Get existing user data
+                request( common.getRequestOptions(req, '/api/user/' + userId, 'GET'), function (err, response, body) {
 
-                //send le finaud email
-                emails.to_Admin_New_Interview(interviewType, req.session.email, req.session.fullName);
-                //TODO later merge register and user
-                register.createInterview(req, userId, interviewType, sector, offerId, null, null, function (err, response, body) {
+                    var user = body.data[0];
 
-                    //update
+                    //TODO later merge register and user
+                    //Create interview
+                    register.createInterview(req, userId, interviewType, offer.sector, offer.id, offer.position, offer.company, function (err, response, body) {
 
-                    var postData = {
-                        skypeId: formData.skypeId,
-                        cv: formData.cv,
-                        availability: formData.availability,
-                        mobilePhone: formData.mobilePhone,
-                    };
+                        //Update user data if user made modifications
+                        var postData = {
+                            skypeId: formData.skypeId,
+                            cv: formData.cv,
+                            availability: formData.availability,
+                            mobilePhone: formData.mobilePhone,
+                        };
 
-                    requestOptions = common.getRequestOptions(req, '/api/user/' + userId, 'PUT', postData);
+                        request( common.getRequestOptions(req, '/api/user/' + userId, 'PUT', postData), function (err, response, body) {
 
-                    request(requestOptions, function (err, response, body) {
+                            console.log(err);
+                            console.log(body);
 
-                        console.log(err);
-                        console.log(body);
+                            console.log('Create interview executed, user updated');
 
-                        console.log('create interview executed');
-                        if (response.statusCode === 204) {
+                            if (response.statusCode === 204) {
 
-                            //redirect
-                            res.redirect('/confirmation');
-                        }
-                        else {
-                            console.log('error unhandled, status code:' + response.statusCode);
-                            common.showError(req, res, response.statusCode);
-                        }
+                                //send email
+                                emails.to_User_InterviewConfirmation(interviewType, user.email, user.firstName + ' ' + user.lastName);
+
+                                //send le finaud email
+                                var cvLink = res.locals.cloudinary.url(formData.cv);
+                                var data = { firstName: user.firstName, lastName: user.lastName ,email: user.email, mobilePhone: formData.mobilePhone,
+                                    availability: formData.availability, interviewType: 1, skypeId: formData.skypeId, cvLink: cvLink};
+
+                                emails.to_Admin_New_Interview(data);
+
+                                //redirect
+                                res.redirect('/confirmation');
+                            }
+                            else {
+                                console.log('error unhandled, status code:' + response.statusCode);
+                                common.showError(req, res, response.statusCode);
+                            }
+                        });
                     });
                 });
             }

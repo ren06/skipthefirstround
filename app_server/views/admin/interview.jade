@@ -80,12 +80,14 @@ block content
                                     option(value=key selected=(key == interview.status))=val
 
                     .form-group
-                        label.control-label.col-sm-2(for='sector') Type:
+                        label.control-label.col-sm-2(for='type') Type:
                         .col-sm-10
-                            select#type.form-control(name='type')
+                            select#type.form-control(name='type' disabled)
                                 each val, key in interviewTypeOptions
                                     option(value=key selected=(key == interview.type))=val
 
+                    //Those 3 fields are only relevant for interview type = mock interview
+                    //if(interview.type == 1)
                     .form-group
                         label.control-label.col-sm-2(for='sector') Sector:
                         .col-sm-10
@@ -101,16 +103,17 @@ block content
                                     option(value=key selected=(key == interview.position))=val
 
                     .form-group
+                        label.control-label.col-sm-2(for='company') Company
+                        .col-sm-10
+                            input#company(name="company", placeholder="" value="#{interview.company}").form-control
+
+                    .form-group
                         label.control-label.col-sm-2(for='jobType') Job type:
                         .col-sm-10
                             select#jobType.form-control(name='jobType')
                                 each val, key in jobTypeOptions
                                     option(value=key selected=(key == interview.jobType))=val
 
-                    .form-group
-                        label.control-label.col-sm-2(for='company') Company
-                        .col-sm-10
-                            input#company(name="company", placeholder="" value="#{interview.company}").form-control
                     .form-group
                         label.control-label.col-sm-2(for='datepicker') Date:
                         .col-sm-10

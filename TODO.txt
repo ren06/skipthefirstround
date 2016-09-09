@@ -15,16 +15,21 @@ OK- Put a link to the CV in the email for admin when new interview
 
 Go-live:
 
+
 - Tag Register after apply
+- Send recruiter activation email
+- Send email to recruiter when account is activated
 - Afficher les recherches d'offre en tableau
 - Ajouter un compteur de vue pour les offres
 - Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule
 - finish tagging apply offer page
 - reset password page
 - error message if already applied
-- 
+- Make email address case insensitive
 
 Other:
+- Send interviewer registration email
+- Update last sector/last in personal information (for new mock interview default values)
 - Possibility to delete (or hide if associations) offers
 - Mark 'already applied' for interview already applied (at least error message)
 - test emails

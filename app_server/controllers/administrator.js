@@ -142,10 +142,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
     var interviewId = req.params.interviewId;
 
-
-    var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId);
-
-    request(requestOptions, function (err, response, body) {
+    request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET'), function (err, response, body) {
 
         var interview = body.data[0];
 
@@ -209,7 +206,6 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
             res.render('admin/interview', {
                 interview: interview,
-                title: 'Homepage',
                 sectorOptions: sectorOptions,
                 jobTypeOptions: jobTypeOptions,
                 interviewTypeOptions: interviewTypeOptions,

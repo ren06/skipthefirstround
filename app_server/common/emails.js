@@ -145,8 +145,15 @@ module.exports.to_Admin_New_InterviewHtml = function(data){
 module.exports.to_Admin_New_Interview = function(data){
 
     var html = this.to_Admin_New_InterviewHtml(data);
+    var subject = "";
+    if(data.interviewType == 1){
+        subject = 'New mock interview request';
+    }
+    else{
+        subject = 'New offer interview request';
+    }
 
-    sendEmail(adminEmail, html, 'New interview request');
+    sendEmail(adminEmail, html, subject);
 
 };
 

@@ -65,7 +65,7 @@ module.exports.dbConnect = function(callback){
 //Always return an array of rows, even if SELECT SINGLE
 module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTextFunction, internalError, userError, callback){
     
-    pg.connect(getConnectionString(),function (err, client, done) {
+    pg.connect(getConnectionString(), function (err, client, done) {
 
         if (err) {
             done();

@@ -172,6 +172,7 @@ module.exports.userCreate = function (req, res) {
     var password = req.body.password;
     var availability = req.body.availability;
     var sector = req.body.sector;
+    var position = req.body.position;
     var skypeId = req.body.skypeId;
     var mobilePhone = req.body.mobilePhone;
     var language = req.body.language;
@@ -221,7 +222,7 @@ module.exports.userCreate = function (req, res) {
 
     });
 
-    var saveUser = function (email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone) {
+    var saveUser = function (email, firstName, lastName, passwordHash, availability, sector, position, skypeId, mobilePhone) {
 
         pg.connect(conString, function (err, client, done) {
 
@@ -246,12 +247,12 @@ module.exports.userCreate = function (req, res) {
                     cv = null;
                 }
 
-                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, skype_id, language, mobile_phone, cv) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
+                var queryString = "INSERT INTO tbl_user(email, first_name, last_name, password_hash, availability, sector, position, skype_id, language, mobile_phone, cv) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *";
 
                 console.log(queryString);
                 console.log(email + ' ' + firstName + ' ' + lastName + ' ' + passwordHash);
 
-                var parameters = [email, firstName, lastName, passwordHash, availability, sector, skypeId, language, mobilePhone, cv];
+                var parameters = [email, firstName, lastName, passwordHash, availability, sector, position, skypeId, language, mobilePhone, cv];
 
                 var query = client.query(queryString, parameters,
                     function (err, result) {
@@ -285,7 +286,7 @@ module.exports.userCreate = function (req, res) {
 
     var onHashComplete = function (passwordHash) {
 
-        saveUser(email, firstName, lastName, passwordHash, availability, sector, skypeId, mobilePhone);
+        saveUser(email, firstName, lastName, passwordHash, availability, sector, position, skypeId, mobilePhone);
     };
 };
 

@@ -4,72 +4,96 @@ block content
 
     include ../_includes/cv-upload-js
 
-    .col-lg-2.text-center
-    .col-lg-8
-        if(!session.authenticated)
-            h2 Register
-        else
-            h2 To apply, schedule a mock interview
-        br
-        h4 Offer ##{offer.id} #{offer.sectorText} - #{offer.offerTypeText} - #{offer.location}
-        br
-        form.form-horizontal(id="registerForm", action="", method="post", role="form")
-            if(error)
-                .alert.alert-danger(role="alert") #{error}
+    include ../_includes/sector-position-js
 
-            input(type='hidden' name='offerId' value="#{offer.id}")
-            input(type='hidden' name='sector' value="#{offer.sector}")
+    // main-container start
+    // ================
+    .main-container.dark-translucent-bg(style="background-image:url('/images/montagne1.jpg');")
+        .container
+            .row
+                // main start
+                // ================
+                .main.object-non-visible(data-animation-effect='fadeInUpSmall', data-effect-delay='100')
+                    .form-block.center-block.p-30.light-gray-bg.border-clear
+                        if(!session.authenticated)
+                            h2.title Let's schedule a job interview!
+                        else
+                            h2.title New job interview
 
-            .form-group
-                include ../_includes/cv-upload-control
+                        div
+                            i Offer ##{offer.id} #{offer.sectorText} - #{offer.offerTypeText} - #{offer.location}
 
-            if(!session.authenticated)
+                        form.form-horizontal(id="registerForm", action="", method="post", role="form")
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='firstName') First name:
-                    .col-sm-8
-                        input#firstName(type="", name="firstName", placeholder="" value="#{formData.firstName}").form-control
+                            input(type="hidden" name="offerId" value="#{offer.id}")
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='lastName') Last name:
-                    .col-sm-8
-                        input#lastName(type="", name="lastName", placeholder="" value="#{formData.lastName}").form-control
+                            if(error)
+                                .alert.alert-danger(role="alert") #{error}
 
-            .form-group.required
-                label.control-label.col-sm-4(for='skypeId') Your Skype ID:
-                .col-sm-8.required
-                    input#skypeId(type="", name="skypeId", placeholder="Pour realiser l'interview" value="#{formData.skypeId}").form-control
+                            .form-group.has-feedback
+                                include ../_includes/cv-upload-control
 
-            .form-group.required
-                label.control-label.col-sm-4(for='availability') Your availabilities:
-                .col-sm-8
-                    input#availability(type="", name="availability", placeholder="Eg. Wednesdays, Thursdays from 5pm" value="#{formData.availability}").form-control
+                            if(!session.authenticated)
 
-            .form-group
-                label.control-label.col-sm-4(for='mobilePhone') Mobile number:
-                .col-sm-8
-                    input#mobilePhone(type="", name="mobilePhone", placeholder="" value="#{formData.mobilePhone}").form-control
+                                .form-group.has-feedback
+                                    label.col-sm-3.control-label(for='firstName') First Name
+                                        span.text-danger.small *
+                                    .col-sm-8
+                                        input#firstName.form-control(type="text", name='firstName', placeholder="", required='', value="#{formData.firstName}")
+                                        i.fa.fa-pencil.form-control-feedback
 
-            if(!session.authenticated)
+                                .form-group.has-feedback
+                                    label.col-sm-3.control-label(for='lastName') Last Name
+                                        span.text-danger.small *
+                                    .col-sm-8
+                                        input#lastName.form-control(type="text", name="lastName", placeholder="", required='', value="#{formData.lastName}")
+                                        i.fa.fa-pencil.form-control-feedback
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='email') Email:
-                    .col-sm-8
-                        input#email(type="email", name="email", placeholder="Email" value="#{formData.email}").form-control
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='skypeId') Your Skype ID:
+                                    span.text-danger.small *
+                                .col-sm-8.required
+                                    input#skypeId(type="", name="skypeId", placeholder="Min. 6 characters", required='', value="#{formData.skypeId}").form-control
+                                    i.fa.fa-skype.form-control-feedback
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='password') Password:
-                    .col-sm-8
-                        input#password(type="password", name="password", placeholder="Password", value="#{formData.password}").form-control
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='availability') Your availabilites:
+                                    span.text-danger.small *
+                                .col-sm-8
+                                    input#availability(type="", name="availability", placeholder="Eg. Wednesdays and Thursdays from 5pm", required='', value="#{formData.availability}").form-control
+                                    i.fa.fa-calendar.form-control-feedback
 
-                .form-group.required
-                    label.control-label.col-sm-4(for='confirmationPassword') Please confirm your password:
-                    .col-sm-8
-                        input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Please confirm your password", value="#{formData.confirmationPassword}").form-control
+                            .form-group.has-feedback
+                                label.col-sm-3.control-label(for='mobilePhone') Mobile number:
+                                .col-sm-8
+                                    input#mobilePhone(type="", name="mobilePhone", placeholder="", value="#{formData.mobilePhone}").form-control
+                                    i.fa.fa-phone.form-control-feedback
 
-            .form-group
-                .col-sm-offset-4.col-sm-10
-                    //button(type="submit").btn.btn-default S'enregister
-                    button.btn.btn-default(type="submit") Register
+                            if(!session.authenticated)
 
-    .col-lg-2.text-center
+                                .form-group.has-feedback
+                                    label.col-sm-3.control-label(for='email') Email:
+                                        span.text-danger.small *
+                                    .col-sm-8
+                                        input#email(type="email", name="email", placeholder="", required='', value="#{formData.email}").form-control
+                                        i.fa.fa-envelope.form-control-feedback
+
+                                .form-group.has-feedback
+                                    label.col-sm-3.control-label(for='password') Password:
+                                        span.text-danger.small *
+                                    .col-sm-8
+                                        input#password(type="password", name="password", required='', placeholder="Password must be at least 8 characters", value="#{formData.password}").form-control
+                                        i.fa.fa-lock.form-control-feedback
+
+                                .form-group.has-feedback
+                                    label.col-sm-3.control-label(for='confirmationPassword') Please confirm your password:
+                                        span.text-danger.small *
+                                    .col-sm-8
+                                        input#confirmationPassword(type="password", name="confirmationPassword", placeholder="Password confirmation", required='', value="#{formData.confirmationPassword}").form-control
+                                        i.fa.fa-lock.form-control-feedback
+
+                            .form-group
+                                .col-sm-offset-3.col-sm-8
+                                    button.btn.btn-group.btn-default.btn-animated(type='submit')
+                                        | Register
+                                        i.fa.fa-check

@@ -169,18 +169,18 @@ module.exports.interviewCreate = function(req, res){
         else {
 
             var queryString = "";
-            var params = [userId, type, sector, status];
+            var params = [userId, type, sector, position, status];
 
             if(offerId){
                 params.push(offerId);
-                queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, id_offer) VALUES($1, $2, $3, $4, $5) RETURNING *";
+                queryString = "INSERT INTO tbl_interview(id_user, type, sector, position, status, id_offer) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
             }
             else{
                 params.push(company);
-                params.push(position);
-                queryString = "INSERT INTO tbl_interview(id_user, type, sector, status, company, position) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
+                queryString = "INSERT INTO tbl_interview(id_user, type, sector, position, status, company) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
             }
 
+            console.log(queryString);
             console.log(params);
 
             var query = client.query(queryString, params,
