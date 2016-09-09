@@ -82,7 +82,7 @@ block content
                     .form-group
                         label.control-label.col-sm-2(for='type') Type:
                         .col-sm-10
-                            select#type.form-control(name='type' disabled)
+                            select#type.form-control(name='type')
                                 each val, key in interviewTypeOptions
                                     option(value=key selected=(key == interview.type))=val
 

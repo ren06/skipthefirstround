@@ -3050,3 +3050,9 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":5132,"time":"2016-09-09T12:02:08.424Z","msg":"Starting New Relic for Node.js connection process."}
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":5132,"time":"2016-09-09T12:02:13.512Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
 {"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":5132,"time":"2016-09-09T12:02:13.514Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 92640539297057379.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9252,"time":"2016-09-09T13:59:24.634Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9252,"time":"2016-09-09T13:59:36.532Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9252,"time":"2016-09-09T13:59:36.535Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 92640539297642368.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9320,"time":"2016-09-09T14:34:27.710Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9320,"time":"2016-09-09T14:34:40.201Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/1406449/applications/21473443","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"DESKTOP-17J39PS","pid":9320,"time":"2016-09-09T14:34:40.202Z","msg":"Connected to collector-162.newrelic.com:443 with agent run ID 92640539297822738.","component":"collector_api"}
