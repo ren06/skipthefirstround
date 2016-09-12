@@ -159,6 +159,20 @@ var renderBrowseOffers = function(req, res, formData, results, message){
 
 };
 
+module.exports.offer = function(req, res){
+
+    var offerId = req.params.offerId;
+    var userId = req.session.userId;
+
+    request(common.getRequestOptions(req, '/api/offer/' + offerId + '/user/' + userId, 'GET'), function (err, response, body) {
+
+        var offer = body.data[0];
+
+        res.render('user/offer', {offer: offer});
+
+    });
+
+};
 
 module.exports.offers = function(req, res){
 
@@ -408,14 +422,14 @@ module.exports.doApplyOffer = function(req, res){
                             mobilePhone: formData.mobilePhone,
                         };
 
-                        request( common.getRequestOptions(req, '/api/user/' + userId, 'PUT', postData), function (err, response, body) {
+                        request(common.getRequestOptions(req, '/api/user/' + userId, 'PUT', postData), function (err, response, body) {
 
                             console.log(err);
                             console.log(body);
 
                             console.log('Create interview executed, user updated');
 
-                            if (response.statusCode === 204) {
+                            if (response.statusCode === 200) {
 
                                 //send email
                                 emails.to_User_InterviewConfirmation(interviewType, user.email, user.firstName + ' ' + user.lastName);

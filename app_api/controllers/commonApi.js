@@ -55,6 +55,7 @@ var sendJsonResponse = function(res, status, success, internalError, userError, 
 
     res.status(status);
     res.json(returnData);
+
 };
 
 module.exports.dbConnect = function(callback){
@@ -115,13 +116,13 @@ module.exports.dbHandleQuery = function(req, res, queryString, parameters, addTe
                     returnCode = 200;
                 }
                 else if(queryString.search("UPDATE") > -1){
-                    returnCode = 204;
+                    returnCode = 200; //204 status does not return any JSON data
                 }
                 else{
                     returnCode = 0;
                 }
                 //TODO  204 (No Content) for SELECT, UPDATE
-                console.log(returnCode);
+
                 sendJsonResponse(res, returnCode, true, null, null, results);
             }
 
@@ -191,12 +192,12 @@ module.exports.rowUpdate = function (req, res, tableName, id, data, callback) {
             else{
                 queryString += ' ' + key + "='" + value + "'" + comma;
             }
-
         }
 
         queryString = queryString.substring(0, queryString.length - comma.length);
 
         queryString += " WHERE id=" + id;
+        queryString += " RETURNING *";
 
         console.log(queryString);
 
@@ -206,7 +207,8 @@ module.exports.rowUpdate = function (req, res, tableName, id, data, callback) {
                 callback(results[0]);
             }
             else{
-                sendJsonResponse(res, 204, true, null, null, results[0]);
+
+                sendJsonResponse(res, 200, true, null, null, results[0]);
             }
         });
     }

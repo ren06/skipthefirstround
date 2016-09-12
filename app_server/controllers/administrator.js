@@ -333,7 +333,7 @@ module.exports.doInterviewModify = function(req, res) {
 
         request(requestOptions, function (err, response, body) {
 
-            if (response.statusCode === 204) {
+            if (response.statusCode === 200) {
 
                 console.log('update OK, redirecting...');
                 res.redirect('/admin/interview/' + interviewId);
@@ -417,7 +417,7 @@ module.exports.doInterviewModifyDate = function(req, res){
 
         request(requestOptions, function (err, response, body) {
 
-            if(response.statusCode === 204 ) {
+            if(response.statusCode === 200 ) {
 
                 if(sendEmailUser || sendEmailInterviewer){
 
@@ -692,9 +692,18 @@ module.exports.toggleActiveInactive = function(req, res){
 
     var recruiterId = req.params.recruiterId;
 
-    var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + recruiterId + '/toggleActiveInactive' , 'POST');
+    var requestOptions = common.getRequestOptions(req, '/api/recruiter/' + recruiterId + '/toggleActiveInactive' , 'PUT');
 
     request(requestOptions, function (err, response, body) {
+
+        var recruiter = body.data;
+
+        console.log(recruiter);
+
+        if(recruiter.active) {
+
+            emails.to_Recruiter_Activation(recruiter.email, recruiter.firstName + ' ' + recruiter.lastName);
+        }
 
        res.redirect('/admin/recruiters');
 

@@ -113,6 +113,26 @@ module.exports.offerReadOne = function(req, res){
     }
 };
 
+module.exports.offerReadOneForUser = function(req, res){
+
+    var offerId = req.params.offerId;
+    var userId = req.params.userId;
+
+    if (!offerId || !userId) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferReadMissingInput'), null);
+    }
+    else{
+//SELECT o.id as offerId, i.id, i.id_user, o.text FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = 41 WHERE o.id = 9
+        var queryString =  "SELECT o.*, i.id_user, CASE WHEN i.id_user IS NOT NULL THEN true ELSE false END AS already_applied FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = $1 WHERE o.id = $2";
+
+        console.log(queryString);
+
+        common.dbHandleQuery(req, res, queryString, [userId, offerId], addTextOffersSequence, null, null);
+    }
+};
+
+
 module.exports.offersList = function(req, res){
 
     common.readAll(req, res, 'tbl_offer', addText, 'id');
@@ -224,7 +244,7 @@ module.exports.offerSearchForUser = function(req, res){
 
     var whereClause = common.convertQueryToWhereClause(req.query, 'o');
 
-    var queryString = "SELECT o.* FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = $1 " + whereClause;
+    var queryString = "SELECT DISTINCT o.*, CASE WHEN i.id_user IS NOT NULL THEN true ELSE false END AS already_applied FROM tbl_offer o LEFT JOIN tbl_interview i ON i.id_offer = o.id AND i.id_user = $1 " + whereClause + " ORDER BY o.id DESC";
 
     console.log(queryString);
 

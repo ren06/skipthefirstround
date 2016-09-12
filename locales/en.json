@@ -34,5 +34,6 @@
 	"InterviewModifyMissingInput": "InterviewModifyMissingInput",
 	"InterviewCreationMissingInput": "InterviewCreationMissingInput",
 	"InterviewererMissingInput": "InterviewererMissingInput",
-	"UserCreationMissingInput": "UserCreationMissingInput"
+	"UserCreationMissingInput": "UserCreationMissingInput",
+	"OfferReadMissingInput": "OfferReadMissingInput"
 }

@@ -1,13 +1,37 @@
 .panel-group
-each offer in offers
-    .panel.panel-default
-        .panel-heading=offer.offerTypeText + ' - ' + offer.sectorText + ' - ' + offer.companyTypeText + ' - ' + offer.location
-        .panel-body !{offer.text}
-        if(session.role == 'user')
-        ul.list-group
-            li.list-group-item.text-center
 
-                if(offer.idUser)
-                    | You have already applied
-                else
-                    a(href="/apply/#{offer.id}") Apply
+    table.table
+        tr
+            th Sector
+            th Position
+            th Company type
+            th Location
+            th Language
+            th Text
+            th Already applied?
+            th Details
+        each offer in offers
+            tr
+
+                td=offer.sectorText
+                td=offer.positionText
+                td=offer.companyTypeText
+                td=offer.location
+                td=offer.languageText
+                td!=offer.text.substring(0, 40)
+                td=(offer.alreadyApplied? 'Yes': '')
+                td
+                    a(href='offer/#{offer.id}') View
+
+//each offer in offers
+//    .panel.panel-default
+//        .panel-heading=offer.offerTypeText + ' - ' + offer.sectorText + ' - ' + offer.companyTypeText + ' - ' + offer.location
+//        .panel-body !{offer.text}
+//        if(session.role == 'user')
+//        ul.list-group
+//            li.list-group-item.text-center
+//
+//                if(offer.alreadyApplied)
+//                    | You have already applied
+//                else
+//                    a(href="/apply/#{offer.id}") Apply

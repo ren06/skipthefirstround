@@ -45,6 +45,7 @@ router.post('/change-password/:code', common.checkPermission(['guest']),  ctrlRe
 router.get ('/change-password-confirmation', common.checkPermission(['guest']),  ctrlRegister.changePasswordConfirmation);
 
 router.get ('/offers', common.checkPermission(['guest', 'user']), ctrlUser.offers);
+router.get ('/offer/:offerId', common.checkPermission(['guest', 'user']), ctrlUser.offer);
 router.post('/offers', common.checkPermission(['guest', 'user']), ctrlUser.doOffers);
 
 router.get ('/apply/:offerId', common.checkPermission(['guest', 'user']), ctrlUser.applyOffer);

@@ -133,6 +133,25 @@ module.exports.to_Recruiter_Registration = function(email, userName){
 
 };
 
+//********************************************
+//*** SEND RECRUITER ACTIVATION CONFIRMATION
+//********************************************
+module.exports.to_Recruiter_ActivationHtml = function(userName){
+
+    return renderView('email/recruiter-activation', {data: {userName: userName}});
+
+};
+module.exports.to_Recruiter_Activation = function(email, userName){
+
+    var html = this.to_Recruiter_ActivationHtml(userName);
+
+    sendEmail(email, html, 'Votre compte a été activé');
+
+};
+
+
+
+
 
 //********************************************
 //*** SEND ADMIN: USER ASKED FOR NEW INTERVIEW

@@ -12,26 +12,28 @@ OK - Change status To be confirmed -> scheduled -> completed
 OK - Recruiters ->  My offers --> see applicants : real interview for offers
 OK - list jobs with 'view details' and count views
 OK- Put a link to the CV in the email for admin when new interview
+OK - Tag Register after apply
+OK - Send email to recruiter when account is activated
+OK - Mark 'already applied' for interview already applied (at least error message)
+OK- Afficher les recherches d'offre en tableau
+OK - reset password page
+
 
 Go-live:
 
 
-- Tag Register after apply
-- Send recruiter activation email
-- Send email to recruiter when account is activated
-- Afficher les recherches d'offre en tableau
-- Ajouter un compteur de vue pour les offres
+- Ajouter un compteur de vue pour les offres (not taken into account if same user? too hard a d'autres, need to create a new table offer/user)
+- Send interviewer registration email
 - Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule
 - finish tagging apply offer page
-- reset password page
-- error message if already applied
-- Make email address case insensitive
+- Make email address case insensitive (login problem) make sure to trim content as well, put upper cases
 
 Other:
+- backend check for already applied, when applying is being done
 - Send interviewer registration email
 - Update last sector/last in personal information (for new mock interview default values)
 - Possibility to delete (or hide if associations) offers
-- Mark 'already applied' for interview already applied (at least error message)
+
 - test emails
 - check wordings on all page (and English vs French)
 - A to Z scenario

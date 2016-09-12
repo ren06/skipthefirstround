@@ -63,12 +63,13 @@ router.post('/recruiter', ctrlRecruiters.createRecruiter);
 router.get ('/recruiters', ctrlRecruiters.recruiterList);
 router.get ('/recruiter/:recruiterId', ctrlRecruiters.recruiterReadOne);
 router.get ('/recruiter/:recruiterId/offers', ctrlOffers.offersListByRecruiter);
-router.post('/recruiter/:recruiterId/toggleActiveInactive', ctrlRecruiters.toggleActiveInactive);
+router.put ('/recruiter/:recruiterId/toggleActiveInactive', ctrlRecruiters.toggleActiveInactive);
 router.get ('/recruiter/:recruiterId/isActive', ctrlRecruiters.isActive);
 router.post('/recruiter/login', ctrlRecruiters.doRecruiterAuthenticate);
 
 router.post('/offer', ctrlOffers.offerCreate);
 router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
+router.get ('/offer/:offerId/user/:userId', ctrlOffers.offerReadOneForUser);
 router.get ('/offers', ctrlOffers.offersList);
 router.get ('/offer/:offerId/videos', ctrlOffers.offerReadOneVideos);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
