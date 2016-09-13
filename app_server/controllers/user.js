@@ -164,12 +164,17 @@ module.exports.offer = function(req, res){
     var offerId = req.params.offerId;
     var userId = req.session.userId;
 
-    request(common.getRequestOptions(req, '/api/offer/' + offerId + '/user/' + userId, 'GET'), function (err, response, body) {
+    //update view count
+    //@@@ means no quotes in the SQL SET VALUE
+    request(common.getRequestOptions(req, '/api/offer/' + offerId, 'PUT', {'view_count': "@@@view_count + 1"}), function (err, response, body) {
 
-        var offer = body.data[0];
+        request(common.getRequestOptions(req, '/api/offer/' + offerId + '/user/' + userId, 'GET'), function (err, response, body) {
 
-        res.render('user/offer', {offer: offer});
+            var offer = body.data[0];
 
+            res.render('user/offer', {offer: offer});
+
+        });
     });
 
 };

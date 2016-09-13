@@ -97,7 +97,6 @@ module.exports.offerCreate = function(req, res){
     }
 };
 
-
 module.exports.offerReadOne = function(req, res){
 
     var offerId = req.params.offerId;
@@ -110,6 +109,20 @@ module.exports.offerReadOne = function(req, res){
 
         common.readOne(req, res, 'tbl_offer', offerId, addText);
 
+    }
+};
+
+module.exports.offersModifyOne = function(req, res){
+
+    var offerId = req.params.offerId;
+
+    if (!offerId) {
+
+        common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferModifyMissingInput'), null);
+    }
+    else {
+        console.log(req.body);
+        common.rowUpdate(req, res, 'tbl_offer', offerId, req.body);
     }
 };
 

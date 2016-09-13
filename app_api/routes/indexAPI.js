@@ -71,6 +71,7 @@ router.post('/offer', ctrlOffers.offerCreate);
 router.get ('/offer/:offerId', ctrlOffers.offerReadOne);
 router.get ('/offer/:offerId/user/:userId', ctrlOffers.offerReadOneForUser);
 router.get ('/offers', ctrlOffers.offersList);
+router.put ('/offer/:offerId', ctrlOffers.offersModifyOne);
 router.get ('/offer/:offerId/videos', ctrlOffers.offerReadOneVideos);
 router.get ('/offers/locations', ctrlOffers.offerLocationsList);
 router.get ('/offers/searchForUser/:userId', ctrlOffers.offerSearchForUser);
