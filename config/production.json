@@ -13,9 +13,22 @@
     }
   },
   "Website":{
-    "apiServer": "https://demande-au-finaud.herokuapp.com"
+    "apiServer": "https://demande-au-finaud.herokuapp.com",
+    "name" : "SkipTheFirstRound.com"
   },
   "Email":{
-    "sendEmail": true
+    "sendEmail": true,
+    "adminEmail" : "info@skipthefirstround.com"
+  },
+  "Cloudinary":{
+    "config": {
+      "cloud_name": "dmelbnmqb",
+      "api_key": "482597364559394",
+      "api_secret": "tg5zzz8d8Wpe9OalWRgbetlMmMM"
+    },
+    "presets" : {
+      "videos": "videos",
+      "cvs": "curriculum"
+    }
   }
 }

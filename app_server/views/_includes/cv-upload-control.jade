@@ -18,8 +18,8 @@ label.col-sm-3.control-label(for='cvFile') Your CV
     div.progress(style='margin-bottom: 0')
         div.progress-bar.progress-bar-striped(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="text-align:center")
             span#progressText
-.col-sm-2(style='padding-top: 3px')
     input(id="cvUniqueId" type="hidden" name="cv" value="#{formData.cv}")
     if(formData.cv !== '' && formData.cv !== 'undefined' && typeof formData.cv !== 'undefined')
         -var cvLink = cloudinary.url(formData.cv);
         a(href='#{cvLink}' target="_blank") See current CV
+

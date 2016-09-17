@@ -190,7 +190,7 @@ module.exports.rowUpdate = function (req, res, tableName, id, data, callback) {
                 queryString += ' ' + key + "=NULL" + comma;
             }
             else{
-                if(value.substring(0,3) === '@@@') {
+                if(value.toString().substring(0,3) === '@@@') {
 
                     queryString += ' ' + key + "=" + value.substring(3) + comma;
                 }

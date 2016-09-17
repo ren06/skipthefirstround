@@ -480,27 +480,40 @@ var renderSimulation = function(req, res, formData, error){
 
 module.exports.simulation = function(req, res){
 
-    //could get the data of the last simulation to pre-fill the data?
     var userId = req.session.userId;
 
-    var requestOptions = common.getRequestOptions(req, '/api/user/' + userId, 'GET', null);
+    //check is simulation possible
+    request(common.getRequestOptions(req, '/api/user/' + userId + '/newMockInterviewPossible', 'GET'), function (err, response, body) {
 
-    request(requestOptions, function (err, response, body) {
+        if(body.data.canBook === true) {
 
-        var user = body.data[0];
+            request(common.getRequestOptions(req, '/api/user/' + userId, 'GET'), function (err, response, body) {
 
-        var formData = {
-            availability: user.availability,
-            sector: '1',
-            skypeId: user.skypeId,
-            mobilePhone: (user.mobilePhone? user.mobilePhone: '') ,
-            position: '',
-            company: '',
-            cv: user.cv,
-        };
+                var user = body.data[0];
 
-        renderSimulation(req, res, formData, null);
+                var formData = {
+                    canBook: body.data.canBook,
+                    availability: user.availability,
+                    sector: '1',
+                    skypeId: user.skypeId,
+                    mobilePhone: (user.mobilePhone ? user.mobilePhone : ''),
+                    position: '',
+                    company: '',
+                    cv: user.cv,
+                };
 
+                renderSimulation(req, res, formData, null);
+
+            });
+        }
+        else{
+            var formData = {
+                canBook: body.data.canBook,
+                dateTimeText: body.data.dateTimeText
+            };
+
+            renderSimulation(req, res, formData, null);
+        }
     });
 
 };

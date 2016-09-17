@@ -12,8 +12,11 @@ script.
         //help from http://code.tutsplus.com/tutorials/smarter-video-handling-with-cloudinary--cms-24416
         var public_id = '';
 
-        $('#cvFile').unsigned_cloudinary_upload("curriculum",
-                {cloud_name: 'dzfmkzqdo', tags: 'browser_uploads'},
+        var preset = !{JSON.stringify(config.get('Cloudinary.presets.cvs'))};
+        var cloudName = !{JSON.stringify(config.get('Cloudinary.config.cloud_name'))};
+
+        $('#cvFile').unsigned_cloudinary_upload(preset,
+                {cloud_name: cloudName, tags: 'browser_uploads'},
                 {multiple: false}, function (err) {
                     alert(err);
                 }

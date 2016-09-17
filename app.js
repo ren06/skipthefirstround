@@ -111,14 +111,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var cloudinary = require('cloudinary');
 
-cloudinary.config({
-    cloud_name: 'dzfmkzqdo',
-    api_key: '577639826413541',
-    api_secret: 'i7mJdBgVzasUcF0bMW7Kyzl0QC0'
-});
-
-app.use('/pdfobject', express.static(__dirname + '/node_modules/pdfobject/'));
-
+cloudinary.config(config.get('Cloudinary.config'));
 
 //to use session and cookies object inside jade template
 app.use(function(req ,res, next){

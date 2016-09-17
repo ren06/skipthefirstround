@@ -17,12 +17,10 @@ OK - Send email to recruiter when account is activated
 OK - Mark 'already applied' for interview already applied (at least error message)
 OK- Afficher les recherches d'offre en tableau
 OK - reset password page
-
+OK - Ajouter un compteur de vue pour les offres (not taken into account if same user? too hard a d'autres, need to create a new table offer/user)
 
 Go-live:
 
-
-- Ajouter un compteur de vue pour les offres (not taken into account if same user? too hard a d'autres, need to create a new table offer/user)
 - Send interviewer registration email
 - Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule
 - finish tagging apply offer page

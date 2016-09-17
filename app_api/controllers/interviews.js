@@ -35,6 +35,7 @@ var addText = function(data, req){
 
                 entry['dateText'] = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
                 entry['timeText'] = moment(dateTime).format("HH:mm");
+
             }
 
             entry['hour'] = moment(dateTime).format("H");
@@ -302,6 +303,32 @@ module.exports.interviewUpcomingByUser = function(req, res){
     executeListPerUser(req, res, sql);
 };
 
+module.exports.newMockInterviewPossible = function(req, res){
+
+    var userId = req.params.userId;
+
+    if(!userId){
+        common.sendJsonResponse(res, 400, false , 'Missing input', res.__('InterviewMissingInput'), null);
+    }
+    else{
+
+        //check if there is one interview scheduled in the future
+        var queryString = "SELECT i.id, i.date_time FROM tbl_interview i WHERE i.id_user = $1 AND date_time > now()";
+
+        common.dbHandleQuery(req, res, queryString, [userId], addText, 'Error', 'Error', function(results){
+
+            if(results.length > 0){
+
+                common.sendJsonResponse(res, 200, true, null, null, {'canBook' : false, 'dateTimeText': results[0].dateTimeText });
+            }
+            else{
+                common.sendJsonResponse(res, 200, true, null, null, {'canBook' : true})
+            }
+        });
+    }
+};
+
+
 //GET
 module.exports.interviewReadOne = function(req, res){
 
@@ -311,6 +338,7 @@ module.exports.interviewReadOne = function(req, res){
 
     if(!interviewId){
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('InterviewMissingInput'), null);
+        return;
     }
 
     pg.connect(conString, function(err, client, done) {
@@ -448,7 +476,7 @@ module.exports.interviewAddSequence = function(req, res) {
     console.log(req.body);
 
     var provider = 'cloudinary';
-    var providerCloudName = 'dzfmkzqdo';
+    var providerCloudName = config.get('Cloudinary.config.cloud_name');
 
 
     if (!tagId || !summary || !appreciationId || !videoUniqueId) {
@@ -497,7 +525,7 @@ module.exports.interviewModify = function(req, res){
     else {
 
         var provider = 'cloudinary';
-        var providerCloudName = 'dzfmkzqdo';
+        var providerCloudName = config.get('Cloudinary.config.cloud_name');
 
         delete req.body['videoProviderUniqueId'];
         delete req.body['videoUrl'];
