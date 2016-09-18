@@ -52,7 +52,11 @@ block content
 
     .col-lg-1.text-center
     .col-lg-10
-        h2 Interview #{interview.id}
+        - var title = 'Interview #' + interview.id
+        - if(interview.idOffer)
+            - title += ' for Offer #' + interview.idOffer
+        h2=title
+
         if editMode
             | Edit mode | &nbsp;
             a(href="/admin/interview/#{interview.id}") Cancel
