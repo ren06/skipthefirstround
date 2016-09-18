@@ -168,7 +168,14 @@ module.exports.offer = function(req, res){
     //@@@ means no quotes in the SQL SET VALUE
     request(common.getRequestOptions(req, '/api/offer/' + offerId, 'PUT', {'view_count': "@@@view_count + 1"}), function (err, response, body) {
 
-        request(common.getRequestOptions(req, '/api/offer/' + offerId + '/user/' + userId, 'GET'), function (err, response, body) {
+        var path = '/api/offer/' + offerId;
+
+        //if user is logged in, check if he or she has applied before
+        if(userId){
+            path+= '/user/' + userId;
+        }
+
+        request(common.getRequestOptions(req, path, 'GET'), function (err, response, body) {
 
             var offer = body.data[0];
 

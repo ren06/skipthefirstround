@@ -18,7 +18,7 @@
                 td=offer.companyTypeText
                 td=offer.location
                 td=offer.languageText
-                td!=offer.text.substring(0, 40)
+                td!=offer.textPreview
                 td=(offer.alreadyApplied? 'Yes': '')
                 td
                     a(href='offer/#{offer.id}') View

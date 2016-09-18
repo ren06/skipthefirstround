@@ -1,5 +1,6 @@
 var common = require('./commonApi');
 var options = require('./options');
+var striptags = require('striptags');
 
 var addTextLabel = function(entry, language){
 
@@ -8,6 +9,7 @@ var addTextLabel = function(entry, language){
     entry['offerTypeText'] = options.options[language].offerTypeOptions[entry.offer_type];
     entry['companyTypeText'] = options.options[language].companyTypeOptions[entry.company_type];
     entry['languageText'] = options.options[language].languageOptions[entry.language];
+    entry['textPreview'] = striptags(entry.text).substring(0, 40) + ' ...';
 
 
 };
