@@ -14,7 +14,7 @@ block content
             table.table
                 tr
                     th Offre
-                    //th Nombre de vues
+                    th Nombre de vues
                     th Candidatures en cours
                     th Interviews realisées
                     th Détails
@@ -22,7 +22,7 @@ block content
                 each offer in offers
                     tr
                         td=offer.sectorText + ' - ' + offer.positionText + ' - ' + offer.offerTypeText + ' - ' + offer.companyTypeText + ' - ' + offer.location
-                        //td=offer.viewCount
+                        td=offer.viewCount
                         td=offer.applyCount
                         td=offer.videoCount
                         td
