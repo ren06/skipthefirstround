@@ -114,7 +114,8 @@ module.exports.studentsInterviewsList = function(req, res){
         var interviews = body.data;
      
         res.render('admin/students-interviews-list', {
-            interviews: interviews
+            interviews: interviews,
+            title: 'All interviews'
         });
     });
 
@@ -130,8 +131,8 @@ module.exports.studentsInterviewNoDate = function(req, res){
 
         res.render('admin/students-interviews-list', {
             title: 'Interviews with no dates',
-            interviews: interviews
-
+            interviews: interviews,
+            title: 'Interviews that require a date'
         });
     });
 
