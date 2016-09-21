@@ -312,7 +312,7 @@ module.exports.offersListByRecruiter = function(req, res){
                 'apply_count', (SELECT COUNT(*) FROM tbl_interview i WHERE i.id_offer = o.id),\
                 'video_count', (SELECT COUNT(*) FROM tbl_interview i INNER JOIN tbl_video v on i.id_video = v.id WHERE i.id_offer = o.id)\
                 ) \
-                FROM tbl_offer o INNER JOIN tbl_recruiter r ON o.id_recruiter = r.id ORDER BY o.id ASC) AS offers \
+                FROM tbl_offer o INNER JOIN tbl_recruiter r ON o.id_recruiter = $1 ORDER BY o.id ASC) AS offers \
                 FROM tbl_recruiter r \
                 WHERE r.id = $1";
 

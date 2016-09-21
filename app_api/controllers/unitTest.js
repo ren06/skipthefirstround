@@ -58,7 +58,6 @@ module.exports.renameEmailAddress = function(req, res){
 
     });
 
-
 };
 
 

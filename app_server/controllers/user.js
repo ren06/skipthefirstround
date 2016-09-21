@@ -234,7 +234,7 @@ module.exports.doOffers = function(req, res){
 
             var message;
             if (!results || results.length == 0) {
-                message = 'Pas de résultats';
+                message = 'No Results';
             }
 
             renderBrowseOffers(req, res, formData, results, message);
