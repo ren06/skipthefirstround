@@ -4,13 +4,9 @@
     "dbConfig": {
       "url": "postgres://admin:demande-au-finaud@127.0.0.1:5432/daf" //localhost does not work if not connected to a network
     },
-    "Secret" : "thisIsSecret",
+    "Secret" : "thisIsSecret", //used for authorisation token
     "PasswordMinLength": 5,
-    "credit": {
-      "initialLimit": 100,
-      // Set low for development
-      "initialDays": 1
-    }
+    "authTokenOn" : true
   },
   "Website":{
     "apiServer": "http://127.0.0.1:3000",

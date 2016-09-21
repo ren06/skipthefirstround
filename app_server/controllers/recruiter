@@ -400,8 +400,6 @@ var renderLogin = function(req, res, formData, error){
 
 module.exports.login = function(req, res){
 
-    console.log('value inside login GET: ' + req.cookies.role);
-
     var formData = {
         email: '',
         password: '',

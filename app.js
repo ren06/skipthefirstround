@@ -13,6 +13,7 @@ var pgSession = require('connect-pg-simple')(session);
 var pg = require('pg');
 var config = require('config');
 var acl = require('acl');
+var commonApi = require('./app_api/controllers/commonApi');
 
 //Loading routes
 var routesUser = require('./app_server/routes/indexUser');
@@ -144,7 +145,6 @@ app.use(function(req ,res, next){
 app.all('/api/*', function(req, res, next){
 
   console.log('API call: ' + req.url);
-
   next();
 });
 
@@ -216,19 +216,19 @@ request(requestOptions, function (err, response, body) {
 
 
 
-// error handlers
-// Catch unauthorised errors
+//Handle unauthorised API calls (no auth token)
 app.use(function (err, req, res, next) {
 
   console.log('Error: ' + err.name + ' ' + err.status);
 
   if (err.name === 'UnauthorizedError') {
-      console.log('API call is unauthorised');
-      res.render('user/not-authorised');
-      next();
-  }
 
+      console.log('API call is unauthorised');
+      commonApi.sendJsonResponse(res, err.status, false, 'Unauthorised API call', 'You are not authorised' );
+  }
+  else {
       next(err);
+  }
 
 });
 

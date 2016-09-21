@@ -35,7 +35,6 @@ var addTextOffers = function(data, req){
     var language = common.getLanguage(req);
 
     var offers = data[0].offers;
-    console.log(offers);
 
     if(typeof offers !== 'undefined' && offers.length > 0) {
 
@@ -87,7 +86,6 @@ module.exports.offerCreate = function(req, res){
 
     var data = req.body;
 
-    console.log(data);
     if (!common.checkParametersPresent('sector, offerType, companyType, location, text, language', data)) {
 
         common.sendJsonResponse(res, 400, false, 'Missing input', res.__('OfferCreateMissingInput'), null);
@@ -143,7 +141,7 @@ module.exports.offerReadOneForUser = function(req, res){
 
         console.log(queryString);
 
-        common.dbHandleQuery(req, res, queryString, [userId, offerId], addTextOffersSequence, null, null);
+        common.dbHandleQuery(req, res, queryString, [userId, offerId], addText, null, null);
     }
 };
 

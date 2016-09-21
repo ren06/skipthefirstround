@@ -20,7 +20,7 @@ var getConnectionString = function(){
 
 var sendJsonResponse = function(res, status, success, internalError, userError, data){
 
-    console.log('Final json response sent: ' + status);
+    console.log('JSON response sent: ' + status);
 
     //to make it consistant and always return an array
     if(!data){

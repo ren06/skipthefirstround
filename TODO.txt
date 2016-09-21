@@ -19,16 +19,18 @@ OK- Afficher les recherches d'offre en tableau
 OK - reset password page
 OK - Ajouter un compteur de vue pour les offres (not taken into account if same user? too hard a d'autres, need to create a new table offer/user)
 OK - Cloudniary, different setup for dev and prod
+OK- Send interviewer registration email
 
 Go-live:
 
-- Send interviewer registration email
 - Creer un lien pour l'utilisateur sur l'offre sur laquelle il a postule
 - finish tagging apply offer page
 - Make email address case insensitive (login problem) make sure to trim content as well, put upper cases
 
 Other:
 - backend check for already applied, when applying is being done
+- cloudinary.uploader.destroy('zombie', function(result) { console.log(result) });
+  -> batch program to remove orphans video, i.e. not present in the DB
 - Send interviewer registration email
 - Update last sector/last in personal information (for new mock interview default values)
 - Possibility to delete (or hide if associations) offers, modify offers

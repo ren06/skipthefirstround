@@ -6,11 +6,7 @@
     },
     "Secret" : "thisIsSecret",
     "PasswordMinLength": 8,
-    "credit": {
-      "initialLimit": 100,
-      // Set low for development
-      "initialDays": 1
-    }
+    "authTokenOn" : true
   },
   "Website":{
     "apiServer": "https://demande-au-finaud.herokuapp.com",

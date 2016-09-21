@@ -1,7 +1,7 @@
 var config = require('config');
 var request = require('request');
 var common = require('./common');
-const queryString = require('query-string');
+var queryString = require('query-string');
 var acl = require('acl');
 var validator = require('validator');
 var encryptor = require('simple-encryptor')('demande au finaud');

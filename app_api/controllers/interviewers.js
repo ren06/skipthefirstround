@@ -69,7 +69,7 @@ module.exports.interviewerCreate = function(req, res){
 
             data['passwordHash'] = passwordHash;
 
-            console.log('data to insert');
+            console.log('Interviewer create: ');
             console.log(data);
 
             common.rowInsert(req, res, 'tbl_interviewer', data, function(result){

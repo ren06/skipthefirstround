@@ -109,7 +109,8 @@ var addTextSearchSequence = function(data, req){
 //TODO maybe split it in 2 functions, one for offer, one for simulation
 module.exports.interviewCreate = function(req, res){
 
-    console.log('interviewCreate');
+    console.log('Interview Create');
+    console.log(req.body);
 
     var userId = parseInt(req.body.userId);
     var type = parseInt(req.body.type); //simulation, offer
@@ -124,7 +125,7 @@ module.exports.interviewCreate = function(req, res){
 
     //check it's all there
     if(!userId || !type) {
-        console.log(userId + ' ' + type + ' ' + sector);
+
         //syntactically wrong, bad request
         common.sendJsonResponse(res, 400, false , 'Missing input', res.__('InterviewCreationMissingInput'), null);
         return;
@@ -253,7 +254,9 @@ var executeListPerUser = function(req, res, sql){
 
 module.exports.interviewListNoDate = function(req, res){
 
-    var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE date_time IS NULL ORDER BY u.id ASC ";
+    var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user WHERE date_time IS NULL ORDER BY i.id DESC ";
+
+    console.log(queryString);
 
     common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
 
@@ -264,27 +267,16 @@ module.exports.interviewListNoDate = function(req, res){
 
 module.exports.interviewList = function(req, res){
 
-    pg.connect(conString, function(err, client, done) {
+    var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user ORDER BY i.id DESC";
 
-        var results = [];
+    console.log(queryString);
 
-        // Handle connection errors
-        if(err) {
-            done();
-            console.log(err);
-            return res.status(500).json({ success: false, data: err});
-        }
+    common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
 
-        // SQL Query > Select Data
-        var queryString = "SELECT i.*, row_to_json(u.*) as user FROM tbl_interview i INNER JOIN tbl_user u ON u.id = i.id_user ORDER BY u.id ASC";
-
-        common.dbHandleQuery(req, res, queryString, null, addText, 'Error', 'Error', function(results){
-
-            common.sendJsonResponse(res, 200, true, null, null, results);
-
-        });
+        common.sendJsonResponse(res, 200, true, null, null, results);
 
     });
+
 };
 
 

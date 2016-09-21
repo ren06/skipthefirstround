@@ -15,6 +15,8 @@ block content
                 $(':radio').prop('disabled', true);
             }
 
+            $('#addSequence').removeClass('disabled');
+
             $(".saveLink").click(function (event) {
 
                 event.preventDefault();
@@ -195,7 +197,7 @@ block content
 
                 br
                 br
-                a.btn.btn-default(href="../#{interview.id}/addSequence") Add sequence
+                a.btn.btn-default#addSequence(href="/admin/interview/#{interview.id}/addSequence") Add sequence
                 br
 
 

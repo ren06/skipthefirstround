@@ -3,7 +3,6 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var config = require('config');
 
-
 var ctrlAdmin = require('../controllers/administrator');
 
 router.get ('/', ctrlAdmin.homepage);

@@ -1,0 +1,34 @@
+var common = require('./commonApi');
+
+module.exports.login = function(req, res){
+
+    //get sent data
+    var email = req.body.email;
+    var password = req.body.password;
+
+    //check it's all there
+    if (!email || !password) {
+
+        common.sendJsonResponse(res, 400, false, 'No user or password', 'Vous devez fournir un email et password', null);
+        return;
+    }
+
+    if((email == 'rtheuillon@hotmail.com' || email == 'jerome.troiano@gmail.com' ) && password == 'elmaros') {
+
+        var token = common.generateJwt(1, email, password);
+        var result = {
+            'user': {
+                id: email,
+                email: email,
+                first_name: '',
+                last_name: '',
+                language: 'en'
+            }, 'token': token
+        };
+        common.sendJsonResponse(res, 200, true, 'User authorised', 'Utilisateur authentifie', result);
+    }
+    else {
+        common.sendJsonResponse(res, 401, false, 'User not authorised', 'Utilisateur non authentifie', null);
+    }
+
+};

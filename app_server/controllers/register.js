@@ -234,7 +234,7 @@ module.exports.doIdentification = function(req, res){
             }
             else if (( response.statusCode === 401 || response.statusCode === 404 ) &&  body.success === false ) {
 
-                console.log(body.internalError);
+                console.log(body);
                 renderIdentification(req, res, {email: email, password: ''}, body.userError);
             }
             else {

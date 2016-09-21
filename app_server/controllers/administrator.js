@@ -37,17 +37,22 @@ module.exports.doLogin = function(req, res){
 
     var formData = req.body;
 
-    if((formData.email == 'rtheuillon@hotmail.com' || formData.email == 'jerome.troiano@gmail.com' ) && formData.password == 'elmaros'){
+    request(common.getRequestOptions(req, '/api/administrators/login', 'POST', formData), function (err, response, body) {
+
+        if (response.statusCode === 200) {
 
             req.session.role = 'admin';
             req.session.authenticated = true;
-            //req.session.token = token;
+            req.session.token = body.data.token;
 
             res.redirect('admin/main-menu');
-    }
-    else{
-        renderLogin(req, res, formData, 'Email and password do not match');
-    }
+        }
+        else{
+            renderLogin(req, res, formData, 'Email and password do not match');
+        }
+    });
+
+
 };
 
 module.exports.mainMenu = function(req, res){
@@ -60,20 +65,18 @@ module.exports.mainMenu = function(req, res){
 
 module.exports.logout = function(req, res){
 
-    console.log('admin logout called');
+    console.log('Admin logout called');
 
     req.session.destroy(function(err) {
 
-        console.log('admin session destroyed');
+        console.log('Admin session destroyed');
         res.redirect('/admin');
     });
 };
 
 module.exports.usersList = function(req, res){
 
-    var requestOptions = common.getRequestOptions(req, '/api/users', 'GET');
-
-    request(requestOptions, function (err, response, body) {
+    request(common.getRequestOptions(req, '/api/users', 'GET'), function (err, response, body) {
 
         if (response.statusCode === 200) {
 
@@ -86,7 +89,6 @@ module.exports.usersList = function(req, res){
                 title: 'Users List',
 
             });
-
         }
         else{
             common.showError(req, res, response.statusCode);
@@ -97,14 +99,10 @@ module.exports.usersList = function(req, res){
 
 module.exports.student = function(req, res){
 
-    console.log('menu etudiants');
     res.render('admin/student-menu', {
         title: 'Homepage',
-
     });
-
 };
-
 
 
 module.exports.studentsInterviewsList = function(req, res){
@@ -112,7 +110,7 @@ module.exports.studentsInterviewsList = function(req, res){
     request(common.getRequestOptions(req, '/api/interviews', 'GET'), function (err, response, body) {
 
         var interviews = body.data;
-     
+
         res.render('admin/students-interviews-list', {
             interviews: interviews,
             title: 'All interviews'
@@ -123,14 +121,11 @@ module.exports.studentsInterviewsList = function(req, res){
 
 module.exports.studentsInterviewNoDate = function(req, res){
 
-    var requestOptions = common.getRequestOptions(req, '/api/interviews/noDate', 'GET', {}, false);
+    request(common.getRequestOptions(req, '/api/interviews/noDate', 'GET'), function (err, response, body) {
 
-    request(requestOptions, function (err, response, body) {
-        console.log(body);
         var interviews = body.data;
 
         res.render('admin/students-interviews-list', {
-            title: 'Interviews with no dates',
             interviews: interviews,
             title: 'Interviews that require a date'
         });
@@ -143,6 +138,7 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
     var interviewId = req.params.interviewId;
 
+    //Get current interview data
     request(common.getRequestOptions(req, '/api/interview/' + interviewId, 'GET'), function (err, response, body) {
 
         var interview = body.data[0];
@@ -155,9 +151,6 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
             interview.time = moment(interview.dateTime).format('mm');
         }
 
-        console.log(interview.dateTimeText);
-        console.log(interview.dateTime);
-
         var language = req.getLocale();
 
         var sectorOptions = req.app.locals.options[language].sectorOptions;
@@ -169,41 +162,40 @@ var renderInterview = function(req, res, editMode, formData, videoData, error){
 
         jobTypeOptions['0'] = ' -- Select --';
 
-        requestOptions = common.getRequestOptions(req, '/api/interviewers', 'GET', {}, false);
+        if(!videoData) {
 
-        request(requestOptions, function (err, response, body) {
+            videoData = [];
+
+            if (interview.video) {
+                videoData.providerUniqueId = interview.video.providerUniqueId;
+                videoData.url = interview.video.url;
+            }
+            else {
+                videoData.providerUniqueId = '';
+                videoData.url = '';
+            }
+        }
+
+        if(formData){
+            //replace interview value
+            interview.date = formData.date;
+            interview.hour = formData.hour;
+            interview.minute = formData.minute;
+            interview.type = formData.type;
+            interview.sector = formData.sector;
+            interview.company = formData.company;
+            interview.position = formData.position;
+            interview.summary = formData.summary;
+            interview.status = formData.status;
+            interview.jobType = formData.jobType;
+            interview.appreciation = formData.appreciation;
+            interview.language = formData.language;
+        }
+
+        //Get interviewers
+        request(common.getRequestOptions(req, '/api/interviewers', 'GET'), function (err, response, body) {
 
             var interviewers = body.data;
-
-            if(!videoData) {
-
-                var videoData = [];
-
-                if (interview.video) {
-                    videoData.providerUniqueId = interview.video.providerUniqueId;
-                    videoData.url = interview.video.url;
-                }
-                else {
-                    videoData.providerUniqueId = '';
-                    videoData.url = '';
-                }
-            }
-
-            if(formData){
-                //replace interview value
-                interview.date = formData.date;
-                interview.hour = formData.hour;
-                interview.minute = formData.minute;
-                interview.type = formData.type;
-                interview.sector = formData.sector;
-                interview.company = formData.company;
-                interview.position = formData.position;
-                interview.summary = formData.summary;
-                interview.status = formData.status;
-                interview.jobType = formData.jobType;
-                interview.appreciation = formData.appreciation;
-                interview.language = formData.language;
-            }
 
             res.render('admin/interview', {
                 interview: interview,
@@ -325,12 +317,14 @@ module.exports.doInterviewModify = function(req, res) {
         url: videoUrl,
     };
 
+    console.log(videoData);
+
     if (status == 2 && !dateTimeDb) {
         renderInterview(req, res, true, req.body, videoData, 'You cannot have an interview with status Booked without a Date');
     }
     else {
 
-        var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'PUT', postData, false);
+        var requestOptions = common.getRequestOptions(req, '/api/interview/' + interviewId, 'PUT', postData);
 
         request(requestOptions, function (err, response, body) {
 
@@ -341,7 +335,8 @@ module.exports.doInterviewModify = function(req, res) {
             }
             else if (response.statusCode === 400 || response.statusCode === 409) {
 
-                console.log(body.internalError);
+                console.log('video data:');
+                console.log(videoData);
                 renderInterview(req, res, true, req.body, videoData, body.userError);
 
             }
@@ -511,6 +506,7 @@ var renderInterviewAddSequence = function(req, res, formData, videoData, error){
         var sequenceTagOptions = req.app.locals.options[language].sequenceTagOptions;
         var appreciationsOptions = req.app.locals.options[language].appreciationsOptions;
 
+        console.log('providerUniqueId: ' + videoData.providerUniqueId);
 
         res.render('admin/interview-add-sequence', {
             interview: interview,
@@ -706,11 +702,7 @@ module.exports.toggleActiveInactive = function(req, res){
             emails.to_Recruiter_Activation(recruiter.email, recruiter.firstName + ' ' + recruiter.lastName);
         }
 
-       res.redirect('/admin/recruiters');
+        res.redirect('/admin/recruiters');
 
     });
 };
-
-
-
-
