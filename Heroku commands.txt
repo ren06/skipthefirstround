@@ -1,3 +1,6 @@
 $ heroku logs
 
 $ heroku ps:restart
+
+To display logs from app (and therefore hide router)
+$ heroku logs --source app

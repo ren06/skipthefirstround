@@ -9,7 +9,7 @@ var sendEmail = function(to, html, subject, callback){
 
     var sendEmail = config.get('Email.sendEmail');
 
-    console.log(sendEmail);
+    console.log('Send email: ' + sendEmail);
 
     var result = null;
 
@@ -42,13 +42,13 @@ var sendEmail = function(to, html, subject, callback){
             else {
                 result = {'success': true, 'message': info};
             }
+            console.log('Email ' + subject + ' sent to ' + to);
             console.log(result);
 
             if(callback) {
                 callback(result);
             }
         });
-
     }
     else{
 
@@ -116,7 +116,6 @@ module.exports.to_User_NewInterviewRequest = function(email, firstName, intervie
 
 };
 
-
 //********************************************
 //*** SEND RECRUITER REGISTRATION EMAIL
 //********************************************
@@ -148,10 +147,6 @@ module.exports.to_Recruiter_Activation = function(email, userName){
     sendEmail(email, html, 'Votre compte a été activé');
 
 };
-
-
-
-
 
 //********************************************
 //*** SEND ADMIN: USER ASKED FOR NEW INTERVIEW
@@ -190,7 +185,6 @@ module.exports.to_Interviewer_InterviewConfirmation = function(email, data){
 
 };
 
-
 //**********************************
 //*** SEND CONTACT FORM
 //**********************************
@@ -209,7 +203,6 @@ module.exports.to_Admin_Contact_Form = function(name, email, message){
     sendEmail(adminEmail, html, 'New inquiry from contact form');
 };
 
-
 //**********************************
 //*** RESET PASSWORD
 //**********************************
@@ -226,7 +219,6 @@ module.exports.to_User_ResetPassword = function(email, name, url){
 
     sendEmail(email, html, 'Password reset request');
 };
-
 
 
 //**********************************
