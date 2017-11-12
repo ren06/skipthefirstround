@@ -1,17 +1,22 @@
 5 key things:
 - node and npm
-- express generator installed globally
+- express generator installed globally (npm install express --save)
 - git
-- heroki
+- heroku
 - command line interface (CLI)
 
 Note: The --save option instructs NPM to include the package inside of the dependencies section of your package.json automatically, thus saving you an additional step.
 
 
-
 =
+
+Once node and npm are install (just run node -v and npm -v to check) install express-generator:
+
+npm install -g express-generator
+
 1) create a new directory (e.g. myApp)
 2) $ express
+: add other dependencies
 3) $ npm install
 4) $ npm start
 5) install nodemon: $npm install -g nodemon (-g stands for globally)

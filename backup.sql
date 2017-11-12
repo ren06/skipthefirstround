@@ -13,15 +13,15 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE d71kad5c6r40uv;
+DROP DATABASE daf;
 --
 -- Name: daf; Type: DATABASE; Schema: -; Owner: -
 --
 
-CREATE DATABASE d71kad5c6r40uv WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
+CREATE DATABASE daf WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'French_France.1252' LC_CTYPE = 'French_France.1252';
 
 
-\connect d71kad5c6r40uv
+\connect daf
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
